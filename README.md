@@ -1,2 +1,2 @@
 # Surge
-surge规则
+自用Surge规则
