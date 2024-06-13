@@ -1,4 +1,4 @@
-#规则数量:325
+#规则数量:326
 #不支持的规则数量:0
 #已排除的规则数量:0
 
@@ -329,3 +329,4 @@ DOMAIN,whatshub.top
 DOMAIN,window.webkit.messageHandlers
 DOMAIN,www.shuyz.com
 DOMAIN,www.surge-activation.com
+DOMAIN,asde.rlztfbo.com
