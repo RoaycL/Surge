@@ -1,4 +1,4 @@
-#规则数量:312
+#规则数量:325
 #不支持的规则数量:0
 #已排除的规则数量:0
 
@@ -312,6 +312,19 @@ DOMAIN,free.yuhengy17.me
 DOMAIN,ingest.apple-studies.com
 DOMAIN,pic2303r.xyz
 DOMAIN,sessions.bugsnag.com
+DOMAIN,18ed.dituop.com
+DOMAIN,api.iconify.design
+DOMAIN,api.swiftgram.app
+DOMAIN,app.zerossl.com
+DOMAIN,click.grammarly.com
+DOMAIN,drzr6d.xyz
+DOMAIN,e.customeriomail.com
+DOMAIN,ghproxy.com
+DOMAIN,Log-2024-06-12.log
+DOMAIN,tracksp.grammarly.com
+DOMAIN,www.evan888.top
+DOMAIN,www.navicat.com
+DOMAIN,www.yt1s.com
 DOMAIN,whatshub.top
 DOMAIN,window.webkit.messageHandlers
 DOMAIN,www.shuyz.com
