@@ -21,7 +21,7 @@ DOMAIN-KEYWORD,emby-us-v4
 DOMAIN-KEYWORD,embyplus
 DOMAIN-KEYWORD,imetyou
 DOMAIN-KEYWORD,pilipili
-IP-CIDR,74.48.16.58/32
+IP-CIDR,74.48.16.58/32,no-resolve
 DOMAIN,155.fun
 DOMAIN,1024xp.com
 DOMAIN,a.delivery.consentmanager.net
