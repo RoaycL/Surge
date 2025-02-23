@@ -7,7 +7,7 @@ hostname = %APPEND% cavps.eu.org, emby.pppp.us.kg, emby.pilipiliultra.com, emby-
 
 [Script]
 # 扩展正则匹配新域名
-emby_modify = type=http-request,pattern=^https?://(cavps\.eu\.org|emby\.pppp\.us\.kg|emby\.pilipiliultra\.com|emby-direct\.pilipiliultra\.com)(:\d+)?/emby/,requires-body=1,script-path=emby_modify.js
+emby_modify = type=http-request,pattern=^https?://(cavps\.eu\.org|emby\.pppp\.us\.kg|emby\.pilipiliultra\.com|emby-direct\.pilipiliultra\.com)(:\d+)?/emby/,requires-body=1,script-path=https://raw.githubusercontent.com/RoaycL/Surge/refs/heads/main/JS/emby_modify.js?token=GHSAT0AAAAAAC6R4PXKSOARJ6UI6S6YG4VCZ53AOJQ
 
 [Rule]
 # 同步更新拦截规则
