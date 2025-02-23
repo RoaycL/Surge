@@ -1,0 +1,14 @@
+#!name=Forward防和谐
+#!desc=支持pilipiliultra的精准正则版
+
+[MITM]
+# 更新后包含全部目标域名（自动继承系统已有配置）
+hostname = %APPEND% cavps.eu.org, emby.pppp.us.kg, emby.pilipiliultra.com, emby-direct.pilipiliultra.com
+
+[Script]
+# 扩展正则匹配新域名
+emby_modify = type=http-request,pattern=^https?://(cavps\.eu\.org|emby\.pppp\.us\.kg|emby\.pilipiliultra\.com|emby-direct\.pilipiliultra\.com)(:\d+)?/emby/,requires-body=1,script-path=emby_modify.js
+
+[Rule]
+# 同步更新拦截规则
+URL-REGEX,^https?://(cavps\.eu\.org|emby\.pppp\.us\.kg|emby\.pilipiliultra\.com|emby-direct\.pilipiliultra\.com)(:\d+)?/emby/System/Ping$,REJECT
