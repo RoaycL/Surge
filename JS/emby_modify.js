@@ -1,49 +1,76 @@
 const headers = $request.headers;
 let body = $request.body;
 
-// 统一头部键名为小写，便于处理
-const lowerHeaders = {};
-Object.keys(headers).forEach(key => {
-    lowerHeaders[key.toLowerCase()] = headers[key];
-});
+// 创建键名映射表 (保留原始大小写格式)
+const keyMap = new Map();
+Object.keys(headers).forEach(k => keyMap.set(k.toLowerCase(), k));
 
 /* 阶段1: 处理授权头 */
-if (lowerHeaders['x-emby-authorization']) {
-    const authKey = Object.keys(headers).find(k => k.toLowerCase() === 'x-emby-authorization');
-    let authValue = headers[authKey];
-    
-    authValue = authValue
-        .replace(/(Client=)"[^"]*"/gi, '$1"SenPlayer"')
-        .replace(/(Version=)"[^"]*"/gi, '$1"5.1.6"')
-        .replace(/(DeviceId=)"[^"]*"/gi, '$1"4E216DD1-8441-443F-B952-DEDD35B49578"');
-    
-    headers[authKey] = authValue;
-}
-
-/* 阶段2: 强制统一 User-Agent */
-delete headers['User-Agent']; // 删除所有变种写法
-headers['User-Agent'] = 'SenPlayer/5.1.6';
-
-/* 阶段3: 全局替换请求头中的 Forward */
-Object.keys(headers).forEach(key => {
-    headers[key] = headers[key].replace(/Forward/gi, 'SenPlayer');
-});
-
-/* 阶段4: 安全替换文本类请求体 */
-const contentType = (lowerHeaders['content-type'] || '').toLowerCase();
-const isTextType = /^(text\/|application\/(json|xml|x-www-form-urlencoded))/.test(contentType);
-
-if (body && isTextType) {
-    try {
-        // Base64 解码并替换
-        const decodedBody = decodeURIComponent(escape(atob(body)));
-        const modifiedBody = decodedBody.replace(/Forward/gi, 'SenPlayer');
+const processAuthHeader = () => {
+    const authKey = keyMap.get('x-emby-authorization');
+    if (authKey && headers[authKey]) {
+        let authValue = headers[authKey];
         
-        // 重新编码并更新 body
-        body = btoa(unescape(encodeURIComponent(modifiedBody)));
-    } catch (e) {
-        console.log(`⚠️ 请求体处理失败: ${e}`);
+        authValue = authValue
+            .replace(/(Client=)"[^"]*"/gi, '$1"SenPlayer"')
+            .replace(/(Version=)"[^"]*"/gi, '$1"5.1.6"')
+            .replace(/(DeviceId=)"[^"]*"/gi, '$1"4E216DD1-8441-443F-B952-DEDD35B49578"')
+            .replace(/Forward/gi, 'SenPlayer'); // 新增全局替换
+
+        headers[authKey] = authValue;
     }
-}
+};
+
+/* 阶段2: 彻底清理 User-Agent */
+const cleanUserAgent = () => {
+    // 删除所有变体
+    Array.from(keyMap.keys())
+        .filter(lowerKey => lowerKey === 'user-agent')
+        .forEach(lowerKey => delete headers[keyMap.get(lowerKey)]);
+    
+    // 设置统一 UA
+    headers['User-Agent'] = 'SenPlayer/5.1.6';
+};
+
+/* 阶段3: 全局头部 Forward 替换 */
+const replaceHeaders = () => {
+    Object.keys(headers).forEach(key => {
+        if (typeof headers[key] === 'string') {
+            headers[key] = headers[key].replace(/Forward/gi, 'SenPlayer');
+        }
+    });
+};
+
+/* 阶段4: 安全处理请求体 */
+const processBody = () => {
+    if (!body) return;
+
+    const contentType = (headers[keyMap.get('content-type')] || '').toLowerCase();
+    const textTypes = [
+        'text/plain',
+        'application/json',
+        'application/xml',
+        'application/x-www-form-urlencoded'
+    ];
+
+    if (textTypes.some(t => contentType.includes(t))) {
+        try {
+            // Base64 安全解码
+            const decoded = decodeURIComponent(escape(atob(body)));
+            const modified = decoded.replace(/Forward/gi, 'SenPlayer');
+            
+            // 重新编码
+            body = btoa(unescape(encodeURIComponent(modified)));
+        } catch (e) {
+            console.log(`⚠️ 请求体处理失败: ${e.message}`);
+        }
+    }
+};
+
+// 执行处理流程
+processAuthHeader();
+cleanUserAgent();
+replaceHeaders();
+processBody();
 
 $done({ headers, body });
