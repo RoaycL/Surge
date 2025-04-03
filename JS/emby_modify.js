@@ -13,7 +13,7 @@ const processAuthHeader = () => {
         
         authValue = authValue
             .replace(/(Client=)"[^"]*"/gi, '$1"SenPlayer"')
-            .replace(/(Version=)"[^"]*"/gi, '$1"5.1.6"')
+            .replace(/(Version=)"[^"]*"/gi, '$1"5.2.2"')
             .replace(/(DeviceId=)"[^"]*"/gi, '$1"4E216DD1-8441-443F-B952-DEDD35B49578"')
             .replace(/Forward/gi, 'SenPlayer'); // 新增全局替换
 
@@ -29,7 +29,7 @@ const cleanUserAgent = () => {
         .forEach(lowerKey => delete headers[keyMap.get(lowerKey)]);
     
     // 设置统一 UA
-    headers['User-Agent'] = 'SenPlayer/5.1.6';
+    headers['User-Agent'] = 'SenPlayer/5.2.2';
 };
 
 /* 阶段3: 全局头部 Forward 替换 */
