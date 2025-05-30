@@ -3,7 +3,7 @@
 
 [MITM]
 # 更新为新增目标域名（自动继承系统已有配置）
-hostname = %APPEND% emby.pilipiliultra.com, emby-direct.pilipiliultra.com, cc.coemn.com
+hostname = %APPEND% emby.pilipiliultra.com, emby-direct.pilipiliultra.com
 
 [Script]
 # 更新域名正则匹配
@@ -11,4 +11,4 @@ emby_modify = type=http-request,pattern=^https?://(emby\.pilipiliultra\.com|emby
 
 [Rule]
 # 同步更新拦截域名
-URL-REGEX,^https?://(emby\.pilipiliultra\.com|emby-direct\.pilipiliultra\.com|cc\.coemn\.com)(:\d+)?/emby/System/Ping$,REJECT
+URL-REGEX,^https?://(emby\.pilipiliultra\.com|emby-direct\.pilipiliultra\.com)(:\d+)?/emby/System/Ping$,REJECT
