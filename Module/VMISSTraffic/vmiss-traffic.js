@@ -34,19 +34,25 @@ function request(options) {
   });
 }
 
-function mergeCookies(...headerSets) {
+function cookiePairs(headers) {
+  const raw = headers?.["set-cookie"] || headers?.["Set-Cookie"] || [];
+  const values = Array.isArray(raw) ? raw : [raw];
+  return values
+    .map((value) => String(value || "").split(";")[0].trim())
+    .filter(Boolean);
+}
+
+function cookieHeader(...headerSets) {
   const cookies = new Map();
   headerSets.forEach((headers) => {
-    const raw = headers?.["set-cookie"] || headers?.["Set-Cookie"] || [];
-    const values = Array.isArray(raw) ? raw : [raw];
-    values.forEach((value) => {
-      const pair = String(value || "").split(";")[0].trim();
+    cookiePairs(headers).forEach((pair) => {
       const index = pair.indexOf("=");
       if (index > 0) cookies.set(pair.slice(0, index), pair);
     });
   });
   return [...cookies.values()].join("; ");
 }
+
 
 function displayNumber(value) {
   return Number(value).toLocaleString("en-US", { maximumFractionDigits: 2 });
@@ -68,7 +74,7 @@ function displayNumber(value) {
   const tokenMatch = loginPage.data.match(/name=["']token["']\s+value=["']([^"']+)["']/i);
   if (!tokenMatch) throw new Error("无法取得 VMISS 登录令牌");
 
-  const cookies = mergeCookies(loginPage.response.headers || {});
+  const cookies = cookieHeader(loginPage.response.headers || {});
   const login = await request({
     method: "post",
     url: `${BASE}/login`,
@@ -86,10 +92,7 @@ function displayNumber(value) {
     timeout: 12,
   });
 
-  // A login response often replaces the initial WHMCS session cookie.
-  // Keep only the newest value per cookie name; sending both makes WHMCS use
-  // the stale anonymous session on some servers.
-  const sessionCookies = mergeCookies(
+  const sessionCookies = cookieHeader(
     loginPage.response.headers || {},
     login.response.headers || {},
   );
@@ -100,12 +103,33 @@ function displayNumber(value) {
     throw new Error(`VMISS 登录请求失败（HTTP ${login.response.status}）`);
   }
 
-  const usage = await request({
-    url: `${BASE}/clientarea.php?action=productdetails&id=${encodeURIComponent(productId)}&getJSON`,
+  // VMISS replies with a relative 302 after successful login. Surge's HTTP
+  // client does not persist cookies/redirects like a browser, so resolve the
+  // redirect ourselves before requesting the JSON endpoint.
+  const productURL = `${BASE}/clientarea.php?action=productdetails&id=${encodeURIComponent(productId)}`;
+  const authenticatedPage = await request({
+    url: productURL,
     headers: {
-      Accept: "application/json",
       "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 Version/18.0 Safari/605.1.15",
       Cookie: sessionCookies,
+    },
+    timeout: 12,
+  });
+  if (/\/login(?:[?#"']|$)|Login Details Incorrect/i.test(authenticatedPage.data)) {
+    throw new Error("VMISS 会话未建立，登录被重定向");
+  }
+  const finalCookies = cookieHeader(
+    loginPage.response.headers || {},
+    login.response.headers || {},
+    authenticatedPage.response.headers || {},
+  );
+  const usage = await request({
+    url: `${productURL}&getJSON`,
+    headers: {
+      Accept: "application/json",
+      Referer: productURL,
+      "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 Version/18.0 Safari/605.1.15",
+      Cookie: finalCookies,
     },
     timeout: 12,
   });
