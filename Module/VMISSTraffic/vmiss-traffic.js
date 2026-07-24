@@ -30,13 +30,18 @@ function request(options) {
   });
 }
 
-function cookieHeader(headers) {
-  const raw = headers["set-cookie"] || headers["Set-Cookie"] || [];
-  const values = Array.isArray(raw) ? raw : [raw];
-  return values
-    .map((value) => String(value).split(";")[0])
-    .filter(Boolean)
-    .join("; ");
+function mergeCookies(...headerSets) {
+  const cookies = new Map();
+  headerSets.forEach((headers) => {
+    const raw = headers?.["set-cookie"] || headers?.["Set-Cookie"] || [];
+    const values = Array.isArray(raw) ? raw : [raw];
+    values.forEach((value) => {
+      const pair = String(value || "").split(";")[0].trim();
+      const index = pair.indexOf("=");
+      if (index > 0) cookies.set(pair.slice(0, index), pair);
+    });
+  });
+  return [...cookies.values()].join("; ");
 }
 
 function displayNumber(value) {
@@ -56,7 +61,7 @@ function displayNumber(value) {
   const tokenMatch = loginPage.data.match(/name=["']token["']\s+value=["']([^"']+)["']/i);
   if (!tokenMatch) throw new Error("无法取得 VMISS 登录令牌");
 
-  const cookies = cookieHeader(loginPage.response.headers || {});
+  const cookies = mergeCookies(loginPage.response.headers || {});
   const login = await request({
     method: "post",
     url: `${BASE}/login`,
@@ -74,9 +79,13 @@ function displayNumber(value) {
     timeout: 12,
   });
 
-  const sessionCookies = [cookies, cookieHeader(login.response.headers || {})]
-    .filter(Boolean)
-    .join("; ");
+  // A login response often replaces the initial WHMCS session cookie.
+  // Keep only the newest value per cookie name; sending both makes WHMCS use
+  // the stale anonymous session on some servers.
+  const sessionCookies = mergeCookies(
+    loginPage.response.headers || {},
+    login.response.headers || {},
+  );
   if (!sessionCookies || /Login Details Incorrect/i.test(login.data)) {
     throw new Error("VMISS 登录失败，请检查账号或密码");
   }
