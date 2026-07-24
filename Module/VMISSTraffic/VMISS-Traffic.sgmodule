@@ -1,10 +1,14 @@
-#!name=VMISS 流量概况
-#!desc=在 Surge Panel 中显示指定 VMISS 产品的实时流量使用情况。
-#!arguments=用户名:your-email@example.com,&密码:your-password,&产品ID:180263,&刷新间隔秒:300
-#!arguments-desc=用户名和密码为 VMISS 客户中心登录信息。产品 ID 默认对应当前产品。刷新间隔仅在 Surge 打开策略组页面时生效，建议 60 至 300 秒。
+#!name=VMISS 流量概况（Cookie 版）
+#!desc=在 Surge Panel 中显示 VMISS 流量。首次使用请在开启 Surge 的设备浏览器中打开一次 VMISS 产品详情页，以自动抓取登录凭证。
+#!arguments=产品ID:180263,&刷新间隔秒:300
+#!arguments-desc=产品ID:VMISS 产品 ID\n\n刷新间隔秒:刷新间隔（秒）
 
 [Panel]
-VMISS 流量 = title="VMISS 流量",content="点击刷新以获取流量数据",style=info,script-name=vmiss-traffic,update-interval={{{刷新间隔秒}}}
+VMISS 流量 = title="VMISS 流量",content="首次请打开 VMISS 产品页面抓取登录凭证",style=info,script-name=vmiss-traffic,update-interval={{{刷新间隔秒}}}
 
 [Script]
-vmiss-traffic = type=generic,script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/Module/VMISSTraffic/vmiss-traffic.js?v=5,timeout=15,script-update-interval=300,argument="username={{{用户名}}}&password={{{密码}}}&product_id={{{产品ID}}}"
+vmiss-traffic-capture = type=http-request,pattern=^https:\/\/app\.vmiss\.com\/clientarea\.php\?(?=.*(?:^|[?&])action=productdetails(?:&|$))(?=.*(?:^|[?&])id=\d+(?:&|$)).*$,requires-body=0,max-size=0,script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/Module/VMISSTraffic/vmiss-traffic.js?v=6,script-update-interval=300,argument=mode=capture
+vmiss-traffic = type=generic,script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/Module/VMISSTraffic/vmiss-traffic.js?v=6,timeout=15,script-update-interval=300,argument="mode=panel&product_id={{{产品ID}}}"
+
+[MITM]
+hostname = %APPEND% app.vmiss.com

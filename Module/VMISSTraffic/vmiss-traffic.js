@@ -1,158 +1,126 @@
-/* VMISS Traffic Panel for Surge */
+/* VMISS Traffic Panel for Surge — Cookie capture edition */
 
 const BASE = "https://app.vmiss.com";
+const STORE_KEY = "VMISS_Traffic_Headers_v1";
 const args = Object.fromEntries(
   String($argument || "")
     .split("&")
     .filter(Boolean)
     .map((part) => {
       const index = part.indexOf("=");
-      const decode = (value) => {
-        try { return decodeURIComponent(value.replace(/\+/g, " ")); }
-        catch (_) { return value; }
-      };
       return [
-        decode(index < 0 ? part : part.slice(0, index)),
-        decode(index < 0 ? "" : part.slice(index + 1)),
+        decodeURIComponent(index < 0 ? part : part.slice(0, index)),
+        decodeURIComponent(index < 0 ? "" : part.slice(index + 1)),
       ];
     }),
 );
-const username = args.username || "";
-const password = args.password || "";
-const productId = args.product_id || "";
 
 function done(title, content, style) {
   $done({ title, content, ...(style ? { style } : {}) });
 }
 
-function request(options) {
+function displayNumber(value) {
+  return Number(value).toLocaleString("en-US", { maximumFractionDigits: 2 });
+}
+
+function httpGet(options) {
   return new Promise((resolve, reject) => {
-    $httpClient[options.method || "get"](options, (error, response, data) => {
+    $httpClient.get(options, (error, response, data) => {
       if (error) return reject(new Error(error));
       resolve({ response, data: String(data || "") });
     });
   });
 }
 
-function cookiePairs(headers) {
-  const raw = headers?.["set-cookie"] || headers?.["Set-Cookie"] || [];
-  const values = Array.isArray(raw) ? raw : [raw];
-  return values
-    .map((value) => String(value || "").split(";")[0].trim())
-    .filter(Boolean);
+function pickHeaders(headers) {
+  const wanted = ["Cookie", "User-Agent", "Accept", "Accept-Language", "Referer"];
+  const picked = {};
+  for (const key of Object.keys(headers || {})) {
+    const canonical = wanted.find((item) => item.toLowerCase() === key.toLowerCase());
+    if (canonical && headers[key]) picked[canonical] = headers[key];
+  }
+  return picked;
 }
 
-function cookieHeader(...headerSets) {
-  const cookies = new Map();
-  headerSets.forEach((headers) => {
-    cookiePairs(headers).forEach((pair) => {
-      const index = pair.indexOf("=");
-      if (index > 0) cookies.set(pair.slice(0, index), pair);
+function capturedProductId(url) {
+  try {
+    return new URL(url).searchParams.get("id") || "";
+  } catch (_) {
+    return "";
+  }
+}
+
+if (typeof $request !== "undefined") {
+  const headers = pickHeaders($request.headers || {});
+  if (!headers.Cookie) {
+    $notification.post("VMISS 流量", "凭证抓取失败", "未发现登录 Cookie，请确认已登录 VMISS 后重新打开产品详情页");
+  } else {
+    const productId = capturedProductId($request.url);
+    const saved = {
+      headers,
+      productId,
+      capturedAt: Date.now(),
+    };
+    if ($persistentStore.write(JSON.stringify(saved), STORE_KEY)) {
+      $notification.post("VMISS 流量", "登录凭证已更新", `已保存产品 ${productId || "未知"} 的会话凭证`);
+    } else {
+      $notification.post("VMISS 流量", "凭证保存失败", "Surge 持久化存储写入失败");
+    }
+  }
+  $done({});
+} else {
+  (async () => {
+    let saved;
+    try {
+      saved = JSON.parse($persistentStore.read(STORE_KEY) || "null");
+    } catch (_) {
+      throw new Error("已保存的登录凭证损坏，请重新打开 VMISS 产品页面");
+    }
+    if (!saved?.headers?.Cookie) {
+      throw new Error("尚未抓取登录凭证：请在开启 Surge 的设备浏览器中登录 VMISS 并打开产品详情页一次");
+    }
+
+    const productId = args.product_id || saved.productId;
+    if (!productId) throw new Error("请填写 product_id，或重新打开一次 VMISS 产品详情页");
+
+    const result = await httpGet({
+      url: `${BASE}/clientarea.php?action=productdetails&id=${encodeURIComponent(productId)}&getJSON`,
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "User-Agent": saved.headers["User-Agent"] || "Mozilla/5.0",
+        "Accept-Language": saved.headers["Accept-Language"] || "zh-CN,zh;q=0.9",
+        Referer: `${BASE}/clientarea.php?action=productdetails&id=${encodeURIComponent(productId)}`,
+        Cookie: saved.headers.Cookie,
+      },
+      timeout: 12,
     });
+
+    if (result.response.status !== 200) {
+      throw new Error(`请求失败（HTTP ${result.response.status}），请重新打开 VMISS 产品页面更新凭证`);
+    }
+    let data;
+    try {
+      data = JSON.parse(result.data);
+    } catch (_) {
+      throw new Error("会话可能已过期，请重新打开 VMISS 产品页面更新凭证");
+    }
+
+    const used = Number.parseFloat(String(data.trafficUsed || "").replace(/[^0-9.]/g, ""));
+    const total = Number(data.trafficTotal);
+    if (!Number.isFinite(used) || !Number.isFinite(total) || total <= 0) {
+      throw new Error("未取得有效流量数据，请重新打开 VMISS 产品页面更新凭证");
+    }
+
+    const remaining = Math.max(total - used, 0);
+    const percent = Math.min((used / total) * 100, 100);
+    const style = percent >= 90 ? "error" : percent >= 75 ? "alert" : "good";
+    done(
+      "VMISS 流量",
+      `已用 ${displayNumber(used)} GB / ${displayNumber(total)} GB (${percent.toFixed(1)}%)\n剩余 ${displayNumber(remaining)} GB\n重置：${data.flow_reset_time || `每月 ${data.flow_reset_day} 日`}`,
+      style,
+    );
+  })().catch((error) => {
+    console.log(`[VMISS Traffic] ${error.message}`);
+    done("VMISS 流量", `更新失败：${error.message}`, "error");
   });
-  return [...cookies.values()].join("; ");
 }
-
-
-function displayNumber(value) {
-  return Number(value).toLocaleString("en-US", { maximumFractionDigits: 2 });
-}
-
-(async () => {
-  if (!username || !password || !productId) {
-    throw new Error("请在模块参数中填写 username、password 和 product_id");
-  }
-
-  const loginPage = await request({
-    url: `${BASE}/login`,
-    headers: { "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 Version/18.0 Safari/605.1.15" },
-    timeout: 12,
-  });
-  if (loginPage.response.status !== 200 || /Attention Required|Sorry, you have been blocked/i.test(loginPage.data)) {
-    throw new Error(`VMISS 登录页被拒绝（HTTP ${loginPage.response.status || "未知"}）`);
-  }
-  const tokenMatch = loginPage.data.match(/name=["']token["']\s+value=["']([^"']+)["']/i);
-  if (!tokenMatch) throw new Error("无法取得 VMISS 登录令牌");
-
-  const cookies = cookieHeader(loginPage.response.headers || {});
-  const login = await request({
-    method: "post",
-    url: `${BASE}/login`,
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 Version/18.0 Safari/605.1.15",
-      ...(cookies ? { Cookie: cookies } : {}),
-    },
-    body: [
-      `token=${encodeURIComponent(tokenMatch[1])}`,
-      `username=${encodeURIComponent(username)}`,
-      `password=${encodeURIComponent(password)}`,
-      "rememberme=on",
-    ].join("&"),
-    timeout: 12,
-  });
-
-  const sessionCookies = cookieHeader(
-    loginPage.response.headers || {},
-    login.response.headers || {},
-  );
-  if (!sessionCookies || /Login Details Incorrect/i.test(login.data)) {
-    throw new Error("VMISS 登录失败，请检查账号或密码");
-  }
-  if (login.response.status && login.response.status >= 400) {
-    throw new Error(`VMISS 登录请求失败（HTTP ${login.response.status}）`);
-  }
-
-  // VMISS replies with a relative 302 after successful login. Surge's HTTP
-  // client does not persist cookies/redirects like a browser, so resolve the
-  // redirect ourselves before requesting the JSON endpoint.
-  const productURL = `${BASE}/clientarea.php?action=productdetails&id=${encodeURIComponent(productId)}`;
-  const authenticatedPage = await request({
-    url: productURL,
-    headers: {
-      "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 Version/18.0 Safari/605.1.15",
-      Cookie: sessionCookies,
-    },
-    timeout: 12,
-  });
-  if (/\/login(?:[?#"']|$)|Login Details Incorrect/i.test(authenticatedPage.data)) {
-    throw new Error("VMISS 会话未建立，登录被重定向");
-  }
-  const finalCookies = cookieHeader(
-    loginPage.response.headers || {},
-    login.response.headers || {},
-    authenticatedPage.response.headers || {},
-  );
-  const usage = await request({
-    url: `${productURL}&getJSON`,
-    headers: {
-      Accept: "application/json",
-      Referer: productURL,
-      "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 Version/18.0 Safari/605.1.15",
-      Cookie: finalCookies,
-    },
-    timeout: 12,
-  });
-
-  if (usage.response.status !== 200) {
-    throw new Error(`VMISS 流量接口失败（HTTP ${usage.response.status || "未知"}）`);
-  }
-  const data = JSON.parse(usage.data);
-  const used = Number.parseFloat(data.trafficUsed);
-  const total = Number(data.trafficTotal);
-  if (!Number.isFinite(used) || !Number.isFinite(total) || total <= 0) {
-    throw new Error("未取得有效流量数据");
-  }
-
-  const remaining = Math.max(total - used, 0);
-  const percent = Math.min((used / total) * 100, 100);
-  const style = percent >= 90 ? "error" : percent >= 75 ? "alert" : "good";
-  done(
-    "VMISS 流量",
-    `已用 ${displayNumber(used)} GB / ${displayNumber(total)} GB (${percent.toFixed(1)}%)\n剩余 ${displayNumber(remaining)} GB\n重置：${data.flow_reset_time || `每月 ${data.flow_reset_day} 日`}`,
-    style,
-  );
-})().catch((error) => {
-  console.log(`[VMISS Traffic] ${error.message}`);
-  done("VMISS 流量", `更新失败：${error.message}`, "error");
-});
