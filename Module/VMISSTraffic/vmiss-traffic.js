@@ -7,9 +7,13 @@ const args = Object.fromEntries(
     .filter(Boolean)
     .map((part) => {
       const index = part.indexOf("=");
+      const decode = (value) => {
+        try { return decodeURIComponent(value.replace(/\+/g, " ")); }
+        catch (_) { return value; }
+      };
       return [
-        decodeURIComponent(index < 0 ? part : part.slice(0, index)),
-        decodeURIComponent(index < 0 ? "" : part.slice(index + 1)),
+        decode(index < 0 ? part : part.slice(0, index)),
+        decode(index < 0 ? "" : part.slice(index + 1)),
       ];
     }),
 );
@@ -55,9 +59,12 @@ function displayNumber(value) {
 
   const loginPage = await request({
     url: `${BASE}/login`,
-    headers: { "User-Agent": "Surge VMISS Panel" },
+    headers: { "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 Version/18.0 Safari/605.1.15" },
     timeout: 12,
   });
+  if (loginPage.response.status !== 200 || /Attention Required|Sorry, you have been blocked/i.test(loginPage.data)) {
+    throw new Error(`VMISS 登录页被拒绝（HTTP ${loginPage.response.status || "未知"}）`);
+  }
   const tokenMatch = loginPage.data.match(/name=["']token["']\s+value=["']([^"']+)["']/i);
   if (!tokenMatch) throw new Error("无法取得 VMISS 登录令牌");
 
@@ -67,7 +74,7 @@ function displayNumber(value) {
     url: `${BASE}/login`,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      "User-Agent": "Surge VMISS Panel",
+      "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 Version/18.0 Safari/605.1.15",
       ...(cookies ? { Cookie: cookies } : {}),
     },
     body: [
@@ -89,17 +96,23 @@ function displayNumber(value) {
   if (!sessionCookies || /Login Details Incorrect/i.test(login.data)) {
     throw new Error("VMISS 登录失败，请检查账号或密码");
   }
+  if (login.response.status && login.response.status >= 400) {
+    throw new Error(`VMISS 登录请求失败（HTTP ${login.response.status}）`);
+  }
 
   const usage = await request({
     url: `${BASE}/clientarea.php?action=productdetails&id=${encodeURIComponent(productId)}&getJSON`,
     headers: {
       Accept: "application/json",
-      "User-Agent": "Surge VMISS Panel",
+      "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 Version/18.0 Safari/605.1.15",
       Cookie: sessionCookies,
     },
     timeout: 12,
   });
 
+  if (usage.response.status !== 200) {
+    throw new Error(`VMISS 流量接口失败（HTTP ${usage.response.status || "未知"}）`);
+  }
   const data = JSON.parse(usage.data);
   const used = Number.parseFloat(data.trafficUsed);
   const total = Number(data.trafficTotal);
