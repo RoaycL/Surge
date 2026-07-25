@@ -1,6 +1,6 @@
 #!name=VMISS 流量概况（Cookie 版）
 #!desc=在 Surge Panel 中显示 VMISS 流量。首次使用请在开启 Surge 的设备浏览器中打开一次 VMISS 产品详情页，以自动抓取登录凭证。
-#!arguments=产品ID:180263,&刷新间隔:300
+#!arguments=产品ID:180263,刷新间隔:300
 #!arguments-desc=产品ID:VMISS 产品 ID\n\n刷新间隔:刷新间隔（秒）
 
 [Panel]
