@@ -1,10 +1,10 @@
 #!name=VMISS 流量概况（Cookie 版）
 #!desc=在 Surge Panel 中显示 VMISS 流量。首次使用请在开启 Surge 的设备浏览器中打开一次 VMISS 产品详情页，以自动抓取登录凭证。
-#!arguments=产品ID:180263,&刷新间隔秒:300
-#!arguments-desc=产品ID:VMISS 产品 ID\n\n刷新间隔秒:刷新间隔（秒）
+#!arguments=产品ID:180263,&刷新间隔:300
+#!arguments-desc=产品ID:VMISS 产品 ID\n\n刷新间隔:刷新间隔（秒）
 
 [Panel]
-VMISS 流量 = title="VMISS 流量",content="首次请打开 VMISS 产品页面抓取登录凭证",style=info,script-name=vmiss-traffic,update-interval={{{刷新间隔秒}}}
+VMISS 流量 = title="VMISS 流量",content="首次请打开 VMISS 产品页面抓取登录凭证",style=info,script-name=vmiss-traffic,update-interval={{{刷新间隔}}}
 
 [Script]
 vmiss-traffic-capture = type=http-request,pattern=^https:\/\/app\.vmiss\.com\/clientarea\.php\?action=productdetails&id=\d+.*$,requires-body=0,max-size=0,script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/Module/VMISSTraffic/vmiss-traffic.js?v=7,script-update-interval=300,argument=mode=capture
