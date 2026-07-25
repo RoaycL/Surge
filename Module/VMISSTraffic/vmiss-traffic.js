@@ -51,6 +51,11 @@ function capturedProductId(url) {
 }
 
 if (typeof $request !== "undefined") {
+  const captureEnabled = String(args.capture || "false").toLowerCase() === "true";
+  if (!captureEnabled) {
+    console.log("[VMISS Traffic] Cookie capture is disabled");
+    $done({});
+  } else {
   const headers = pickHeaders($request.headers || {});
   if (!headers.Cookie) {
     $notification.post("VMISS 流量", "凭证抓取失败", "未发现登录 Cookie，请确认已登录 VMISS 后重新打开产品详情页");
@@ -68,6 +73,7 @@ if (typeof $request !== "undefined") {
     }
   }
   $done({});
+  }
 } else {
   (async () => {
     let saved;
