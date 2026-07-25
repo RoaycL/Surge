@@ -1,5 +1,5 @@
 #!name=VMISS 流量概况（Cookie 版）
-#!desc=在 Surge Panel 中显示 VMISS 流量。在 Surge Panel 中显示 VMISS 流量。将「获取Cookie」设为 true 后，打开一次产品详情页即可更新产品 ID 与登录凭证。
+#!desc=在 Surge Panel 中显示 VMISS 流量。将「获取Cookie」设为 true 后，打开一次产品详情页即可更新产品 ID 与登录凭证。
 #!arguments=获取Cookie:false,刷新间隔:300
 #!arguments-desc=获取Cookie:是否在打开 VMISS 产品详情页时更新登录凭证；仅需更新时设为 true，更新后请改回 false。\n\n刷新间隔:刷新间隔（秒）
 
