@@ -80,8 +80,8 @@ if (typeof $request !== "undefined") {
       throw new Error("尚未抓取登录凭证：请在开启 Surge 的设备浏览器中登录 VMISS 并打开产品详情页一次");
     }
 
-    const productId = args.product_id || saved.productId;
-    if (!productId) throw new Error("请填写 product_id，或重新打开一次 VMISS 产品详情页");
+    const productId = saved.productId;
+    if (!productId) throw new Error("尚未获取产品 ID：请重新打开一次 VMISS 产品详情页");
 
     const result = await httpGet({
       url: `${BASE}/clientarea.php?action=productdetails&id=${encodeURIComponent(productId)}&getJSON`,
