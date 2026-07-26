@@ -1,7 +1,7 @@
 #!name=机场流量概况
 #!desc=在 Surge Panel 中显示最多 5 个机场的流量、重置日期与套餐到期日。订阅链接可直接粘贴原始地址，无需 URL Encode。
-#!arguments=机场1链接:"",机场1名称:"机场 1",机场1重置日:"",机场1到期日:"",机场2链接:"",机场2名称:"机场 2",机场2重置日:"",机场2到期日:"",机场3链接:"",机场3名称:"机场 3",机场3重置日:"",机场3到期日:"",机场4链接:"",机场4名称:"机场 4",机场4重置日:"",机场4到期日:"",机场5链接:"",机场5名称:"机场 5",机场5重置日:"",机场5到期日:""
-#!arguments-desc=每个机场有 4 个独立参数：链接、名称、重置日、到期日。\n\n链接：直接粘贴原始订阅链接，无需 URL Encode。\n名称：面板标题。\n重置日：填写 1-31，留空不显示。\n到期日：填写 YYYY-MM-DD；留空则读取订阅响应中的 expire；填写 false 则隐藏。
+#!arguments=机场1启用:true,机场1链接:"",机场1名称:"机场 1",机场1重置日:"",机场1到期日:"",机场2启用:true,机场2链接:"",机场2名称:"机场 2",机场2重置日:"",机场2到期日:"",机场3启用:true,机场3链接:"",机场3名称:"机场 3",机场3重置日:"",机场3到期日:"",机场4启用:false,机场4链接:"",机场4名称:"机场 4",机场4重置日:"",机场4到期日:"",机场5启用:false,机场5链接:"",机场5名称:"机场 5",机场5重置日:"",机场5到期日:""
+#!arguments-desc=每个机场有 5 个独立参数：是否启用、链接、名称、重置日、到期日。\n\n是否启用：true 启用，false 禁用；默认启用机场 1-3，禁用机场 4-5。\n\n链接：直接粘贴原始订阅链接，无需 URL Encode。\n名称：面板标题。\n重置日：填写 1-31，留空不显示。\n到期日：填写 YYYY-MM-DD；留空则读取订阅响应中的 expire；填写 false 则隐藏。
 
 [Panel]
 机场 1 = script-name=airport-traffic-1,update-interval=3600
@@ -11,8 +11,8 @@
 机场 5 = script-name=airport-traffic-5,update-interval=3600
 
 [Script]
-airport-traffic-1 = type=generic,timeout=15,script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AirportTraffic/airport-traffic.js,argument="title={{{机场1名称}}}&reset_day={{{机场1重置日}}}&expire={{{机场1到期日}}}&url={{{机场1链接}}}"
-airport-traffic-2 = type=generic,timeout=15,script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AirportTraffic/airport-traffic.js,argument="title={{{机场2名称}}}&reset_day={{{机场2重置日}}}&expire={{{机场2到期日}}}&url={{{机场2链接}}}"
-airport-traffic-3 = type=generic,timeout=15,script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AirportTraffic/airport-traffic.js,argument="title={{{机场3名称}}}&reset_day={{{机场3重置日}}}&expire={{{机场3到期日}}}&url={{{机场3链接}}}"
-airport-traffic-4 = type=generic,timeout=15,script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AirportTraffic/airport-traffic.js,argument="title={{{机场4名称}}}&reset_day={{{机场4重置日}}}&expire={{{机场4到期日}}}&url={{{机场4链接}}}"
-airport-traffic-5 = type=generic,timeout=15,script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AirportTraffic/airport-traffic.js,argument="title={{{机场5名称}}}&reset_day={{{机场5重置日}}}&expire={{{机场5到期日}}}&url={{{机场5链接}}}"
+airport-traffic-1 = type=generic,timeout=15,script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AirportTraffic/airport-traffic.js,argument="enabled={{{机场1启用}}}&title={{{机场1名称}}}&reset_day={{{机场1重置日}}}&expire={{{机场1到期日}}}&url={{{机场1链接}}}"
+airport-traffic-2 = type=generic,timeout=15,script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AirportTraffic/airport-traffic.js,argument="enabled={{{机场2启用}}}&title={{{机场2名称}}}&reset_day={{{机场2重置日}}}&expire={{{机场2到期日}}}&url={{{机场2链接}}}"
+airport-traffic-3 = type=generic,timeout=15,script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AirportTraffic/airport-traffic.js,argument="enabled={{{机场3启用}}}&title={{{机场3名称}}}&reset_day={{{机场3重置日}}}&expire={{{机场3到期日}}}&url={{{机场3链接}}}"
+airport-traffic-4 = type=generic,timeout=15,script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AirportTraffic/airport-traffic.js,argument="enabled={{{机场4启用}}}&title={{{机场4名称}}}&reset_day={{{机场4重置日}}}&expire={{{机场4到期日}}}&url={{{机场4链接}}}"
+airport-traffic-5 = type=generic,timeout=15,script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AirportTraffic/airport-traffic.js,argument="enabled={{{机场5启用}}}&title={{{机场5名称}}}&reset_day={{{机场5重置日}}}&expire={{{机场5到期日}}}&url={{{机场5链接}}}"
