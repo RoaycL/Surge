@@ -33,6 +33,51 @@ function displayNumber(value) {
   return Number(value).toLocaleString("en-US", { maximumFractionDigits: 2 });
 }
 
+function formatDate(value) {
+  const raw = String(value || "").trim();
+  const match = raw.match(/(\d{4})[-/.]([01]?\d)[-/.]([0-3]?\d)/);
+  if (!match) return "";
+  return `${Number(match[1])}.${Number(match[2])}.${Number(match[3])}`;
+}
+
+function findDueDate(value) {
+  if (!value) return "";
+  if (typeof value === "object") {
+    const preferredKeys = [
+      "nextduedate", "next_due_date", "nextDueDate", "due_date", "dueDate",
+      "expiry", "expiry_date", "expiration", "expiration_date", "expire",
+    ];
+    for (const key of preferredKeys) {
+      if (Object.prototype.hasOwnProperty.call(value, key)) {
+        const date = formatDate(value[key]);
+        if (date) return date;
+      }
+    }
+    for (const item of Object.values(value)) {
+      const date = findDueDate(item);
+      if (date) return date;
+    }
+    return "";
+  }
+  return formatDate(value);
+}
+
+function findDueDateInHtml(html) {
+  const source = String(html || "");
+  const direct = source.match(/(?:nextduedate|next_due_date|nextDueDate)[^\d]{0,120}(\d{4}[-/.]\d{1,2}[-/.]\d{1,2})/i);
+  if (direct) return formatDate(direct[1]);
+
+  const text = source
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;|&#160;/gi, " ")
+    .replace(/&[a-z]+;|&#\d+;/gi, " ")
+    .replace(/\s+/g, " ");
+  const labelled = text.match(/(?:Next Due Date|下次付款日期|下次到期日期|续费日期|到期日期|到期时间)[^\d]{0,80}(\d{4}[-/.]\d{1,2}[-/.]\d{1,2})/i);
+  return labelled ? formatDate(labelled[1]) : "";
+}
+
 function nextResetInfo(resetTime, resetDay) {
   const now = new Date();
   let target = null;
@@ -151,8 +196,36 @@ if (typeof $request !== "undefined") {
     const remaining = Math.max(total - used, 0);
     const percent = Math.min((used / total) * 100, 100);
     const resetDays = nextResetInfo(data.flow_reset_time, data.flow_reset_day);
+    let dueDate = findDueDate(data);
+
+    // 流量 JSON 未提供服务到期日时，从已登录的产品详情页提取 WHMCS Next Due Date。
+    if (!dueDate) {
+      try {
+        const details = await httpGet({
+          url: `${BASE}/clientarea.php?action=productdetails&id=${encodeURIComponent(productId)}`,
+          headers: {
+            Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            "User-Agent": saved.headers["User-Agent"] || "Mozilla/5.0",
+            "Accept-Language": saved.headers["Accept-Language"] || "zh-CN,zh;q=0.9",
+            Referer: `${BASE}/clientarea.php?action=productdetails&id=${encodeURIComponent(productId)}`,
+            Cookie: saved.headers.Cookie,
+          },
+          timeout: 12,
+        });
+        if (details.response.status === 200) dueDate = findDueDateInHtml(details.data);
+      } catch (error) {
+        console.log(`[VMISS Traffic] Due date lookup failed: ${error.message}`);
+      }
+    }
+
     const content = [`已用：${percent.toFixed(1)}% \t|  剩余：${displayNumber(remaining)} GB`];
-    if (resetDays !== null) content.push(`重置：${resetDays}天`);
+    if (resetDays !== null && dueDate) {
+      content.push(`重置：${resetDays}天 \t|  到期：${dueDate}`);
+    } else if (resetDays !== null) {
+      content.push(`重置：${resetDays}天`);
+    } else if (dueDate) {
+      content.push(`到期：${dueDate}`);
+    }
     done(
       `VMISS | ${displayNumber(total)} GB | ${currentTime()}`,
       content.join("\n"),
