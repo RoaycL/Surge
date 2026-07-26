@@ -19,8 +19,18 @@ const args = Object.fromEntries(
 );
 args.url = urlIndex < 0 ? "" : decodeURIComponent(rawArgument.slice(urlIndex + urlMarker.length));
 
-function done(title, content, style) {
-  $done({ title, content, ...(style ? { style } : {}) });
+function done(title, content) {
+  $done({
+    title,
+    content,
+    icon: "airplane.circle",
+    "icon-color": "#007aff",
+  });
+}
+
+function currentTime() {
+  const now = new Date();
+  return `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
 }
 
 function bytesToSize(bytes) {
@@ -122,7 +132,6 @@ async function getSubscriptionInfo(url) {
   const total = info.total;
   const remaining = Math.max(0, total - used);
   const percent = total > 0 ? Math.min(used / total * 100, 100) : 0;
-  const style = percent >= 90 ? "error" : percent >= 75 ? "alert" : "good";
   const content = [
     `已用：${bytesToSize(used)} / ${bytesToSize(total)}（${percent.toFixed(1)}%）`,
     `剩余：${bytesToSize(remaining)}`,
@@ -132,7 +141,7 @@ async function getSubscriptionInfo(url) {
   if (reset) content.push(`重置：${reset}`);
   const expire = args.expire === "false" ? "" : dateOnly(args.expire || info.expire);
   if (expire) content.push(`到期：${expire}`);
-  done(title, content.join("\n"), style);
+  done(`${title} | ${currentTime()}`, content.join("\n"));
 })().catch((error) => {
   console.log(`[Airport Traffic] ${error.message}`);
   done(args.title || "机场流量", `更新失败：${error.message}`, "error");
