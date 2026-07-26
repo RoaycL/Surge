@@ -220,9 +220,9 @@ if (typeof $request !== "undefined") {
 
     const content = [`已用：${percent.toFixed(1)}% \t|  剩余：${displayNumber(remaining)} GB`];
     if (resetDays !== null && dueDate) {
-      content.push(`重置：${resetDays}天 \t|  到期：${dueDate}`);
+      content.push(`重置：${resetDays}天后 \t|  到期：${dueDate}`);
     } else if (resetDays !== null) {
-      content.push(`重置：${resetDays}天`);
+      content.push(`重置：${resetDays}天后`);
     } else if (dueDate) {
       content.push(`到期：${dueDate}`);
     }
