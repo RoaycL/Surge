@@ -23,6 +23,40 @@ function displayNumber(value) {
   return Number(value).toLocaleString("en-US", { maximumFractionDigits: 2 });
 }
 
+function nextResetInfo(resetTime, resetDay) {
+  const now = new Date();
+  let target = null;
+  const raw = String(resetTime || "").trim();
+
+  // VMISS 通常返回 YYYY-MM-DD HH:mm:ss；同时兼容浏览器可直接识别的日期格式。
+  const match = raw.match(/(\d{4})[-/]([01]?\d)[-/]([0-3]?\d)(?:\s+([0-2]?\d):([0-5]\d)(?::([0-5]\d))?)?/);
+  if (match) {
+    target = new Date(
+      Number(match[1]),
+      Number(match[2]) - 1,
+      Number(match[3]),
+      Number(match[4] || 0),
+      Number(match[5] || 0),
+      Number(match[6] || 0),
+    );
+  } else if (raw) {
+    const parsed = new Date(raw);
+    if (!Number.isNaN(parsed.getTime())) target = parsed;
+  }
+
+  // 接口未给出完整日期时，按每月重置日推算下一次重置。
+  if (!target && Number.isFinite(Number(resetDay))) {
+    const day = Math.max(1, Math.floor(Number(resetDay)));
+    const makeDate = (year, month) => new Date(year, month, Math.min(day, new Date(year, month + 1, 0).getDate()));
+    target = makeDate(now.getFullYear(), now.getMonth());
+    if (target.getTime() <= now.getTime()) target = makeDate(now.getFullYear(), now.getMonth() + 1);
+  }
+
+  if (!target || Number.isNaN(target.getTime())) return null;
+  if (target.getTime() <= now.getTime() && raw) return null;
+  return Math.max(0, Math.ceil((target.getTime() - now.getTime()) / 86400000));
+}
+
 function httpGet(options) {
   return new Promise((resolve, reject) => {
     $httpClient.get(options, (error, response, data) => {
@@ -51,11 +85,6 @@ function capturedProductId(url) {
 }
 
 if (typeof $request !== "undefined") {
-  const captureEnabled = String(args.capture || "false").toLowerCase() === "true";
-  if (!captureEnabled) {
-    console.log("[VMISS Traffic] Cookie capture is disabled");
-    $done({});
-  } else {
   const headers = pickHeaders($request.headers || {});
   if (!headers.Cookie) {
     $notification.post("VMISS 流量", "凭证抓取失败", "未发现登录 Cookie，请确认已登录 VMISS 后重新打开产品详情页");
@@ -73,7 +102,6 @@ if (typeof $request !== "undefined") {
     }
   }
   $done({});
-  }
 } else {
   (async () => {
     let saved;
@@ -86,8 +114,8 @@ if (typeof $request !== "undefined") {
       throw new Error("尚未抓取登录凭证：请在开启 Surge 的设备浏览器中登录 VMISS 并打开产品详情页一次");
     }
 
-    const productId = saved.productId;
-    if (!productId) throw new Error("尚未获取产品 ID：请重新打开一次 VMISS 产品详情页");
+    const productId = args.product_id || saved.productId;
+    if (!productId) throw new Error("请填写 product_id，或重新打开一次 VMISS 产品详情页");
 
     const result = await httpGet({
       url: `${BASE}/clientarea.php?action=productdetails&id=${encodeURIComponent(productId)}&getJSON`,
@@ -120,9 +148,11 @@ if (typeof $request !== "undefined") {
     const remaining = Math.max(total - used, 0);
     const percent = Math.min((used / total) * 100, 100);
     const style = percent >= 90 ? "error" : percent >= 75 ? "alert" : "good";
+    const resetText = data.flow_reset_time || `每月 ${data.flow_reset_day} 日`;
+    const resetDays = nextResetInfo(data.flow_reset_time, data.flow_reset_day);
     done(
       "VMISS 流量",
-      `已用 ${displayNumber(used)} GB / ${displayNumber(total)} GB (${percent.toFixed(1)}%)\n剩余 ${displayNumber(remaining)} GB\n重置：${data.flow_reset_time || `每月 ${data.flow_reset_day} 日`}`,
+      `已用 ${displayNumber(used)} GB / ${displayNumber(total)} GB (${percent.toFixed(1)}%)\n剩余 ${displayNumber(remaining)} GB\n重置：${resetText}${resetDays === null ? "" : `（还有 ${resetDays} 天）`}`,
       style,
     );
   })().catch((error) => {
