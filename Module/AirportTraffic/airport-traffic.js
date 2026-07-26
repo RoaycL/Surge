@@ -49,7 +49,7 @@ function dateOnly(value) {
     const date = new Date(Number(raw) * 1000);
     return Number.isNaN(date.getTime()) ? "" : formatDate(date);
   }
-  const match = raw.match(/(\d{4})[-/]([01]?\d)[-/]([0-3]?\d)/);
+  const match = raw.match(/(\d{4})[-/.]([01]?\d)[-/.]([0-3]?\d)/);
   return match ? `${match[1]}-${String(match[2]).padStart(2, "0")}-${String(match[3]).padStart(2, "0")}` : "";
 }
 
