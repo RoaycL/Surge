@@ -59,9 +59,14 @@ function formatDate(date) {
 
 function formatExpire(value) {
   const date = dateOnly(value);
-  if (!date || date === "永久") return date;
+  if (!date) return "";
+  if (date === "永久") return "到期：永久";
   const match = date.match(/(\d{4})-(\d{2})-(\d{2})/);
-  return match ? `${Number(match[1])}年${Number(match[2])}月${Number(match[3])}日` : date;
+  return match ? `到期：${Number(match[1])}.${Number(match[2])}.${Number(match[3])}` : `到期：${date}`;
+}
+
+function percent(used, total) {
+  return total > 0 ? `${(Math.round((used / total) * 10000) / 100).toFixed(1)}%` : "0.0%";
 }
 
 function resetInfo(resetDay) {
@@ -136,13 +141,19 @@ async function getSubscriptionInfo(url) {
   const info = await getSubscriptionInfo(url);
   const used = Math.max(0, (info.upload || 0) + (info.download || 0));
   const total = info.total;
-  const content = [`用量：${bytesToSize(used)} | ${bytesToSize(total)}`];
+  const remaining = Math.max(0, total - used);
+  const content = [`已用：${percent(used, total)} \t|  剩余：${bytesToSize(remaining)}`];
 
   const resetDays = resetInfo(args.reset_day);
-  if (resetDays) content.push(`重置：剩余${resetDays}天`);
   const expire = args.expire === "false" ? "" : formatExpire(args.expire || info.expire);
-  if (expire) content.push(`到期：${expire}`);
-  done(`${title} | ${currentTime()}`, content.join("\n"));
+  if (resetDays && expire) {
+    content.push(`重置：${resetDays}天 \t|  ${expire}`);
+  } else if (resetDays) {
+    content.push(`重置：${resetDays}天`);
+  } else if (expire) {
+    content.push(expire);
+  }
+  done(`${title} | ${bytesToSize(total)} | ${currentTime()}`, content.join("\n"));
 })().catch((error) => {
   console.log(`[Airport Traffic] ${error.message}`);
   done(args.title || "机场流量", `更新失败：${error.message}`, "error");
