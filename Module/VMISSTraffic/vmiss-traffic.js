@@ -15,8 +15,18 @@ const args = Object.fromEntries(
     }),
 );
 
-function done(title, content, style) {
-  $done({ title, content, ...(style ? { style } : {}) });
+function done(title, content) {
+  $done({
+    title,
+    content,
+    icon: "airplane.circle",
+    "icon-color": "#007aff",
+  });
+}
+
+function currentTime() {
+  const now = new Date();
+  return `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
 }
 
 function displayNumber(value) {
@@ -140,14 +150,12 @@ if (typeof $request !== "undefined") {
 
     const remaining = Math.max(total - used, 0);
     const percent = Math.min((used / total) * 100, 100);
-    const style = percent >= 90 ? "error" : percent >= 75 ? "alert" : "good";
-    const resetText = String(data.flow_reset_time || "").match(/\d{4}[-/]\d{1,2}[-/]\d{1,2}/)?.[0]
-      || `每月 ${data.flow_reset_day} 日`;
     const resetDays = nextResetInfo(data.flow_reset_time, data.flow_reset_day);
+    const content = [`已用：${percent.toFixed(1)}% \t|  剩余：${displayNumber(remaining)} GB`];
+    if (resetDays !== null) content.push(`重置：${resetDays}天`);
     done(
-      "VMISS 流量",
-      `已用：${displayNumber(used)} GB / ${displayNumber(total)} GB (${percent.toFixed(1)}%)\n剩余：${displayNumber(remaining)} GB\n重置：${resetText}${resetDays === null ? "" : `（${resetDays} 天后）`}`,
-      style,
+      `VMISS | ${displayNumber(total)} GB | ${currentTime()}`,
+      content.join("\n"),
     );
   })().catch((error) => {
     console.log(`[VMISS Traffic] ${error.message}`);
