@@ -57,6 +57,13 @@ function formatDate(date) {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 }
 
+function formatExpire(value) {
+  const date = dateOnly(value);
+  if (!date || date === "永久") return date;
+  const match = date.match(/(\d{4})-(\d{2})-(\d{2})/);
+  return match ? `${Number(match[1])}年${Number(match[2])}月${Number(match[3])}日` : date;
+}
+
 function resetInfo(resetDay) {
   const day = Number.parseInt(resetDay, 10);
   if (!Number.isInteger(day) || day < 1 || day > 31) return "";
@@ -64,8 +71,7 @@ function resetInfo(resetDay) {
   const makeDate = (year, month) => new Date(year, month, Math.min(day, new Date(year, month + 1, 0).getDate()));
   let target = makeDate(now.getFullYear(), now.getMonth());
   if (target.getTime() <= now.getTime()) target = makeDate(now.getFullYear(), now.getMonth() + 1);
-  const days = Math.max(0, Math.ceil((target.getTime() - now.getTime()) / 86400000));
-  return `${formatDate(target)}（${days} 天后）`;
+  return Math.max(0, Math.ceil((target.getTime() - now.getTime()) / 86400000));
 }
 
 function requestSubscription(url, method, userAgent) {
@@ -130,16 +136,11 @@ async function getSubscriptionInfo(url) {
   const info = await getSubscriptionInfo(url);
   const used = Math.max(0, (info.upload || 0) + (info.download || 0));
   const total = info.total;
-  const remaining = Math.max(0, total - used);
-  const percent = total > 0 ? Math.min(used / total * 100, 100) : 0;
-  const content = [
-    `已用：${bytesToSize(used)} / ${bytesToSize(total)}（${percent.toFixed(1)}%）`,
-    `剩余：${bytesToSize(remaining)}`,
-  ];
+  const content = [`用量：${bytesToSize(used)} | ${bytesToSize(total)}`];
 
-  const reset = resetInfo(args.reset_day);
-  if (reset) content.push(`重置：${reset}`);
-  const expire = args.expire === "false" ? "" : dateOnly(args.expire || info.expire);
+  const resetDays = resetInfo(args.reset_day);
+  if (resetDays) content.push(`重置：剩余${resetDays}天`);
+  const expire = args.expire === "false" ? "" : formatExpire(args.expire || info.expire);
   if (expire) content.push(`到期：${expire}`);
   done(`${title} | ${currentTime()}`, content.join("\n"));
 })().catch((error) => {
