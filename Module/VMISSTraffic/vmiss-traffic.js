@@ -19,7 +19,7 @@ function done(title, content) {
   $done({
     title,
     content,
-    icon: "airplane.circle",
+    icon: "server.rack",
     "icon-color": "#007aff",
   });
 }
