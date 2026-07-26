@@ -58,23 +58,58 @@ function resetInfo(resetDay) {
   return `${formatDate(target)}（${days} 天后）`;
 }
 
-function getSubscriptionInfo(url) {
+function requestSubscription(url, method, userAgent) {
   return new Promise((resolve, reject) => {
-    $httpClient.head({ url, headers: { "User-Agent": "Surge iOS" }, timeout: 12 }, (error, response) => {
+    const request = {
+      url,
+      headers: {
+        "User-Agent": userAgent,
+        Accept: "*/*",
+      },
+      timeout: 12,
+    };
+    $httpClient[method](request, (error, response) => {
       if (error) return reject(new Error(error));
-      if (!response || response.status !== 200) return reject(new Error(`请求失败（HTTP ${response?.status || "未知"}）`));
-      const key = Object.keys(response.headers || {}).find((name) => name.toLowerCase() === "subscription-userinfo");
-      if (!key) return reject(new Error("订阅响应未返回流量信息"));
-      const data = Object.fromEntries(
-        String(response.headers[key]).match(/\w+=\d+(?:\.\d+)?/g)?.map((item) => {
-          const [name, value] = item.split("=");
-          return [name, Number(value)];
-        }) || [],
-      );
-      if (!Number.isFinite(data.total)) return reject(new Error("订阅流量信息无效"));
-      resolve(data);
+      const status = Number(response?.status || 0);
+      const key = Object.keys(response?.headers || {}).find((name) => name.toLowerCase() === "subscription-userinfo");
+      resolve({ status, header: key ? response.headers[key] : "" });
     });
   });
+}
+
+function parseSubscriptionInfo(header) {
+  const data = Object.fromEntries(
+    String(header || "").match(/\w+=\d+(?:\.\d+)?/g)?.map((item) => {
+      const [name, value] = item.split("=");
+      return [name, Number(value)];
+    }) || [],
+  );
+  return Number.isFinite(data.total) ? data : null;
+}
+
+async function getSubscriptionInfo(url) {
+  // 部分机场会拒绝 HEAD 或 Surge UA，因此按兼容性顺序自动重试。
+  const attempts = [
+    ["head", "Quantumult%20X"],
+    ["head", "Clash"],
+    ["get", "Quantumult%20X"],
+    ["get", "Clash"],
+  ];
+  let lastStatus = 0;
+  for (const [method, userAgent] of attempts) {
+    try {
+      const result = await requestSubscription(url, method, userAgent);
+      lastStatus = result.status || lastStatus;
+      const info = parseSubscriptionInfo(result.header);
+      if (info) return info;
+    } catch (error) {
+      console.log(`[Airport Traffic] ${method.toUpperCase()} ${userAgent}: ${error.message}`);
+    }
+  }
+  if (lastStatus && (lastStatus < 200 || lastStatus >= 400)) {
+    throw new Error(`请求失败（HTTP ${lastStatus}），机场可能限制了请求方式或 User-Agent`);
+  }
+  throw new Error("订阅响应未返回有效流量信息，请确认该订阅支持 subscription-userinfo 响应头");
 }
 
 (async () => {
