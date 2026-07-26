@@ -28,17 +28,10 @@ function nextResetInfo(resetTime, resetDay) {
   let target = null;
   const raw = String(resetTime || "").trim();
 
-  // VMISS 通常返回 YYYY-MM-DD HH:mm:ss；同时兼容浏览器可直接识别的日期格式。
-  const match = raw.match(/(\d{4})[-/]([01]?\d)[-/]([0-3]?\d)(?:\s+([0-2]?\d):([0-5]\d)(?::([0-5]\d))?)?/);
+  // 面板仅显示重置日期，统一按当天零点计算剩余天数。
+  const match = raw.match(/(\d{4})[-/]([01]?\d)[-/]([0-3]?\d)/);
   if (match) {
-    target = new Date(
-      Number(match[1]),
-      Number(match[2]) - 1,
-      Number(match[3]),
-      Number(match[4] || 0),
-      Number(match[5] || 0),
-      Number(match[6] || 0),
-    );
+    target = new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
   } else if (raw) {
     const parsed = new Date(raw);
     if (!Number.isNaN(parsed.getTime())) target = parsed;
@@ -148,11 +141,12 @@ if (typeof $request !== "undefined") {
     const remaining = Math.max(total - used, 0);
     const percent = Math.min((used / total) * 100, 100);
     const style = percent >= 90 ? "error" : percent >= 75 ? "alert" : "good";
-    const resetText = data.flow_reset_time || `每月 ${data.flow_reset_day} 日`;
+    const resetText = String(data.flow_reset_time || "").match(/\d{4}[-/]\d{1,2}[-/]\d{1,2}/)?.[0]
+      || `每月 ${data.flow_reset_day} 日`;
     const resetDays = nextResetInfo(data.flow_reset_time, data.flow_reset_day);
     done(
       "VMISS 流量",
-      `已用 ${displayNumber(used)} GB / ${displayNumber(total)} GB (${percent.toFixed(1)}%)\n剩余 ${displayNumber(remaining)} GB\n重置：${resetText}${resetDays === null ? "" : `（还有 ${resetDays} 天）`}`,
+      `已用 ${displayNumber(used)} GB / ${displayNumber(total)} GB (${percent.toFixed(1)}%)\n剩余 ${displayNumber(remaining)} GB\n重置：${resetText}${resetDays === null ? "" : `（${resetDays} 天后）`}`,
       style,
     );
   })().catch((error) => {
