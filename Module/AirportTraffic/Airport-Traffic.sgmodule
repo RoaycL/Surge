@@ -1,7 +1,13 @@
 #!name=机场流量概况（多机场）
 #!desc=最多显示 5 个机场订阅的流量、重置日期和套餐到期日。直接在模块参数中填原始订阅链接，无需整体 URL Encode。
-#!arguments=url1=&title1=机场 1&reset_day1=&expire1=&url2=&title2=机场 2&reset_day2=&expire2=&url3=&title3=机场 3&reset_day3=&expire3=&url4=&title4=机场 4&reset_day4=&expire4=&url5=&title5=机场 5&reset_day5=&expire5=
-#!arguments-desc=url1:机场 1 原始订阅链接（无需整体编码）\n\ntitle1:机场 1 名称\n\nreset_day1:每月重置日（1-31，留空则不显示）\n\nexpire1:套餐到期日 YYYY-MM-DD（留空则读取订阅信息；填 false 则隐藏）\n\nurl2:机场 2 原始订阅链接\n\ntitle2:机场 2 名称\n\nreset_day2:机场 2 每月重置日\n\nexpire2:机场 2 到期日\n\nurl3:机场 3 原始订阅链接\n\ntitle3:机场 3 名称\n\nreset_day3:机场 3 每月重置日\n\nexpire3:机场 3 到期日\n\nurl4:机场 4 原始订阅链接\n\ntitle4:机场 4 名称\n\nreset_day4:机场 4 每月重置日\n\nexpire4:机场 4 到期日\n\nurl5:机场 5 原始订阅链接\n\ntitle5:机场 5 名称\n\nreset_day5:机场 5 每月重置日\n\nexpire5:机场 5 到期日
+#!arguments=机场1订阅链接:,机场1名称:机场 1,机场1重置日:,机场1到期日:,机场2订阅链接:,机场2名称:机场 2,机场2重置日:,机场2到期日:,机场3订阅链接:,机场3名称:机场 3,机场3重置日:,机场3到期日:,机场4订阅链接:,机场4名称:机场 4,机场4重置日:,机场4到期日:,机场5订阅链接:,机场5名称:机场 5,机场5重置日:,机场5到期日:
+#!arguments-desc=每个字段都会在 Surge 的模块参数页中单独显示。
+
+订阅链接：直接粘贴原始链接，无需 URL Encode。
+
+重置日：填 1-31；留空则不显示。
+
+到期日：填 YYYY-MM-DD；留空则从订阅信息自动读取；填 false 则隐藏。
 
 [Panel]
 机场流量 1 = title="机场 1",content="请在模块参数中填写订阅链接",style=info,script-name=airport-traffic-1,update-interval=3600
@@ -11,8 +17,8 @@
 机场流量 5 = title="机场 5",content="请在模块参数中填写订阅链接",style=info,script-name=airport-traffic-5,update-interval=3600
 
 [Script]
-airport-traffic-1 = type=generic,script-path=airport-traffic.js,timeout=15,argument=title=%title1%&reset_day=%reset_day1%&expire=%expire1%&url=%url1%
-airport-traffic-2 = type=generic,script-path=airport-traffic.js,timeout=15,argument=title=%title2%&reset_day=%reset_day2%&expire=%expire2%&url=%url2%
-airport-traffic-3 = type=generic,script-path=airport-traffic.js,timeout=15,argument=title=%title3%&reset_day=%reset_day3%&expire=%expire3%&url=%url3%
-airport-traffic-4 = type=generic,script-path=airport-traffic.js,timeout=15,argument=title=%title4%&reset_day=%reset_day4%&expire=%expire4%&url=%url4%
-airport-traffic-5 = type=generic,script-path=airport-traffic.js,timeout=15,argument=title=%title5%&reset_day=%reset_day5%&expire=%expire5%&url=%url5%
+airport-traffic-1 = type=generic,script-path=airport-traffic.js,timeout=15,argument=title={{{机场1名称}}}&reset_day={{{机场1重置日}}}&expire={{{机场1到期日}}}&url={{{机场1订阅链接}}}
+airport-traffic-2 = type=generic,script-path=airport-traffic.js,timeout=15,argument=title={{{机场2名称}}}&reset_day={{{机场2重置日}}}&expire={{{机场2到期日}}}&url={{{机场2订阅链接}}}
+airport-traffic-3 = type=generic,script-path=airport-traffic.js,timeout=15,argument=title={{{机场3名称}}}&reset_day={{{机场3重置日}}}&expire={{{机场3到期日}}}&url={{{机场3订阅链接}}}
+airport-traffic-4 = type=generic,script-path=airport-traffic.js,timeout=15,argument=title={{{机场4名称}}}&reset_day={{{机场4重置日}}}&expire={{{机场4到期日}}}&url={{{机场4订阅链接}}}
+airport-traffic-5 = type=generic,script-path=airport-traffic.js,timeout=15,argument=title={{{机场5名称}}}&reset_day={{{机场5重置日}}}&expire={{{机场5到期日}}}&url={{{机场5订阅链接}}}
