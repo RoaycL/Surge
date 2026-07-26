@@ -34,6 +34,7 @@ function bytesToSize(bytes) {
 function dateOnly(value) {
   const raw = String(value || "").trim();
   if (!raw) return "";
+  if (["0", "永久", "终身", "lifetime", "permanent", "never"].includes(raw.toLowerCase())) return "永久";
   if (/^\d+$/.test(raw)) {
     const date = new Date(Number(raw) * 1000);
     return Number.isNaN(date.getTime()) ? "" : formatDate(date);
@@ -78,8 +79,6 @@ function getSubscriptionInfo(url) {
 
 (async () => {
   const title = args.title || "机场流量";
-  const enabled = String(args.enabled ?? "true").trim().toLowerCase() !== "false";
-  if (!enabled) return done(title, "已禁用", "info");
   const url = String(args.url || "").trim();
   if (!url) return done(title, "请在模块参数中填写订阅链接", "info");
 
