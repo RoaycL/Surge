@@ -146,7 +146,7 @@ if (typeof $request !== "undefined") {
     const resetDays = nextResetInfo(data.flow_reset_time, data.flow_reset_day);
     done(
       "VMISS 流量",
-      `已用 ${displayNumber(used)} GB / ${displayNumber(total)} GB (${percent.toFixed(1)}%)\n剩余 ${displayNumber(remaining)} GB\n重置：${resetText}${resetDays === null ? "" : `（${resetDays} 天后）`}`,
+      `已用：${displayNumber(used)} GB / ${displayNumber(total)} GB (${percent.toFixed(1)}%)\n剩余：${displayNumber(remaining)} GB\n重置：${resetText}${resetDays === null ? "" : `（${resetDays} 天后）`}`,
       style,
     );
   })().catch((error) => {
