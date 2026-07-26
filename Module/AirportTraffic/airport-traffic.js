@@ -111,6 +111,8 @@ function parseSubscriptionInfo(header) {
 async function getSubscriptionInfo(url) {
   // 部分机场会拒绝 HEAD 或 Surge UA，因此按兼容性顺序自动重试。
   const attempts = [
+    ["head", "clash-verge/v1.5.1"],
+    ["get", "clash-verge/v1.5.1"],
     ["head", "Quantumult%20X"],
     ["head", "Clash"],
     ["get", "Quantumult%20X"],
