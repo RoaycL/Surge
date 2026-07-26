@@ -11,8 +11,8 @@
 {{{机场5开关}}} = script-name=airport-traffic-5,update-interval=3600
 
 [Script]
-{{{机场1开关}}} = type=generic,timeout=15,script-path=https://raw.githubusercontent.com/RoaycL/Surge/7f9d7775c4f298451435f98f9e44e5da8f1fcb90/Module/AirportTraffic/airport-traffic.js,argument="title={{{机场1名称}}}&reset_day={{{机场1重置日}}}&expire={{{机场1到期日}}}&url={{{机场1链接}}}"
-{{{机场2开关}}} = type=generic,timeout=15,script-path=https://raw.githubusercontent.com/RoaycL/Surge/7f9d7775c4f298451435f98f9e44e5da8f1fcb90/Module/AirportTraffic/airport-traffic.js,argument="title={{{机场2名称}}}&reset_day={{{机场2重置日}}}&expire={{{机场2到期日}}}&url={{{机场2链接}}}"
-{{{机场3开关}}} = type=generic,timeout=15,script-path=https://raw.githubusercontent.com/RoaycL/Surge/7f9d7775c4f298451435f98f9e44e5da8f1fcb90/Module/AirportTraffic/airport-traffic.js,argument="title={{{机场3名称}}}&reset_day={{{机场3重置日}}}&expire={{{机场3到期日}}}&url={{{机场3链接}}}"
-{{{机场4开关}}} = type=generic,timeout=15,script-path=https://raw.githubusercontent.com/RoaycL/Surge/7f9d7775c4f298451435f98f9e44e5da8f1fcb90/Module/AirportTraffic/airport-traffic.js,argument="title={{{机场4名称}}}&reset_day={{{机场4重置日}}}&expire={{{机场4到期日}}}&url={{{机场4链接}}}"
-{{{机场5开关}}} = type=generic,timeout=15,script-path=https://raw.githubusercontent.com/RoaycL/Surge/7f9d7775c4f298451435f98f9e44e5da8f1fcb90/Module/AirportTraffic/airport-traffic.js,argument="title={{{机场5名称}}}&reset_day={{{机场5重置日}}}&expire={{{机场5到期日}}}&url={{{机场5链接}}}"
+{{{机场1开关}}} = type=generic,timeout=15,script-update-interval=0,script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AirportTraffic/airport-traffic.js,argument="title={{{机场1名称}}}&reset_day={{{机场1重置日}}}&expire={{{机场1到期日}}}&url={{{机场1链接}}}"
+{{{机场2开关}}} = type=generic,timeout=15,script-update-interval=0,script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AirportTraffic/airport-traffic.js,argument="title={{{机场2名称}}}&reset_day={{{机场2重置日}}}&expire={{{机场2到期日}}}&url={{{机场2链接}}}"
+{{{机场3开关}}} = type=generic,timeout=15,script-update-interval=0,script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AirportTraffic/airport-traffic.js,argument="title={{{机场3名称}}}&reset_day={{{机场3重置日}}}&expire={{{机场3到期日}}}&url={{{机场3链接}}}"
+{{{机场4开关}}} = type=generic,timeout=15,script-update-interval=0,script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AirportTraffic/airport-traffic.js,argument="title={{{机场4名称}}}&reset_day={{{机场4重置日}}}&expire={{{机场4到期日}}}&url={{{机场4链接}}}"
+{{{机场5开关}}} = type=generic,timeout=15,script-update-interval=0,script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AirportTraffic/airport-traffic.js,argument="title={{{机场5名称}}}&reset_day={{{机场5重置日}}}&expire={{{机场5到期日}}}&url={{{机场5链接}}}"
