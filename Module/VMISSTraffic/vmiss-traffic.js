@@ -132,24 +132,65 @@ function capturedProductId(url) {
   }
 }
 
-if (typeof $request !== "undefined") {
-  const headers = pickHeaders($request.headers || {});
-  if (!headers.Cookie) {
-    $notification.post("VMISS 流量", "凭证抓取失败", "未发现登录 Cookie，请确认已登录 VMISS 后重新打开产品详情页");
-  } else {
-    const productId = capturedProductId($request.url);
-    const saved = {
-      headers,
-      productId,
-      capturedAt: Date.now(),
-    };
-    if ($persistentStore.write(JSON.stringify(saved), STORE_KEY)) {
-      $notification.post("VMISS 流量", "登录凭证已更新", `已保存产品 ${productId || "未知"} 的会话凭证`);
-    } else {
-      $notification.post("VMISS 流量", "凭证保存失败", "Surge 持久化存储写入失败");
-    }
+function captureEnabled(value) {
+  return ["true", "1", "yes", "on"].includes(String(value || "").trim().toLowerCase());
+}
+
+function cookieNames(cookie) {
+  return new Set(
+    String(cookie || "")
+      .split(";")
+      .map((item) => item.trim().split("=", 1)[0])
+      .filter(Boolean),
+  );
+}
+
+function mergeCookies(previous, incoming) {
+  const incomingNames = cookieNames(incoming);
+  const retained = String(previous || "")
+    .split(";")
+    .map((item) => item.trim())
+    .filter((item) => item && !incomingNames.has(item.split("=", 1)[0]));
+  const fresh = String(incoming || "")
+    .split(";")
+    .map((item) => item.trim())
+    .filter(Boolean);
+  return [...retained, ...fresh].join("; ");
+}
+
+function readSaved() {
+  try {
+    return JSON.parse($persistentStore.read(STORE_KEY) || "null");
+  } catch (_) {
+    return null;
   }
-  $done({});
+}
+
+if (typeof $request !== "undefined") {
+  // 只有显式填写 true 才抓取；#、false、空值及其他内容均不执行。
+  if (!captureEnabled(args.capture)) {
+    $done({});
+  } else {
+    const headers = pickHeaders($request.headers || {});
+    if (!headers.Cookie) {
+      $notification.post("VMISS 流量", "凭证抓取失败", "未发现登录 Cookie，请确认已登录 VMISS 后重新打开产品详情页");
+    } else {
+      const previous = readSaved();
+      const productId = capturedProductId($request.url) || previous?.productId || "";
+      headers.Cookie = mergeCookies(previous?.headers?.Cookie, headers.Cookie);
+      const saved = {
+        headers: { ...(previous?.headers || {}), ...headers },
+        productId,
+        capturedAt: Date.now(),
+      };
+      if ($persistentStore.write(JSON.stringify(saved), STORE_KEY)) {
+        $notification.post("VMISS 流量", "登录凭证已更新", `已保存产品 ${productId || "未知"} 的会话凭证；请将「获取Cookie」改为 #`);
+      } else {
+        $notification.post("VMISS 流量", "凭证保存失败", "Surge 持久化存储写入失败");
+      }
+    }
+    $done({});
+  }
 } else {
   (async () => {
     let saved;
