@@ -7,8 +7,8 @@
 VMISS 流量 = title="VMISS 流量",content="首次请打开 VMISS 产品页面抓取登录凭证",style=info,script-name=vmiss-traffic,update-interval={{{刷新间隔}}}
 
 [Script]
-vmiss-traffic-capture = type=http-request,pattern=^https:\/\/app\.vmiss\.com\/clientarea\.php\?action=productdetails&id=\d+.*$,requires-body=0,max-size=0,timeout=15,script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/Module/VMISSTraffic/vmiss-traffic.js?v=13,script-update-interval=300,argument="mode=capture&capture={{{获取Cookie}}}"
-vmiss-traffic = type=generic,script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/Module/VMISSTraffic/vmiss-traffic.js?v=13,timeout=15,script-update-interval=300,argument="mode=panel"
+vmiss-traffic-capture = type=http-request,pattern=^https:\/\/app\.vmiss\.com\/clientarea\.php\?action=productdetails&id=\d+.*$,requires-body=0,max-size=0,timeout=15,script-path=https://raw.githubusercontent.com/RoaycL/Surge/a14865f69fe4152054f6e049994b6534011e4e26/Module/VMISSTraffic/vmiss-traffic.js,script-update-interval=300,argument="mode=capture&capture={{{获取Cookie}}}"
+vmiss-traffic = type=generic,script-path=https://raw.githubusercontent.com/RoaycL/Surge/a14865f69fe4152054f6e049994b6534011e4e26/Module/VMISSTraffic/vmiss-traffic.js,timeout=15,script-update-interval=300,argument="mode=panel"
 
 [MITM]
 hostname = %APPEND% app.vmiss.com
