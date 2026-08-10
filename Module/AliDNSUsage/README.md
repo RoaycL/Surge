@@ -38,7 +38,7 @@ AccessKey Secret
   "Statement": [
     {
       "Effect": "Allow",
-      "Action": "alidns:DescribeDohAccountStatistics",
+      "Action": "pubdns:DescribePdnsRequestStatistic",
       "Resource": "*"
     }
   ]
@@ -51,8 +51,9 @@ AccessKey Secret
 
 - 查询周期：本自然月 1 日至当天。
 - 默认免费额度：每个账号每月 1000 万次 HTTP 等价流量。
-- HTTP 请求按 1 倍计算。
-- HTTPS / DoH 请求按 5 倍计算。
+- 使用 `DescribePdnsRequestStatistic` 的账号维度统计，与公共DNS控制台的计费口径一致。
+- `HttpCount`（HTTP解析量）按 1 倍计算。
+- `HttpsCount`（HTTPS解析量，包含 DoH）按 5 倍计算。
 - `请求`：API 返回的原始请求总量。
 - `折算`：用于额度判断的 HTTP 等价流量。
 

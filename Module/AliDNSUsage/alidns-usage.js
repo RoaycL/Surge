@@ -2,7 +2,7 @@
 
 const API_ENDPOINT = "https://alidns.aliyuncs.com/";
 const API_VERSION = "2015-01-09";
-const ACTION = "DescribeDohAccountStatistics";
+const ACTION = "DescribePdnsRequestStatistic";
 
 const args = parseArgument(String($argument || ""));
 const monthlyQuota = positiveNumber(args.quota, 10000000);
@@ -94,6 +94,7 @@ function signedUrl(account, startDate, endDate) {
     EndDate: endDate,
     Format: "JSON",
     Lang: "zh",
+    Type: "ACCOUNT",
     SignatureMethod: "HMAC-SHA1",
     SignatureNonce: nonce(),
     SignatureVersion: "1.0",
@@ -141,8 +142,12 @@ function sumStatistics(statistics) {
   return (Array.isArray(statistics) ? statistics : []).reduce(
     (total, item) => {
       total.raw += number(item.TotalCount);
-      total.http += number(item.V4HttpCount) + number(item.V6HttpCount);
-      total.https += number(item.V4HttpsCount) + number(item.V6HttpsCount);
+      total.http += item.HttpCount !== undefined
+        ? number(item.HttpCount)
+        : number(item.V4HttpCount) + number(item.V6HttpCount);
+      total.https += item.HttpsCount !== undefined
+        ? number(item.HttpsCount)
+        : number(item.V4HttpsCount) + number(item.V6HttpsCount);
       return total;
     },
     { raw: 0, http: 0, https: 0 },
@@ -156,7 +161,7 @@ function number(value) {
 
 async function queryAccount(account, range) {
   const response = await httpGet(signedUrl(account, range.startDate, range.endDate));
-  const usage = sumStatistics(response.Statistics);
+  const usage = sumStatistics(response.Data);
   usage.billable = usage.http + usage.https * 5;
   usage.remaining = Math.max(monthlyQuota - usage.billable, 0);
   usage.percent = monthlyQuota > 0 ? Math.min((usage.billable / monthlyQuota) * 100, 999.9) : 0;
