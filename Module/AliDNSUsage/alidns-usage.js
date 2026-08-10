@@ -326,7 +326,7 @@ function base64(bytes) {
     }
   });
 
-  panelDone(`阿里 HTTPDNS｜${successCount}/${accounts.length} 账号｜${currentTime()}`, accountBlocks.join("\n\n"), successCount ? "info" : "error");
+  panelDone(`阿里 HTTPDNS｜${currentTime()}`, accountBlocks.join("\n\n"), successCount ? "info" : "error");
 })().catch((error) => {
   console.log(`[AliDNS Usage] ${error.message}`);
   panelDone("阿里 HTTPDNS 用量", `更新失败：${error.message}`, "error");
