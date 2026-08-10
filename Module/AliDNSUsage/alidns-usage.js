@@ -188,8 +188,8 @@ function panelDone(title, content, style = "info") {
     title,
     content,
     style,
-    icon: "network",
-    "icon-color": style === "error" ? "#ff3b30" : "#1677ff",
+    icon: "cloud.fill",
+    "icon-color": style === "error" ? "#ff3b30" : "#ff6a00",
   });
 }
 
