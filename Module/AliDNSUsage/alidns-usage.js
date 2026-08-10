@@ -163,9 +163,13 @@ async function queryAccount(account, range) {
   const response = await httpGet(signedUrl(account, range.startDate, range.endDate));
   const usage = sumStatistics(response.Data);
   usage.billable = usage.http + usage.https * 5;
-  usage.remaining = Math.max(monthlyQuota - usage.billable, 0);
-  usage.percent = monthlyQuota > 0 ? Math.min((usage.billable / monthlyQuota) * 100, 999.9) : 0;
   return { account, usage };
+}
+
+function displayAccountName(value) {
+  const name = String(value || "").trim();
+  if (/^1\d{10}$/.test(name)) return `${name.slice(0, 3)}****${name.slice(-4)}`;
+  return name;
 }
 
 function compactNumber(value) {
@@ -303,28 +307,21 @@ function base64(bytes) {
   const range = monthRange();
   const settled = await Promise.allSettled(accounts.map((account) => queryAccount(account, range)));
   const lines = [];
-  let totalBillable = 0;
   let successCount = 0;
 
   settled.forEach((result, index) => {
     const account = accounts[index];
+    const displayName = displayAccountName(account.name);
     if (result.status === "fulfilled") {
       const usage = result.value.usage;
       successCount += 1;
-      totalBillable += usage.billable;
-      lines.push(`${account.name}：${usage.percent.toFixed(1)}%｜余 ${compactNumber(usage.remaining)}`);
-      lines.push(`请求 ${compactNumber(usage.raw)}｜折算 ${compactNumber(usage.billable)}/${compactNumber(monthlyQuota)}`);
+      lines.push(`${displayName}：${compactNumber(usage.billable)}/${compactNumber(monthlyQuota)}`);
+      lines.push(`HTTP ${compactNumber(usage.http)}｜HTTPS ${compactNumber(usage.https)}`);
     } else {
-      lines.push(`${account.name}：查询失败`);
+      lines.push(`${displayName}：查询失败`);
       lines.push(String(result.reason && result.reason.message || result.reason).slice(0, 80));
     }
   });
-
-  if (successCount > 1) {
-    const totalQuota = monthlyQuota * successCount;
-    const remaining = Math.max(totalQuota - totalBillable, 0);
-    lines.push(`合计：${compactNumber(totalBillable)}/${compactNumber(totalQuota)}｜余 ${compactNumber(remaining)}`);
-  }
 
   panelDone(`阿里 HTTPDNS｜${successCount}/${accounts.length} 账号｜${currentTime()}`, lines.join("\n"), successCount ? "info" : "error");
 })().catch((error) => {
