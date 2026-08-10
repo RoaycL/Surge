@@ -1,0 +1,10 @@
+#!name=阿里 HTTPDNS 用量
+#!desc=在 Surge Panel 中查询多个阿里云账号本月 HTTPDNS/DoH 用量。凭据仅保存在 Surge 本机模块参数中，由脚本直接签名请求阿里云 OpenAPI。
+#!arguments=账号列表:"账号1|RAM_AccessKey_ID|RAM_AccessKey_Secret",月度额度:10000000,刷新间隔:3600
+#!arguments-desc=账号列表:格式为「名称|RAM AccessKey ID|RAM AccessKey Secret」，多个账号用英文分号 ; 分隔。例如：主账号|LTAI...|Secret...;备用账号|LTAI...|Secret...。请使用仅授予 alidns:DescribeDohAccountStatistics 的 RAM 只读密钥，不要使用主账号高权限密钥。\n\n月度额度:每个账号每自然月的 HTTP 等价免费额度，默认 10000000。DoH/HTTPS 请求按 5 倍折算。\n\n刷新间隔:面板自动刷新间隔，单位秒。
+
+[Panel]
+阿里 HTTPDNS 用量 = title="阿里 HTTPDNS 用量",content="请先填写 RAM 只读凭据",style=info,script-name=alidns-usage,update-interval={{{刷新间隔}}}
+
+[Script]
+alidns-usage = type=generic,script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AliDNSUsage/alidns-usage.js,timeout=30,script-update-interval=300,argument="accounts={{{账号列表}}}&quota={{{月度额度}}}"
