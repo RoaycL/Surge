@@ -317,7 +317,7 @@ function base64(bytes) {
       successCount += 1;
       accountBlocks.push([
         `${displayName}：${compactNumber(usage.billable)}/${compactNumber(monthlyQuota)}`,
-        `HTTP解析量：${compactNumber(usage.http)}\t丨\tHTTPS解析量：${compactNumber(usage.https)}`,
+        `HTTP ${compactNumber(usage.http)}\t丨\tHTTPS ${compactNumber(usage.https)}`,
       ].join("\n"));
     } else {
       accountBlocks.push([
