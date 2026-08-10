@@ -306,7 +306,7 @@ function base64(bytes) {
 
   const range = monthRange();
   const settled = await Promise.allSettled(accounts.map((account) => queryAccount(account, range)));
-  const lines = [];
+  const accountBlocks = [];
   let successCount = 0;
 
   settled.forEach((result, index) => {
@@ -315,15 +315,19 @@ function base64(bytes) {
     if (result.status === "fulfilled") {
       const usage = result.value.usage;
       successCount += 1;
-      lines.push(`${displayName}：${compactNumber(usage.billable)}/${compactNumber(monthlyQuota)}`);
-      lines.push(`HTTP ${compactNumber(usage.http)}｜HTTPS ${compactNumber(usage.https)}`);
+      accountBlocks.push([
+        `${displayName}：${compactNumber(usage.billable)}/${compactNumber(monthlyQuota)}`,
+        `HTTP解析量：${compactNumber(usage.http)}\t丨\tHTTPS解析量：${compactNumber(usage.https)}`,
+      ].join("\n"));
     } else {
-      lines.push(`${displayName}：查询失败`);
-      lines.push(String(result.reason && result.reason.message || result.reason).slice(0, 80));
+      accountBlocks.push([
+        `${displayName}：查询失败`,
+        String(result.reason && result.reason.message || result.reason).slice(0, 80),
+      ].join("\n"));
     }
   });
 
-  panelDone(`阿里 HTTPDNS｜${successCount}/${accounts.length} 账号｜${currentTime()}`, lines.join("\n"), successCount ? "info" : "error");
+  panelDone(`阿里 HTTPDNS｜${successCount}/${accounts.length} 账号｜${currentTime()}`, accountBlocks.join("\n\n"), successCount ? "info" : "error");
 })().catch((error) => {
   console.log(`[AliDNS Usage] ${error.message}`);
   panelDone("阿里 HTTPDNS 用量", `更新失败：${error.message}`, "error");
