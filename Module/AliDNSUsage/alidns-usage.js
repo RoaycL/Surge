@@ -6,7 +6,7 @@ const ACTION = "DescribeDohAccountStatistics";
 
 const args = parseArgument(String($argument || ""));
 const monthlyQuota = positiveNumber(args.quota, 10000000);
-const accounts = parseAccounts(args.accounts);
+const accounts = parseAccounts(args);
 
 function parseArgument(raw) {
   return Object.fromEntries(
@@ -19,8 +19,21 @@ function parseArgument(raw) {
   );
 }
 
-function parseAccounts(raw) {
-  return String(raw || "")
+function parseAccounts(values) {
+  const separateFields = Array.from({ length: 5 }, (_, index) => {
+    const slot = index + 1;
+    const name = String(values[`name${slot}`] || "").trim();
+    return {
+      name: name && name !== "#" ? name : "",
+      accessKeyId: String(values[`id${slot}`] || "").trim(),
+      accessKeySecret: String(values[`secret${slot}`] || "").trim(),
+    };
+  }).filter((item) => item.name && item.accessKeyId && item.accessKeySecret);
+
+  if (separateFields.length) return separateFields;
+
+  // Compatibility with the first module version that used one combined accounts field.
+  return String(values.accounts || "")
     .split(";")
     .map((item) => item.trim())
     .filter(Boolean)
@@ -279,7 +292,7 @@ function base64(bytes) {
 
 (async () => {
   if (!accounts.length) {
-    throw new Error("请在模块参数中填写账号：名称|RAM AccessKey ID|RAM AccessKey Secret");
+    throw new Error("请在模块参数中分别填写账号名称、AccessKey ID 和 AccessKey Secret");
   }
 
   const range = monthRange();

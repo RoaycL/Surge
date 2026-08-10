@@ -12,17 +12,19 @@ https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AliDNSUsage/AliDNS-Us
 
 ## 账号参数
 
-`账号列表`格式：
+模块提供 5 组独立账号输入栏，每个账号分别填写：
 
 ```text
-名称|RAM AccessKey ID|RAM AccessKey Secret;名称2|RAM AccessKey ID|RAM AccessKey Secret
+账号名称
+AccessKey ID
+AccessKey Secret
 ```
 
-示例：
+账号名称同时作为启用开关：
 
-```text
-主账号|LTAIxxxxxxxx|secretxxxxxxxx;备用账号|LTAIyyyyyyyy|secretyyyyyyyy
-```
+- 填写名称并同时填写 ID、Secret：启用该账号。
+- 名称填写 `#` 或留空：忽略该账号。
+- 最多支持 5 个不同阿里云主账号。
 
 凭据作为 Surge 模块参数保存在本机。脚本直接对阿里云 RPC OpenAPI 请求签名，不经过第三方中转服务。
 
