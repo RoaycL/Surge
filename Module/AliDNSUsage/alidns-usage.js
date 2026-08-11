@@ -179,6 +179,29 @@ function compactNumber(value) {
   return Math.round(numberValue).toLocaleString("zh-CN");
 }
 
+function usageProgress(used, quota) {
+  const percentage = quota > 0 ? Math.min(Math.max(used / quota * 100, 0), 100) : 0;
+  const width = 10;
+  const partialBlocks = ["", "▏", "▎", "▍", "▌", "▋", "▊", "▉"];
+  const totalEighths = Math.round(percentage / 100 * width * 8);
+  const filled = Math.floor(totalEighths / 8);
+  const partial = totalEighths % 8;
+  const partialBlock = filled < width ? partialBlocks[partial] : "";
+  const empty = Math.max(width - filled - (partialBlock ? 1 : 0), 0);
+  return {
+    bar: `${"█".repeat(filled)}${partialBlock}${"░".repeat(empty)}`,
+    percentage: `${percentage.toFixed(2)}%`,
+    remaining: Math.max(quota - used, 0),
+  };
+}
+
+function remainingNumber(value) {
+  const numberValue = number(value);
+  if (numberValue >= 100000000) return `${Number((numberValue / 100000000).toFixed(1))}亿`;
+  if (numberValue >= 10000) return `${Number((numberValue / 10000).toFixed(1))}万`;
+  return Math.round(numberValue).toLocaleString("zh-CN");
+}
+
 function trim(value) {
   return Number(value.toFixed(value >= 100 ? 0 : value >= 10 ? 1 : 2)).toString();
 }
@@ -313,8 +336,9 @@ function base64(bytes) {
     const displayName = displayAccountName(account.name);
     if (result.status === "fulfilled") {
       const usage = result.value.usage;
+      const progress = usageProgress(usage.billable, monthlyQuota);
       successCount += 1;
-      accountBlocks.push(`${displayName}：${compactNumber(usage.billable)}/${compactNumber(monthlyQuota)}`);
+      accountBlocks.push(`${displayName}\t${progress.bar}\t${progress.percentage}\t余${remainingNumber(progress.remaining)}`);
     } else {
       accountBlocks.push([
         `${displayName}：查询失败`,
@@ -323,7 +347,7 @@ function base64(bytes) {
     }
   });
 
-  panelDone("阿里 HTTPDNS", accountBlocks.join("\n\n"), successCount ? "info" : "error");
+  panelDone("阿里 HTTPDNS", accountBlocks.join("\n"), successCount ? "info" : "error");
 })().catch((error) => {
   console.log(`[AliDNS Usage] ${error.message}`);
   panelDone("阿里 HTTPDNS 用量", `更新失败：${error.message}`, "error");
