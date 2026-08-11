@@ -188,7 +188,7 @@ function usageProgress(used, quota) {
 }
 
 function fullWidthPercentage(value) {
-  return `${value.toFixed(1).padStart(4, "0")}%`.replace(/[0-9.%]/g, (character) => {
+  return `${value.toFixed(1).padStart(5, "　")}%`.replace(/[0-9.%]/g, (character) => {
     if (character === ".") return "．";
     if (character === "%") return "％";
     return String.fromCharCode(character.charCodeAt(0) + 0xfee0);
