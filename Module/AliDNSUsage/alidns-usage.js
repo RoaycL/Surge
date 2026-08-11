@@ -330,7 +330,7 @@ function base64(bytes) {
       const usage = result.value.usage;
       const progress = usageProgress(usage.billable, monthlyQuota);
       successCount += 1;
-      accountBlocks.push(`${displayName}　已用${progress.percentage}　余${remainingNumber(progress.remaining)}`);
+      accountBlocks.push(`${displayName}　${progress.percentage}｜余 ${remainingNumber(progress.remaining)}`);
     } else {
       accountBlocks.push([
         `${displayName}：查询失败`,
