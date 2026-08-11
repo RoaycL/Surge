@@ -314,10 +314,7 @@ function base64(bytes) {
     if (result.status === "fulfilled") {
       const usage = result.value.usage;
       successCount += 1;
-      accountBlocks.push([
-        `${displayName}：${compactNumber(usage.billable)}/${compactNumber(monthlyQuota)}`,
-        `HTTP ${compactNumber(usage.http)}\t丨\tHTTPS ${compactNumber(usage.https)}`,
-      ].join("\n"));
+      accountBlocks.push(`${displayName}：${compactNumber(usage.billable)}/${compactNumber(monthlyQuota)}`);
     } else {
       accountBlocks.push([
         `${displayName}：查询失败`,
@@ -326,7 +323,7 @@ function base64(bytes) {
     }
   });
 
-  panelDone(`阿里 HTTPDNS　　　　　${currentTime()}`, accountBlocks.join("\n\n"), successCount ? "info" : "error");
+  panelDone("阿里 HTTPDNS", accountBlocks.join("\n\n"), successCount ? "info" : "error");
 })().catch((error) => {
   console.log(`[AliDNS Usage] ${error.message}`);
   panelDone("阿里 HTTPDNS 用量", `更新失败：${error.message}`, "error");
