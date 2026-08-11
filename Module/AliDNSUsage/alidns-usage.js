@@ -182,16 +182,24 @@ function compactNumber(value) {
 function usageProgress(used, quota) {
   const percentage = quota > 0 ? Math.min(Math.max(used / quota * 100, 0), 100) : 0;
   return {
-    percentage: `${percentage.toFixed(1)}%`,
+    percentage: percentageNumber(percentage),
     remaining: Math.max(quota - used, 0),
   };
 }
 
-function remainingNumber(value) {
+function percentageNumber(value) {
+  if (value >= 100) return value.toFixed(0);
+  if (value >= 10) return value.toFixed(1);
+  return value.toFixed(2);
+}
+
+function remainingWan(value) {
   const numberValue = number(value);
-  if (numberValue >= 100000000) return `${Number((numberValue / 100000000).toFixed(1))}亿`;
-  if (numberValue >= 10000) return `${Number((numberValue / 10000).toFixed(1))}万`;
-  return Math.round(numberValue).toLocaleString("zh-CN");
+  const wan = numberValue / 10000;
+  if (wan >= 1000) return wan.toFixed(0);
+  if (wan >= 100) return wan.toFixed(1);
+  if (wan >= 10) return wan.toFixed(2);
+  return wan.toFixed(3);
 }
 
 function trim(value) {
@@ -330,7 +338,7 @@ function base64(bytes) {
       const usage = result.value.usage;
       const progress = usageProgress(usage.billable, monthlyQuota);
       successCount += 1;
-      accountBlocks.push(`${displayName}  ${progress.percentage}｜余${remainingNumber(progress.remaining)}`);
+      accountBlocks.push(`${displayName}  ${progress.percentage}%｜余${remainingWan(progress.remaining)}万`);
     } else {
       accountBlocks.push([
         `${displayName}：查询失败`,
