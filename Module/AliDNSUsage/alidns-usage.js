@@ -182,17 +182,9 @@ function compactNumber(value) {
 function usageProgress(used, quota) {
   const percentage = quota > 0 ? Math.min(Math.max(used / quota * 100, 0), 100) : 0;
   return {
-    percentage: fullWidthPercentage(percentage),
+    percentage: `${percentage.toFixed(1)}%`,
     remaining: Math.max(quota - used, 0),
   };
-}
-
-function fullWidthPercentage(value) {
-  return `${value.toFixed(1).padStart(5, "　")}%`.replace(/[0-9.%]/g, (character) => {
-    if (character === ".") return "．";
-    if (character === "%") return "％";
-    return String.fromCharCode(character.charCodeAt(0) + 0xfee0);
-  });
 }
 
 function remainingNumber(value) {
@@ -338,7 +330,7 @@ function base64(bytes) {
       const usage = result.value.usage;
       const progress = usageProgress(usage.billable, monthlyQuota);
       successCount += 1;
-      accountBlocks.push(`${displayName}　${progress.percentage}｜余${remainingNumber(progress.remaining)}`);
+      accountBlocks.push(`${displayName}  ${progress.percentage}｜余${remainingNumber(progress.remaining)}`);
     } else {
       accountBlocks.push([
         `${displayName}：查询失败`,
