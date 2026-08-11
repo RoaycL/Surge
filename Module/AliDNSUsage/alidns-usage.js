@@ -181,7 +181,7 @@ function compactNumber(value) {
 
 function usageProgress(used, quota) {
   const percentage = quota > 0 ? Math.min(Math.max(used / quota * 100, 0), 100) : 0;
-  const width = 10;
+  const width = 5;
   const partialBlocks = ["", "▏", "▎", "▍", "▌", "▋", "▊", "▉"];
   const totalEighths = Math.round(percentage / 100 * width * 8);
   const filled = Math.floor(totalEighths / 8);
@@ -190,7 +190,7 @@ function usageProgress(used, quota) {
   const empty = Math.max(width - filled - (partialBlock ? 1 : 0), 0);
   return {
     bar: `${"█".repeat(filled)}${partialBlock}${"░".repeat(empty)}`,
-    percentage: `${percentage.toFixed(2)}%`,
+    percentage: `${percentage.toFixed(1)}%`,
     remaining: Math.max(quota - used, 0),
   };
 }
@@ -338,7 +338,7 @@ function base64(bytes) {
       const usage = result.value.usage;
       const progress = usageProgress(usage.billable, monthlyQuota);
       successCount += 1;
-      accountBlocks.push(`${displayName}\t${progress.bar}\t${progress.percentage}\t余${remainingNumber(progress.remaining)}`);
+      accountBlocks.push(`${displayName} ${progress.bar} ${progress.percentage} 余${remainingNumber(progress.remaining)}`);
     } else {
       accountBlocks.push([
         `${displayName}：查询失败`,
