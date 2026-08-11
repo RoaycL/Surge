@@ -182,7 +182,7 @@ function compactNumber(value) {
 function usageProgress(used, quota) {
   const percentage = quota > 0 ? Math.min(Math.max(used / quota * 100, 0), 100) : 0;
   return {
-    percentage: `${percentage.toFixed(1)}%`.padStart(6, " "),
+    percentage: `${percentage.toFixed(1).padStart(4, "0")}%`,
     remaining: Math.max(quota - used, 0),
   };
 }
