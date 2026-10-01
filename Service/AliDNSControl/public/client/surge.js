@@ -187,7 +187,9 @@ async function dns(domain) {
   var cloud = (args.endpoint || "").split("/")[2];
   if (
     domain.indexOf(".") < 0 ||
-    /(^|\.)(local|lan|home\.arpa|in-addr\.arpa|ip6\.arpa)$/.test(domain) ||
+    /(^|\.)(local|lan|sgponte|home\.arpa|in-addr\.arpa|ip6\.arpa)$/.test(
+      domain,
+    ) ||
     /(^|\.)alidns\.com$/.test(domain) ||
     domain === cloud
   )

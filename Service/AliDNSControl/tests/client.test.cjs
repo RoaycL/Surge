@@ -60,6 +60,7 @@ test("private and bootstrap names use native DNS without cloud calls", async () 
   const c = context();
   for (const d of [
     "printer.local",
+    "appletv4k.sgponte",
     "nas.lan",
     "test.home.arpa",
     "dns.alidns.com",
