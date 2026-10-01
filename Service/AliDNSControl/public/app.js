@@ -138,8 +138,25 @@ $("#download").onclick = () =>
 $("#logout").onclick = () => {
   token = "";
   state = null;
+  $("#module-url").value = "";
+  $("#module-install").removeAttribute("href");
+  $("#module-output").hidden = true;
   $("#accounts").replaceChildren();
   $("#console").hidden = true;
   $("#login").hidden = false;
   notice("已退出");
 };
+
+$("#module-link").onclick = () =>
+  busy(async () => {
+    const links = await (await api("module-link")).json();
+    $("#module-url").value = links.url;
+    $("#module-install").href = links.installUrl;
+    $("#module-output").hidden = false;
+    try {
+      await navigator.clipboard.writeText(links.url);
+      notice("远程模块地址已复制，可在 Surge 中安装；请勿分享");
+    } catch {
+      notice("模块地址已生成，请复制下方地址");
+    }
+  });

@@ -163,3 +163,9 @@ footer {
     padding: 20px;
   }
 }
+
+#module-install {
+  display: inline-block;
+  color: #a9c9ff;
+  padding: 10px 0;
+}

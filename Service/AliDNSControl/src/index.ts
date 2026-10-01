@@ -1,3 +1,4 @@
+import { fragment, moduleText, moduleLinks } from "./client-config";
 import { DurableObject } from "cloudflare:workers";
 import {
   DEFAULTS,
@@ -126,6 +127,22 @@ export default {
       const u = new URL(request.url);
       const control = env.CONTROL.getByName("household");
       if (u.pathname === "/health") return json({ ok: true });
+      if (u.pathname === "/client/module.sgmodule") {
+        if (
+          request.method !== "GET" ||
+          !env.READ_TOKEN ||
+          !(await equal(u.searchParams.get("token") || "", env.READ_TOKEN))
+        )
+          return json({ error: "未授权" }, 401);
+        return new Response(moduleText(env.PUBLIC_ORIGIN, env.READ_TOKEN), {
+          headers: {
+            "Content-Type": "text/plain; charset=utf-8",
+            "Cache-Control": "private, no-store",
+            "Referrer-Policy": "no-referrer",
+            "X-Robots-Tag": "noindex, nofollow",
+          },
+        });
+      }
       if (u.pathname === "/client/selection") {
         if (
           request.method !== "GET" ||
@@ -163,8 +180,10 @@ export default {
           await control.refresh();
           return json(await control.status());
         }
+        if (u.pathname === "/api/module-link" && request.method === "GET")
+          return json(moduleLinks(env.PUBLIC_ORIGIN, env.READ_TOKEN));
         if (u.pathname === "/api/client-config" && request.method === "GET")
-          return new Response(fragment(u.origin, env.READ_TOKEN), {
+          return new Response(fragment(env.PUBLIC_ORIGIN, env.READ_TOKEN), {
             headers: {
               "Content-Type": "text/plain; charset=utf-8",
               "Cache-Control": "no-store",
@@ -194,6 +213,3 @@ export default {
     await env.CONTROL.getByName("household").refresh(true);
   },
 } satisfies ExportedHandler<Env>;
-export function fragment(origin: string, token: string) {
-  return `# 私密配置：包含设备读取令牌，请勿上传公开仓库。\n# 将各项合并到主配置的同名分区；加载后自动初始化；可点面板立即更新。\n[General]\nencrypted-dns-server = https://dns.alidns.com/dns-query\n\n[Host]\n* = script:alidns-cloud-dns\n\n[Script]\nalidns-cloud-dns = type=dns,script-path=${origin}/client/surge.js,argument="endpoint=${origin}/client/selection&token=${token}",timeout=10\nalidns-cloud-update = type=cron,cronexp="0 */10 * * * *",script-path=${origin}/client/surge.js,argument="endpoint=${origin}/client/selection&token=${token}",timeout=10,wake-system=1\nalidns-cloud-start = type=event,event-name=engine-started,script-path=${origin}/client/surge.js,argument="endpoint=${origin}/client/selection&token=${token}",timeout=10\nalidns-cloud-panel = type=generic,script-path=${origin}/client/surge.js,argument="endpoint=${origin}/client/selection&token=${token}",timeout=10\n\n[Panel]\nAliDNS 云端选择 = script-name=alidns-cloud-panel,update-interval=600\n`;
-}

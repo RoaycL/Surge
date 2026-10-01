@@ -79,6 +79,16 @@
             云端每十分钟查询，设备每十分钟读取。网络、休眠或系统调度可能延迟；结果超过二十分钟回退公共
             DNS。
           </p>
+          <button id="module-link" type="button">复制远程模块地址</button>
+          <div id="module-output" hidden>
+            <label
+              >私密远程模块地址<input id="module-url" type="text" readonly
+            /></label>
+            <p>
+              地址内含设备令牌，请勿分享或提交公开仓库。账号信息变更后无需重新安装模块。
+            </p>
+            <a id="module-install">在 Surge 中安装</a>
+          </div>
           <button id="download">下载 Surge 配置片段</button
           ><button class="secondary" id="logout">退出</button>
         </section>
