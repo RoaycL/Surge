@@ -3,8 +3,8 @@ const vm = require('node:vm');
 const assert = require('node:assert/strict');
 const crypto = require('node:crypto');
 const source = fs.readFileSync(__dirname + '/alidns-auto.js', 'utf8');
-const ids = ['159491','896541','159492','876521'];
-const names = ids.map(id => 'AliDNS DNS '+id);
+const ids = [1,2,3,4];
+const names = ids.map(slot => 'AliDNS DNS Slot '+slot);
 const isPublic = r => r.active.length === 0 && r.panel.content.includes('公共 DNS');
 async function run({usage=[0,0,0,0], enabled=[], argument, missing=false, postFail=false, dataBad=false, empty=false, noKeys=false, auto=false}={}) {
  const store = {}, posts=[];
@@ -60,5 +60,14 @@ async function run({usage=[0,0,0,0], enabled=[], argument, missing=false, postFa
  vm.runInContext('Date.now = () => 1790784060000',r.ctx);
  const range=vm.runInContext('monthRange()',r.ctx);
  check(range.startDate==='2026-10-01' && range.endDate==='2026-10-01');
+ const controller=fs.readFileSync(__dirname+'/AliDNS-Auto-Switch.sgmodule','utf8');
+ for (const slot of ids) {
+   const module=fs.readFileSync(__dirname+`/AliDNS-DNS-Slot${slot}.sgmodule`,'utf8');
+   check(module.includes(`#!name=AliDNS DNS Slot ${slot}`));
+   check(module.includes('#!arguments=dns:""'));
+   check(module.includes('encrypted-dns-server = {{{dns}}}'));
+   check(module.replace('{{{dns}}}', 'h3://test.example/dns-query').includes('encrypted-dns-server = h3://test.example/dns-query'));
+   check(controller.includes(`id${slot}:"",secret${slot}:""`));
+ }
  console.log(`${count} checks passed`);
 })().catch(e=>{console.error(e);process.exitCode=1});

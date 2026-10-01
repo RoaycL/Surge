@@ -1,0 +1,7 @@
+#!name=AliDNS DNS Slot 2
+#!desc=账号2的DNS候选，由调度模块自动管理。先填写dns参数，账号序号须与调度模块id2/secret2一致。
+#!arguments=dns:""
+#!arguments-desc=dns填写此账号的完整加密DNS地址，例如 h3://your-endpoint.example/dns-query。默认留空，填写后才可启用。地址保存在模块实例参数中，请勿导出上传带参数的模块。
+
+[General]
+encrypted-dns-server = {{{dns}}}

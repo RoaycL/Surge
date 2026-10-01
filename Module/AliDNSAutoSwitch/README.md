@@ -16,23 +16,31 @@ encrypted-dns-server = https://dns.alidns.com/dns-query
 分别添加下面五个模块，四个 DNS 候选先保持关闭：
 
 - [AliDNS-Auto-Switch.sgmodule](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AliDNSAutoSwitch/AliDNS-Auto-Switch.sgmodule)
-- [AliDNS-DNS-159491.sgmodule](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AliDNSAutoSwitch/AliDNS-DNS-159491.sgmodule)
-- [AliDNS-DNS-896541.sgmodule](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AliDNSAutoSwitch/AliDNS-DNS-896541.sgmodule)
-- [AliDNS-DNS-159492.sgmodule](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AliDNSAutoSwitch/AliDNS-DNS-159492.sgmodule)
-- [AliDNS-DNS-876521.sgmodule](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AliDNSAutoSwitch/AliDNS-DNS-876521.sgmodule)
+- [AliDNS-DNS-Slot1.sgmodule](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AliDNSAutoSwitch/AliDNS-DNS-Slot1.sgmodule)
+- [AliDNS-DNS-Slot2.sgmodule](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AliDNSAutoSwitch/AliDNS-DNS-Slot2.sgmodule)
+- [AliDNS-DNS-Slot3.sgmodule](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AliDNSAutoSwitch/AliDNS-DNS-Slot3.sgmodule)
+- [AliDNS-DNS-Slot4.sgmodule](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AliDNSAutoSwitch/AliDNS-DNS-Slot4.sgmodule)
 
-调度模块使用远程脚本，无需手动复制 JavaScript 文件。启用 `AliDNS Auto Switch` 前填写四组 RAM 只读凭据：
+调度模块使用远程脚本，无需手动复制 JavaScript 文件。四个候选模块分别提供 `dns` 参数，默认空白。先在本机填写每个账号的完整DNS地址，例如 `h3://your-endpoint.example/dns-query`；请勿直接启用未填写地址的候选。
+
+启用 `AliDNS Auto Switch` 前填写四组 RAM 只读凭据，必须与候选模块账号一致：
 
 | 参数 | 对应地址 |
 |---|---|
-| id1 / secret1 | 159491-roayc.alidns.com |
-| id2 / secret2 | 896541-roayc.alidns.com |
-| id3 / secret3 | 159492-roayc.alidns.com |
-| id4 / secret4 | 876521-roayc.alidns.com |
+| id1 / secret1 | AliDNS DNS Slot 1 的 dns 参数 |
+| id2 / secret2 | AliDNS DNS Slot 2 的 dns 参数 |
+| id3 / secret3 | AliDNS DNS Slot 3 的 dns 参数 |
+| id4 / secret4 | AliDNS DNS Slot 4 的 dns 参数 |
 
-仅需 `pubdns:DescribePdnsRequestStatistic` 权限，不使用主账号高权限密钥，也不使用 DNS 客户端接入密钥。凭据通过 Surge 参数保存；脚本仅向阿里云发送签名请求。不要上传带凭据的配置或导出的模块实例。仓库中的凭据默认值全部为空。
+仅需 `pubdns:DescribePdnsRequestStatistic` 权限，不使用主账号高权限密钥，也不使用 DNS 客户端接入密钥。凭据通过 Surge 参数保存；脚本仅向阿里云发送签名请求。不要上传带凭据的配置或导出的模块实例。仓库中的凭据及DNS地址默认值全部为空。候选模块名称、文件名和脚本只使用Slot序号，不包含私人端点标识。参数可能随Surge配置导出或设备部署传输，因此不要公开带参数的实例。
 
 启用调度模块后点击面板立即检查，核对额度与阿里云控制台一致，并确认仅有一个账号候选启用。所有候选关闭代表回到主配置的公共 DNS；如果主配置仍保留账号 DNS，此时并不能避免使用账号额度。
+
+## 从固定地址版本迁移
+
+先关闭旧调度模块以及旧的四个账号候选，确认主配置是公共DNS；再移除旧候选，安装上述Slot版本并填写dns参数。更新调度模块和远程脚本，确认槽位与凭据一一对应后再启用。不要同时保留启用中的旧候选，否则它们可能覆盖公共DNS兜底。
+
+当前分支已移除硬编码地址，但旧版本Git历史与外部缓存可能仍含有这些地址；本次修改没有重写历史。
 
 ## 规则
 
@@ -48,7 +56,7 @@ encrypted-dns-server = https://dns.alidns.com/dns-query
 
 ## Apple TV
 
-tvOS无法读取iCloud Drive，需要在iPhone Surge的“更多 → Surge tvOS”部署配置。部署时包含公共DNS主配置、五个模块和填写好的参数。脚本使用远程HTTPS地址，并指定JSC引擎（tvOS支持的引擎）。
+tvOS无法读取iCloud Drive，需要在iPhone Surge的“更多 → Surge tvOS”部署配置。部署时包含公共DNS主配置、五个模块和填写好的参数（四个dns地址及四组只读凭据）。脚本使用远程HTTPS地址，并指定JSC引擎（tvOS支持的引擎）。
 
 配置部署与日常切换是两件事：部署到位并验证之后，Apple TV本机运行定时脚本，无需每次选择账号都重新部署。脚本文件通过远程资源下载；修改模块声明或凭据后需要重新部署。
 

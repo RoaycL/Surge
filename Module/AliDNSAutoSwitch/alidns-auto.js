@@ -7,8 +7,7 @@ const ACTION = "DescribePdnsRequestStatistic";
 const args = parseArgument(String($argument || ""));
 const monthlyQuota = positiveNumber(args.quota, 10000000);
 const accounts = parseAccounts(args);
-const DNS_IDS = ["159491", "896541", "159492", "876521"];
-const MODULES = DNS_IDS.map(id => `AliDNS DNS ${id}`);
+const MODULES = [1, 2, 3, 4].map(slot => `AliDNS DNS Slot ${slot}`);
 const FALLBACK = "AliDNS DNS Public";
 const ALL_MODULES = MODULES;
 const STATE_KEY = "alidns-auto-status-v1";
@@ -27,7 +26,7 @@ function parseArgument(raw) {
 function parseAccounts(values) {
   return [1, 2, 3, 4].map(slot => ({
     slot,
-    name: ["159491", "896541", "159492", "876521"][slot - 1],
+    name: `账号${slot}`,
     accessKeyId: String(values[`id${slot}`] || "").trim(),
     accessKeySecret: String(values[`secret${slot}`] || "").trim(),
   }));
