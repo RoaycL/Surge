@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>AliDNS · 额度管家</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script defer src="/app.js"></script>
+  </head>
+  <body>
+    <main>
+      <header>
+        <span class="badge">DNS DIRECT · CLOUD CONTROL</span>
+        <h1>把额度交给云端。</h1>
+        <p>四个账号，一份配置。设备直接连接阿里 DNS，云端只负责选择。</p>
+      </header>
+      <section id="login">
+        <h2>进入管理台</h2>
+        <p>管理密钥仅在当前页面内存中使用，关闭页面后需要重新登录。</p>
+        <form id="login-form">
+          <input
+            id="token"
+            type="password"
+            autocomplete="off"
+            placeholder="管理密钥"
+            required
+          /><button>登录</button>
+        </form>
+      </section>
+      <div id="console" hidden>
+        <section class="summary">
+          <div>
+            <small>当前选择</small>
+            <h2 id="chosen">—</h2>
+            <p id="checked">—</p>
+          </div>
+          <button id="refresh">检查额度</button>
+        </section>
+        <form id="settings">
+          <div id="accounts" class="grid"></div>
+          <section>
+            <h2>切换规则</h2>
+            <div class="rules">
+              <label
+                >每账号月度免费额度<input
+                  name="quota"
+                  type="number"
+                  min="1"
+                  required /></label
+              ><label
+                >预留安全额度<input
+                  name="reserve"
+                  type="number"
+                  min="0"
+                  required /></label
+              ><label
+                >切换差额<input
+                  name="hysteresis"
+                  type="number"
+                  min="0"
+                  required
+              /></label>
+            </div>
+            <p>
+              按 HTTP 等效次数统计，HTTPS 按五倍计入。成功返回空数组按 0
+              使用；同月使用量只增不减。预留额度用于覆盖统计延迟，不能保证绝对不产生费用。
+            </p>
+            <button id="save">保存并检查</button>
+          </section>
+        </form>
+        <section>
+          <h2>连接你的设备</h2>
+          <p>
+            下载私密配置片段，合并到 iPhone
+            主配置的同名分区。其他设备继承主配置即可，启动时自动读取选择结果。Apple
+            TV 首次仍需导入配置。移除旧的五模块，避免重复选择。
+          </p>
+          <p>
+            云端每十分钟查询，设备每十分钟读取。网络、休眠或系统调度可能延迟；结果超过二十分钟回退公共
+            DNS。
+          </p>
+          <button id="download">下载 Surge 配置片段</button
+          ><button class="secondary" id="logout">退出</button>
+        </section>
+      </div>
+      <p id="notice" role="status"></p>
+      <footer>凭据加密保存 · 管理密钥与设备令牌分离 · HTTPS DoH</footer>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "alidns-control",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*", "/client/*"],
+  },
+  "durable_objects": {
+    "bindings": [{ "name": "CONTROL", "class_name": "QuotaControl" }],
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["QuotaControl"] }],
+  "triggers": { "crons": ["*/10 * * * *"] },
+  "observability": { "enabled": true, "head_sampling_rate": 0.1 },
+}

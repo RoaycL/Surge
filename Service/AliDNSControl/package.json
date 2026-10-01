@@ -1,0 +1,25 @@
+{
+  "name": "alidns-control",
+  "version": "1.0.0",
+  "description": "Central AliDNS quota selection with direct Surge HTTPS DoH",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "node --experimental-strip-types --test tests/*.test.ts tests/*.test.cjs",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "types": "wrangler types"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260930.2",
+    "@types/node": "^26.6.3",
+    "prettier": "^3.9.9",
+    "typescript": "^7.0.2",
+    "wrangler": "^4.145.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true,
+    "workerd@1.20260930.2": true
+  },
+  "private": true
+}
