@@ -21,7 +21,7 @@ Surge 官方说明模块启用状态不跨设备同步，所以各设备需要�
 
 ## 规则与边界
 
-- 云端每十分钟查询一次；设备每十分钟读取，结果最长有效二十分钟。系统休眠、网络不可达或 iOS/tvOS 调度可能延迟执行，不能保证精确十分钟。
+- 云端北京时间每天 06:00、14:00、22:00 查询；设备每十五分钟读取（每小时 05、20、35、50 分），不触发阿里额度查询。结果最长有效八小时三十分钟，且在北京时间月末午夜失效。系统休眠、网络不可达或 iOS/tvOS 调度可能延迟执行。月初 00:00 到 06:00 尚无当月统计时使用公共 DNS。旧设备脚本仍获兼容的二十分钟缓存，更新模块后采用新策略。
 - 月度免费额度默认每账号 10,000,000 HTTP 等效次数，HTTPS 按五倍计算。必须按你的产品实际计费规则核对；预留默认 1,000,000，切换差额默认 500,000。
 - 成功响应中的空统计数组按零计入；缺少字段、错误响应、请求失败均排除账号。同一账号同月保存使用量的最高值，北京时间跨月重置。
 - 所有账号不足预留、统计失效或接口无法初始化时，使用公共 `https://dns.alidns.com/dns-query`。
@@ -56,7 +56,7 @@ npx wrangler deploy --secrets-file /absolute/private/path/secrets.json
 }
 ```
 
-同一 Worker 服务管理页面、脚本和接口，无需额外 Pages 项目。一个 Durable Object 管理本家庭的四个账号；Cron Triggers 为 `*/10 * * * *`。不要丢失 CONFIG_KEY，否则不能读取已加密凭据。部署需要现有账号具有 Workers / Assets / Durable Objects / Secrets 权限。
+同一 Worker 服务管理页面、脚本和接口，无需额外 Pages 项目。一个 Durable Object 管理本家庭的四个账号；Cron Triggers 为 `0 6,14,22 * * *`。不要丢失 CONFIG_KEY，否则不能读取已加密凭据。部署需要现有账号具有 Workers / Assets / Durable Objects / Secrets 权限。
 
 ### 验证
 
@@ -67,3 +67,5 @@ npx wrangler deploy --secrets-file /absolute/private/path/secrets.json
 已完成 Mac Surge 实机脚本测试：管理选择读取成功，直接 AliDNS A/AAAA 解析成功。iPhone/tvOS 尚未实机验证；四组真实 RAM 凭据录入后的用量查询仍需验证。
 
 服务自定义域名：`https://alidns.roayc.com`。通过 Wrangler Custom Domain 绑定，自动管理 DNS 和 TLS；原 workers.dev 地址继续兼容已部署脚本，但新下载配置统一使用自定义域名。
+
+自动额度查询每八小时一次，预留额度应覆盖这个时间段的峰值用量；查询变稀疏不能保证绝不超出免费额度。保存设置或手动点击“检查额度”仍会立即查询，不受每日三次计划限制。更新已安装的远程模块以获得新设备 cron 和脚本版本。

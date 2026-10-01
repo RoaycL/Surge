@@ -2,6 +2,7 @@ import { fragment, moduleText, moduleLinks } from "./client-config";
 import { DurableObject } from "cloudflare:workers";
 import {
   DEFAULTS,
+  CLOUD_CRON,
   PublicError,
   boundedJSON,
   choose,
@@ -153,7 +154,15 @@ export default {
           ))
         )
           return json({ error: "未授权" }, 401);
-        return json(await control.selected());
+        const result = await control.selected();
+        // Existing installed scripts accept at most twenty minutes. Keep them
+        // working until the module downloads the new script version.
+        if (request.headers.get("X-AliDNS-Client") !== "2")
+          result.validUntil = Math.min(
+            result.validUntil,
+            result.serverNow + 1_200_000,
+          );
+        return json(result);
       }
       if (u.pathname.startsWith("/api/")) {
         if (!env.ADMIN_TOKEN || !env.CONFIG_KEY)
@@ -210,6 +219,7 @@ export default {
     }
   },
   async scheduled(_event: ScheduledController, env: Env) {
+    if (_event.cron !== CLOUD_CRON) return;
     await env.CONTROL.getByName("household").refresh(true);
   },
 } satisfies ExportedHandler<Env>;

@@ -18,3 +18,16 @@ test("remote module URL is encoded and Surge install URL round trips", () => {
   assert.equal(new URL(links.installUrl).searchParams.get("url"), links.url);
   assert(fragment("https://alidns.roayc.com", "reader").includes("[Host]"));
 });
+
+test("device reads at 05/20/35/50 and cloud UTC schedule covers Beijing 06/14/22", async () => {
+  const { CLOUD_CRON } = await import("../src/core.ts");
+  const config = moduleText("https://alidns.roayc.com", "reader");
+  assert(config.includes('cronexp="0 5,20,35,50 * * * *"'));
+  assert(config.includes("update-interval=900"));
+  assert(config.includes("/client/surge.js?v=20261002"));
+  assert.equal(CLOUD_CRON, "0 6,14,22 * * *");
+  assert.deepEqual(
+    [6, 14, 22].map((x) => (x + 8) % 24).sort((a, b) => a - b),
+    [6, 14, 22],
+  );
+});

@@ -148,3 +148,20 @@ test("stale and month rollover fall back to public DNS", () => {
   assert.equal(selection(s, state, now + MAX_AGE).slot, null);
   assert.equal(selection(s, { ...state, month: "2026-09" }, now).slot, null);
 });
+
+test("eight-hour query gap is covered; cache cannot cross Beijing month boundary", () => {
+  const settings = { ...s, accounts: [a, a, a, a] };
+  const at = Date.parse("2026-10-02T06:00:00+08:00");
+  const state = {
+    revision: 1,
+    checkedAt: at,
+    month: "2026-10",
+    selected: 0,
+    usage: [u(0), u(5), u(9), u(12)],
+  };
+  assert.equal(selection(settings, state, at + 8 * 3600000).slot, 1);
+  assert.equal(selection(settings, state, at + 8.5 * 3600000).slot, null);
+  const end = Date.parse("2026-10-31T22:00:00+08:00");
+  const p = selection(settings, { ...state, checkedAt: end }, end);
+  assert.equal(p.validUntil, Date.parse("2026-11-01T00:00:00+08:00"));
+});

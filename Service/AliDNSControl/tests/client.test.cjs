@@ -143,3 +143,39 @@ test("negative DNS response never returns injected address", () => {
   b[3] = 131;
   assert.equal(c.parse(b, "example.com", 1, 123).addresses.length, 0);
 });
+
+test("new client accepts eight-hour selection and identifies protocol version", async () => {
+  const c = context();
+  let saved, headers;
+  c.$persistentStore.write = (s) => {
+    saved = JSON.parse(s);
+    return true;
+  };
+  c.$httpClient.get = (o, cb) => {
+    headers = o.headers;
+    cb(
+      null,
+      { status: 200 },
+      JSON.stringify({
+        url: "https://example.alidns.com/dns-query",
+        name: "test",
+        serverNow: 100,
+        validUntil: 100 + 8 * 3600000,
+      }),
+    );
+  };
+  await c.update();
+  assert.equal(headers["X-AliDNS-Client"], "2");
+  assert(saved.expires > Date.now() + 7.9 * 3600000);
+  c.$httpClient.get = (o, cb) =>
+    cb(
+      null,
+      { status: 200 },
+      JSON.stringify({
+        url: "https://example.alidns.com/dns-query",
+        serverNow: 0,
+        validUntil: 9 * 3600000,
+      }),
+    );
+  await assert.rejects(c.update());
+});

@@ -1,6 +1,8 @@
 export const FALLBACK = "https://dns.alidns.com/dns-query";
-export const INTERVAL = 600_000;
-export const MAX_AGE = 1_200_000;
+export const INTERVAL = 900_000;
+// UTC 06/14/22 are the same set as Beijing 06/14/22, rotated by eight hours.
+export const CLOUD_CRON = "0 6,14,22 * * *";
+export const MAX_AGE = 30_600_000; // eight hours plus a thirty-minute grace window
 export interface Account {
   name: string;
   dns: string;
@@ -369,11 +371,20 @@ export function selection(
     name: i < 0 ? "公共 DNS" : settings.accounts[i].name,
     checkedAt: state?.checkedAt || 0,
     serverNow: now,
-    validUntil: valid ? state!.checkedAt + MAX_AGE : now + INTERVAL,
+    validUntil: valid
+      ? Math.min(state!.checkedAt + MAX_AGE, nextMonthAt(now))
+      : now + INTERVAL,
     reason: !valid
       ? "选择结果尚未生成或已过期"
       : i < 0
         ? "没有安全可用账号"
         : "按剩余额度选择",
   };
+}
+
+export function nextMonthAt(now: number) {
+  const china = new Date(now + 8 * 3600_000);
+  return (
+    Date.UTC(china.getUTCFullYear(), china.getUTCMonth() + 1, 1) - 8 * 3600_000
+  );
 }

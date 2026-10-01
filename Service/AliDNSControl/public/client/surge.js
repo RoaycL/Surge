@@ -39,13 +39,16 @@ async function update() {
   var p = JSON.parse(
     await http({
       url: args.endpoint,
-      headers: { Authorization: "Bearer " + args.token },
+      headers: {
+        Authorization: "Bearer " + args.token,
+        "X-AliDNS-Client": "2",
+      },
       timeout: 6,
       "auto-redirect": false,
     }),
   );
   var ttl = p.validUntil - p.serverNow;
-  if (!safeURL(p.url) || !Number.isFinite(ttl) || ttl <= 0 || ttl > 1200000)
+  if (!safeURL(p.url) || !Number.isFinite(ttl) || ttl <= 0 || ttl > 30600000)
     throw new Error("invalid selection");
   var v = {
     url: p.url,
@@ -253,7 +256,7 @@ async function dns(domain) {
     content:
       (v && v.expires > Date.now() ? v.name : "公共 DNS") +
       "\n" +
-      (message || "每十分钟更新 · DNS 直连阿里"),
+      (message || "云端每日 06/14/22 点 · 设备每十五分钟读取"),
     icon: "network",
     "icon-color": "#5b87e8",
   });
