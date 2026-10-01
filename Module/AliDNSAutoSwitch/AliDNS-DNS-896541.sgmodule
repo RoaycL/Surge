@@ -1,0 +1,5 @@
+#!name=AliDNS DNS 896541
+#!desc=由 AliDNS Auto Switch 自动管理，请勿同时手动启用多个候选。
+
+[General]
+encrypted-dns-server = h3://896541-roayc.alidns.com/dns-query

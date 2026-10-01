@@ -1,0 +1,11 @@
+#!name=AliDNS Auto Switch
+#!desc=每10分钟查询四个账号，保留安全额度，失败时使用公共DNS。需要安装四个DNS候选模块，主配置须设为公共DNS。
+#!arguments=id1:"",secret1:"",id2:"",secret2:"",id3:"",secret3:"",id4:"",secret4:"",quota:10000000,reserve:1000000,hysteresis:500000
+#!arguments-desc=id1/secret1 对应159491；id2/secret2 对应896541；id3/secret3 对应159492；id4/secret4 对应876521。仅填写 RAM 只读凭据，权限 pubdns:DescribePdnsRequestStatistic。quota为每月HTTP等价额度；reserve为预留额度；hysteresis为切换差值。请勿把带凭据的模块导出或上传。面板点击立即检查，自动刷新只显示状态。模块启停状态每台设备独立。
+
+[Panel]
+AliDNS Auto = script-name=alidns-auto-panel,update-interval=600
+
+[Script]
+alidns-auto-panel = type=generic,engine=jsc,script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AliDNSAutoSwitch/alidns-auto.js,timeout=60,argument="id1={{{id1}}}&secret1={{{secret1}}}&id2={{{id2}}}&secret2={{{secret2}}}&id3={{{id3}}}&secret3={{{secret3}}}&id4={{{id4}}}&secret4={{{secret4}}}&quota={{{quota}}}&reserve={{{reserve}}}&hysteresis={{{hysteresis}}}"
+alidns-auto-cron = type=cron,engine=jsc,cronexp="*/10 * * * *",wake-system=1,script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AliDNSAutoSwitch/alidns-auto.js,timeout=60,argument="id1={{{id1}}}&secret1={{{secret1}}}&id2={{{id2}}}&secret2={{{secret2}}}&id3={{{id3}}}&secret3={{{secret3}}}&id4={{{id4}}}&secret4={{{secret4}}}&quota={{{quota}}}&reserve={{{reserve}}}&hysteresis={{{hysteresis}}}"
