@@ -138,7 +138,8 @@ function extractError(data) {
 }
 
 function sumStatistics(statistics) {
-  if (!Array.isArray(statistics) || !statistics.length) throw new Error("统计数据为空，保守停用该账号");
+  if (!Array.isArray(statistics)) throw new Error("统计数据格式无效");
+  // A successful response containing Data: [] means no reported usage in this range.
   const count = value => {
     if (value === null || value === "" || value === undefined) throw new Error("统计字段缺失");
     const n = Number(value);
@@ -167,6 +168,18 @@ async function queryAccount(account, range) {
   if (!response.RequestId) throw new Error("阿里云响应缺少RequestId");
   const usage = sumStatistics(response.Data);
   usage.billable = usage.http + usage.https * 5;
+  // Keep the highest observed usage within the billing month. An empty or delayed
+  // response must not erase usage already observed for the same AccessKey identity.
+  const fingerprint = sha1Bytes(utf8Bytes(account.accessKeyId))
+    .map(byte => byte.toString(16).padStart(2, "0")).join("");
+  const key = `alidns-auto-usage-v1-${fingerprint}`;
+  const month = range.startDate.slice(0, 7);
+  let cached;
+  try { cached = JSON.parse($persistentStore.read(key) || "null"); } catch (_) { cached = null; }
+  if (cached && cached.month === month && Number.isSafeInteger(cached.used) && cached.used >= 0) {
+    usage.billable = Math.max(usage.billable, cached.used);
+  }
+  $persistentStore.write(JSON.stringify({month, used: usage.billable}), key);
   return { account, usage };
 }
 

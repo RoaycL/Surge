@@ -6,11 +6,11 @@ const source = fs.readFileSync(__dirname + '/alidns-auto.js', 'utf8');
 const ids = [1,2,3,4];
 const names = ids.map(slot => 'AliDNS DNS Slot '+slot);
 const isPublic = r => r.active.length === 0 && r.panel.content.includes('公共 DNS');
-async function run({usage=[0,0,0,0], enabled=[], argument, missing=false, postFail=false, dataBad=false, empty=false, noKeys=false, auto=false, apiCode, httpStatus=200}={}) {
- const store = {}, posts=[];
+async function run({usage=[0,0,0,0], enabled=[], argument, missing=false, postFail=false, dataBad=false, empty=false, noKeys=false, auto=false, apiCode, httpStatus=200, initialStore={}, missingData=false}={}) {
+ const store = {...initialStore}, posts=[];
  let active = enabled.slice(), done;
  const completion = new Promise(resolve => done=resolve);
- const ctx = vm.createContext({console, Date, $argument: argument ?? (noKeys ? '' : ids.map((_,i)=>`id${i+1}=test${i}&secret${i+1}=dummy`).join('&')),
+ const ctx = vm.createContext({console, Date:class extends Date {}, $argument: argument ?? (noKeys ? '' : ids.map((_,i)=>`id${i+1}=test${i}&secret${i+1}=dummy`).join('&')),
   $script:{type:'generic'}, $trigger:auto?'auto-interval':'button',
   setTimeout:()=>0,
   $persistentStore:{read:k=>store[k]||null,write:(v,k)=>(store[k]=v,true)},
@@ -19,7 +19,7 @@ async function run({usage=[0,0,0,0], enabled=[], argument, missing=false, postFa
     const slot=Number(new URL(opts.url).searchParams.get('AccessKeyId').slice(-1));
     if (usage[slot]===null) return cb('network error containing private URL and Secret',null,null);
     if (apiCode) return cb(null,{status:httpStatus},JSON.stringify({Code:apiCode,Message:'DO_NOT_SHOW_SECRET',RequestId:'mock'}));
-    cb(null,{status:200},JSON.stringify({RequestId:'mock',Data:empty?[]:[dataBad?{}:{HttpCount:0,HttpsCount:usage[slot],DohTotalCount:usage[slot]}]}));
+    cb(null,{status:200},JSON.stringify({RequestId:'mock',Data:missingData?undefined:empty?[]:[dataBad?{}:{HttpCount:0,HttpsCount:usage[slot],DohTotalCount:usage[slot]}]}));
   }},
   $httpAPI:(method,path,body,cb)=>{
     if(method==='GET') return cb({available:missing?names.slice(1):names,enabled:active});
@@ -50,7 +50,7 @@ async function run({usage=[0,0,0,0], enabled=[], argument, missing=false, postFa
  r=await run({missing:true});check(r.posts.length===0 && r.panel.content.includes('请先安装'));
  r=await run({postFail:true,enabled:[names[0]],usage:[1000000,0,500000,700000]});check(r.panel.content.includes('未核验'));
  r=await run({dataBad:true});check(isPublic(r));
- r=await run({empty:true});check(isPublic(r));
+ r=await run({empty:true});check(r.active[0]===names[0]);
  r=await run({enabled:[names[0],names[1]]});check(r.active.length===1);
  r=await run({auto:true});check(r.posts.length===0);
  r=await run({argument:'reserve=10000000'});check(r.panel.content.includes('预留额度必须'));
@@ -71,7 +71,15 @@ async function run({usage=[0,0,0,0], enabled=[], argument, missing=false, postFa
  r=await run({apiCode:'SignatureDoesNotMatch'});check(r.panel.content.includes('签名不匹配'));
  r=await run({usage:[null,null,null,null]});
  check(r.panel.content.includes('网络请求失败') && !r.panel.content.includes('private URL'));
- r=await run({empty:true});check(r.panel.content.includes('统计数据为空'));
+ r=await run({empty:true});check(r.panel.content.includes('余1000万') && !r.panel.content.includes('已排除'));
+ const cachePrefix='alidns-auto-usage-v1-';
+ const cacheKey=cachePrefix+crypto.createHash('sha1').update('test0').digest('hex');
+ const billingMonth=new Date(Date.now()+8*3600000).toISOString().slice(0,7);
+ r=await run({empty:true,initialStore:{[cacheKey]:JSON.stringify({month:billingMonth,used:9500000})}});
+ check(r.active[0]===names[1] && r.panel.content.includes('账号1：余50.00万'));
+ r=await run({empty:true,initialStore:{[cacheKey]:JSON.stringify({month:'2000-01',used:9500000})}});
+ check(r.active[0]===names[0]);
+ r=await run({missingData:true});check(isPublic(r) && r.panel.content.includes('统计数据格式无效'));
  r=await run({dataBad:true});check(r.panel.content.includes('统计字段缺失'));
  const controller=fs.readFileSync(__dirname+'/AliDNS-Auto-Switch.sgmodule','utf8');
  for (const slot of ids) {
