@@ -6,7 +6,7 @@ const source = fs.readFileSync(__dirname + '/alidns-auto.js', 'utf8');
 const ids = [1,2,3,4];
 const names = ids.map(slot => 'AliDNS DNS Slot '+slot);
 const isPublic = r => r.active.length === 0 && r.panel.content.includes('公共 DNS');
-async function run({usage=[0,0,0,0], enabled=[], argument, missing=false, postFail=false, dataBad=false, empty=false, noKeys=false, auto=false}={}) {
+async function run({usage=[0,0,0,0], enabled=[], argument, missing=false, postFail=false, dataBad=false, empty=false, noKeys=false, auto=false, apiCode, httpStatus=200}={}) {
  const store = {}, posts=[];
  let active = enabled.slice(), done;
  const completion = new Promise(resolve => done=resolve);
@@ -17,7 +17,8 @@ async function run({usage=[0,0,0,0], enabled=[], argument, missing=false, postFa
   $done:done,
   $httpClient:{get:(opts,cb)=>{
     const slot=Number(new URL(opts.url).searchParams.get('AccessKeyId').slice(-1));
-    if (usage[slot]===null) return cb('network error',null,null);
+    if (usage[slot]===null) return cb('network error containing private URL and Secret',null,null);
+    if (apiCode) return cb(null,{status:httpStatus},JSON.stringify({Code:apiCode,Message:'DO_NOT_SHOW_SECRET',RequestId:'mock'}));
     cb(null,{status:200},JSON.stringify({RequestId:'mock',Data:empty?[]:[dataBad?{}:{HttpCount:0,HttpsCount:usage[slot],DohTotalCount:usage[slot]}]}));
   }},
   $httpAPI:(method,path,body,cb)=>{
@@ -60,6 +61,18 @@ async function run({usage=[0,0,0,0], enabled=[], argument, missing=false, postFa
  vm.runInContext('Date.now = () => 1790784060000',r.ctx);
  const range=vm.runInContext('monthRange()',r.ctx);
  check(range.startDate==='2026-10-01' && range.endDate==='2026-10-01');
+ r=await run({apiCode:'SignatureDoesNotMatch',httpStatus:403});
+ check(r.panel.content.includes('签名不匹配') && !r.panel.content.includes('DO_NOT_SHOW_SECRET'));
+ check(isPublic(r));
+ r=await run({apiCode:'Forbidden.RAM',httpStatus:403});check(r.panel.content.includes('RAM权限不足'));
+ r=await run({apiCode:'InvalidAccessKeyId.NotFound',httpStatus:404});check(r.panel.content.includes('AccessKey ID不存在'));
+ r=await run({apiCode:'UnrecognizedCodeContainsSecret',httpStatus:400});
+ check(r.panel.content.includes('未知错误类型') && !r.panel.content.includes('UnrecognizedCodeContainsSecret'));
+ r=await run({apiCode:'SignatureDoesNotMatch'});check(r.panel.content.includes('签名不匹配'));
+ r=await run({usage:[null,null,null,null]});
+ check(r.panel.content.includes('网络请求失败') && !r.panel.content.includes('private URL'));
+ r=await run({empty:true});check(r.panel.content.includes('统计数据为空'));
+ r=await run({dataBad:true});check(r.panel.content.includes('统计字段缺失'));
  const controller=fs.readFileSync(__dirname+'/AliDNS-Auto-Switch.sgmodule','utf8');
  for (const slot of ids) {
    const module=fs.readFileSync(__dirname+`/AliDNS-DNS-Slot${slot}.sgmodule`,'utf8');

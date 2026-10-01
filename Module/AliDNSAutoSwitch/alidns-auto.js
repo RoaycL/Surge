@@ -98,7 +98,7 @@ function signedUrl(account, startDate, endDate) {
 function httpGet(url) {
   return new Promise((resolve, reject) => {
     $httpClient.get({ url, timeout: 15 }, (error, response, data) => {
-      if (error) return reject(new Error(String(error)));
+      if (error) return reject(new Error("网络请求失败（检查连通性或超时）"));
       const status = Number(response && response.status);
       if (status < 200 || status >= 300) {
         return reject(new Error(`HTTP ${status || "未知"}: ${extractError(data)}`));
@@ -115,9 +115,25 @@ function httpGet(url) {
 function extractError(data) {
   try {
     const parsed = JSON.parse(String(data || "{}"));
-    return parsed.Message || parsed.Code || "请求失败";
+    const known = {
+      "InvalidAccessKeyId.NotFound": "AccessKey ID不存在或已停用",
+      "InvalidAccessKeyId": "AccessKey ID无效",
+      "SignatureDoesNotMatch": "签名不匹配（检查Secret是否正确）",
+      "IncompleteSignature": "签名参数不完整",
+      "Forbidden.RAM": "RAM权限不足",
+      "Forbidden": "访问被拒绝（检查RAM权限）",
+      "Unauthorized": "未获授权",
+      "Forbidden.UserNotFound": "账号未开通或无法访问公共DNS",
+      "InvalidTimeStamp.Expired": "请求时间过期（检查设备时间）",
+      "InvalidTimestamp.Expired": "请求时间过期（检查设备时间）",
+      "Throttling": "阿里云接口限流",
+      "Throttling.User": "阿里云账号接口限流",
+      "ServiceUnavailable": "阿里云接口暂不可用",
+    };
+    // Only display fixed text. Upstream Message/URL can contain credentials.
+    return known[parsed.Code] || "阿里云拒绝请求（未知错误类型）";
   } catch (_) {
-    return String(data || "请求失败").slice(0, 100);
+    return "阿里云返回非JSON错误响应";
   }
 }
 
@@ -147,7 +163,8 @@ function number(value) {
 async function queryAccount(account, range) {
   if (!account.accessKeyId || !account.accessKeySecret) throw new Error("未填写凭据");
   const response = await httpGet(signedUrl(account, range.startDate, range.endDate));
-  if (response.Code || !response.RequestId) throw new Error("阿里云返回异常响应");
+  if (response.Code) throw new Error(extractError(JSON.stringify(response)));
+  if (!response.RequestId) throw new Error("阿里云响应缺少RequestId");
   const usage = sumStatistics(response.Data);
   usage.billable = usage.http + usage.https * 5;
   return { account, usage };
@@ -388,10 +405,14 @@ function render(state) {
         const { usage } = await queryAccount(account, range);
         return { slot: account.slot, name: account.name, ok: true,
           used: usage.billable, remaining: Math.max(monthlyQuota - usage.billable, 0) };
-      } catch (_) {
-        // Do not log URLs, AccessKey IDs, upstream response bodies or secrets.
+      } catch (error) {
+        // Errors here originate from fixed local messages, never upstream details.
+        const reason = String(error && error.message || "查询处理异常");
+        const safe = /^(HTTP \d{3}: |网络请求失败|阿里云|统计|未填写凭据|签名|AccessKey|RAM|访问被拒绝|未获授权|账号未开通|请求时间)/.test(reason)
+          ? reason.slice(0, 100) : "查询处理异常";
+        console.log(`[AliDNS Auto] 账号${account.slot}：${safe}`);
         return { slot: account.slot, name: account.name, ok: false,
-          error: account.accessKeyId && account.accessKeySecret ? "查询失败，已排除" : "未填写凭据" };
+          error: `${safe}，已排除` };
       }
     }));
     const selected = chooseAccount(results, current.length === 1 ? current[0] : null,
