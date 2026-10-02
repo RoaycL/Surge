@@ -54,6 +54,29 @@ async function update() {
     url: p.url,
     name: String(p.name || "DNS").slice(0, 40),
     expires: Date.now() + ttl,
+    syncedAt: Date.now(),
+    checkedAt: Number(p.checkedAt) || 0,
+    statisticsFresh: p.statisticsFresh === true,
+    quota: Number(p.quota) || 0,
+    reserve: Number(p.reserve) || 0,
+    slot: p.slot,
+    accounts: Array.isArray(p.accounts)
+      ? p.accounts.slice(0, 4).map(function (a) {
+          return {
+            name: String(a.name || "账号")
+              .replace(/[\r\n]/g, " ")
+              .slice(0, 40),
+            configured: a.configured === true,
+            remaining:
+              typeof a.remaining === "number" && Number.isFinite(a.remaining)
+                ? a.remaining
+                : null,
+            error: String(a.error || "")
+              .replace(/[\r\n]/g, " ")
+              .slice(0, 40),
+          };
+        })
+      : [],
   };
   $persistentStore.write(JSON.stringify(v), KEY);
   return v;
@@ -230,6 +253,71 @@ async function dns(domain) {
       }
     : {};
 }
+function amount(n) {
+  return Math.abs(n) >= 10000 ? (n / 10000).toFixed(2) + " 万" : String(n);
+}
+function timeLabel(n) {
+  if (!n) return "尚未同步";
+  // Cloud schedules and quota month use Beijing time on every device.
+  var d = new Date(n + 8 * 3600000);
+  function pad(x) {
+    return String(x).padStart(2, "0");
+  }
+  return (
+    pad(d.getUTCMonth() + 1) +
+    "/" +
+    pad(d.getUTCDate()) +
+    " " +
+    pad(d.getUTCHours()) +
+    ":" +
+    pad(d.getUTCMinutes())
+  );
+}
+function panel(v, message) {
+  var active = !!v && v.expires > Date.now() && safeURL(v.url);
+  var personal = active && v.url !== FALLBACK;
+  var lines = [
+    "当前选择：" + (personal ? v.name : "公共 DNS"),
+    active ? v.url : FALLBACK,
+  ];
+  lines.push(
+    "",
+    "账号剩余额度" + (v && (!active || !v.statisticsFresh) ? "（旧统计）" : ""),
+  );
+  if (v && v.accounts && v.accounts.length) {
+    v.accounts.forEach(function (a, i) {
+      var detail = !a.configured
+        ? "未配置"
+        : a.remaining === null
+          ? a.error || "统计不可用"
+          : amount(a.remaining) +
+            " / " +
+            amount(v.quota) +
+            "（" +
+            Math.max(0, (a.remaining / v.quota) * 100).toFixed(1) +
+            "%）";
+      lines.push(
+        (personal && v.slot === i + 1 ? "● " : "○ ") + a.name + "：" + detail,
+      );
+    });
+  } else lines.push("暂无额度数据，点击面板同步");
+  lines.push(
+    "",
+    "额度统计：" + timeLabel(v && v.checkedAt) + " 北京时间",
+    "本机同步：" + timeLabel(v && v.syncedAt) + " 北京时间",
+  );
+  if (v && v.reserve) lines.push("安全预留：每账号 " + amount(v.reserve));
+  if (message) lines.push(message);
+  else if (!personal)
+    lines.push("状态：公共 DNS" + (active ? " · 云端选择" : " · 缓存失效"));
+  lines.push("单次解析失败时回退公共 DNS");
+  return {
+    title: "AliDNS · " + (personal ? v.name : "公共 DNS"),
+    content: lines.join("\n"),
+    icon: "network",
+    "icon-color": message || !personal ? "#e6a23c" : "#5b87e8",
+  };
+}
 (async function () {
   if (typeof $domain === "string") {
     try {
@@ -253,13 +341,5 @@ async function dns(domain) {
     $done();
     return;
   }
-  $done({
-    title: "AliDNS 云端选择",
-    content:
-      (v && v.expires > Date.now() ? v.name : "公共 DNS") +
-      "\n" +
-      (message || "云端每日 06/14/22 点 · 设备每十五分钟读取"),
-    icon: "network",
-    "icon-color": "#5b87e8",
-  });
+  $done(panel(v, message));
 })();

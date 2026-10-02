@@ -180,3 +180,40 @@ test("new client accepts eight-hour selection and identifies protocol version", 
     );
   await assert.rejects(c.update());
 });
+
+test("panel shows active DNS, zero quota, account errors and expired fallback", () => {
+  const c = context();
+  const v = {
+    url: "https://example.alidns.com/dns-query",
+    name: "主账号",
+    slot: 1,
+    expires: Date.now() + 10000,
+    checkedAt: Date.now(),
+    syncedAt: Date.now(),
+    statisticsFresh: true,
+    quota: 10000000,
+    reserve: 1000000,
+    accounts: [
+      { name: "主账号", configured: true, remaining: 0 },
+      {
+        name: "备用",
+        configured: true,
+        remaining: null,
+        error: "网络请求失败",
+      },
+      { name: "空槽", configured: false, remaining: null },
+    ],
+  };
+  let p = c.panel(v, "");
+  assert(p.content.includes(v.url));
+  assert(p.content.includes("● 主账号：0 / 1000.00 万（0.0%）"));
+  assert(p.content.includes("备用：网络请求失败"));
+  assert(p.content.includes("空槽：未配置"));
+  v.expires = 0;
+  p = c.panel(v, "更新失败");
+  assert(p.title.includes("公共 DNS"));
+  assert(p.content.includes("https://dns.alidns.com/dns-query"));
+  assert(!p.content.includes(v.url));
+  assert(p.content.includes("旧统计"));
+  assert(p.content.includes("更新失败"));
+});

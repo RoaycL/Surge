@@ -24,7 +24,7 @@ test("device reads at 05/20/35/50 and cloud UTC schedule covers Beijing 06/14/22
   const config = moduleText("https://alidns.roayc.com", "reader");
   assert(config.includes('cronexp="0 5,20,35,50 * * * *"'));
   assert(config.includes("update-interval=900"));
-  assert(config.includes("/client/surge.js?v=20261002b"));
+  assert(config.includes("/client/surge.js?v=20261002c"));
   assert.equal(CLOUD_CRON, "0 6,14,22 * * *");
   assert.deepEqual(
     [6, 14, 22].map((x) => (x + 8) % 24).sort((a, b) => a - b),

@@ -2,6 +2,7 @@ import { fragment, moduleText, moduleLinks } from "./client-config";
 import { DurableObject } from "cloudflare:workers";
 import {
   DEFAULTS,
+  MAX_AGE,
   CLOUD_CRON,
   PublicError,
   boundedJSON,
@@ -44,13 +45,33 @@ export class QuotaControl extends DurableObject<Env> {
   }
   async selected() {
     const state = this.get<Snapshot>("snapshot");
-    return selection(
-      await this.settings(),
+    const settings = await this.settings();
+    const snapshot =
       state?.revision === (this.get<number>("revision") || 0)
         ? state
-        : undefined,
-    );
+        : undefined;
+    const result = selection(settings, snapshot);
+    const fresh =
+      !!snapshot &&
+      snapshot.month === monthAt(result.serverNow) &&
+      snapshot.checkedAt <= result.serverNow + 60_000 &&
+      result.serverNow - snapshot.checkedAt < MAX_AGE;
+    return {
+      ...result,
+      quota: settings.quota,
+      reserve: settings.reserve,
+      statisticsFresh: fresh,
+      accounts: settings.accounts.map((a, i) => ({
+        name: a.name,
+        configured: !!a.id,
+        remaining: snapshot?.usage[i]?.ok
+          ? settings.quota - snapshot.usage[i].used
+          : null,
+        error: snapshot?.usage[i]?.error || "",
+      })),
+    };
   }
+
   async status() {
     const s = await this.settings();
     const saved = this.get<Snapshot>("snapshot");
