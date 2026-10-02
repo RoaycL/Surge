@@ -5,6 +5,8 @@ const fs = require("node:fs");
 const source = fs.readFileSync("public/client/surge.js", "utf8");
 function context() {
   const c = {
+    setTimeout,
+    clearTimeout,
     Uint8Array,
     Date,
     Math,
@@ -105,7 +107,7 @@ test("expired cache uses public DoH; failed update does not extend cache", async
     calls.push(o.url);
     cb("fail", null, null);
   };
-  await assert.rejects(c.dns("example.com"));
+  assert.equal(Object.keys(await c.dns("example.com")).length, 0);
   assert(calls.every((x) => x.startsWith("https://dns.alidns.com/")));
   await assert.rejects(c.update());
   assert.equal(JSON.parse(stored).expires, 0);
@@ -216,4 +218,34 @@ test("panel shows active DNS, zero quota, account errors and expired fallback", 
   assert(!p.content.includes(v.url));
   assert(p.content.includes("旧统计"));
   assert(p.content.includes("更新失败"));
+});
+
+test("one failed family keeps the other answer; grace skips slow family", async () => {
+  const c = context();
+  c.$httpClient.get = (o, cb) => {
+    const raw = new Uint8Array(
+      Buffer.from(o.url.split("?dns=")[1], "base64url"),
+    );
+    const id = raw[0] * 256 + raw[1],
+      type = raw[raw.length - 3];
+    if (type === 28) cb("failure", null, null);
+    else cb(null, { status: 200 }, response(c, type, id));
+  };
+  assert.equal((await c.dns("example.com")).addresses[0], "1.2.3.4");
+  let pending;
+  c.$httpClient.get = (o, cb) => {
+    const raw = new Uint8Array(
+      Buffer.from(o.url.split("?dns=")[1], "base64url"),
+    );
+    const id = raw[0] * 256 + raw[1],
+      type = raw[raw.length - 3];
+    if (type === 28)
+      pending = () => cb(null, { status: 200 }, response(c, type, id));
+    else cb(null, { status: 200 }, response(c, type, id));
+  };
+  const r = await c.dns("example.com");
+  assert.equal(r.addresses.length, 1);
+  pending();
+  await new Promise((resolve) => setTimeout(resolve, 0));
+  assert.equal(r.addresses.length, 1);
 });

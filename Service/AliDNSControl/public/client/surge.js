@@ -222,21 +222,48 @@ async function dns(domain) {
       cache && cache.expires > Date.now() && safeURL(cache.url)
         ? cache.url
         : FALLBACK;
-  var results = await Promise.all(
-    [1, 28].map(async function (type) {
-      var id = Math.floor(Math.random() * 65536),
-        query = wire(domain, type, id);
-      var body = await http({
-        url: url + "?dns=" + encode(query),
-        headers: { Accept: "application/dns-message" },
-        "binary-mode": true,
-        timeout: 4,
-        "auto-redirect": false,
-      });
-      return parse(body, domain, type, id);
+  var results = await new Promise(function (resolve) {
+    var completed = 0,
+      answers = [],
+      timer = null,
+      finished = false;
+    function finish() {
+      if (finished) return;
+      finished = true;
+      if (timer !== null) clearTimeout(timer);
+      resolve(answers.slice());
+    }
+    [1, 28].forEach(async function (type) {
+      try {
+        var id = Math.floor(Math.random() * 65536);
+        var body = await http({
+          url: url + "?dns=" + encode(wire(domain, type, id)),
+          headers: { Accept: "application/dns-message" },
+          "binary-mode": true,
+          timeout: 4,
+          "auto-redirect": false,
+        });
+        var answer = parse(body, domain, type, id);
+        if (!finished && answer.addresses.length) {
+          answers.push(answer);
+          // Start the grace period only after a usable answer, never after an
+          // empty response or an error. Late callbacks cannot mutate results.
+          if (timer === null) timer = setTimeout(finish, 200);
+        }
+      } catch (e) {
+        // Keep the other record family when just one request fails.
+      } finally {
+        completed++;
+        if (completed === 2) finish();
+      }
+    });
+  });
+  var addresses = [].concat.apply(
+    [],
+    results.map(function (r) {
+      return r.addresses;
     }),
   );
-  var addresses = results[0].addresses.concat(results[1].addresses);
   return addresses.length
     ? {
         addresses: addresses,
