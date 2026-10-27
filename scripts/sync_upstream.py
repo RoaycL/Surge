@@ -86,6 +86,15 @@ def jq_plan(expression):
     return {'delete': [p[1:].split('.') for p in paths], 'tabs': bool(tail)}
 
 
+def jq_expression(argument):
+    if not argument or not (argument.startswith("'") and argument.endswith("'")):
+        raise ValueError('Expected a quoted jq filter')
+    expression = argument[1:-1]
+    if not expression.strip() or any(c in expression for c in ("'", '\n', '\r')):
+        raise ValueError('Unsupported jq quoting')
+    return expression
+
+
 def parse_qx(text):
     rules, routes, hosts, metadata = [], [], [], []
     for num, raw in enumerate(text.splitlines(), 1):
@@ -116,7 +125,9 @@ def parse_qx(text):
             raise ValueError('Pattern needs Surge escaping review')
         route = {'pattern': pattern, 'ua': ua or '', 'action': action, 'arg': arg or ''}
         if action == 'jsonjq-response-body':
-            route['plan'] = jq_plan(arg or '')
+            jq_expression(arg)
+            if ua:
+                route['plan'] = jq_plan(arg)
         elif action in ('script-request-body', 'script-response-body'):
             if arg not in SCRIPT_ALLOWLIST and arg != TX_SCRIPT:
                 raise ValueError('New script dependency needs compatibility review: ' + str(arg))
@@ -186,6 +197,8 @@ try {
 
 
 def convert(name, text, fetch):
+    if name == 'Pinduoduo':
+        return convert_pdd(text)
     metadata, rules, routes, hosts = parse_qx(text)
     handlers = []
     indexes = {}
@@ -220,6 +233,25 @@ def convert(name, text, fetch):
         module += f'{name}-{phase} = type=http-{phase}, pattern={pattern}, requires-body={str(needs_body).lower()}, max-size=2097152, script-path={RAW}JS/{name}.surge.js, timeout=15\n'
     module += '\n[MITM]\nhostname = %APPEND% ' + ', '.join(hosts) + '\n'
     return {f'Module/{name}.sgmodule': module, f'JS/{name}.surge.js': bundle}
+
+
+def convert_pdd(text):
+    metadata, rules, routes, hosts = parse_qx(text)
+    if any(r['ua'] or r['action'] not in ('jsonjq-response-body', 'reject-dict') for r in routes):
+        raise ValueError('PDD gained UA/script/new actions; review native conversion')
+    module = '\n'.join(metadata) + '\n# Converted from: ' + SOURCES['Pinduoduo']
+    module += '\n# Native jq: Surge iOS 5.14.0+ / Mac 5.9.0+.\n'
+    module += '\n[Rule]\n' + '\n'.join(rules) + '\n'
+    module += '\n[Body Rewrite]\n'
+    for route in routes:
+        if route['action'] == 'jsonjq-response-body':
+            module += f'http-response-jq {route["pattern"]} {route["arg"]}\n'
+    module += '\n[Map Local]\n'
+    for route in routes:
+        if route['action'] == 'reject-dict':
+            module += route['pattern'] + ' data-type=text data="{}" status-code=200 header="Content-Type:application/json"\n'
+    module += '\n[MITM]\nhostname = %APPEND% ' + ', '.join(hosts) + '\n'
+    return {'Module/Pinduoduo.sgmodule': module}
 
 
 def convert_tx(text, fetch):
@@ -272,6 +304,14 @@ def validate(outputs):
         for path, content in outputs.items():
             if path.endswith('.sgmodule'):
                 patterns.extend(re.findall(r'pattern=(.*?), requires-body=', content))
+                for line in content.splitlines():
+                    if line.startswith('http-response-jq '):
+                        _, pattern, argument = line.split(' ', 2)
+                        patterns.append(pattern)
+                        expression = jq_expression(argument)
+                        subprocess.run(['jq', '-n', 'if false then (' + expression + ') else empty end'], check=True, capture_output=True, timeout=5)
+                    elif ' data-type=' in line:
+                        patterns.append(line.split(' ', 1)[0])
         subprocess.run(['node', '-e', 'JSON.parse(require("fs").readFileSync(0,"utf8")).forEach(p=>new RegExp(p))'], input=json.dumps(patterns), text=True, check=True)
 
 
@@ -297,6 +337,10 @@ def main():
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(content)
             changed.append(name)
+    retired = ROOT / 'JS/Pinduoduo.surge.js'
+    if retired.exists():
+        retired.unlink()
+        changed.append('JS/Pinduoduo.surge.js (removed; native jq/Map Local)')
     print(json.dumps({'changed': changed, 'sources_checked': len(fetch.manifest)}, ensure_ascii=False))
 
 

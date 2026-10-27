@@ -38,7 +38,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          git add upstreams/*.snippet upstreams/lock.json Module/Pinduoduo.sgmodule Module/hlwxx_remove_ads.sgmodule Module/Weibo.sgmodule Module/FanQieNovel.sgmodule Module/TxvideoAD.sgmodule JS/Pinduoduo.surge.js JS/hlwxx_remove_ads.surge.js JS/Weibo.surge.js JS/Txvideoad.surge.js
+          git add upstreams/*.snippet upstreams/lock.json Module/Pinduoduo.sgmodule Module/hlwxx_remove_ads.sgmodule Module/Weibo.sgmodule Module/FanQieNovel.sgmodule Module/TxvideoAD.sgmodule JS/hlwxx_remove_ads.surge.js JS/Weibo.surge.js JS/Txvideoad.surge.js
+          if git ls-files --error-unmatch JS/Pinduoduo.surge.js >/dev/null 2>&1; then
+            git add -u -- JS/Pinduoduo.surge.js
+          fi
           if git diff --cached --quiet; then
             echo 'Upstream unchanged; no commit needed.'
             exit 0

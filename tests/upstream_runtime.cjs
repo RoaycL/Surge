@@ -1,6 +1,7 @@
 const fs = require('node:fs');
 const vm = require('node:vm');
 const assert = require('node:assert/strict');
+const {execFileSync} = require('node:child_process');
 
 function run(module, url, {ua = '', body, requestBody} = {}) {
   let result, calls = 0;
@@ -18,8 +19,15 @@ function run(module, url, {ua = '', body, requestBody} = {}) {
   return JSON.parse(JSON.stringify(result));
 }
 
-// jq conversion: remove requested fields and preserve unrelated data/navigation.
-let r = run('Pinduoduo', 'https://api.pinduoduo.com/api/alexa/homepage/hub', {
+// Run the actual filters emitted into Surge's native Body Rewrite section with jq.
+function runPdd(url, {body}) {
+  const lines = fs.readFileSync('Module/Pinduoduo.sgmodule', 'utf8').split('\n');
+  const filters = lines.filter(line => line.startsWith('http-response-jq '));
+  const found = filters.map(line => line.match(/^http-response-jq (\S+) '(.*)'$/)).filter(Boolean).find(m => new RegExp(m[1]).test(url));
+  assert.ok(found, 'Expected a native jq rule for ' + url);
+  return {body: execFileSync('jq', ['-c', found[2]], {input: body, encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe']}).trim()};
+}
+let r = runPdd('https://api.pinduoduo.com/api/alexa/homepage/hub', {
   body: JSON.stringify({result: {icon_set: [1], search_bar_hot_query: 'ad', dy_module: {irregular_banner_dy: 1, recommend_fresh_info: 2, keep: 3}, bottom_tabs: [{link: 'index.html'}, {link: 'ad.html'}, {link: 'chat_list.html'}, {link: 'personal.html'}]}, keep: 9}),
 });
 let value = JSON.parse(r.body);
@@ -33,14 +41,10 @@ for (const [url, body, expected] of [
   ['/api/oak/integration/render', {bottom_section_list: [1], ui: {bottom_section: 1, live_section: {float_info: 2, keep: 3}}}, {ui: {live_section: {keep: 3}}}],
   ['/api/caterham/v3/query/order_detail_group', {data: {goods_list: [1], keep: 2}}, {data: {keep: 2}}],
 ]) {
-  r = run('Pinduoduo', 'https://api.pinduoduo.com' + url, {body: JSON.stringify(body)});
+  r = runPdd('https://api.pinduoduo.com' + url, {body: JSON.stringify(body)});
   assert.deepEqual(JSON.parse(r.body), expected);
 }
-r = run('Pinduoduo', 'https://api.pinduoduo.com/search', {body: 'invalid-json'});
-assert.deepEqual(r, {});
-r = run('Pinduoduo', 'https://api.pinduoduo.com/search_hotquery');
-assert.equal(r.response.status, 200);
-assert.equal(r.response.body, '{}');
+assert.throws(() => runPdd('https://api.pinduoduo.com/search', {body: 'invalid-json'}));
 
 // UA-specific short circuits must not affect unrelated clients.
 const overseas = 'WeiboOverseas/6.3.8';
