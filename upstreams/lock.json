@@ -1,0 +1,21 @@
+{
+  "sha256": {
+    "https://raw.githubusercontent.com/ZenmoFeiShi/Qx/refs/heads/main/Pinduoduo.snippet": "6b5572ce97308d32c90252567a804fdb0780439a562945e8c58da8c7b6f92064",
+    "https://raw.githubusercontent.com/ZenmoFeiShi/Qx/refs/heads/main/hlwxx_remove_ads.snippet": "e03088ba146047c9d6fa69290177d47ddbbcc6779ff30eb037524112ec37eb52",
+    "https://raw.githubusercontent.com/ZenmoFeiShi/Qx/refs/heads/main/hlwxx_remove_ads.js": "1ec71d2e02541253369b8562533c0edfdecbeb65787081bb6fa97a68af26c0ea",
+    "https://raw.githubusercontent.com/fmz200/wool_scripts/main/QuantumultX/rewrite/weibo.snippet": "c8b47d5f2e990f065d98cac2d70d5866c97443d23d96a8393607b13a464e9b29",
+    "https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/template/reject-dict.json": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "https://raw.githubusercontent.com/Keywos/rule/master/script/weibo_us/js/index.js": "99ec4f40821f4eaf88caf98c1608a76b3c9d99d2a5e268c5e28767f11fd52901",
+    "https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/template/req_replace_body.js": "90adc7374f0c9a62b25bbea2027570e2c08002130bca22d909607fcfca642c70",
+    "https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/weibo/weibo_ads.js": "0f1f3eba5b2c96f4f089525ad033b578b6a18a2fd99eb95409e5b0816f4a4b34",
+    "https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/weibo/weibo_main.js": "b5e6312938588ccdc6fe50a77fd9db75c002a027dbfcebb4337d7353000a3b52",
+    "https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_launch.js": "1ebea73aa974503abf72371cd32bdda86975dbad9beaf4c6f648db6debb75fa6",
+    "https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_main.js": "8c9fd6cf844ce25fedcd71591c090c614a5e8aed7429f8f38e31b24e46b5a887",
+    "https://github.com/fmz200/wool_scripts/raw/main/Scripts/weibo/weibo_vip.js": "046afd2d7b053295a6b36d2492b2dedb3d57f2a9476232a070f81b7536e7d799",
+    "https://raw.githubusercontent.com/ZenmoFeiShi/Qx/refs/heads/main/TxvideoAD.snippet": "39ba1d951e0545689d28c015c33bb4a92a8ca18e155ebae93fcfd4002708fa0f",
+    "https://raw.githubusercontent.com/ZenmoFeiShi/Qx/refs/heads/main/Txvideoad.js": "1de991d9107f9ae6ffbe44d7e0afd84d5ca319f274169d1abb375d59d8320b13"
+  },
+  "static_sources": [
+    "upstreams/FanQieNovel.plugin"
+  ]
+}

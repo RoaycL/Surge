@@ -1,0 +1,44 @@
+#!name=微博&国际版去广告
+#!desc=整合了@zmqcherish和@Keywos的去广告配置，根据UA判断微博版本去广告
+#!author=奶思
+#!homepage=https://github.com/fmz200/wool_scripts
+#!icon=https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/gif/naisi-01.gif
+# Converted from: https://raw.githubusercontent.com/fmz200/wool_scripts/main/QuantumultX/rewrite/weibo.snippet
+# Generated automatically; upstream authors retain attribution.
+
+[Rule]
+DOMAIN-SUFFIX,fastimage.uve.weibo.com,REJECT
+DOMAIN-SUFFIX,adimg.vue.weibo.com,REJECT
+DOMAIN-SUFFIX,zymo.mps.weibo.com,REJECT
+DOMAIN-SUFFIX,weibomingzi.com,REJECT
+DOMAIN-SUFFIX,sdkapp.uve.weibo.com,REJECT
+DOMAIN-SUFFIX,promote.biz.weibo.cn,REJECT
+DOMAIN-SUFFIX,gw5.push.mcp.weibo.cn,REJECT
+DOMAIN-SUFFIX,gw6.push.mcp.weibo.cn,REJECT
+DOMAIN-SUFFIX,game.weibo.cn,REJECT
+DOMAIN-SUFFIX,adimg.uve.weibo.com,REJECT
+DOMAIN-SUFFIX,game.weibo.com,REJECT
+DOMAIN-SUFFIX,ads.viber.com,REJECT
+DOMAIN-SUFFIX,ads-d.viber.com,REJECT
+DOMAIN-SUFFIX,ads.aws.viber.com,REJECT
+DOMAIN-SUFFIX,alitui.weibo.com,REJECT
+DOMAIN-SUFFIX,dp.im.weibo.cn,REJECT
+DOMAIN-SUFFIX,biz.weibo.com.cn,REJECT
+DOMAIN-SUFFIX,biz.weibo.com,REJECT
+DOMAIN-SUFFIX,click.uve.weibo.com,REJECT
+DOMAIN-SUFFIX,wax.weibo.com,REJECT
+DOMAIN-SUFFIX,wbapp.uve.weibo.com,REJECT
+DOMAIN-SUFFIX,widget.weibo.com,REJECT
+DOMAIN-SUFFIX,dsp.edm.weibo.cn,REJECT
+DOMAIN-SUFFIX,alitui.weibo.com.cn,REJECT
+DOMAIN-SUFFIX,tui.weibo.com,REJECT
+DOMAIN-SUFFIX,wax.weibo.com.cn,REJECT
+DOMAIN-SUFFIX,ad.weibo.com,REJECT
+DOMAIN,bootpreload.uve.weibo.com,REJECT
+
+[Script]
+Weibo-request = type=http-request, pattern=(?:^https?://api\.weibo\.cn/\d/(cardlist\?v_f=\d|ad/weibointl\?))|(?:^https?://weibointl\.api\.weibo\.cn/portal\.php\?a=hot_search_users)|(?:^https?://weibointl\.api\.weibo\.cn/portal\.php\?a=get_coopen_ads)|(?:^https?://weibointl\.api\.weibo\.cn/portal\.php\?a=get_searching_info)|(?:^https://weibointl\.api\.weibo\.cn/portal\.php\?a=treehole&auth=)|(?:^https://m?api\.weibo\.c(n|om)/2/!/huati/discovery_home_bottom_channels)|(?:^https://m?api\.weibo\.c(n|om)/2/!/chaohua/discovery/home_bottom/switch)|(?:^https://m?api\.weibo\.c(n|om)/2/!/was/finder/searchbarchange\?)|(?:^https://m?api\.weibo\.c(n|om)/2/push/info\?)|(?:^https?://m?api\.weibo\.c(n|om)/2/(push/active|client/addlog_batch|ad/preload))|(?:^https?://m?api\.weibo\.c(n|om)/\d/push/daily)|(?:^https?://m?api\.weibo\.c(n|om)/2/!/huati/discovery_home_bottom_getdotinfo)|(?:^https?://bootrealtime\.uve\.weibo\.com/v\d/ad/realtime)|(?:^https?://bootpreload\.uve\.weibo\.com/v\d/ad/preload)|(?:^https?://sdkapp\.uve\.weibo\.com/interface/sdk/(get-lbs-cell-info\.php|sdkconfig\.php)), requires-body=true, max-size=2097152, script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/JS/Weibo.surge.js, timeout=15
+Weibo-response = type=http-response, pattern=(?:^https?://weibointl\.api\.weibo\.cn/portal\.php\?a=trends&)|(?:^https?://weibointl\.api\.weibo\.cn/portal\.php\?(ct=(feed&a=trends|user&a=get_searching_info)|a=(get_coopen_ads|user_center|search_topic|open_app&auth|icon_center)))|(?:^https?://api\.weibo\.cn/\d/statuses/.*timeline)|(?:^https?://sdkapp\.uve\.weibo\.com/interface/sdk/sdkad\.php)|(?:^https?://m?api\.weibo\.c(n|om)/2/search/(finder|container_timeline|container_discover)\?)|(?:^https?://m?api\.weibo\.c(n|om)/2/(page|flowpage)\?)|(?:^https?://m?api\.weibo\.c(n|om)/2/searchall\?)|(?:^https?://m?api\.weibo\.c(n|om)/2/statuses/container_timeline_topicpage\?)|(?:^https?://m?api\.weibo\.c(n|om)/2/statuses/container_timeline_topic\?)|(?:^https?://m?api\.weibo\.c(n|om)/2/statuses/extend\?)|(?:^https?://m?api\.weibo\.c(n|om)/2/statuses/container_detail\?)|(?:^https?://m?api\.weibo\.c(n|om)/2/groups/allgroups/v2)|(?:^https?://m?api\.weibo\.c(n|om)/2/comments/mix_comments\?)|(?:^https?://m?api\.weibo\.c(n|om)/2/statuses/(container_detail_comment|container_detail_mix)\?)|(?:^https?://m?api\.weibo\.c(n|om)/2/statuses/container_detail_forward\?)|(?:^https?://m?api\.weibo\.c(n|om)/2/(cardlist|searchall|page|messageflow|statuses/(unread_)?friends(/|_)timeline|groups/timeline|statuses/(container_timeline|container_timeline_hot|unread_hot_timeline|extend|video_mixtimeline|repost_timeline)|profile/(me|container_timeline)|video/(community_tab|remind_info|tiny_stream_video_list)|checkin/show|(\!/)?live/media_homelist|comments/build_comments|container/get_item))|(?:^https?://(sdk|wb)app\.uve\.weibo\.com(/interface/sdk/sdkad.php|/wbapplua/wbpullad.lua))|(?:^https?://api\.weibo\.c(n|om)/2/!/client/light_skin)|(?:^https?://new\.vip\.weibo\.c(n|om)/littleskin/preview)|(?:^https?://new\.vip\.weibo\.c(n|om)/aj/appicon/list), requires-body=true, max-size=2097152, script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/JS/Weibo.surge.js, timeout=15
+
+[MITM]
+hostname = %APPEND% *.weibo.cn, *.weibo.com, weibo.com

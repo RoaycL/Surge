@@ -1,5 +1,5 @@
-// Original: TG@ZenMoFiShi, https://github.com/ZenmoFeiShi/Qx
-// Surge body API adaptation, 2026-10-27. Use binary-body-mode except for rdelivery.
+// Original: TG@ZenMoFiShi; source: https://raw.githubusercontent.com/ZenmoFeiShi/Qx/refs/heads/main/Txvideoad.js
+// Surge body API adaptation.
 (() => {
   const TAB_DROP_KEYS = ["smallvideo_entrance", "goods_entrance"];
   const TAB_DROP_TITLES = ["短剧", "好物"];
