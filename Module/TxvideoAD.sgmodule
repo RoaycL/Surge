@@ -1,0 +1,16 @@
+#!name=腾讯视频净化（Surge 转换版）
+#!desc=原作者 TG@ZenMoFiShi；QX 规则及脚本接口转换。需启用 MITM 并信任证书，效果待实机验证。
+
+[Rule]
+DOMAIN,iacc.stgw.qq.com,REJECT
+DOMAIN,tacc.video.qq.com,REJECT
+
+[Script]
+txvideo-request = type=http-request, pattern=^https?://i\.video\.qq\.com/(?:\?.*)?$, requires-body=true, binary-body-mode=true, max-size=1048576, script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/JS/Txvideoad.surge.js, timeout=10
+txvideo-response = type=http-response, pattern=^https?://i\.video\.qq\.com/(?:\?.*)?$, requires-body=true, binary-body-mode=true, max-size=1048576, script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/JS/Txvideoad.surge.js, timeout=10
+txvideo-iacc = type=http-response, pattern=^https?://iacc\.qq\.com/(?:\?.*)?$, requires-body=true, binary-body-mode=true, max-size=1048576, script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/JS/Txvideoad.surge.js, timeout=10
+txvideo-tab = type=http-response, pattern=^https?://config\.ab\.qq\.com/tab/GetTabRemoteConfig(?:\?.*)?$, requires-body=true, binary-body-mode=true, max-size=1048576, script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/JS/Txvideoad.surge.js, timeout=10
+txvideo-sdk = type=http-response, pattern=^https://rdelivery\.qq\.com/v1/sdkconfig/get(?:\?.*)?$, requires-body=true, binary-body-mode=false, max-size=1048576, script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/JS/Txvideoad.surge.js, timeout=10
+
+[MITM]
+hostname = %APPEND% i.video.qq.com, iacc.qq.com, config.ab.qq.com, rdelivery.qq.com
