@@ -1,0 +1,7 @@
+#!name=UU 远程开机广播兼容
+#!desc=让 IPv4 有限广播绕过 Surge 增强模式，保留 UU 远程开机广播路径。仅适用于 Mac；是否能唤醒仍取决于 UU、网卡和主机设置。
+#!author=RoaycL
+#!system=mac
+
+[General]
+tun-excluded-routes = %APPEND% 255.255.255.255/32
