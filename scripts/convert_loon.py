@@ -109,6 +109,21 @@ def path(s):
         raise ValueError('Empty JSON path')
     return out
 
+STRING_USE = r'(?:split|match|matchAll|replace|replaceAll|includes|indexOf|startsWith|endsWith|trim|toString|length|slice|substring|substr|toLowerCase|toUpperCase|charAt)\b'
+
+def argument_style(text):
+    """How a Loon script consumes $argument: 'json', 'object', 'query', 'none' or 'unknown'."""
+    if re.search(r'JSON\.parse\(\s*\$argument\s*\)', text):
+        return 'json'
+    strings = re.search(r'\$argument\s*(?:\?\.|\.)\s*' + STRING_USE + r'|\$argument\s*\[\s*["\']' + STRING_USE + r'["\']', text) or re.search(
+        r'typeof\s*\$argument\s*[!=]==?\s*["\']string|["\']string["\']\s*[!=]==?\s*typeof\s*\$argument|URLSearchParams\(\s*\$argument', text)
+    props = re.search(r'\$argument\s*(?:\?\.|\.)\s*(?!' + STRING_USE + r')\w+|\$argument\s*\[\s*["\'](?!' + STRING_USE + r'["\'])', text)
+    if strings:
+        return 'query'  # parses the native Surge string itself (possibly also objects)
+    if props:
+        return 'object'  # Loon passes an object; Surge passes a string
+    return 'none' if '$argument' not in text else 'unknown'
+
 def compact(s):
     out = []
     string = esc = comment = False
@@ -141,6 +156,7 @@ class Converter:
         self.files = {}
         self.resources = {}
         self.adapters = {}
+        self.styles = {}
         self.entries = []
 
     def put(self, p, s):
@@ -167,7 +183,10 @@ class Converter:
             return self.adapters[url]
         text, p = self.resource(url)
         p = p.replace('/Resources/', '/Adapters/')
-        style = 'object' if re.search('\\$argument(?:\\?\\.|\\.)(token|cookie|removeAllBanners|removePinnedArticles)', text) else 'json' if 'JSON.parse($argument)' in text else 'query'
+        style = argument_style(text)
+        self.styles[url] = style
+        if style in ['none', 'unknown']:
+            style = 'query'
         wrapper = (ROOT / 'scripts/loon_adapter.js.tpl').read_text().replace('__STYLE__', js(style)).replace('__SOURCE__', url)
         self.put(p, wrapper + '\n(function($argument,$done,$request,$response,$environment,$httpClient){\n' + text + '\n})(fkArg,fkDone,fkReq,fkRes,fkEnv,fkHTTP);\n})();\n')
         self.adapters[url] = p
@@ -464,6 +483,10 @@ class Converter:
             if tag == '节点检测':
                 sent.append('__policy={{{policy}}}')
             sent.extend(('__store_' + dest + '={{{' + key(k) + '}}}' for k, dest in stored.items()))
+            user_keys = [x.split('=', 1)[0] for x in sent if not x.startswith('__')]
+            if user_keys and self.styles.get(url) in ['none', 'unknown']:
+                # A wrong guess silently drops every user parameter, so stop for review.
+                raise ValueError(f'{f}:{no}: cannot tell how the script reads $argument ({self.styles.get(url)}); review adapter style: ' + url)
             if sent:
                 parts.append('argument=' + quoted('&'.join(sent)))
             out['Script'].append(sk + ' = ' + ', '.join(parts))
