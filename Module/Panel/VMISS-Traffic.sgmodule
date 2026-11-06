@@ -1,15 +1,16 @@
 #!name=VMISS 流量概况
-#!desc=在 Surge Panel 中显示 VMISS 流量。需要更新凭证时将「获取Cookie」设为 true 并打开一次产品详情页；成功后改为 #，停止自动获取。
-#!arguments=获取Cookie:"#",刷新间隔:300
-#!arguments-desc=获取Cookie:填写 true 后打开一次 VMISS 产品详情页以获取登录凭证；收到成功通知后请改为 #，停止自动获取，避免有效 Cookie 被后续请求覆盖。\n\n刷新间隔:刷新间隔（秒）
+#!desc=在 Surge Panel 中显示 VMISS 流量。打开任意 VMISS 客户中心页面会自动更新登录凭证；凭证失效时推送一次通知，点开产品页即自动恢复，无需再手动修改参数。
+#!arguments=自动更新凭证:true,失效通知:true,请求策略:"",刷新间隔:300
+#!arguments-desc=自动更新凭证：true 时，浏览器成功打开 VMISS 客户中心页面（HTTP 200 且未被 Cloudflare 拦截）后自动保存凭证；失败页面不会覆盖已有凭证。填 false 关闭。\n失效通知：凭证失效时推送一次通知，点击打开产品页即可自动更新。填 false 关闭。\n请求策略：面板请求使用的 Surge 策略名，留空跟随规则。Cloudflare 验证与出口 IP 绑定，建议填写与浏览器访问 VMISS 时相同的固定节点。\n刷新间隔：面板刷新间隔（秒）。另有每 30 分钟一次的后台保活，用于续期登录会话。
 #!category=Panel
 
 [Panel]
-VMISS 流量 = title="VMISS 流量",content="首次请打开 VMISS 产品页面抓取登录凭证",style=info,script-name=vmiss-traffic,update-interval={{{刷新间隔}}}
+VMISS 流量 = title="VMISS 流量",content="首次请打开 VMISS 产品页面获取登录凭证",style=info,script-name=vmiss-traffic,update-interval={{{刷新间隔}}}
 
 [Script]
-vmiss-traffic-capture = type=http-request,pattern=^https:\/\/app\.vmiss\.com\/clientarea\.php\?action=productdetails&id=\d+.*$,requires-body=0,max-size=0,timeout=15,script-path=https://raw.githubusercontent.com/RoaycL/Surge/a14865f69fe4152054f6e049994b6534011e4e26/JS/Panel/vmiss-traffic.js,script-update-interval=300,argument="mode=capture&capture={{{获取Cookie}}}"
-vmiss-traffic = type=generic,script-path=https://raw.githubusercontent.com/RoaycL/Surge/a14865f69fe4152054f6e049994b6534011e4e26/JS/Panel/vmiss-traffic.js,timeout=15,script-update-interval=300,argument="mode=panel"
+vmiss-traffic-capture = type=http-response,pattern=^https:\/\/app\.vmiss\.com\/clientarea\.php,requires-body=0,max-size=0,timeout=10,script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/JS/Panel/vmiss-traffic.js,script-update-interval=300,argument="mode=capture&capture={{{自动更新凭证}}}"
+vmiss-traffic = type=generic,script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/JS/Panel/vmiss-traffic.js,timeout=30,script-update-interval=300,argument="mode=panel&notify={{{失效通知}}}&policy={{{请求策略}}}"
+vmiss-traffic-keepalive = type=cron,cronexp="*/30 * * * *",wake-system=0,script-path=https://raw.githubusercontent.com/RoaycL/Surge/main/JS/Panel/vmiss-traffic.js,timeout=30,script-update-interval=300,argument="mode=keepalive&notify={{{失效通知}}}&policy={{{请求策略}}}"
 
 [MITM]
 hostname = %APPEND% app.vmiss.com
