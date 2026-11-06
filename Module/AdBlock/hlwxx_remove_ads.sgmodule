@@ -1,6 +1,7 @@
 #!name = 黑料不打烊净化
 #!author = 怎么肥事
 #!date=2026-10-02
+#!desc=黑料不打烊净化，由上游 Quantumult X 重写自动转换。
 #!category=去广告
 # Converted from: https://raw.githubusercontent.com/ZenmoFeiShi/Qx/refs/heads/main/hlwxx_remove_ads.snippet
 # Generated automatically; upstream authors retain attribution.

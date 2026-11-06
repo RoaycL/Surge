@@ -26,6 +26,18 @@ def main():
         lines = p.read_text().splitlines()
         end = next((i for i, l in enumerate(lines) if not l.startswith('#!')), len(lines))
         assert not any(l.startswith('#!') for l in lines[end:]), ('#! metadata after header block', str(p))
+        text = p.read_text()
+        meta = dict(re.findall(r'^#!([^=\n]+?)\s*=\s*(.*)$', text, re.M))
+        assert meta.get('name', '').strip() and meta.get('desc', '').strip(), ('missing #!name/#!desc', str(p))
+        # Unconverted Loon variables (e.g. ${app}, ${item.1}) are passed to Surge literally.
+        leftover = [l for l in lines if not l.startswith('#') and re.search(r'\$\{[^}]+\}', l)]
+        assert not leftover, ('unconverted Loon variable', str(p), leftover[0][:120])
+        declared = {part.split(':', 1)[0].strip() for part in re.split(r',(?=[^,:"]+:)', meta.get('arguments', '')) if ':' in part}
+        missing = set(re.findall(r'\{\{\{([^}]+)\}\}\}', text)) - declared
+        assert not missing, ('{{{parameter}}} not declared in #!arguments', str(p), sorted(missing))
+        scripts = set(re.findall(r'^([^#\s=\[][^=\n]*?)\s*=\s*type=', text, re.M))
+        for ref in re.findall(r'script-name\s*=\s*([^,\s]+)', text):
+            assert ref in scripts, ('panel references missing script', str(p), ref)
     own_urls = 0
     for folder in ['Module', 'JS/DNS', 'JS/Panel', 'docs']:
         for p in (ROOT / folder).rglob('*'):

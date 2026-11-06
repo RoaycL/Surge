@@ -150,6 +150,9 @@ def parse_qx(text):
     # Keep the upstream revision date; QX snippets may spell it `#!update`.
     if updated and not any(re.match(r'#!date\s*=', line) for line in metadata):
         metadata.append('#!date=' + updated)
+    if not any(re.match(r'#!desc\s*=\s*\S', line) for line in metadata):
+        name = next((line.split('=', 1)[1].strip() for line in metadata if re.match(r'#!name\s*=', line)), '')
+        metadata.append('#!desc=' + (name + '，' if name else '') + '由上游 Quantumult X 重写自动转换。')
     metadata.append('#!category=去广告')
     return metadata, rules, routes, list(dict.fromkeys(hosts))
 

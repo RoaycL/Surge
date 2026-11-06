@@ -325,6 +325,7 @@ class Converter:
             a, b = l.split(' then ', 1)
             phase, p, flags = cond(a)
             np = pat(p, flags)
+            alias = (re.search(r' as (\w+)$', a) or [None, 'urlMatch'])[1]
             m = re.fullmatch('([\\w.]+)\\((.*)\\)', b)
             if not m:
                 raise ValueError(f'{f}:{no}: invalid action ' + b)
@@ -381,8 +382,17 @@ class Converter:
                     ctype = 'application/json' if op == 'reject_dict' else 'text/plain'
                     out['Map Local'].append(np + ' data-type=text data=' + quoted(body) + ' status-code=' + str(code) + ' header="Content-Type:' + ctype + '"')
             elif op == 'redirect':
-                out['URL Rewrite'].append(np + ' ' + re.sub('\\$\\{urlMatch\\.(\\d+)\\}', '$\\1', args[1]) + ' ' + str(args[0]))
+                # `as <alias>` capture groups become $N; ${param} becomes a Surge module parameter.
+                target = re.sub(r'\$\{' + alias + r'\.(\d+)\}', r'$\1', args[1])
+                target = re.sub(r'\$\{([^}]+)\}', lambda m: '{{{' + key(m[1]) + '}}}' if m[1] in params else m[0], target)
+                if '${' in target:
+                    raise ValueError(f'{f}:{no}: unresolved variable in redirect ' + target)
+                out['URL Rewrite'].append(np + ' ' + target + ' ' + str(args[0]))
             elif op == 'url.replace':
+                if alias != 'urlMatch':
+                    args = [re.sub(r'\$\{' + alias + r'\.(\d+)\}', r'${urlMatch.\1}', args[0])] + args[1:]
+                if re.search(r'\$\{(?!urlMatch\.)', args[0]):
+                    raise ValueError(f'{f}:{no}: unresolved variable in url.replace ' + args[0])
                 runtime[phase].append({'pattern': p, 'flags': flags, 'op': op, 'args': args})
             elif op in ['response.body.mock', 'response.body.replace', 'request.body.replace', 'request.header.replace', 'response.header.add']:
                 runtime[phase].append({'pattern': p, 'flags': flags, 'op': op, 'args': args})

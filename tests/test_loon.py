@@ -26,6 +26,13 @@ def jq_for(name, url, body):
 
 class LoonTests(unittest.TestCase):
 
+    def test_redirect_alias_and_parameters(self):
+        # Loon `as item` captures and ${param} must become $N and {{{param}}}.
+        text = module('TelegramRedirect')
+        self.assertIn('^https://t\\.me/\\+([A-Za-z0-9_-]+)/?$ {{{app}}}://join?invite=$1 307', text)
+        self.assertNotIn('${', text)
+        self.assertIn('#!arguments=app:tg', text)
+
     def test_upstream_date_is_preserved(self):
         for m in M['modules']:
             src = (ROOT / 'upstreams/fkikelee' / m['source']).read_text()
