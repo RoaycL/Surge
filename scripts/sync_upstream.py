@@ -11,6 +11,10 @@ from pathlib import Path
 from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
+# Support sibling helpers when the converter is loaded by offline test tools.
+import sys
+if str(ROOT / 'scripts') not in sys.path:
+    sys.path.insert(0, str(ROOT / 'scripts'))
 RAW = 'https://raw.githubusercontent.com/RoaycL/Surge/main/'
 SOURCES = {
     'Pinduoduo': 'https://raw.githubusercontent.com/ZenmoFeiShi/Qx/refs/heads/main/Pinduoduo.snippet',
@@ -308,24 +312,8 @@ def convert_tx(text, fetch):
 
 
 def convert_fanqie(text):
-    out = []
-    section = ''
-    for raw in text.splitlines():
-        line = raw.strip()
-        if not line or line.startswith('#'):
-            if line.startswith(('#!loon_version', '#!openUrl')):
-                continue
-            out.append(line.replace('#!tag=', '#!category='))
-        elif line == '[Rule]':
-            section = line
-            out.append(line)
-        elif section == '[Rule]' and re.fullmatch(r'DOMAIN,[A-Za-z0-9_.-]+,REJECT', line):
-            out.append(line)
-        else:
-            raise ValueError('Unsupported FanQie syntax: ' + line)
-    if not any(s.startswith('DOMAIN,') for s in out):
-        raise ValueError('FanQie has no rules')
-    return '\n'.join(out).rstrip() + '\n'
+    from merge_fanqie import merge_fanqie
+    return merge_fanqie(text)
 
 
 def validate(outputs):
@@ -364,7 +352,7 @@ def main():
     # Until a canonical upstream URL is supplied, keep the user's pasted FanQie snapshot.
     snapshot = (ROOT / 'upstreams/FanQieNovel.plugin').read_text()
     outputs['Module/AdBlock/FanQieNovel.sgmodule'] = convert_fanqie(snapshot)
-    outputs['upstreams/lock.json'] = json.dumps({'sha256': fetch.manifest, 'static_sources': ['upstreams/FanQieNovel.plugin']}, indent=2, ensure_ascii=False) + '\n'
+    outputs['upstreams/lock.json'] = json.dumps({'sha256': fetch.manifest, 'static_sources': ['upstreams/FanQieNovel.plugin', 'upstreams/FanQieNovel.yfamilys.plugin']}, indent=2, ensure_ascii=False) + '\n'
     validate(outputs)
     changed = []
     for name, content in outputs.items():

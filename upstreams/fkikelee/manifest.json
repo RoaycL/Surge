@@ -948,11 +948,13 @@
       "name": "番茄小说去广告",
       "category": "去广告",
       "subcategory": "",
-      "module": "Module/AdBlock/DragonRead_remove_ads.sgmodule",
+      "module": "Module/AdBlock/FanQieNovel.sgmodule",
       "source": "lpx/DragonRead_remove_ads.lpx",
       "source_sha256": "da052ba71baa527147c11c63b88b5391eff2ac52da6c64bb7d696979f7e8aaee",
       "parameters": {},
-      "notes": [],
+      "notes": [
+        "与原有 FanQieNovel 及 yfamilys 快照合并，仅保留一个模块。"
+      ],
       "rules": 34,
       "rewrites": 0,
       "scripts": 0

@@ -17,6 +17,7 @@
     "https://raw.githubusercontent.com/ZenmoFeiShi/Qx/refs/heads/main/Txvideoad.js": "1c8d1129acbdc4f61098463eef6911ccd076249f343775c299f7f9342f1ec9c9"
   },
   "static_sources": [
-    "upstreams/FanQieNovel.plugin"
+    "upstreams/FanQieNovel.plugin",
+    "upstreams/FanQieNovel.yfamilys.plugin"
   ]
 }

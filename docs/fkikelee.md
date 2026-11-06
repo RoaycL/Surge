@@ -220,7 +220,7 @@
 | 爱奇艺去广告 | [模块](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AdBlock/iQiYi_Video_remove_ads.sgmodule) |  | 上游空 jq 转为无操作，保留原响应。 |
 | 猫耳FM去广告 | [模块](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AdBlock/CatEarFM_remove_ads.sgmodule) |  |  |
 | 瑞幸咖啡去广告 | [模块](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AdBlock/LuckinCoffee_remove_ads.sgmodule) |  |  |
-| 番茄小说去广告 | [模块](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AdBlock/DragonRead_remove_ads.sgmodule) |  |  |
+| 番茄小说去广告 | [模块](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AdBlock/FanQieNovel.sgmodule) |  | 与原有 FanQieNovel 及 yfamilys 快照合并，仅保留一个模块。 |
 | 百度地图去广告 | [模块](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AdBlock/BaiduMap_remove_ads.sgmodule) |  |  |
 | 百度文库去广告 | [模块](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AdBlock/BaiduWenku_remove_ads.sgmodule) |  |  |
 | 百度网盘去广告 | [模块](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AdBlock/BaiduNetDisk_remove_ads.sgmodule) |  |  |

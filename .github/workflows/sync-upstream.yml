@@ -10,6 +10,8 @@ on:
       - '.github/workflows/sync-upstream.yml'
       - 'scripts/sync_upstream.py'
       - 'scripts/build_catalog.py'
+      - 'scripts/merge_fanqie.py'
+      - 'upstreams/FanQieNovel.yfamilys.plugin'
       - 'scripts/run_checks.sh'
       - 'tests/upstream_runtime.cjs'
       - 'tests/test_converter.py'
