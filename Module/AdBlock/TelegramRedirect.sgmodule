@@ -14,5 +14,5 @@
 hostname = %APPEND% t.me
 
 [URL Rewrite]
-^https://t\.me/([A-Za-z][A-Za-z0-9_]{3,30}[A-Za-z0-9])/?$ ${app}://resolve?domain=${item.1} 307
-^https://t\.me/\+([A-Za-z0-9_-]+)/?$ ${app}://join?invite=${item.1} 307
+^https://t\.me/([A-Za-z][A-Za-z0-9_]{3,30}[A-Za-z0-9])/?$ {{{app}}}://resolve?domain=$1 307
+^https://t\.me/\+([A-Za-z0-9_-]+)/?$ {{{app}}}://join?invite=$1 307
