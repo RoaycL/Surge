@@ -1,0 +1,5 @@
+# Keep mirrored source and bundled upstream JS byte-for-byte, including template literals.
+JS/FKIKelee/Resources/** -whitespace
+JS/FKIKelee/Adapters/** -whitespace
+upstreams/fkikelee/lpx/** -whitespace
+upstreams/fkikelee/extra/** -whitespace

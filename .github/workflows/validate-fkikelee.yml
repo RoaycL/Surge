@@ -1,0 +1,47 @@
+name: Validate FKIKelee Surge modules
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/validate-fkikelee.yml'
+      - 'Module/FKIKelee/**'
+      - 'JS/FKIKelee/**'
+      - 'Ruleset/FKIKelee/**'
+      - 'upstreams/fkikelee/**'
+      - 'scripts/convert_loon.py'
+      - 'scripts/validate_loon.py'
+      - 'scripts/loon_*.tpl'
+      - 'tests/test_loon.py'
+      - 'tests/loon_runtime.cjs'
+  pull_request:
+    paths:
+      - '.github/workflows/validate-fkikelee.yml'
+      - 'Module/FKIKelee/**'
+      - 'JS/FKIKelee/**'
+      - 'Ruleset/FKIKelee/**'
+      - 'upstreams/fkikelee/**'
+      - 'scripts/convert_loon.py'
+      - 'scripts/validate_loon.py'
+      - 'scripts/loon_*.tpl'
+      - 'tests/test_loon.py'
+      - 'tests/loon_runtime.cjs'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Validate all modules and dependencies
+        run: python3 scripts/validate_loon.py
+      - name: Converter and catalog regression tests
+        run: python3 -m unittest discover -s tests -p 'test_loon.py'
+      - name: Script argument and behavior tests
+        run: node tests/loon_runtime.cjs
