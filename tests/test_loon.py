@@ -41,6 +41,14 @@ class LoonTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             c.path('data[bad]')
 
+    def test_rooted_json_paths_and_amap_deletion(self):
+        self.assertEqual(c.path('$.data.shadingWords'), ['data', 'shadingWords'])
+        self.assertEqual(c.path('$["data"].items[0]'), ['data', 'items', 0])
+        self.assertEqual(c.path('data["$"].value'), ['data', '$', 'value'])
+        result = jq_for('Amap_remove_ads', 'https://m5.amap.com/ws/shield/scene/recommend?test=1',
+                        {'data': {'shadingWords': {'ad': 1}, 'keep': 2}})
+        self.assertEqual(result, {'data': {'keep': 2}})
+
     def test_miyoushe_deep_quoted_paths(self):
         data = {'data': {'resp_map': {'/teenager/api/info': {}, '/apihub/api/getAppConfig': {'data': {'get_app_config_response': {'config': {'is_show_teenager_mode_btn': 1, 'teenager_popup_freq_type': 1, 'keep': 3}}}}}}, 'keep': 9}
         result = jq_for('miHoYoBBS_remove_ads', 'https://bbs-api.miyoushe.com/apihub/api/getAppStartupData', data)

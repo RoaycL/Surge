@@ -87,7 +87,8 @@ def pat(p, f=''):
 
 def path(s):
     out = []
-    i = 0
+    # Loon accepts a JSONPath root marker; it is not an object key.
+    i = 1 if s == '$' or s.startswith(('$.', '$[')) else 0
     while i < len(s):
         if s[i] == '.':
             i += 1
