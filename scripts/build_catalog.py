@@ -20,7 +20,7 @@ def render():
     known = {p.name for p in (ROOT / 'upstreams/fkikelee/lpx').glob('*.lpx')}
     groups = [('DNS', ['DNS']), ('功能增强', ['Enhancement', 'Panel']), ('去广告', ['AdBlock'])]
     for title, folders in groups:
-        modules = sorted((p for folder in folders for p in (ROOT / 'Module' / folder).glob('*.sgmodule')), key=lambda p: metadata(p.read_text()).get('name', p.stem))
+        modules = sorted((p for folder in folders for p in (ROOT / 'Module' / folder).glob('*.sgmodule')), key=lambda p: (metadata(p.read_text()).get('name', p.stem), p.name))  # filename breaks name ties deterministically across filesystems
         lines += [f'## {title}（{len(modules)}）', '', '| 名称 | 文件 | 一键导入 | 备注 |', '| --- | --- | --- | --- |']
         for p in modules:
             text = p.read_text(); meta = metadata(text); rel = p.relative_to(ROOT).as_posix()
