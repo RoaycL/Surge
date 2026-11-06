@@ -8,15 +8,11 @@
 
 同一 App 的多个去广告版本请按需选择，避免重复启用。迁移后旧路径已删除，已有安装和配置需改用本页的新地址。
 
-## DNS（6）
+## DNS（2）
 
 | 名称 | 文件 | 一键导入 | 备注 |
 | --- | --- | --- | --- |
 | [AliDNS Auto Switch](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/DNS/AliDNS-Auto-Switch.sgmodule) | `AliDNS-Auto-Switch.sgmodule` | [导入](surge:///install-module?url=https%3A%2F%2Fraw.githubusercontent.com%2FRoaycL%2FSurge%2Fmain%2FModule%2FDNS%2FAliDNS-Auto-Switch.sgmodule) | 原有模块；支持模块参数；每10分钟查询四个账号，保留安全额度，失败时使用公共DNS。需要安装四个DNS候选模块，主配置须设为公共DNS。 |
-| [AliDNS DNS Slot 1](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/DNS/AliDNS-DNS-Slot1.sgmodule) | `AliDNS-DNS-Slot1.sgmodule` | [导入](surge:///install-module?url=https%3A%2F%2Fraw.githubusercontent.com%2FRoaycL%2FSurge%2Fmain%2FModule%2FDNS%2FAliDNS-DNS-Slot1.sgmodule) | 原有模块；支持模块参数；账号1的DNS候选，由调度模块自动管理。先填写dns参数，账号序号须与调度模块id1/secret1一致。 |
-| [AliDNS DNS Slot 2](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/DNS/AliDNS-DNS-Slot2.sgmodule) | `AliDNS-DNS-Slot2.sgmodule` | [导入](surge:///install-module?url=https%3A%2F%2Fraw.githubusercontent.com%2FRoaycL%2FSurge%2Fmain%2FModule%2FDNS%2FAliDNS-DNS-Slot2.sgmodule) | 原有模块；支持模块参数；账号2的DNS候选，由调度模块自动管理。先填写dns参数，账号序号须与调度模块id2/secret2一致。 |
-| [AliDNS DNS Slot 3](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/DNS/AliDNS-DNS-Slot3.sgmodule) | `AliDNS-DNS-Slot3.sgmodule` | [导入](surge:///install-module?url=https%3A%2F%2Fraw.githubusercontent.com%2FRoaycL%2FSurge%2Fmain%2FModule%2FDNS%2FAliDNS-DNS-Slot3.sgmodule) | 原有模块；支持模块参数；账号3的DNS候选，由调度模块自动管理。先填写dns参数，账号序号须与调度模块id3/secret3一致。 |
-| [AliDNS DNS Slot 4](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/DNS/AliDNS-DNS-Slot4.sgmodule) | `AliDNS-DNS-Slot4.sgmodule` | [导入](surge:///install-module?url=https%3A%2F%2Fraw.githubusercontent.com%2FRoaycL%2FSurge%2Fmain%2FModule%2FDNS%2FAliDNS-DNS-Slot4.sgmodule) | 原有模块；支持模块参数；账号4的DNS候选，由调度模块自动管理。先填写dns参数，账号序号须与调度模块id4/secret4一致。 |
 | [DNS防泄露](https://raw.githubusercontent.com/RoaycL/Surge/main/Ruleset/DNS/Prevent_DNS_Leaks.list) | `Prevent_DNS_Leaks.list` | 主配置引用 | 规则集：仅将检测网站交给指定代理策略；需手动添加 RULE-SET，不是可独立生效的模块。 |
 
 ## 功能增强（26）
