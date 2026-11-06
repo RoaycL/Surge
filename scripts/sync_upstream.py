@@ -143,6 +143,8 @@ def parse_qx(text):
         routes.append(route)
     if not routes or not hosts:
         raise ValueError('Upstream has no routes/hostname; review before publishing')
+    metadata = [line for line in metadata if not line.startswith('#!category=')]
+    metadata.append('#!category=去广告')
     return metadata, rules, routes, list(dict.fromkeys(hosts))
 
 

@@ -19,6 +19,9 @@ def main():
     assert re.findall(r'^## (.+?)（', render(), re.M) == ['DNS', '功能增强', '去广告']
     modules = list((ROOT / 'Module').rglob('*.sgmodule'))
     assert all(p.parent.name in ['DNS', 'Enhancement', 'AdBlock', 'Panel'] for p in modules)
+    categories = {'DNS': 'DNS', 'Enhancement': '功能增强', 'AdBlock': '去广告', 'Panel': 'Panel'}
+    for p in modules:
+        assert re.findall(r'^#!category=(.*)$', p.read_text(), re.M) == [categories[p.parent.name]], ('incorrect category', str(p))
     own_urls = 0
     for folder in ['Module', 'JS/DNS', 'JS/Panel', 'docs']:
         for p in (ROOT / folder).rglob('*'):
