@@ -12,6 +12,7 @@ else
 fi
 python3 -m unittest discover -s tests -p 'test_loon.py'
 node tests/loon_runtime.cjs
+node tests/argument_probe.cjs
 python3 -m unittest discover -s tests -p 'test_amap.py'
 python3 -m unittest discover -s tests -p 'test_external_jq.py'
 python3 -m unittest discover -s tests -p 'test_converter.py'

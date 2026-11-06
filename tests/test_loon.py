@@ -26,6 +26,27 @@ def jq_for(name, url, body):
 
 class LoonTests(unittest.TestCase):
 
+    def test_argument_style_detection(self):
+        cases = {'$argument.foo': 'object', '$argument?.foo': 'object', '$argument["foo"]': 'object',
+                 '$argument["split"]("&")': 'query', '$argument.split("&")': 'query',
+                 'typeof $argument=="string"?a:$argument.x': 'query', 'JSON.parse($argument)': 'json',
+                 'f($argument)': 'unknown', 'x': 'none'}
+        for text, style in cases.items():
+            self.assertEqual(c.argument_style(text), style, text)
+
+    def test_unknown_argument_style_with_user_parameters_fails(self):
+        conv = c.Converter(ROOT)
+        conv.source_sha = 'test'
+        conv.styles['https://x/Resource/a.js'] = 'unknown'
+        conv.adapter = lambda url: 'JS/FKIKelee/Adapters/a.js'
+        import tempfile
+        with tempfile.TemporaryDirectory() as d:
+            f = Path(d) / 'T.lpx'
+            f.write_text('#!name=T\n[Argument]\nk = input, "1", tag=K, desc=D\n[Script]\n'
+                         'cron "0 1 * * *" then script("https://x/Resource/a.js", {${k}}) with tag="t"\n')
+            with self.assertRaisesRegex(ValueError, 'cannot tell how the script reads'):
+                conv.convert(f)
+
     def test_redirect_alias_and_parameters(self):
         # Loon `as item` captures and ${param} must become $N and {{{param}}}.
         text = module('TelegramRedirect')

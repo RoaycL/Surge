@@ -12,6 +12,7 @@ on:
       - 'scripts/loon_*.tpl'
       - 'scripts/build_catalog.py'
       - 'scripts/run_checks.sh'
+      - 'tests/argument_probe.cjs'
 
 permissions:
   contents: write

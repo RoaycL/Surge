@@ -23,6 +23,7 @@
 - 更新模块后运行 `python3 scripts/build_catalog.py` 刷新首页；首页不手工维护重复表格。
 - FKIKelee 转换使用 `python3 scripts/convert_loon.py --source <源仓库>`，同时生成模块、兼容性说明和首页；`.github/workflows/sync-fkikelee.yml` 每 6 小时拉取 RoaycL/fkikelee 最新提交自动转换，上游删除的插件会同时删除对应输出。
 - 旧 QX/Loon 转换继续由 `scripts/sync_upstream.py` 和对应 GitHub Actions 维护，输出到 `Module/AdBlock`。
+- 脚本参数的传递格式（对象 / JSON / 查询字符串）由 `argument_style` 按脚本读取 `$argument` 的方式判定；带用户参数但无法判定时停止同步。`tests/argument_probe.cjs` 用转换器选定的格式实际运行每个带参数的原脚本，确认参数确实被读取；少数只在特定接口深处读取参数的脚本列入人工审核名单。
 - 所有检查集中在 `scripts/run_checks.sh`，三个 workflow 共用；在装有 Surge Mac 的机器上设置 `SURGE_CLI=/Applications/Surge.app/Contents/Applications/surge-cli` 可额外用 Surge 自身解析器检查每个模块。
 - 历史面板脚本只迁移路径，未冒充已实测的新模块。节日倒数脚本内置的是 2022–2024 年数据，需要自行维护日期。
 
