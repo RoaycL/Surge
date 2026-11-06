@@ -12,7 +12,7 @@
 
 上游作者的署名保留在模块和脚本内。`lock.json` 记录规则和脚本的 SHA-256。未变化时不产生提交。脚本内容已包含在生成的 JS 中，Surge 使用本仓库地址，因此脚本变更也会被检查。
 
-转换器只支持明确实现过的语法：遇到新动作、新脚本 URL、带 UA 条件但不支持的 jq 操作或腾讯视频接口变化，会终止本次同步。拼多多的无 UA 条件 jq 表达式直接保留，并用 jq 检查语法。下载失败、语法检查或测试失败也不会提交生成内容，线上保持上一次有效版本。失败可在 Actions 页面查看；通知由个人 GitHub Actions 通知设置控制。
+转换器只支持明确实现过的语法：遇到新动作、新脚本 URL、带 UA 条件但不支持的 jq 操作或腾讯视频接口变化，会终止本次同步。无 UA 条件的 jq 表达式（任何来源）直接保留为原生 `[Body Rewrite] http-response-jq`，并用 jq 检查语法。上游的 `#!date` / `#!update` 保留为模块的 `#!date`。下载失败、语法检查或测试失败也不会提交生成内容，线上保持上一次有效版本。失败可在 Actions 页面查看；通知由个人 GitHub Actions 通知设置控制。
 
 微博将 URL 和 User-Agent 条件放进分发脚本，避免 Surge 只运行第一条匹配脚本时丢失 UA 条件。每个阶段保持源文件规则顺序；同一阶段第一条匹配的正文操作生效。微博的带 UA 条件 jq 仍使用受限的 JS 适配，以保留条件和优先顺序。
 
@@ -22,12 +22,13 @@
 
 ## 本地验证
 
-需要 Python 3、Node.js 和 jq。自动任务使用 Ubuntu runner 预装的这些工具。
+需要 Python 3、Node.js 和 jq。自动任务固定 Ubuntu 24.04 runner 和 Node 24，缺少 jq 时自动安装。
 
 ```sh
 python3 scripts/sync_upstream.py
-python3 -m unittest discover -s tests -p 'test_converter.py'
-node tests/upstream_runtime.cjs
+bash scripts/run_checks.sh
+# 可选，仅 macOS：用 Surge 自身解析器检查全部 FKIKelee 模块
+SURGE_CLI=/Applications/Surge.app/Contents/Applications/surge-cli bash scripts/run_checks.sh
 ```
 
 `--offline` 仅供维护者在明确预填充缓存后重现转换，不会在在线下载失败时自动使用缓存。`work-cache/`、Python 缓存不提交。测试覆盖转换行为与主要分流；不能代替 iPhone、App 当前版本和真实广告响应的验证。

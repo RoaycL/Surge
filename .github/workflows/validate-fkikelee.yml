@@ -1,70 +1,26 @@
-name: Validate FKIKelee Surge modules
+name: Validate Surge modules
 
 on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths:
-      - '.github/workflows/validate-fkikelee.yml'
-      - 'Module/**'
-      - 'JS/**'
-      - 'Ruleset/**'
-      - 'upstreams/fkikelee/**'
-      - 'scripts/convert_loon.py'
-      - 'scripts/validate_loon.py'
-      - 'scripts/validate_repository.py'
-      - 'scripts/build_catalog.py'
-      - 'docs/**'
-      - 'README.md'
-      - 'tests/alidns_auto_switch.cjs'
-      - 'scripts/loon_*.tpl'
-      - 'tests/test_loon.py'
-      - 'tests/test_amap.py'
-      - 'tests/test_external_jq.py'
-      - 'tests/loon_runtime.cjs'
   pull_request:
-    paths:
-      - '.github/workflows/validate-fkikelee.yml'
-      - 'Module/**'
-      - 'JS/**'
-      - 'Ruleset/**'
-      - 'upstreams/fkikelee/**'
-      - 'scripts/convert_loon.py'
-      - 'scripts/validate_loon.py'
-      - 'scripts/validate_repository.py'
-      - 'scripts/build_catalog.py'
-      - 'docs/**'
-      - 'README.md'
-      - 'tests/alidns_auto_switch.cjs'
-      - 'scripts/loon_*.tpl'
-      - 'tests/test_loon.py'
-      - 'tests/test_amap.py'
-      - 'tests/test_external_jq.py'
-      - 'tests/loon_runtime.cjs'
 
 permissions:
   contents: read
 
 jobs:
   validate:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - name: Validate all modules and dependencies
-        run: python3 scripts/validate_loon.py
-      - name: Converter and catalog regression tests
-        run: python3 -m unittest discover -s tests -p 'test_loon.py'
-      - name: Script argument and behavior tests
-        run: node tests/loon_runtime.cjs
-      - name: Compare Amap JavaScript with original jq
-        run: python3 -m unittest discover -s tests -p 'test_amap.py'
-      - name: Compare remaining external jq JavaScript ports
-        run: python3 -m unittest discover -s tests -p 'test_external_jq.py'
-
-      - name: Validate repository layout and published references
-        run: python3 scripts/validate_repository.py
-      - name: AliDNS switching behavior tests
-        run: node tests/alidns_auto_switch.cjs
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+      - name: Ensure jq
+        run: command -v jq || (sudo apt-get update && sudo apt-get install -y jq)
+      - name: All module, converter and behavior checks
+        run: bash scripts/run_checks.sh
