@@ -33,7 +33,7 @@ class ConverterTests(unittest.TestCase):
         self.assertEqual(routes[0]['action'], 'echo-response')
 
     def test_pdd_preserves_native_jq_without_javascript(self):
-        source = (converter.ROOT / 'upstreams/Pinduoduo.snippet').read_text()
+        source = (converter.ROOT / 'tests/fixtures/Pinduoduo-native-jq.snippet').read_text()
         outputs = converter.convert_pdd(source)
         self.assertEqual(list(outputs), ['Module/Pinduoduo.sgmodule'])
         module = outputs['Module/Pinduoduo.sgmodule']
@@ -45,6 +45,35 @@ class ConverterTests(unittest.TestCase):
             self.assertIn('http-response-jq ' + route['pattern'] + ' ' + route['arg'], module)
         self.assertEqual(module.count('data-type=text data="{}" status-code=200'), sum(r['action'] == 'reject-dict' for r in routes))
         converter.validate(outputs)
+
+    def test_pdd_reviewed_script_is_bundled_and_validated(self):
+        source = '^https://api\\.pinduoduo\\.com/api/alexa/homepage/hub url script-response-body ' + converter.PDD_SCRIPT + '\nhostname = api.pinduoduo.com'
+        class Fetch:
+            def get(self, url):
+                if url != converter.PDD_SCRIPT:
+                    raise AssertionError(url)
+                return '$done({body: $response.body});'
+        outputs = converter.convert('Pinduoduo', source, Fetch())
+        self.assertIn('JS/Pinduoduo.surge.js', outputs)
+        self.assertIn('type=http-response', outputs['Module/Pinduoduo.sgmodule'])
+        self.assertIn('script-path=' + converter.RAW + 'JS/Pinduoduo.surge.js', outputs['Module/Pinduoduo.sgmodule'])
+        converter.validate(outputs)
+
+    def test_pdd_script_changes_require_review(self):
+        for action, url in [
+            ('script-request-body', converter.PDD_SCRIPT),
+            ('script-response-body', converter.TX_SCRIPT),
+            ('script-response-body', 'https://example.com/new.js'),
+        ]:
+            with self.assertRaises(ValueError):
+                converter.convert_pdd('^https://test url ' + action + ' ' + url + '\nhostname = test', object())
+
+    def test_pdd_binary_script_requires_adapter(self):
+        class Fetch:
+            def get(self, url):
+                return '$done({body: $response.bodyBytes});'
+        with self.assertRaisesRegex(ValueError, 'binary script'):
+            converter.convert_pdd('^https://test url script-response-body ' + converter.PDD_SCRIPT + '\nhostname = test', Fetch())
 
     def test_native_jq_accepts_more_than_js_subset_and_rejects_invalid_syntax(self):
         good = "^https://test url jsonjq-response-body 'del(.a) | .b = 1'\nhostname = test"

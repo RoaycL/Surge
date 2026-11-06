@@ -11,6 +11,7 @@ on:
       - 'scripts/sync_upstream.py'
       - 'tests/upstream_runtime.cjs'
       - 'tests/test_converter.py'
+      - 'tests/fixtures/**'
       - 'upstreams/FanQieNovel.plugin'
 
 permissions:
@@ -39,7 +40,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           git add upstreams/*.snippet upstreams/lock.json Module/Pinduoduo.sgmodule Module/hlwxx_remove_ads.sgmodule Module/Weibo.sgmodule Module/FanQieNovel.sgmodule Module/TxvideoAD.sgmodule JS/hlwxx_remove_ads.surge.js JS/Weibo.surge.js JS/Txvideoad.surge.js
-          if git ls-files --error-unmatch JS/Pinduoduo.surge.js >/dev/null 2>&1; then
+          if [ -f JS/Pinduoduo.surge.js ]; then
+            git add -- JS/Pinduoduo.surge.js
+          elif git ls-files --error-unmatch JS/Pinduoduo.surge.js >/dev/null 2>&1; then
             git add -u -- JS/Pinduoduo.surge.js
           fi
           if git diff --cached --quiet; then

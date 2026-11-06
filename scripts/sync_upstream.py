@@ -28,6 +28,7 @@ SCRIPT_ALLOWLIST = {
     'https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_main.js',
     'https://github.com/fmz200/wool_scripts/raw/main/Scripts/weibo/weibo_vip.js',
 }
+PDD_SCRIPT = 'https://raw.githubusercontent.com/ZenmoFeiShi/Qx/refs/heads/main/Pinduoduo.js'
 TX_SCRIPT = 'https://raw.githubusercontent.com/ZenmoFeiShi/Qx/refs/heads/main/Txvideoad.js'
 ECHO_DICT = 'https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/template/reject-dict.json'
 
@@ -129,7 +130,7 @@ def parse_qx(text):
             if ua:
                 route['plan'] = jq_plan(arg)
         elif action in ('script-request-body', 'script-response-body'):
-            if arg not in SCRIPT_ALLOWLIST and arg != TX_SCRIPT:
+            if arg not in SCRIPT_ALLOWLIST and arg not in (TX_SCRIPT, PDD_SCRIPT):
                 raise ValueError('New script dependency needs compatibility review: ' + str(arg))
         elif action == 'request-header':
             if arg != r'(\r\n)Accept-Encoding:.+(\r\n) request-header $1Accept-Encoding: identity$2':
@@ -198,7 +199,11 @@ try {
 
 def convert(name, text, fetch):
     if name == 'Pinduoduo':
-        return convert_pdd(text)
+        return convert_pdd(text, fetch)
+    return convert_scripted(name, text, fetch)
+
+
+def convert_scripted(name, text, fetch):
     metadata, rules, routes, hosts = parse_qx(text)
     handlers = []
     indexes = {}
@@ -235,8 +240,16 @@ def convert(name, text, fetch):
     return {f'Module/{name}.sgmodule': module, f'JS/{name}.surge.js': bundle}
 
 
-def convert_pdd(text):
+def convert_pdd(text, fetch=None):
     metadata, rules, routes, hosts = parse_qx(text)
+    if any(r['action'].startswith('script-') for r in routes):
+        # Only the reviewed text-response script is supported; do not silently
+        # accept request scripts, UA conditions, or unrelated dependencies.
+        if any(r['ua'] or r['action'] != 'script-response-body' or r['arg'] != PDD_SCRIPT for r in routes):
+            raise ValueError('PDD gained UA/request/mixed script actions; review conversion')
+        if fetch is None:
+            raise ValueError('PDD script conversion requires a fetcher')
+        return convert_scripted('Pinduoduo', text, fetch)
     if any(r['ua'] or r['action'] not in ('jsonjq-response-body', 'reject-dict') for r in routes):
         raise ValueError('PDD gained UA/script/new actions; review native conversion')
     module = '\n'.join(metadata) + '\n# Converted from: ' + SOURCES['Pinduoduo']
@@ -338,7 +351,7 @@ def main():
             path.write_text(content)
             changed.append(name)
     retired = ROOT / 'JS/Pinduoduo.surge.js'
-    if retired.exists():
+    if retired.exists() and 'JS/Pinduoduo.surge.js' not in outputs:
         retired.unlink()
         changed.append('JS/Pinduoduo.surge.js (removed; native jq/Map Local)')
     print(json.dumps({'changed': changed, 'sources_checked': len(fetch.manifest)}, ensure_ascii=False))

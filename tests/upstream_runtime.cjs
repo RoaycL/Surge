@@ -1,7 +1,6 @@
 const fs = require('node:fs');
 const vm = require('node:vm');
 const assert = require('node:assert/strict');
-const {execFileSync} = require('node:child_process');
 
 function run(module, url, {ua = '', body, requestBody} = {}) {
   let result, calls = 0;
@@ -19,32 +18,39 @@ function run(module, url, {ua = '', body, requestBody} = {}) {
   return JSON.parse(JSON.stringify(result));
 }
 
-// Run the actual filters emitted into Surge's native Body Rewrite section with jq.
-function runPdd(url, {body}) {
-  const lines = fs.readFileSync('Module/Pinduoduo.sgmodule', 'utf8').split('\n');
-  const filters = lines.filter(line => line.startsWith('http-response-jq '));
-  const found = filters.map(line => line.match(/^http-response-jq (\S+) '(.*)'$/)).filter(Boolean).find(m => new RegExp(m[1]).test(url));
-  assert.ok(found, 'Expected a native jq rule for ' + url);
-  return {body: execFileSync('jq', ['-c', found[2]], {input: body, encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe']}).trim()};
+// Exercise the generated module's URL routing and actual reviewed upstream script.
+function runPdd(url, body) {
+  const module = fs.readFileSync('Module/Pinduoduo.sgmodule', 'utf8');
+  const pattern = module.match(/pattern=(.*?), requires-body=true/);
+  assert.ok(pattern && new RegExp(pattern[1]).test(url), 'Expected a response script for ' + url);
+  return run('Pinduoduo', url, {body});
 }
-let r = runPdd('https://api.pinduoduo.com/api/alexa/homepage/hub', {
-  body: JSON.stringify({result: {icon_set: [1], search_bar_hot_query: 'ad', dy_module: {irregular_banner_dy: 1, recommend_fresh_info: 2, keep: 3}, bottom_tabs: [{link: 'index.html'}, {link: 'ad.html'}, {link: 'chat_list.html'}, {link: 'personal.html'}]}, keep: 9}),
-});
-let value = JSON.parse(r.body);
-assert.equal(value.keep, 9);
-assert.equal(value.result.dy_module.keep, 3);
-assert.equal('icon_set' in value.result, false);
-assert.deepEqual(value.result.bottom_tabs.map(x => x.link), ['index.html', 'chat_list.html', 'personal.html']);
-for (const [url, body, expected] of [
-  ['/search', {expansion: 1, goods: [1]}, {goods: [1]}],
-  ['/api/philo/personal/hub', {monthly_card_entrance: 1, personal_center_style_v2_vo: 2, icon_set: {icons: [1], top_personal_icons: [2], keep: 3}}, {icon_set: {keep: 3}}],
-  ['/api/oak/integration/render', {bottom_section_list: [1], ui: {bottom_section: 1, live_section: {float_info: 2, keep: 3}}}, {ui: {live_section: {keep: 3}}}],
-  ['/api/caterham/v3/query/order_detail_group', {data: {goods_list: [1], keep: 2}}, {data: {keep: 2}}],
-]) {
-  r = runPdd('https://api.pinduoduo.com' + url, {body: JSON.stringify(body)});
-  assert.deepEqual(JSON.parse(r.body), expected);
+const tabs = [{link: 'index.html?x=1'}, {link: 'ad.html'}, {link: 'chat_list.html#chat'}, {link: 'personal.html'}];
+let r, value;
+for (const path of ['/api/alexa/homepage/hub?x=1', '/api/alexa/homepage/hub/refresh?x=1']) {
+  r = runPdd('https://api.pinduoduo.com' + path, JSON.stringify({result: {
+    bottom_tabs: tabs, buffer_bottom_tabs: tabs, keep: {nested: [1, 2]},
+  }, keep: 9}));
+  value = JSON.parse(r.body);
+  assert.equal(value.keep, 9);
+  assert.deepEqual(value.result.keep, {nested: [1, 2]});
+  for (const key of ['bottom_tabs', 'buffer_bottom_tabs']) {
+    assert.deepEqual(value.result[key].map(x => x.link), ['index.html?x=1', 'chat_list.html#chat', 'personal.html']);
+  }
 }
-assert.throws(() => runPdd('https://api.pinduoduo.com/search', {body: 'invalid-json'}));
+for (const path of ['/api/aquarius/hungary/global/homepage', '/api/flow/hungary/window/global/popup']) {
+  r = runPdd('https://api.pinduoduo.com' + path, '{"list":[{"ad":true}],"keep":2}');
+  assert.deepEqual(JSON.parse(r.body), {list: [], keep: 2});
+}
+const gather = 'https://api.pinduoduo.com/api/growth/nagato/app/index/gather';
+r = runPdd(gather, '{"newer_index_banner":{"ad":1},"push_banner":{"valid_data":true},"keep":3}');
+assert.deepEqual(JSON.parse(r.body), {newer_index_banner: {valid_data: false}, push_banner: {valid_data: false}, keep: 3});
+for (const body of ['invalid-json', '{"keep":1}', '{"push_banner":{"valid_data":false},"keep":2}']) {
+  assert.equal(runPdd(gather, body).body, body, 'Malformed or unchanged responses pass through');
+}
+const onlyAds = '{"result":{"bottom_tabs":[{"link":"ad.html"}]}}';
+assert.equal(runPdd('https://api.pinduoduo.com/api/alexa/homepage/hub?x=1', onlyAds).body, onlyAds, 'Never empty the navigation when no supported tabs remain');
+assert.deepEqual(run('Pinduoduo', 'https://api.pinduoduo.com/unrelated', {body: '{"list":[1]}'}), {});
 
 // UA-specific short circuits must not affect unrelated clients.
 const overseas = 'WeiboOverseas/6.3.8';
@@ -94,4 +100,4 @@ for (const call of ['GetSplashPreload', 'GetSplashRealtimePoll', 'GetUnrelatedDa
   }
 }
 assert.equal(run('Txvideoad', 'https://rdelivery.qq.com/v1/sdkconfig/get', {body: '{"tab_gray":true}'}).body, '{"tab_gray":false}');
-console.log('PASS: PDD jq parity, UA routing, Weibo main/splash/scripts, HLW HTML/header/rejects, Tencent binary splash adapter.');
+console.log('PASS: PDD script routing/tabs/popups/banners/pass-through, UA routing, Weibo main/splash/scripts, HLW HTML/header/rejects, Tencent binary splash adapter.');
