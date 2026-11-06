@@ -8,11 +8,10 @@
 
 同一 App 的多个去广告版本请按需选择，避免重复启用。迁移后旧路径已删除，已有安装和配置需改用本页的新地址。
 
-## DNS（2）
+## DNS（1）
 
 | 名称 | 文件 | 一键导入 | 备注 |
 | --- | --- | --- | --- |
-| [AliDNS Auto Switch](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/DNS/AliDNS-Auto-Switch.sgmodule) | `AliDNS-Auto-Switch.sgmodule` | [导入](surge:///install-module?url=https%3A%2F%2Fraw.githubusercontent.com%2FRoaycL%2FSurge%2Fmain%2FModule%2FDNS%2FAliDNS-Auto-Switch.sgmodule) | 原有模块；支持模块参数；每10分钟查询四个账号，保留安全额度，失败时使用公共DNS。需要安装四个DNS候选模块，主配置须设为公共DNS。 |
 | [DNS防泄露](https://raw.githubusercontent.com/RoaycL/Surge/main/Ruleset/DNS/Prevent_DNS_Leaks.list) | `Prevent_DNS_Leaks.list` | 主配置引用 | 规则集：仅将检测网站交给指定代理策略；需手动添加 RULE-SET，不是可独立生效的模块。 |
 
 ## 功能增强（26）

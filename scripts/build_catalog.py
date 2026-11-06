@@ -5,8 +5,8 @@ from pathlib import Path
 from urllib.parse import quote
 ROOT = Path(__file__).resolve().parents[1]
 RAW = 'https://raw.githubusercontent.com/RoaycL/Surge/main/'
-# Companion modules installed via their parent's guide (docs/AliDNSAutoSwitch.md), not listed on their own.
-HIDDEN = {f'AliDNS-DNS-Slot{i}.sgmodule' for i in range(1, 5)}
+# AliDNS auto-switch set: installed via docs/AliDNSAutoSwitch.md, not listed in the catalog.
+HIDDEN = {'AliDNS-Auto-Switch.sgmodule'} | {f'AliDNS-DNS-Slot{i}.sgmodule' for i in range(1, 5)}
 
 def metadata(text):
     return dict(re.findall(r'^#!([^=\n]+)=(.*)$', text, re.M))
