@@ -88,6 +88,32 @@ class ConverterTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             converter.convert_pdd("^https://test SomeUA url-and-header jsonjq-response-body 'del(.a)'\nhostname = test")
 
+    def test_jq_without_ua_is_native_not_silently_skipped(self):
+        # Regression: a UA-less jq route got no compiled plan and passed through at runtime.
+        source = ("^https://a\\.test/x WeiboOverseas url-and-header jsonjq-response-body 'del(.data.banner)'\n"
+                  "^https://b\\.test/feed url jsonjq-response-body 'del(.items[] | select(.category == \"group\"))'\n"
+                  "hostname = a.test, b.test")
+        outputs = converter.convert_scripted('Weibo', source, object())
+        module = outputs['Module/AdBlock/Weibo.sgmodule']
+        self.assertIn('[Body Rewrite]', module)
+        self.assertIn("http-response-jq ^https://b\\.test/feed 'del(.items[] | select(.category == \"group\"))'", module)
+        self.assertNotIn('b\\.test/feed', outputs['JS/Weibo.surge.js'])
+        self.assertIn('"plan"', outputs['JS/Weibo.surge.js'])
+        converter.validate(outputs)
+
+    def test_native_only_snippet_has_no_js_bundle(self):
+        outputs = converter.convert_scripted('Weibo', "^https://b\\.test/x url jsonjq-response-body 'del(.a)'\nhostname = b.test", object())
+        self.assertEqual(list(outputs), ['Module/AdBlock/Weibo.sgmodule'])
+        self.assertNotIn('[Script]', outputs['Module/AdBlock/Weibo.sgmodule'])
+
+    def test_upstream_date_is_preserved(self):
+        meta, *_ = converter.parse_qx("#!name=x\n#!update = 2026-10-02\n^https://t url reject-dict\nhostname = t")
+        self.assertIn('#!date=2026-10-02', meta)
+        meta, *_ = converter.parse_qx("#!name=x\n#!date=2026-10-02 13:57:49\n#!update = 2026-01-01\n^https://t url reject-dict\nhostname = t")
+        self.assertEqual([m for m in meta if 'date' in m], ['#!date=2026-10-02 13:57:49'])
+        for name in converter.SOURCES:
+            self.assertRegex((converter.ROOT / f'Module/AdBlock/{name}.sgmodule').read_text(), r'(?m)^#!date=\S')
+
 
 if __name__ == '__main__':
     unittest.main()

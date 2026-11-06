@@ -10,6 +10,7 @@ on:
       - '.github/workflows/sync-upstream.yml'
       - 'scripts/sync_upstream.py'
       - 'scripts/build_catalog.py'
+      - 'scripts/run_checks.sh'
       - 'tests/upstream_runtime.cjs'
       - 'tests/test_converter.py'
       - 'tests/fixtures/**'
@@ -18,36 +19,39 @@ on:
 permissions:
   contents: write
 
+# Shared with sync-fkikelee so the two generators never push concurrently.
 concurrency:
-  group: upstream-sync
+  group: generated-sync
   cancel-in-progress: false
 
 jobs:
   sync:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+      - name: Ensure jq
+        run: command -v jq || (sudo apt-get update && sudo apt-get install -y jq)
       - name: Fetch, convert and validate upstream sources
         run: python3 scripts/sync_upstream.py
-      - name: Converter regression tests
-        run: python3 -m unittest discover -s tests -p 'test_converter.py'
-      - name: Adapter behavior tests
-        run: node tests/upstream_runtime.cjs
       - name: Refresh module catalog
         run: python3 scripts/build_catalog.py
+      # Bot pushes made with GITHUB_TOKEN do not trigger other workflows, so the
+      # complete repository check suite runs here before anything is committed.
+      - name: All repository checks
+        run: bash scripts/run_checks.sh
       - name: Commit only validated generated files
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          git add README.md upstreams/*.snippet upstreams/lock.json Module/AdBlock/Pinduoduo.sgmodule Module/AdBlock/hlwxx_remove_ads.sgmodule Module/AdBlock/Weibo.sgmodule Module/AdBlock/FanQieNovel.sgmodule Module/AdBlock/TxvideoAD.sgmodule JS/hlwxx_remove_ads.surge.js JS/Weibo.surge.js JS/Txvideoad.surge.js
-          if [ -f JS/Pinduoduo.surge.js ]; then
-            git add -- JS/Pinduoduo.surge.js
-          elif git ls-files --error-unmatch JS/Pinduoduo.surge.js >/dev/null 2>&1; then
-            git add -u -- JS/Pinduoduo.surge.js
-          fi
+          git add -A -- README.md 'upstreams/*.snippet' upstreams/lock.json \
+            Module/AdBlock/Pinduoduo.sgmodule Module/AdBlock/hlwxx_remove_ads.sgmodule Module/AdBlock/Weibo.sgmodule \
+            Module/AdBlock/FanQieNovel.sgmodule Module/AdBlock/TxvideoAD.sgmodule 'JS/*.surge.js'
           if git diff --cached --quiet; then
             echo 'Upstream unchanged; no commit needed.'
             exit 0
@@ -56,4 +60,9 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git commit -m 'chore: sync upstream Surge modules'
           gh auth setup-git
-          git push origin HEAD:main
+          # main may have moved while this job ran; rebase instead of failing.
+          for attempt in 1 2 3; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((attempt * 5))
+          done
+          exit 1

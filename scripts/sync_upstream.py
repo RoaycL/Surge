@@ -98,13 +98,16 @@ def jq_expression(argument):
 
 def parse_qx(text):
     rules, routes, hosts, metadata = [], [], [], []
+    updated = ''
     for num, raw in enumerate(text.splitlines(), 1):
         line = raw.strip()
         if not line or line.startswith('//'):
             continue
         if line.startswith('#!'):
-            if re.match(r'#!(?:name|desc|author|icon|homepage)\s*=', line):
+            if re.match(r'#!(?:name|desc|author|icon|homepage|date)\s*=', line):
                 metadata.append(line)
+            elif re.match(r'#!update\s*=', line):
+                updated = line.split('=', 1)[1].strip()
             continue
         if line.startswith('#'):
             continue
@@ -144,6 +147,9 @@ def parse_qx(text):
     if not routes or not hosts:
         raise ValueError('Upstream has no routes/hostname; review before publishing')
     metadata = [line for line in metadata if not line.startswith('#!category=')]
+    # Keep the upstream revision date; QX snippets may spell it `#!update`.
+    if updated and not any(re.match(r'#!date\s*=', line) for line in metadata):
+        metadata.append('#!date=' + updated)
     metadata.append('#!category=去广告')
     return metadata, rules, routes, list(dict.fromkeys(hosts))
 
@@ -207,6 +213,12 @@ def convert(name, text, fetch):
 
 def convert_scripted(name, text, fetch):
     metadata, rules, routes, hosts = parse_qx(text)
+    # jq without a UA condition is expressed natively, never by the restricted JS
+    # subset; a route left without a compiled plan would silently pass through.
+    native_jq = [r for r in routes if r['action'] == 'jsonjq-response-body' and not r['ua']]
+    routes = [r for r in routes if not (r['action'] == 'jsonjq-response-body' and not r['ua'])]
+    if any(r['action'] == 'jsonjq-response-body' and 'plan' not in r for r in routes):
+        raise ValueError('jq route without a compiled plan')
     handlers = []
     indexes = {}
     if any(route['action'] == 'echo-response' for route in routes):
@@ -229,7 +241,10 @@ def convert_scripted(name, text, fetch):
     module = '\n'.join(metadata) + '\n# Converted from: ' + SOURCES[name] + '\n# Generated automatically; upstream authors retain attribution.\n'
     if rules:
         module += '\n[Rule]\n' + '\n'.join(rules) + '\n'
-    module += '\n[Script]\n'
+    if native_jq:
+        module += '\n[Body Rewrite]\n' + ''.join(f'http-response-jq {r["pattern"]} {r["arg"]}\n' for r in native_jq)
+    if routes:
+        module += '\n[Script]\n'
     for phase in ('request', 'response'):
         group = [r for r in routes if (r['action'] in ('script-response-body', 'jsonjq-response-body')) == (phase == 'response')]
         if not group:
@@ -239,7 +254,10 @@ def convert_scripted(name, text, fetch):
         needs_body = phase == 'response' or any(r['action'] == 'script-request-body' for r in group)
         module += f'{name}-{phase} = type=http-{phase}, pattern={pattern}, requires-body={str(needs_body).lower()}, max-size=2097152, script-path={RAW}JS/{name}.surge.js, timeout=15\n'
     module += '\n[MITM]\nhostname = %APPEND% ' + ', '.join(hosts) + '\n'
-    return {f'Module/AdBlock/{name}.sgmodule': module, f'JS/{name}.surge.js': bundle}
+    outputs = {f'Module/AdBlock/{name}.sgmodule': module}
+    if routes:
+        outputs[f'JS/{name}.surge.js'] = bundle
+    return outputs
 
 
 def convert_pdd(text, fetch=None):
@@ -352,10 +370,13 @@ def main():
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(content)
             changed.append(name)
-    retired = ROOT / 'JS/Pinduoduo.surge.js'
-    if retired.exists() and 'JS/Pinduoduo.surge.js' not in outputs:
-        retired.unlink()
-        changed.append('JS/Pinduoduo.surge.js (removed; native jq/Map Local)')
+    # A source that no longer needs a JS dispatcher (native jq/Map Local only)
+    # must not leave a stale bundle published under the old URL.
+    for name in SOURCES:
+        rel = 'JS/' + ('Txvideoad' if name == 'TxvideoAD' else name) + '.surge.js'
+        if (ROOT / rel).exists() and rel not in outputs:
+            (ROOT / rel).unlink()
+            changed.append(rel + ' (removed; native jq/Map Local)')
     print(json.dumps({'changed': changed, 'sources_checked': len(fetch.manifest)}, ensure_ascii=False))
 
 

@@ -26,8 +26,16 @@ def jq_for(name, url, body):
 
 class LoonTests(unittest.TestCase):
 
+    def test_upstream_date_is_preserved(self):
+        for m in M['modules']:
+            src = (ROOT / 'upstreams/fkikelee' / m['source']).read_text()
+            date = re.search(r'^#!date=(.*)$', src, re.M)
+            out = re.findall(r'^#!date=(.*)$', module(m['id']), re.M)
+            self.assertEqual(out, [date[1].strip()] if date and date[1].strip() else [], m['id'])
+
     def test_every_source_is_accounted_for(self):
-        self.assertEqual(len(MODULES), 275)
+        self.assertEqual(len(MODULES), len(list((ROOT / 'upstreams/fkikelee/lpx').glob('*.lpx'))))
+        self.assertEqual(len(MODULES), len(M['modules']))
         self.assertEqual({m['source'] for m in M['modules']}, {'lpx/' + p.name for p in (ROOT / 'upstreams/fkikelee/lpx').glob('*.lpx')})
 
     def test_url_regex_unescaping_and_flags(self):

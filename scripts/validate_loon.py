@@ -12,7 +12,9 @@ def main():
     a = ap.parse_args()
     manifest = json.loads((ROOT / 'upstreams/fkikelee/manifest.json').read_text())
     modules = manifest['modules']
-    assert len(modules) == 275
+    # Coverage is checked against the vendored lpx set, not a fixed count, so
+    # upstream additions/removals pass through the automated sync.
+    assert modules, 'empty FKIKelee manifest'
     assert len({m['id'] for m in modules}) == len(modules)
     assert set((m['source'] for m in modules)) == set(('lpx/' + p.name for p in (ROOT / 'upstreams/fkikelee/lpx').glob('*.lpx')))
     programs = set()
