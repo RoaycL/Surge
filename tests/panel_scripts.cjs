@@ -102,24 +102,28 @@ async function run(file, {argument = '', request, response, http = () => ({statu
     return {status: 200, headers: {}, body: JSON.stringify({Data: [{HttpCount: accounts[i][1], HttpsCount: 0}]})};
   }});
   const lines = r.result.content.split('\n');
+  // Digits become mathematical monospace digits; padding is ordinary spaces.
+  // '_' marks one digit of padding (FIGURE SPACE + THIN SPACE).
+  const mono = t => t.replace(/\d/g, d => String.fromCodePoint(0x1D7F6 + Number(d))).replace(/_/g, '\u2007\u2009');
   assert.deepEqual(lines, [
-    '6585-159492  0.00%｜余1000.0万',
-    '6802-876521  0.60%｜余\u2007994.0万',
-    '8864-159491  8.39%｜余\u2007916.1万',
-    '6585-896541  3.92%｜余\u2007960.8万',
+    mono('6585-159492  0.00%  余1000.0万'),
+    mono('6802-876521  0.60%  余_994.0万'),
+    mono('8864-159491  8.39%  余_916.1万'),
+    mono('6585-896541  3.92%  余_960.8万'),
   ]);
-  assert.equal(new Set(lines.map(l => l.length)).size, 1, 'every column ends at the same character position');
+  assert.equal(new Set(lines.map(l => [...l.replace(/\u2007\u2009/g, '#')].length)).size, 1, 'every column ends at the same digit position');
+  assert.doesNotMatch(r.result.content, /[0-9]/, 'no proportional ASCII digits left in aligned rows');
   // Wider percentages and different name lengths are padded the same way.
   r = await run(A, {argument: 'name1=A&id1=K1&secret1=S1&name2=Long-1&id2=K2&secret2=S2', http: o => ({status: 200, headers: {},
     body: JSON.stringify({Data: [{HttpCount: o.url.includes('AccessKeyId=K1') ? 10000000 : 1234567, HttpsCount: 0}]})})});
   assert.deepEqual(r.result.content.split('\n'), [
-    'A\u2007\u2007\u2007\u2007\u2007  100.00%｜余\u2007\u20070.0万',
-    'Long-1  \u200712.35%｜余876.5万',
+    mono('A_____  100.00%  余__0.0万'),
+    mono('Long-1  _12.35%  余876.5万'),
   ]);
   // A failed account keeps its error text and does not break alignment of the others.
   r = await run(A, {argument: 'name1=A1&id1=K1&secret1=S1&name2=B2&id2=K2&secret2=S2', http: o => o.url.includes('AccessKeyId=K1')
     ? {status: 403, headers: {}, body: '{"Message":"denied"}'} : {status: 200, headers: {}, body: '{"Data":[{"HttpCount":1}]}'}});
-  assert.match(r.result.content, /A1：查询失败\nHTTP 403: denied\nB2  0\.00%｜余1000\.0万/);
+  assert.equal(r.result.content, 'A1：查询失败\nHTTP 403: denied\n' + mono('B2  0.00%  余1000.0万'));
 
   console.log('PASS: VMISS auto credential capture/refresh/notification/cache and AliDNS column alignment');
 })().catch(e => { console.error(e); process.exit(1); });

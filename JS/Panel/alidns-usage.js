@@ -191,15 +191,29 @@ function percentageNumber(value) {
   return value.toFixed(2);
 }
 
-// Panel text is proportional, but digits are equal width. Fixed decimals plus
-// U+2007 FIGURE SPACE (one digit wide) keep every column aligned.
-const FIGURE_SPACE = "\u2007";
+// Surge panels use a proportional font (digit widths differ), so ordinary digits
+// cannot line up. Mathematical monospace digits (U+1D7F6–U+1D7FF) all share one
+// width. One missing digit is padded with FIGURE SPACE + THIN SPACE, which
+// measured exactly one monospace-digit wide on device (0 px drift).
+const MONO_DIGITS = ["𝟶", "𝟷", "𝟸", "𝟹", "𝟺", "𝟻", "𝟼", "𝟽", "𝟾", "𝟿"];
+const DIGIT_PAD = "\u2007\u2009";
+
+function monoDigits(value) {
+  return String(value).replace(/\d/g, (digit) => MONO_DIGITS[digit]);
+}
 
 function alignRows(rows) {
-  const width = (index) => Math.max(...rows.map((row) => row[index].length));
+  // Pad by visible characters (each mono digit is one code point but two UTF-16 units).
+  const length = (value) => [...value].length;
+  const pad = (value, width, start) => {
+    const fill = DIGIT_PAD.repeat(Math.max(width - length(value), 0));
+    return start ? fill + value : value + fill;
+  };
+  const cells = rows.map((row) => row.map(monoDigits));
+  const width = (index) => Math.max(...cells.map((row) => length(row[index])));
   const [nameWidth, percentWidth, remainingWidth] = [0, 1, 2].map(width);
-  return rows.map(([name, percent, remaining]) =>
-    `${name.padEnd(nameWidth, FIGURE_SPACE)}  ${percent.padStart(percentWidth, FIGURE_SPACE)}%｜余${remaining.padStart(remainingWidth, FIGURE_SPACE)}万`);
+  return cells.map(([name, percent, remaining]) =>
+    `${pad(name, nameWidth, false)}  ${pad(percent, percentWidth, true)}%  余${pad(remaining, remainingWidth, true)}万`);
 }
 
 function trim(value) {
