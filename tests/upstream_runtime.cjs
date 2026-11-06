@@ -20,7 +20,7 @@ function run(module, url, {ua = '', body, requestBody} = {}) {
 
 // Exercise the generated module's URL routing and actual reviewed upstream script.
 function runPdd(url, body) {
-  const module = fs.readFileSync('Module/Pinduoduo.sgmodule', 'utf8');
+  const module = fs.readFileSync('Module/AdBlock/Pinduoduo.sgmodule', 'utf8');
   const pattern = module.match(/pattern=(.*?), requires-body=true/);
   assert.ok(pattern && new RegExp(pattern[1]).test(url), 'Expected a response script for ' + url);
   return run('Pinduoduo', url, {body});

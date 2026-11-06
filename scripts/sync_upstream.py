@@ -237,7 +237,7 @@ def convert_scripted(name, text, fetch):
         needs_body = phase == 'response' or any(r['action'] == 'script-request-body' for r in group)
         module += f'{name}-{phase} = type=http-{phase}, pattern={pattern}, requires-body={str(needs_body).lower()}, max-size=2097152, script-path={RAW}JS/{name}.surge.js, timeout=15\n'
     module += '\n[MITM]\nhostname = %APPEND% ' + ', '.join(hosts) + '\n'
-    return {f'Module/{name}.sgmodule': module, f'JS/{name}.surge.js': bundle}
+    return {f'Module/AdBlock/{name}.sgmodule': module, f'JS/{name}.surge.js': bundle}
 
 
 def convert_pdd(text, fetch=None):
@@ -264,7 +264,7 @@ def convert_pdd(text, fetch=None):
         if route['action'] == 'reject-dict':
             module += route['pattern'] + ' data-type=text data="{}" status-code=200 header="Content-Type:application/json"\n'
     module += '\n[MITM]\nhostname = %APPEND% ' + ', '.join(hosts) + '\n'
-    return {'Module/Pinduoduo.sgmodule': module}
+    return {'Module/AdBlock/Pinduoduo.sgmodule': module}
 
 
 def convert_tx(text, fetch):
@@ -281,7 +281,7 @@ def convert_tx(text, fetch):
         binary = 'rdelivery' not in route['pattern']
         module += f'TxvideoAD-{i} = type=http-{phase}, pattern={route["pattern"]}, requires-body=true, binary-body-mode={str(binary).lower()}, max-size=1048576, script-path={RAW}JS/Txvideoad.surge.js, timeout=10\n'
     module += '\n[MITM]\nhostname = %APPEND% ' + ', '.join(hosts) + '\n'
-    return {'Module/TxvideoAD.sgmodule': module, 'JS/Txvideoad.surge.js': '// Original: TG@ZenMoFiShi; source: ' + TX_SCRIPT + '\n// Surge body API adaptation.\n' + source}
+    return {'Module/AdBlock/TxvideoAD.sgmodule': module, 'JS/Txvideoad.surge.js': '// Original: TG@ZenMoFiShi; source: ' + TX_SCRIPT + '\n// Surge body API adaptation.\n' + source}
 
 
 def convert_fanqie(text):
@@ -340,7 +340,7 @@ def main():
         outputs.update(convert_tx(text, fetch) if name == 'TxvideoAD' else convert(name, text, fetch))
     # Until a canonical upstream URL is supplied, keep the user's pasted FanQie snapshot.
     snapshot = (ROOT / 'upstreams/FanQieNovel.plugin').read_text()
-    outputs['Module/FanQieNovel.sgmodule'] = convert_fanqie(snapshot)
+    outputs['Module/AdBlock/FanQieNovel.sgmodule'] = convert_fanqie(snapshot)
     outputs['upstreams/lock.json'] = json.dumps({'sha256': fetch.manifest, 'static_sources': ['upstreams/FanQieNovel.plugin']}, indent=2, ensure_ascii=False) + '\n'
     validate(outputs)
     changed = []

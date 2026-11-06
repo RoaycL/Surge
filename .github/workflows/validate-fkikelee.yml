@@ -6,12 +6,17 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/validate-fkikelee.yml'
-      - 'Module/FKIKelee/**'
-      - 'JS/FKIKelee/**'
-      - 'Ruleset/FKIKelee/**'
+      - 'Module/**'
+      - 'JS/**'
+      - 'Ruleset/**'
       - 'upstreams/fkikelee/**'
       - 'scripts/convert_loon.py'
       - 'scripts/validate_loon.py'
+      - 'scripts/validate_repository.py'
+      - 'scripts/build_catalog.py'
+      - 'docs/**'
+      - 'README.md'
+      - 'tests/alidns_auto_switch.cjs'
       - 'scripts/loon_*.tpl'
       - 'tests/test_loon.py'
       - 'tests/test_amap.py'
@@ -20,12 +25,17 @@ on:
   pull_request:
     paths:
       - '.github/workflows/validate-fkikelee.yml'
-      - 'Module/FKIKelee/**'
-      - 'JS/FKIKelee/**'
-      - 'Ruleset/FKIKelee/**'
+      - 'Module/**'
+      - 'JS/**'
+      - 'Ruleset/**'
       - 'upstreams/fkikelee/**'
       - 'scripts/convert_loon.py'
       - 'scripts/validate_loon.py'
+      - 'scripts/validate_repository.py'
+      - 'scripts/build_catalog.py'
+      - 'docs/**'
+      - 'README.md'
+      - 'tests/alidns_auto_switch.cjs'
       - 'scripts/loon_*.tpl'
       - 'tests/test_loon.py'
       - 'tests/test_amap.py'
@@ -53,3 +63,8 @@ jobs:
         run: python3 -m unittest discover -s tests -p 'test_amap.py'
       - name: Compare remaining external jq JavaScript ports
         run: python3 -m unittest discover -s tests -p 'test_external_jq.py'
+
+      - name: Validate repository layout and published references
+        run: python3 scripts/validate_repository.py
+      - name: AliDNS switching behavior tests
+        run: node tests/alidns_auto_switch.cjs

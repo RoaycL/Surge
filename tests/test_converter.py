@@ -35,8 +35,8 @@ class ConverterTests(unittest.TestCase):
     def test_pdd_preserves_native_jq_without_javascript(self):
         source = (converter.ROOT / 'tests/fixtures/Pinduoduo-native-jq.snippet').read_text()
         outputs = converter.convert_pdd(source)
-        self.assertEqual(list(outputs), ['Module/Pinduoduo.sgmodule'])
-        module = outputs['Module/Pinduoduo.sgmodule']
+        self.assertEqual(list(outputs), ['Module/AdBlock/Pinduoduo.sgmodule'])
+        module = outputs['Module/AdBlock/Pinduoduo.sgmodule']
         self.assertNotIn('[Script]', module)
         _, _, routes, _ = converter.parse_qx(source)
         jq_routes = [r for r in routes if r['action'] == 'jsonjq-response-body']
@@ -55,8 +55,8 @@ class ConverterTests(unittest.TestCase):
                 return '$done({body: $response.body});'
         outputs = converter.convert('Pinduoduo', source, Fetch())
         self.assertIn('JS/Pinduoduo.surge.js', outputs)
-        self.assertIn('type=http-response', outputs['Module/Pinduoduo.sgmodule'])
-        self.assertIn('script-path=' + converter.RAW + 'JS/Pinduoduo.surge.js', outputs['Module/Pinduoduo.sgmodule'])
+        self.assertIn('type=http-response', outputs['Module/AdBlock/Pinduoduo.sgmodule'])
+        self.assertIn('script-path=' + converter.RAW + 'JS/Pinduoduo.surge.js', outputs['Module/AdBlock/Pinduoduo.sgmodule'])
         converter.validate(outputs)
 
     def test_pdd_script_changes_require_review(self):

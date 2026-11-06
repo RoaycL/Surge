@@ -9,6 +9,7 @@ on:
     paths:
       - '.github/workflows/sync-upstream.yml'
       - 'scripts/sync_upstream.py'
+      - 'scripts/build_catalog.py'
       - 'tests/upstream_runtime.cjs'
       - 'tests/test_converter.py'
       - 'tests/fixtures/**'
@@ -35,11 +36,13 @@ jobs:
         run: python3 -m unittest discover -s tests -p 'test_converter.py'
       - name: Adapter behavior tests
         run: node tests/upstream_runtime.cjs
+      - name: Refresh module catalog
+        run: python3 scripts/build_catalog.py
       - name: Commit only validated generated files
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          git add upstreams/*.snippet upstreams/lock.json Module/Pinduoduo.sgmodule Module/hlwxx_remove_ads.sgmodule Module/Weibo.sgmodule Module/FanQieNovel.sgmodule Module/TxvideoAD.sgmodule JS/hlwxx_remove_ads.surge.js JS/Weibo.surge.js JS/Txvideoad.surge.js
+          git add README.md upstreams/*.snippet upstreams/lock.json Module/AdBlock/Pinduoduo.sgmodule Module/AdBlock/hlwxx_remove_ads.sgmodule Module/AdBlock/Weibo.sgmodule Module/AdBlock/FanQieNovel.sgmodule Module/AdBlock/TxvideoAD.sgmodule JS/hlwxx_remove_ads.surge.js JS/Weibo.surge.js JS/Txvideoad.surge.js
           if [ -f JS/Pinduoduo.surge.js ]; then
             git add -- JS/Pinduoduo.surge.js
           elif git ls-files --error-unmatch JS/Pinduoduo.surge.js >/dev/null 2>&1; then

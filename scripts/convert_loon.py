@@ -5,15 +5,7 @@ from pathlib import Path
 from urllib.parse import quote
 ROOT = Path(__file__).resolve().parents[1]
 RAW = 'https://raw.githubusercontent.com/RoaycL/Surge/main/'
-CATS = {'去广告': 'AdBlock', '功能增强': 'Enhancement', '节点检测': 'Diagnostics', '签到': 'CheckIn', '定时任务': 'Automation', '订阅管理': 'Subscription', 'DNS': 'DNS', '配置管理': 'Configuration', '资源转换': 'Conversion', '数据管理': 'Data', '其他': 'Other'}
-AD_CATS = [('基础拦截', 'Base', '^(BlockAdvertisers|Block_HTTPDNS|Remove_ads_by_keli)$'), ('社交社区', 'Social', 'Weibo|Weixin|Wexin|RedPaper|Tieba|Zhihu|Soul|Uki|Bixin|MaiMai|PiPiXia|ZuiYou|Qbb|Cece|KOOK|DouBan|Tumblr|Pinterest|UnnooQuan|WPForum'), ('影音娱乐', 'Media', 'Video|YouTube|Spotify|Bili|Douyu|CCLive|MangoTV|Himalaya|QtingFM|CatEarFM|CosmosPodcast|KuGou|Kuwo|NeteaseCloudMusic|QQMusic|QQKSong|SodaMusic|BodianMusic|DjDuoDuo|HongKongToolbar|TubeMax|555DY|YY_Voice|YYVoice|LiveLab|DubbingShow|LZMH|MKZ|KuaiKanComic'), ('阅读资讯', 'Reading', 'Read|Reader|Dushu|ShuQi|IThome|36Kr|Caixin|FinanceNews|NeteaseNews|ifengNews|ZAKER|Huxiu|Daily|QiDian|ZongHeng|SevenCat|YiTian|Yitian'), ('购物电商', 'Shopping', 'PinDuoDuo|Taobao|JD|Dewu|FleaMarket|ZhuanZhuan|Weidian|smzdm|GuideRank|MrHema|Dingdong|PuPuMall|iMaiCai|Walmart|MeiShiJie|ShouYinTong|ShopKeeper|TmallCampus|Taopiaopiao|Damai|FerrisWheel|Pangguai'), ('出行汽车', 'Travel', 'Amap|BaiduMap|Chelaile|DiDi|Dida|Umetrip|12306|EasyBike|RoboTaxi|MotorFans|AutoHome|MaFengWo|OnTheWay|JiaKao|JiaXiao|Hanting|FlyerTea|Xiaojukeji|FC_Box|SF-Express|KuaiDi100|Cainiao'), ('金融保险', 'Finance', 'PICC|Snowball|SinaStock|Kingdee|WaCai|Wacai|QiXinBao|RiskBird|Jin10Data|Aiinquiry'), ('游戏电竞', 'Games', 'Godlike|miHoYo|KuroBBS|5EPlay|PerfectWorldEsport|Seasun|LOL_Bible|Valorant|MeiRiSaiChe|Jump'), ('教育办公', 'Education', 'FenBi|YiKaoBang|ChaoXing|ShandongSchool|YiSchool|KuaiDui|Youdao|WPS|TXDocs|GaoDing|XiaobaiPrint|Dlabel|AxWork|Wakeup|MyFriday'), ('健康生活', 'Life', 'BooHee|BabyTree|Dayima|MeetYou|Keep|RQrun|PICOOC|Yunmai|OKOK|SnailSleep|Heartide|91160|SuZhou|CSG|EasyCharge|CoolApk|Weather|Moji|TianQi|ColorfulClouds|Foodie|SnowCamera|MeiTu|Meitu|WutaCamera|KwaiVideoeditor|Meizhixiuxing|ChatCam|Taqu|YueDanBa|Yueyou|XiaChuFang|DuiTang|ChengFenMiao|LuckinCoffee')]
-
-def ad_category(stem):
-    for name, slug, pattern in AD_CATS:
-        if re.search(pattern, stem, re.I):
-            return (name, slug)
-    return ('工具与智能设备', 'Utilities')
-
+CATS = {'去广告': 'AdBlock', 'DNS': 'DNS', **dict.fromkeys(['功能增强', '节点检测', '签到', '定时任务', '订阅管理', '配置管理', '资源转换', '数据管理', '其他'], 'Enhancement')}
 def js(v):
     return json.dumps(v, ensure_ascii=False, separators=(',', ':'))
 
@@ -251,11 +243,11 @@ class Converter:
             elif l and (not l.startswith(('#', '//'))):
                 sections[sec].append((no, norm(l)))
         tag = meta.get('tag', '其他').split(',')[0].strip()
-        cat = CATS.get(tag, 'Other')
+        cat = CATS.get(tag, 'Enhancement')
         stem = f.stem
         name = meta['name']
-        sub, slug = ad_category(stem) if tag == '去广告' else ('', '')
-        folder = cat + ('/' + slug if slug else '')
+        sub = ''
+        folder = cat
         out = collections.defaultdict(list)
         notes = []
         params = {}
@@ -269,7 +261,7 @@ class Converter:
                 default = default.replace('?', '*')
             params[k] = default
             help.append(k + '=' + str(default) + '；' + ','.join(tokens[2:]))
-        if cat == 'Diagnostics':
+        if tag == '节点检测':
             params['policy'] = 'DIRECT'
             help.append('policy：Surge 节点/策略名称，替代 Loon 长按节点。')
         stored = {}
@@ -306,7 +298,7 @@ class Converter:
             else:
                 out['Rule'].append(l)
         if proxy:
-            p = f'Ruleset/FKIKelee/{folder}/{stem}.list'
+            p = f'Ruleset/{folder}/{stem}.list'
             self.put(p, '# ' + name + '\n' + '\n'.join(proxy) + '\n')
             notes.append('主配置需添加：RULE-SET,' + RAW + p + ',节点选择（替换为你的代理策略）。')
         for _, l in sections['[general]']:
@@ -449,7 +441,7 @@ class Converter:
                     raise ValueError('Unknown script argument ' + arg)
             if options.get('enable'):
                 sent.append('__enable=' + re.sub('\\$\\{([^}]+)\\}', lambda m: '{{{' + key(m[1]) + '}}}', options['enable']))
-            if cat == 'Diagnostics':
+            if tag == '节点检测':
                 sent.append('__policy={{{policy}}}')
             sent.extend(('__store_' + dest + '={{{' + key(k) + '}}}' for k, dest in stored.items()))
             if sent:
@@ -462,12 +454,12 @@ class Converter:
             desc = '【缺失主体脚本：去广告功能未启用，仅保留MitM设置】' + desc
         elif any('截断' in n for n in notes):
             desc = '【部分功能受限：上游一条无效响应未启用】' + desc
-        headers = ['#!name=' + name, '#!desc=' + desc, '#!author=' + meta.get('author', ''), '#!category=FKIKelee · ' + tag + (' · ' + sub if sub else ''), '#!homepage=https://github.com/RoaycL/Surge/tree/main/Module/FKIKelee', '#!icon=' + meta.get('icon', ''), '# Source: https://github.com/RoaycL/fkikelee/blob/' + self.source_sha + '/lpx/' + f.name, '# Generated by scripts/convert_loon.py; original authors retain attribution.']
+        headers = ['#!name=' + name, '#!desc=' + desc, '#!author=' + meta.get('author', ''), '#!category=' + {'DNS': 'DNS', 'AdBlock': '去广告', 'Enhancement': '功能增强'}[cat], '#!homepage=https://github.com/RoaycL/Surge', '#!icon=' + meta.get('icon', ''), '# Source: https://github.com/RoaycL/fkikelee/blob/' + self.source_sha + '/lpx/' + f.name, '# Generated by scripts/convert_loon.py; original authors retain attribution.']
         if params:
             headers += ['#!arguments=' + ','.join((key(k) + ':' + quote(str(v).lower() if isinstance(v, bool) else str(v), safe=' */?') for k, v in params.items())), '#!arguments-desc=' + ' | '.join(help)]
         headers += ['# NOTE: ' + s for s in dict.fromkeys(notes)]
         text = '\n'.join(headers) + '\n' + ''.join(('\n[' + s + ']\n' + '\n'.join(v) + '\n' for s, v in out.items() if v))
-        dest = f'Module/FKIKelee/{folder}/{stem}.sgmodule'
+        dest = f'Module/{folder}/{stem}.sgmodule'
         self.put(dest, text)
         self.put('upstreams/fkikelee/lpx/' + f.name, source)
         self.entries.append(dict(id=stem, name=name, category=tag, subcategory=sub, module=dest, source='lpx/' + f.name, source_sha256=sha(source), parameters=params, notes=list(dict.fromkeys(notes)), rules=len(sections['[rule]']), rewrites=len(sections['[rewrite]']), scripts=len(sections['[script]'])))
@@ -481,21 +473,23 @@ class Converter:
                 raise ValueError(str(f) + ': ' + str(e)) from e
         self.put('upstreams/fkikelee/manifest.json', json.dumps(dict(source_repository='RoaycL/fkikelee', source_commit=self.source_sha, modules=self.entries, resources=self.resources), ensure_ascii=False, indent=2) + '\n')
         ls = ['# FKIKelee Loon → Surge 插件目录', '', f'来源：[RoaycL/fkikelee](https://github.com/RoaycL/fkikelee/tree/{self.source_sha})，共 {len(self.entries)} 个插件。保留原作者署名，不覆盖仓库已有模块。', '', '## 使用说明', '', '- 需要 Surge iOS 5.14+ / Mac 5.9+ 原生 jq 支持；请按需安装，避免多个同 App 模块互相覆盖。', '- 参数转换为 Surge 模块参数，默认值和可选值见模块参数说明；Surge 无法复刻 Loon 的开关/下拉控件。', '- 默认参数 URL 编码以保留逗号、空格，适配器自动解码；手动输入含 &、引号、逗号的值也应 URL 编码。', '- 节点检测通过面板手动运行，policy 参数指定 Surge 节点/策略；不支持 Loon 的节点长按菜单。', '- PROXY 路由另附规则集，必须将模块注释中的 RULE-SET 行加入主配置并指定自己的策略。', '- 缺失的源依赖不会以空脚本冒充；受影响功能列在备注中，其他转换部分仍可使用。', '- 转换及模拟测试不等于已在全部 App、账号和真实设备验证。', '']
-        for tag in CATS:
-            entries = [e for e in self.entries if e['category'] == tag]
+        for group, tag in [('DNS', 'DNS'), ('Enhancement', '功能增强'), ('AdBlock', '去广告')]:
+            entries = [e for e in self.entries if CATS[e['category']] == group]
             if not entries:
                 continue
-            ls += ['## ' + tag + f'（{len(entries)}）', '', '| 分类 / 插件 | 安装 | 参数 | 差异 / 配套操作 |', '| --- | --- | --- | --- |']
+            ls += ['## ' + tag + f'（{len(entries)}）', '', '| 插件 | 安装 | 参数 | 差异 / 配套操作 |', '| --- | --- | --- | --- |']
             entries.sort(key=lambda e: (e['subcategory'], e['name']))
             for e in entries:
                 esc = lambda v: str(v).replace('|', '\\|').replace('\n', ' ')
-                ls += ['| ' + esc((e['subcategory'] + ' / ' if e['subcategory'] else '') + e['name']) + ' | [模块](' + RAW + e['module'] + ') | ' + esc('、'.join(e['parameters'])) + ' | ' + esc('；'.join(e['notes'])) + ' |']
+                ls += ['| ' + esc(e['name']) + ' | [模块](' + RAW + e['module'] + ') | ' + esc('、'.join(e['parameters'])) + ' | ' + esc('；'.join(e['notes'])) + ' |']
             ls += ['']
-        self.put('Module/FKIKelee/README.md', '\n'.join(ls) + '\n')
+        self.put('docs/fkikelee.md', '\n'.join(ls).rstrip() + '\n')
         for p, s in self.files.items():
             f = ROOT / p
             f.parent.mkdir(parents=True, exist_ok=True)
             f.write_text(s)
+        from build_catalog import main as build_catalog
+        build_catalog()
         print(js(dict(modules=len(self.entries), categories=dict(collections.Counter((e['category'] for e in self.entries))), resources=len(self.resources), adapters=len(self.adapters), notes=[(e['id'], e['notes']) for e in self.entries if e['notes']])))
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()

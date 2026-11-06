@@ -78,7 +78,7 @@ class LoonTests(unittest.TestCase):
         m = module('Prevent_DNS_Leaks')
         self.assertNotIn(',PROXY', m)
         self.assertNotIn(',DIRECT', m)
-        rules = ROOT / 'Ruleset/FKIKelee/DNS/Prevent_DNS_Leaks.list'
+        rules = ROOT / 'Ruleset/DNS/Prevent_DNS_Leaks.list'
         self.assertIn('dnsleaktest.com', rules.read_text())
 
     def test_missing_dependencies_are_visible(self):

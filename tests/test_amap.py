@@ -44,7 +44,7 @@ def normalize(v):
 
 class AmapTests(unittest.TestCase):
     def test_converter_emits_external_script(self):
-        module = (ROOT / 'Module/FKIKelee/AdBlock/Travel/Amap_remove_ads.sgmodule').read_text()
+        module = (ROOT / 'Module/AdBlock/Amap_remove_ads.sgmodule').read_text()
         url = 'https://raw.githubusercontent.com/RoaycL/Surge/main/JS/FKIKelee/Rewrite/Amap_remove_ads.js'
         self.assertEqual(module.count('script-path=' + url), 2)
         self.assertEqual(module.count('http-response-jq '), 14)

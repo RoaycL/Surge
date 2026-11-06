@@ -1,0 +1,14 @@
+#!name=VMISS 流量概况
+#!desc=在 Surge Panel 中显示 VMISS 流量。需要更新凭证时将「获取Cookie」设为 true 并打开一次产品详情页；成功后改为 #，停止自动获取。
+#!arguments=获取Cookie:"#",刷新间隔:300
+#!arguments-desc=获取Cookie:填写 true 后打开一次 VMISS 产品详情页以获取登录凭证；收到成功通知后请改为 #，停止自动获取，避免有效 Cookie 被后续请求覆盖。\n\n刷新间隔:刷新间隔（秒）
+
+[Panel]
+VMISS 流量 = title="VMISS 流量",content="首次请打开 VMISS 产品页面抓取登录凭证",style=info,script-name=vmiss-traffic,update-interval={{{刷新间隔}}}
+
+[Script]
+vmiss-traffic-capture = type=http-request,pattern=^https:\/\/app\.vmiss\.com\/clientarea\.php\?action=productdetails&id=\d+.*$,requires-body=0,max-size=0,timeout=15,script-path=https://raw.githubusercontent.com/RoaycL/Surge/a14865f69fe4152054f6e049994b6534011e4e26/JS/Panel/vmiss-traffic.js,script-update-interval=300,argument="mode=capture&capture={{{获取Cookie}}}"
+vmiss-traffic = type=generic,script-path=https://raw.githubusercontent.com/RoaycL/Surge/a14865f69fe4152054f6e049994b6534011e4e26/JS/Panel/vmiss-traffic.js,timeout=15,script-update-interval=300,argument="mode=panel"
+
+[MITM]
+hostname = %APPEND% app.vmiss.com
