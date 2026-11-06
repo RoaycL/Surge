@@ -55,11 +55,18 @@ async function run(file, {argument = '', request, response, http = () => ({statu
     http: () => ({status: 200, headers: {'Set-Cookie': 'WHMCSabc=sess4; path=/, other=1; Max-Age=0'}, body: json})});
   assert.match(r.result.title, /^VMISS \| 1,000 GB \| \d\d:\d\d$/);
   assert.match(r.result.content, /已用：12\.0%/);
-  assert.match(r.result.content, /到期：2027\.1\.15/);
+  assert.match(r.result.content, /到期：2027\.1\.16/, 'due date is shown as official date + 1 day');
   assert.equal(r.requests[0].policy, 'Fixed Node');
   assert.equal(r.requests[0].headers.Cookie, 'WHMCSabc=sess3; cf_clearance=cf2');
   assert.equal(JSON.parse(store.VMISS_Traffic_Headers_v1).headers.Cookie, 'WHMCSabc=sess4; cf_clearance=cf2');
   assert.ok(JSON.parse(store.VMISS_Traffic_State_v1).last);
+
+  // +1 day rolls over month and year ends (separate store: keeps the cache test below intact).
+  const dateStore = {...store};
+  r = await run(V, {argument: 'mode=panel', store: dateStore, http: () => ({status: 200, headers: {}, body: JSON.stringify({trafficUsed: '1', trafficTotal: 10, nextduedate: '2026-12-31'})})});
+  assert.match(r.result.content, /到期：2027\.1\.1/);
+  r = await run(V, {argument: 'mode=panel', store: dateStore, http: () => ({status: 200, headers: {}, body: JSON.stringify({trafficUsed: '1', trafficTotal: 10, nextduedate: '2028-02-28'})})});
+  assert.match(r.result.content, /到期：2028\.2\.29/);
 
   // Cloudflare 403: cached data stays visible, one notification that opens the product page.
   const challenge = () => ({status: 403, headers: {'cf-mitigated': 'challenge'}, body: ''});
