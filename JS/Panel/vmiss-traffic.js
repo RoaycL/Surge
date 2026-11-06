@@ -62,6 +62,14 @@ function formatDate(value) {
   return match ? `${Number(match[1])}.${Number(match[2])}.${Number(match[3])}` : "";
 }
 
+// Shown due date = official date + 1 day (the service runs through the official due date).
+function nextDay(date) {
+  const match = String(date || "").match(/^(\d{4})\.(\d{1,2})\.(\d{1,2})$/);
+  if (!match) return date;
+  const shifted = new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]) + 1);
+  return `${shifted.getFullYear()}.${shifted.getMonth() + 1}.${shifted.getDate()}`;
+}
+
 function findDueDate(value) {
   if (!value) return "";
   if (typeof value === "object") {
@@ -282,6 +290,7 @@ async function query() {
     }
   }
 
+  if (dueDate) dueDate = nextDay(dueDate);
   const content = [`已用：${percent.toFixed(1)}% \t|  剩余：${displayNumber(remaining)} GB`];
   if (resetDays !== null && dueDate) content.push(`重置：${resetDays}天后 \t|  到期：${dueDate}`);
   else if (resetDays !== null) content.push(`重置：${resetDays}天后`);
