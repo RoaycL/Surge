@@ -188,18 +188,18 @@ function usageProgress(used, quota) {
 }
 
 function percentageNumber(value) {
-  if (value >= 100) return value.toFixed(0);
-  if (value >= 10) return value.toFixed(1);
   return value.toFixed(2);
 }
 
-function remainingWan(value) {
-  const numberValue = number(value);
-  const wan = numberValue / 10000;
-  if (wan >= 1000) return wan.toFixed(0);
-  if (wan >= 100) return wan.toFixed(1);
-  if (wan >= 10) return wan.toFixed(2);
-  return wan.toFixed(3);
+// Panel text is proportional, but digits are equal width. Fixed decimals plus
+// U+2007 FIGURE SPACE (one digit wide) keep every column aligned.
+const FIGURE_SPACE = "\u2007";
+
+function alignRows(rows) {
+  const width = (index) => Math.max(...rows.map((row) => row[index].length));
+  const [nameWidth, percentWidth, remainingWidth] = [0, 1, 2].map(width);
+  return rows.map(([name, percent, remaining]) =>
+    `${name.padEnd(nameWidth, FIGURE_SPACE)}  ${percent.padStart(percentWidth, FIGURE_SPACE)}%｜余${remaining.padStart(remainingWidth, FIGURE_SPACE)}万`);
 }
 
 function trim(value) {
@@ -329,6 +329,7 @@ function base64(bytes) {
   const range = monthRange();
   const settled = await Promise.allSettled(accounts.map((account) => queryAccount(account, range)));
   const accountBlocks = [];
+  const rows = [];
   let successCount = 0;
 
   settled.forEach((result, index) => {
@@ -338,7 +339,9 @@ function base64(bytes) {
       const usage = result.value.usage;
       const progress = usageProgress(usage.billable, monthlyQuota);
       successCount += 1;
-      accountBlocks.push(`${displayName}  ${progress.percentage}%｜余${remainingWan(progress.remaining)}万`);
+      // Same decimals on every line, so only digit-width padding is needed.
+      rows.push([displayName, progress.percentage, (number(progress.remaining) / 10000).toFixed(1)]);
+      accountBlocks.push(rows.length - 1);
     } else {
       accountBlocks.push([
         `${displayName}：查询失败`,
@@ -347,7 +350,9 @@ function base64(bytes) {
     }
   });
 
-  panelDone("阿里 HTTPDNS", accountBlocks.join("\n"), successCount ? "info" : "error");
+  const aligned = alignRows(rows);
+  const lines = accountBlocks.map((block) => typeof block === "number" ? aligned[block] : block);
+  panelDone("阿里 HTTPDNS", lines.join("\n"), successCount ? "info" : "error");
 })().catch((error) => {
   console.log(`[AliDNS Usage] ${error.message}`);
   panelDone("阿里 HTTPDNS 用量", `更新失败：${error.message}`, "error");

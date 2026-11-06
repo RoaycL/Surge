@@ -19,3 +19,4 @@ python3 -m unittest discover -s tests -p 'test_converter.py'
 node tests/upstream_runtime.cjs
 python3 scripts/validate_repository.py
 node tests/alidns_auto_switch.cjs
+node tests/panel_scripts.cjs
