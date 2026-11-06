@@ -15,6 +15,7 @@ on:
       - 'scripts/loon_*.tpl'
       - 'tests/test_loon.py'
       - 'tests/test_amap.py'
+      - 'tests/test_external_jq.py'
       - 'tests/loon_runtime.cjs'
   pull_request:
     paths:
@@ -28,6 +29,7 @@ on:
       - 'scripts/loon_*.tpl'
       - 'tests/test_loon.py'
       - 'tests/test_amap.py'
+      - 'tests/test_external_jq.py'
       - 'tests/loon_runtime.cjs'
 
 permissions:
@@ -49,3 +51,5 @@ jobs:
         run: node tests/loon_runtime.cjs
       - name: Compare Amap JavaScript with original jq
         run: python3 -m unittest discover -s tests -p 'test_amap.py'
+      - name: Compare remaining external jq JavaScript ports
+        run: python3 -m unittest discover -s tests -p 'test_external_jq.py'

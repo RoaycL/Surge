@@ -208,6 +208,33 @@ class Converter:
         self.put(dest, (ROOT / 'scripts/loon_amap.js.tpl').read_text().replace('__AMAP_SPEC__', js(spec)))
         return dest
 
+    def external_jq_script(self, url):
+        ports = {
+            'smzdm/home_smzdm_remove_ads.jq': ('smzdm', '3de9198beea48ef56bd0cb948fbfc6ca592348e0d3633a75d422ef7a63f08b0a'),
+            'Bilibili/tab_Bilibili_remove_ads.jq': ('tab', '69b4b2129be425dfa26fe7f06786a8710129c2ce5702fdcd36d90f842aea4dec'),
+            'Bilibili/mine_Bilibili_remove_ads.jq': ('mine', 'e99d5ea7038cb973996a04fde3cd9a2840dbba6dcfbfb437c00cb383f53fda2f'),
+            'Reddit/Reddit_remove_ads.jq': ('reddit', '55ff9cba1efa934421f4a9cf2afcc100e43efd5eb557115b8764fc39ae0ca99c'),
+        }
+        rel = url.split('/JQLang/', 1)[-1]
+        if rel not in ports:
+            raise ValueError('Unreviewed external jq resource: ' + url)
+        kind, digest = ports[rel]
+        source, _ = self.resource(url)
+        if sha(source) != digest:
+            raise ValueError('External jq changed; review the JavaScript port: ' + rel)
+        spec = {}
+        if kind in ['tab', 'mine']:
+            menu_keys = ['sections_v2', 'ipad_sections', 'ipad_upper_sections', 'ipad_recommend_sections', 'ipad_more_sections']
+            probe = {'data': {k: [] for k in menu_keys}} if kind == 'mine' else None
+            # Evaluate constant menu definitions at generation time, never on device.
+            result = subprocess.run(['jq', '-c', source], input=js(probe), text=True, capture_output=True, check=True)
+            data = json.loads(result.stdout)['data']
+            spec = {k: data[k] for k in menu_keys} if kind == 'mine' else data
+        dest = 'JS/FKIKelee/Rewrite/' + rel.replace('/', '-').replace('.jq', '.js')
+        template = (ROOT / 'scripts/loon_external_jq.js.tpl').read_text()
+        self.put(dest, template.replace('__SOURCE__', url).replace('__KIND__', js(kind)).replace('__SPEC__', js(spec)))
+        return dest
+
     def convert(self, f):
         source = f.read_text()
         sections = collections.defaultdict(list)
@@ -316,8 +343,10 @@ class Converter:
                         out['Script'].append('fk-Amap-' + args[0].split('/')[-1].replace('.jq', '') +
                             ' = type=http-response, pattern=' + quoted(np) + ', requires-body=true, max-size=1048576, script-path=' + RAW + rp + ', timeout=5')
                         continue
-                    program, _ = self.resource(args[0])
-                    program = compact(program)
+                    rp = self.external_jq_script(args[0])
+                    out['Script'].append('fk-' + stem + '-external-jq-' + str(no) + ' = type=http-response, pattern=' + quoted(np) +
+                        ', requires-body=true, max-size=1048576, script-path=' + RAW + rp + ', timeout=5')
+                    continue
                 elif op.endswith('.jq'):
                     program = args[0]
                 elif op.endswith('.delete'):
