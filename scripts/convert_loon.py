@@ -181,6 +181,33 @@ class Converter:
         self.adapters[url] = p
         return p
 
+    def amap_script(self):
+        base = 'https://raw.githubusercontent.com/fkingikelee/fkikelee/main/Resource/kelee/JQLang/Amap/'
+        expected = {'updatable.jq': 'dba0888e3e4491e282ce58e547e3a4125f6fd96057d0d5eaf878450fa40bd647',
+                    'search_poi_detail.jq': '7def102b752835f8cbe63167b75dbe19997cb532f7e35d8283de4eeb5f2d4eb6'}
+        sources = {}
+        for name, digest in expected.items():
+            text, _ = self.resource(base + name)
+            if sha(text) != digest:
+                raise ValueError('Amap jq source changed; review the JavaScript port before regeneration: ' + name)
+            sources[name] = compact(text)
+        def strings(text):
+            return [json.loads(s) for s in re.findall(r'"(?:[^"\\]|\\.)*"', text)]
+        def deleted_after(marker):
+            text = sources['updatable.jq'].split(marker, 1)[1]
+            fields = re.search(r'\| del\((.*?)\)', text).group(1)
+            return [p[1:] if not p.startswith('."') else json.loads(p[1:]) for p in split(fields)]
+        spec = dict(basemap=deleted_after('.data.amap_basemap_config.value = ('),
+                    navigation=deleted_after('.data.navi_cloud.value |= ('),
+                    taxi=deleted_after('($probe.parsed'),
+                    shelf=strings(re.search(r'def keep: IN\((.*?)\);', sources['updatable.jq']).group(1)),
+                    detail=[])
+        for group in ['skeleton', 'ugc', 'intro', 'poi_data', 'service', 'guide', 'compliance', 'booking']:
+            spec['detail'].extend(strings(re.search(r'def keep_' + group + r':\s*IN\((.*?)\);', sources['search_poi_detail.jq']).group(1)))
+        dest = 'JS/FKIKelee/Rewrite/Amap_remove_ads.js'
+        self.put(dest, (ROOT / 'scripts/loon_amap.js.tpl').read_text().replace('__AMAP_SPEC__', js(spec)))
+        return dest
+
     def convert(self, f):
         source = f.read_text()
         sections = collections.defaultdict(list)
@@ -282,6 +309,13 @@ class Converter:
                 raise
             if op.startswith('response.json.'):
                 if op.endswith('jq_file'):
+                    if stem == 'Amap_remove_ads':
+                        if args[0].split('/')[-1] not in ['updatable.jq', 'search_poi_detail.jq']:
+                            raise ValueError('Unreviewed Amap jq resource: ' + args[0])
+                        rp = self.amap_script()
+                        out['Script'].append('fk-Amap-' + args[0].split('/')[-1].replace('.jq', '') +
+                            ' = type=http-response, pattern=' + quoted(np) + ', requires-body=true, max-size=1048576, script-path=' + RAW + rp + ', timeout=5')
+                        continue
                     program, _ = self.resource(args[0])
                     program = compact(program)
                 elif op.endswith('.jq'):

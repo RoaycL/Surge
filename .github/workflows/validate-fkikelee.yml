@@ -14,6 +14,7 @@ on:
       - 'scripts/validate_loon.py'
       - 'scripts/loon_*.tpl'
       - 'tests/test_loon.py'
+      - 'tests/test_amap.py'
       - 'tests/loon_runtime.cjs'
   pull_request:
     paths:
@@ -26,6 +27,7 @@ on:
       - 'scripts/validate_loon.py'
       - 'scripts/loon_*.tpl'
       - 'tests/test_loon.py'
+      - 'tests/test_amap.py'
       - 'tests/loon_runtime.cjs'
 
 permissions:
@@ -45,3 +47,5 @@ jobs:
         run: python3 -m unittest discover -s tests -p 'test_loon.py'
       - name: Script argument and behavior tests
         run: node tests/loon_runtime.cjs
+      - name: Compare Amap JavaScript with original jq
+        run: python3 -m unittest discover -s tests -p 'test_amap.py'
