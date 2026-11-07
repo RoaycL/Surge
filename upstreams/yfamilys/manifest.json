@@ -2,8 +2,8 @@
   "index": "https://yfamilys.com/surge",
   "modules": [
     {
-      "title": "🎨面板·美国汽车消费者报告",
       "url": "https://yfamilys.com/sgmodule/car.sgmodule",
+      "title": "🎨面板·美国汽车消费者报告",
       "source": "upstreams/yfamilys/sources/sgmodule-car.sgmodule",
       "sha256": "10779638419c97f8d34ff11843693bb00c68e103cb2467e2b94ca1cc5bb72d77",
       "module": "Module/Panel/YFamily-Panel-car.sgmodule",
@@ -14,8 +14,8 @@
       ]
     },
     {
-      "title": "🎨面板·今日辟谣",
       "url": "https://yfamilys.com/sgmodule/rumors.sgmodule",
+      "title": "🎨面板·今日辟谣",
       "source": "upstreams/yfamilys/sources/sgmodule-rumors.sgmodule",
       "sha256": "e38530a15b76b7eb001a6bc450ae66480a6e6eddfd4b3b62438313c16b858825",
       "module": "Module/Panel/YFamily-Panel-rumors.sgmodule",
@@ -26,8 +26,8 @@
       ]
     },
     {
-      "title": "🎨面板·限免APP",
       "url": "https://yfamilys.com/sgmodule/appsdoor.sgmodule",
+      "title": "🎨面板·限免APP",
       "source": "upstreams/yfamilys/sources/sgmodule-appsdoor.sgmodule",
       "sha256": "d67aaaacfe3b123a2b5634426a5e259226556e10021370e9f47b198c1fe5ed03",
       "module": "Module/Panel/YFamily-Panel-appsdoor.sgmodule",
@@ -38,8 +38,8 @@
       ]
     },
     {
-      "title": "🎨面板·平台热榜",
       "url": "https://yfamilys.com/sgmodule/hotoday.sgmodule",
+      "title": "🎨面板·平台热榜",
       "source": "upstreams/yfamilys/sources/sgmodule-hotoday.sgmodule",
       "sha256": "eba1547a287f3445022e46ff0906de640cad8b3237e8303ca925ca5283cfc78a",
       "module": "Module/Panel/YFamily-Panel-hotoday.sgmodule",
@@ -50,8 +50,8 @@
       ]
     },
     {
-      "title": "🎨面板·QQ音乐热歌榜",
       "url": "https://yfamilys.com/sgmodule/qm.sgmodule",
+      "title": "🎨面板·QQ音乐热歌榜",
       "source": "upstreams/yfamilys/sources/sgmodule-qm.sgmodule",
       "sha256": "ab109dc60a730bf4afb24a044291e76dab7fc11c5a6cf0aabe44dcb7eb276054",
       "module": "Module/Panel/YFamily-Panel-qm.sgmodule",
@@ -62,8 +62,8 @@
       ]
     },
     {
-      "title": "🎨面板·网易云热歌榜",
       "url": "https://yfamilys.com/sgmodule/nm.sgmodule",
+      "title": "🎨面板·网易云热歌榜",
       "source": "upstreams/yfamilys/sources/sgmodule-nm.sgmodule",
       "sha256": "2fcea4a607bd0e96dd6ad0866ea9f5e3b12d96303e08d0d66d65c044973da436",
       "module": "Module/Panel/YFamily-Panel-nm.sgmodule",
@@ -74,8 +74,8 @@
       ]
     },
     {
-      "title": "🎨面板·酷狗音乐热歌榜",
       "url": "https://yfamilys.com/sgmodule/km.sgmodule",
+      "title": "🎨面板·酷狗音乐热歌榜",
       "source": "upstreams/yfamilys/sources/sgmodule-km.sgmodule",
       "sha256": "7690f8cd8221aee20868adb85e5ff45ddcc2ba21a2c79957be4e97b1775c29b3",
       "module": "Module/Panel/YFamily-Panel-km.sgmodule",
@@ -86,8 +86,8 @@
       ]
     },
     {
-      "title": "🎨面板·Billboard",
       "url": "https://yfamilys.com/sgmodule/bb100.sgmodule",
+      "title": "🎨面板·Billboard",
       "source": "upstreams/yfamilys/sources/sgmodule-bb100.sgmodule",
       "sha256": "a4511138928e6a8d3768b305c2cfea691790658c8c19b4de4aee8a54d510ac6f",
       "module": "Module/Panel/YFamily-Panel-bb100.sgmodule",
@@ -98,8 +98,8 @@
       ]
     },
     {
-      "title": "🎨面板·新书速递",
       "url": "https://yfamilys.com/sgmodule/book.sgmodule",
+      "title": "🎨面板·新书速递",
       "source": "upstreams/yfamilys/sources/sgmodule-book.sgmodule",
       "sha256": "a9039273de4b4ebbd0c4434f160d637aee84f54d39c52a23684efec442d58ab6",
       "module": "Module/Panel/YFamily-Panel-book.sgmodule",
@@ -110,8 +110,8 @@
       ]
     },
     {
-      "title": "🎨面板·热映电影",
       "url": "https://yfamilys.com/sgmodule/movie.sgmodule",
+      "title": "🎨面板·热映电影",
       "source": "upstreams/yfamilys/sources/sgmodule-movie.sgmodule",
       "sha256": "296890b41225ff425434e38ef043a9a795e14895885c5ad910ba45e819c5639a",
       "module": "Module/Panel/YFamily-Panel-movie.sgmodule",
@@ -122,8 +122,8 @@
       ]
     },
     {
-      "title": "🎨面板·电视热度榜",
       "url": "https://yfamilys.com/sgmodule/tv.sgmodule",
+      "title": "🎨面板·电视热度榜",
       "source": "upstreams/yfamilys/sources/sgmodule-tv.sgmodule",
       "sha256": "ea49ad89aec80e6a549343fd2ad356d4a50280ade825f712d0ae448635f25f83",
       "module": "Module/Panel/YFamily-Panel-tv.sgmodule",
@@ -134,8 +134,8 @@
       ]
     },
     {
-      "title": "🎨面板·天气",
       "url": "https://yfamilys.com/sgmodule/tianqi.sgmodule",
+      "title": "🎨面板·天气",
       "source": "upstreams/yfamilys/sources/sgmodule-tianqi.sgmodule",
       "sha256": "0aa10f4391236ceacc35299c17dc3ebc834f3edad0b93db618930271d355f9b9",
       "module": "Module/Panel/YFamily-Panel-tianqi.sgmodule",
@@ -146,8 +146,8 @@
       ]
     },
     {
-      "title": "🎨面板·汇率",
       "url": "https://yfamilys.com/sgmodule/rates.sgmodule",
+      "title": "🎨面板·汇率",
       "source": "upstreams/yfamilys/sources/sgmodule-rates.sgmodule",
       "sha256": "5a780b0d7e76106be6258f6935e3e2d3c44ee5b190059f9bf5e5b90a3d131a42",
       "module": "Module/Panel/YFamily-Panel-rates.sgmodule",
@@ -158,8 +158,8 @@
       ]
     },
     {
-      "title": "🎨面板·汇率·加密货币",
       "url": "https://yfamilys.com/sgmodule/crypto.sgmodule",
+      "title": "🎨面板·汇率·加密货币",
       "source": "upstreams/yfamilys/sources/sgmodule-crypto.sgmodule",
       "sha256": "818c78a3820ca9be5b58da24010a4cf2d34339d6bc31d885c8cdac48bffe0e95",
       "module": "Module/Panel/YFamily-Panel-crypto.sgmodule",
@@ -170,8 +170,8 @@
       ]
     },
     {
-      "title": "🎨面板·油价",
       "url": "https://yfamilys.com/sgmodule/oil.sgmodule",
+      "title": "🎨面板·油价",
       "source": "upstreams/yfamilys/sources/sgmodule-oil.sgmodule",
       "sha256": "9e7512e2a5e47d5fe4973195068cf79dd165446aef84b9e94fc77c7014224551",
       "module": "Module/Panel/YFamily-Panel-oil.sgmodule",
@@ -182,8 +182,8 @@
       ]
     },
     {
-      "title": "🎨面板·生活指数",
       "url": "https://yfamilys.com/sgmodule/lifeindex.sgmodule",
+      "title": "🎨面板·生活指数",
       "source": "upstreams/yfamilys/sources/sgmodule-lifeindex.sgmodule",
       "sha256": "68e550ead2dbbad5e5966881f1d5dd69fcdc5fefcd71fb98f057df7e8cd82dbc",
       "module": "Module/Panel/YFamily-Panel-lifeindex.sgmodule",
@@ -194,8 +194,8 @@
       ]
     },
     {
-      "title": "🎨面板·历史上的今天",
       "url": "https://yfamilys.com/sgmodule/histoday.sgmodule",
+      "title": "🎨面板·历史上的今天",
       "source": "upstreams/yfamilys/sources/sgmodule-histoday.sgmodule",
       "sha256": "289db369ab54a83d748fa7541e8c2e60cff1e4f3f6596f51c2b50c9b79346289",
       "module": "Module/Panel/YFamily-Panel-histoday.sgmodule",
@@ -206,8 +206,8 @@
       ]
     },
     {
-      "title": "🎨面板·节点信息",
       "url": "https://yfamilys.com/sgmodule/ip-api.sgmodule",
+      "title": "🎨面板·节点信息",
       "source": "upstreams/yfamilys/sources/sgmodule-ip-api.sgmodule",
       "sha256": "b076913324d0972d0fd070e67573fa7c1045f04ae28849a563e63a85281d3ea1",
       "module": "Module/Panel/YFamily-Panel-ip-api.sgmodule",
@@ -218,8 +218,8 @@
       ]
     },
     {
-      "title": "🎨面板·流媒检测",
       "url": "https://yfamilys.com/sgmodule/media.sgmodule",
+      "title": "🎨面板·流媒检测",
       "source": "upstreams/yfamilys/sources/sgmodule-media.sgmodule",
       "sha256": "d392709420dd1ea15d54d1eb0b3591f0121708688f4948ab9418cba2e23b5170",
       "module": "Module/Panel/YFamily-Panel-media.sgmodule",
@@ -230,8 +230,8 @@
       ]
     },
     {
-      "title": "🎨面板·GPT检测",
       "url": "https://yfamilys.com/sgmodule/gpt.sgmodule",
+      "title": "🎨面板·GPT检测",
       "source": "upstreams/yfamilys/sources/sgmodule-gpt.sgmodule",
       "sha256": "b2adddbfb2908917dcebaa43ce902865e98ffc68e55dc70063d5d4fa86b34e37",
       "module": "Module/Panel/YFamily-Panel-gpt.sgmodule",
@@ -242,8 +242,8 @@
       ]
     },
     {
-      "title": "🎨面板·机场信息",
       "url": "https://yfamilys.com/sgmodule/sub.sgmodule",
+      "title": "🎨面板·机场信息",
       "source": "upstreams/yfamilys/sources/sgmodule-sub.sgmodule",
       "sha256": "ae908b8c98aa78c2d3a4e9bac699a6c5480a3c89af800995d77994d238f221ad",
       "module": "Module/Panel/YFamily-Panel-sub.sgmodule",
@@ -254,8 +254,8 @@
       ]
     },
     {
-      "title": "Four in One",
       "url": "https://yfamilys.com/module/4in1.module",
+      "title": "Four in One",
       "source": "upstreams/yfamilys/sources/module-4in1.module",
       "sha256": "1c9f2d088f2eb30940bde253974973e7c1a38457c79540008df6f2c692d962ad",
       "module": "Module/Enhancement/YFamily-4in1.sgmodule",
@@ -264,8 +264,8 @@
       "dependencies": []
     },
     {
-      "title": "BingAI for Safari",
       "url": "https://yfamilys.com/module/bfs.module",
+      "title": "BingAI for Safari",
       "source": "upstreams/yfamilys/sources/module-bfs.module",
       "sha256": "d187eccc8e4d3fcc5fbe16ebe7f9e0d03dc504d86e0407e205ab7021aa702e26",
       "module": "Module/Enhancement/YFamily-bfs.sgmodule",
@@ -276,8 +276,8 @@
       ]
     },
     {
-      "title": "去开屏广告轻量版",
       "url": "https://yfamilys.com/module/adlite.sgmodule",
+      "title": "去开屏广告轻量版",
       "source": "upstreams/yfamilys/sources/module-adlite.sgmodule",
       "sha256": "4f2288cf9fa562278b292f2fa0bf3857dc49ffcfbdc4da84a42abb5487e19591",
       "module": "Module/AdBlock/YFamily-adlite.sgmodule",
@@ -314,8 +314,8 @@
       ]
     },
     {
-      "title": "去开屏广告融合版",
       "url": "https://yfamilys.com/module/startingad.sgmodule",
+      "title": "去开屏广告融合版",
       "source": "upstreams/yfamilys/sources/module-startingad.sgmodule",
       "sha256": "e2c569ba03e46b32e8d9650ec206fcb5cc410aaf5bc1dace2046b73f20d8c623",
       "module": "Module/AdBlock/YFamily-startingad.sgmodule",
@@ -373,8 +373,8 @@
       ]
     },
     {
-      "title": "去开屏广告融合版ultra",
       "url": "https://yfamilys.com/module/adultra.sgmodule",
+      "title": "去开屏广告融合版ultra",
       "source": "upstreams/yfamilys/sources/module-adultra.sgmodule",
       "sha256": "3c34816fcbe3fb9d2ae7d5780abb6831fd1a34d0621b4b5d7b797a6a0c136f61",
       "module": "Module/AdBlock/YFamily-adultra.sgmodule",
@@ -431,8 +431,8 @@
       ]
     },
     {
-      "title": "去开屏广告融合版ultra+",
       "url": "https://yfamilys.com/module/adultraplus.sgmodule",
+      "title": "去开屏广告融合版ultra+",
       "source": "upstreams/yfamilys/sources/module-adultraplus.sgmodule",
       "sha256": "ce40b45d8900ee97108607245a96ffd54bf7cb469b1ee32d004edd6513f92884",
       "module": "Module/AdBlock/YFamily-adultraplus.sgmodule",
@@ -563,8 +563,8 @@
       ]
     },
     {
-      "title": "accuweather解锁",
       "url": "https://yfamilys.com/module/accu.module",
+      "title": "accuweather解锁",
       "source": "upstreams/yfamilys/sources/module-accu.module",
       "sha256": "3184f4e741a1a969aa48a7483b70f8ae6b2ce14a79639ea1aece585605b2e11a",
       "module": "Module/Enhancement/YFamily-accu.sgmodule",
@@ -575,8 +575,8 @@
       ]
     },
     {
-      "title": "AdBlock",
       "url": "https://yfamilys.com/module/AdBlock.module",
+      "title": "AdBlock",
       "source": "upstreams/yfamilys/sources/module-AdBlock.module",
       "sha256": "226e2016c2b380fb53ed1ccdaf54985af951cb8b6a682d1530013c9107346613",
       "module": "Module/AdBlock/YFamily-AdBlock.sgmodule",
@@ -585,8 +585,8 @@
       "dependencies": []
     },
     {
-      "title": "alarmy",
       "url": "https://yfamilys.com/module/alarmy.module",
+      "title": "alarmy",
       "source": "upstreams/yfamilys/sources/module-alarmy.module",
       "sha256": "db75ac4606643b82fdbbfd6fa6af3bcb7a2e80eb774ec7658eb08e687bef98c6",
       "module": "Module/Enhancement/YFamily-alarmy.sgmodule",
@@ -597,8 +597,8 @@
       ]
     },
     {
-      "title": "aloha",
       "url": "https://yfamilys.com/module/aloha.module",
+      "title": "aloha",
       "source": "upstreams/yfamilys/sources/module-aloha.module",
       "sha256": "15da80fbd2e2df020aef614112433c52d0f02e26f15549a2757cf56a4dfbb0a3",
       "module": "Module/Enhancement/YFamily-aloha.sgmodule",
@@ -609,8 +609,8 @@
       ]
     },
     {
-      "title": "爱美剧",
       "url": "https://yfamilys.com/sgmodule/amj.module",
+      "title": "爱美剧",
       "source": "upstreams/yfamilys/sources/sgmodule-amj.module",
       "sha256": "7190e5c1a52bdcc291f5c8e843a7a6e668cb817cc7fe7e76094d4b72b0fc01a4",
       "module": "Module/AdBlock/YFamily-amj.sgmodule",
@@ -621,8 +621,8 @@
       ]
     },
     {
-      "title": "Background Eraser",
       "url": "https://yfamilys.com/module/aosoft.module",
+      "title": "Background Eraser",
       "source": "upstreams/yfamilys/sources/module-aosoft.module",
       "sha256": "b6cb3880dd6551969f350a0e3bdda03a3628222564c5eff789b4e7dbc570c90b",
       "module": "Module/Enhancement/YFamily-aosoft.sgmodule",
@@ -633,8 +633,8 @@
       ]
     },
     {
-      "title": "appraven",
       "url": "https://yfamilys.com/module/appraven.module",
+      "title": "appraven",
       "source": "upstreams/yfamilys/sources/module-appraven.module",
       "sha256": "f6603f6baffcb7bddaa83fc2e37d229ed72332965285d7ee5fd8d4e0f37b87a7",
       "module": "Module/Enhancement/YFamily-appraven.sgmodule",
@@ -645,8 +645,8 @@
       ]
     },
     {
-      "title": "audiomack",
       "url": "https://yfamilys.com/module/audiomack.module",
+      "title": "audiomack",
       "source": "upstreams/yfamilys/sources/module-audiomack.module",
       "sha256": "45bce88458c6121f7a24c3f1caa0ee259ddc52f5b7c9c831959a7f5be54f69b0",
       "module": "Module/Enhancement/YFamily-audiomack.sgmodule",
@@ -657,8 +657,8 @@
       ]
     },
     {
-      "title": "b612相机",
       "url": "https://yfamilys.com/module/b612.module",
+      "title": "b612相机",
       "source": "upstreams/yfamilys/sources/module-b612.module",
       "sha256": "b8f7ba3d2fffa7b9e24f2596a04e07ab413dea3b4f3ae4bb4155792b7818ff00",
       "module": "Module/Enhancement/YFamily-b612.sgmodule",
@@ -669,8 +669,8 @@
       ]
     },
     {
-      "title": "百度云倍速",
       "url": "https://yfamilys.com/module/baiducloud.sgmodule",
+      "title": "百度云倍速",
       "source": "upstreams/yfamilys/sources/module-baiducloud.sgmodule",
       "sha256": "c2b1723c396dbd7c0401f895f729244f105ef9259f42aefdd27b0f121056be04",
       "module": "Module/Enhancement/YFamily-baiducloud.sgmodule",
@@ -681,8 +681,8 @@
       ]
     },
     {
-      "title": "白描",
       "url": "https://yfamilys.com/module/baimiao.module",
+      "title": "白描",
       "source": "upstreams/yfamilys/sources/module-baimiao.module",
       "sha256": "465de2491452afad0e4f8e59685be9ecc7e47fdbf879bef5ef15ef2bd7403c37",
       "module": "Module/Enhancement/YFamily-baimiao.sgmodule",
@@ -693,8 +693,8 @@
       ]
     },
     {
-      "title": "bazaart",
       "url": "https://yfamilys.com/module/bazaart.module",
+      "title": "bazaart",
       "source": "upstreams/yfamilys/sources/module-bazaart.module",
       "sha256": "aec971b9ab63cf4075eb8970ccd19971011f220ba85535b2f22e8d1f0c205c63",
       "module": "Module/Enhancement/YFamily-bazaart.sgmodule",
@@ -705,8 +705,8 @@
       ]
     },
     {
-      "title": "布丁锁屏",
       "url": "https://yfamilys.com/module/bdsp.module",
+      "title": "布丁锁屏",
       "source": "upstreams/yfamilys/sources/module-bdsp.module",
       "sha256": "a997edfe2f9de5a2347d3ec0d5af94379c1a6125c1b8dafc2ff4605f497f359c",
       "module": "Module/Enhancement/YFamily-bdsp.sgmodule",
@@ -717,8 +717,8 @@
       ]
     },
     {
-      "title": "bedtime fan",
       "url": "https://yfamilys.com/module/bedtime-fan.module",
+      "title": "bedtime fan",
       "source": "upstreams/yfamilys/sources/module-bedtime-fan.module",
       "sha256": "19b1de3befada956b6e9da850a40f4a11ba72ec736f69197954328e420e2ae08",
       "module": "Module/Enhancement/YFamily-bedtime-fan.sgmodule",
@@ -729,8 +729,8 @@
       ]
     },
     {
-      "title": "bilibili HD",
       "url": "https://yfamilys.com/module/bili.module",
+      "title": "bilibili HD",
       "source": "upstreams/yfamilys/sources/module-bili.module",
       "sha256": "6a1679e75b33fe51a578cda5875c53f42f3b1e4b62c7124476416e07416cec4e",
       "module": "Module/Enhancement/YFamily-bili.sgmodule",
@@ -741,8 +741,8 @@
       ]
     },
     {
-      "title": "bilibili NoAD",
       "url": "https://yfamilys.com/sgmodule/biliad.module",
+      "title": "bilibili NoAD",
       "source": "upstreams/yfamilys/sources/sgmodule-biliad.module",
       "sha256": "6638e7a3e8e60af0342f92ea4a485922b907a1bee1bc5fe4b4d59cc3d6e89415",
       "module": "Module/AdBlock/YFamily-biliad.sgmodule",
@@ -758,8 +758,8 @@
       ]
     },
     {
-      "title": "波点音乐",
       "url": "https://yfamilys.com/module/Bodian.module",
+      "title": "波点音乐",
       "source": "upstreams/yfamilys/sources/module-Bodian.module",
       "sha256": "cbd78d526dd76eb86c2468fa75fea8b739a1a62b681addb9b6643fdb881a96de",
       "module": "Module/AdBlock/YFamily-Bodian.sgmodule",
@@ -768,8 +768,8 @@
       "dependencies": []
     },
     {
-      "title": "BOOM",
       "url": "https://yfamilys.com/module/boom.module",
+      "title": "BOOM",
       "source": "upstreams/yfamilys/sources/module-boom.module",
       "sha256": "a4411c04bfa6030335c8dba3d41d88f771ed9484afcfc3ef0a43b92a869b6e55",
       "module": "Module/Enhancement/YFamily-boom.sgmodule",
@@ -780,8 +780,8 @@
       ]
     },
     {
-      "title": "boxjs",
       "url": "https://yfamilys.com/module/boxjs.sgmodule",
+      "title": "boxjs",
       "source": "upstreams/yfamilys/sources/module-boxjs.sgmodule",
       "sha256": "8ba87dff54dad1fc15f56f71c88a498091c905e3f69c937b093382fa6a7247e4",
       "module": "Module/Enhancement/YFamily-boxjs.sgmodule",
@@ -792,8 +792,8 @@
       ]
     },
     {
-      "title": "财新文章解锁",
       "url": "https://yfamilys.com/module/caixin.module",
+      "title": "财新文章解锁",
       "source": "upstreams/yfamilys/sources/module-caixin.module",
       "sha256": "fb9765a05b939336f8196c7b1ae6d44c665b7b7bb334b31975dadbcca0dd9dc4",
       "module": "Module/Enhancement/YFamily-caixin.sgmodule",
@@ -804,8 +804,8 @@
       ]
     },
     {
-      "title": "彩云天气",
       "url": "https://yfamilys.com/module/caiyun.module",
+      "title": "彩云天气",
       "source": "upstreams/yfamilys/sources/module-caiyun.module",
       "sha256": "ff12dbc4b4e3c61eb693e602844b8eec58440eb682ab20f98f0ab6d836cd73a5",
       "module": "Module/Enhancement/YFamily-caiyun.sgmodule",
@@ -816,8 +816,8 @@
       ]
     },
     {
-      "title": "计算器HD",
       "url": "https://yfamilys.com/module/calculator.module",
+      "title": "计算器HD",
       "source": "upstreams/yfamilys/sources/module-calculator.module",
       "sha256": "df729623ac7a25efb4b6d42d4b02396ee6fe043b37952db512dc20550feaa97a",
       "module": "Module/Enhancement/YFamily-calculator.sgmodule",
@@ -828,8 +828,8 @@
       ]
     },
     {
-      "title": "扫描全能王",
       "url": "https://yfamilys.com/module/camscanner.sgmodule",
+      "title": "扫描全能王",
       "source": "upstreams/yfamilys/sources/module-camscanner.sgmodule",
       "sha256": "3eb6712d8c6b4830ee3340d4f33680c121224b59ff1601c8ea7c8b8acc60d890",
       "module": "Module/Enhancement/YFamily-camscanner.sgmodule",
@@ -840,8 +840,8 @@
       ]
     },
     {
-      "title": "克拉壁纸",
       "url": "https://yfamilys.com/module/clarity.module",
+      "title": "克拉壁纸",
       "source": "upstreams/yfamilys/sources/module-clarity.module",
       "sha256": "42190f5af158a9f95c6fe91564e8963c70ec2db7580d1f844675060462b7b10a",
       "module": "Module/Enhancement/YFamily-clarity.sgmodule",
@@ -852,8 +852,8 @@
       ]
     },
     {
-      "title": "colorwidgets",
       "url": "https://yfamilys.com/module/colorwidgets.module",
+      "title": "colorwidgets",
       "source": "upstreams/yfamilys/sources/module-colorwidgets.module",
       "sha256": "0a08957c35899c7e1669ff83dfaacfe91a4a110a40479bfae7612119f20b098c",
       "module": "Module/Enhancement/YFamily-colorwidgets.sgmodule",
@@ -864,8 +864,8 @@
       ]
     },
     {
-      "title": "dailyyoga",
       "url": "https://yfamilys.com/module/dailyyoga.module",
+      "title": "dailyyoga",
       "source": "upstreams/yfamilys/sources/module-dailyyoga.module",
       "sha256": "35e6ee35bd3e36768093108cefa35b0f39db34f5d967485ba0d73ea719a718db",
       "module": "Module/Enhancement/YFamily-dailyyoga.sgmodule",
@@ -876,8 +876,8 @@
       ]
     },
     {
-      "title": "大蓝鲸",
       "url": "https://yfamilys.com/module/dalanjing.module",
+      "title": "大蓝鲸",
       "source": "upstreams/yfamilys/sources/module-dalanjing.module",
       "sha256": "966013c49c8ca52649877fe6e95f6de2d05d0d0b7e4a9fdcb6eaa742c786d8e7",
       "module": "Module/Enhancement/YFamily-dalanjing.sgmodule",
@@ -888,8 +888,8 @@
       ]
     },
     {
-      "title": "darkroom",
       "url": "https://yfamilys.com/module/darkroom.module",
+      "title": "darkroom",
       "source": "upstreams/yfamilys/sources/module-darkroom.module",
       "sha256": "3124e2677a2df6ef8b85562a882e5ed2457d85000453c13db5f6012a5352837b",
       "module": "Module/Enhancement/YFamily-darkroom.sgmodule",
@@ -900,8 +900,8 @@
       ]
     },
     {
-      "title": "读书笔记",
       "url": "https://yfamilys.com/module/dsbj.module",
+      "title": "读书笔记",
       "source": "upstreams/yfamilys/sources/module-dsbj.module",
       "sha256": "5ac43ed17e3b193b19719750c9c48d8ba84c7eb4d8e6cfa470a46e81cb00a678",
       "module": "Module/Enhancement/YFamily-dsbj.sgmodule",
@@ -912,8 +912,8 @@
       ]
     },
     {
-      "title": "第一弹",
       "url": "https://yfamilys.com/module/dyd.module",
+      "title": "第一弹",
       "source": "upstreams/yfamilys/sources/module-dyd.module",
       "sha256": "94a241583282aa12dbb74e3a9526b27043a4bf95b8f9a7c7d71d1ac7a673bd65",
       "module": "Module/AdBlock/YFamily-dyd.sgmodule",
@@ -924,8 +924,8 @@
       ]
     },
     {
-      "title": "儿哥点点",
       "url": "https://yfamilys.com/module/egdd.module",
+      "title": "儿哥点点",
       "source": "upstreams/yfamilys/sources/module-egdd.module",
       "sha256": "185ab9e9e22f69c95dc2683b99609d59001508f895ae201bb6589299df23e18a",
       "module": "Module/Enhancement/YFamily-egdd.sgmodule",
@@ -936,8 +936,8 @@
       ]
     },
     {
-      "title": "ellabook",
       "url": "https://yfamilys.com/module/ellabook.module",
+      "title": "ellabook",
       "source": "upstreams/yfamilys/sources/module-ellabook.module",
       "sha256": "adf35223301bc84eb0211158250331471659978915cfb49c7acabccd7472aa22",
       "module": "Module/Enhancement/YFamily-ellabook.sgmodule",
@@ -948,8 +948,8 @@
       ]
     },
     {
-      "title": "emby",
       "url": "https://yfamilys.com/module/emby.sgmodule",
+      "title": "emby",
       "source": "upstreams/yfamilys/sources/module-emby.sgmodule",
       "sha256": "496c0413ebb192c64da7d300f93af1ddf66a5ac124c37c658ee224e74e980482",
       "module": "Module/Enhancement/YFamily-emby.sgmodule",
@@ -960,8 +960,8 @@
       ]
     },
     {
-      "title": "emmo",
       "url": "https://yfamilys.com/module/emmo.module",
+      "title": "emmo",
       "source": "upstreams/yfamilys/sources/module-emmo.module",
       "sha256": "40807364e2ba77a8a3f3359190bcbd2ba4eb9091c80b7b3dd0666b7d4bcbf5cb",
       "module": "Module/Enhancement/YFamily-emmo.sgmodule",
@@ -972,8 +972,8 @@
       ]
     },
     {
-      "title": "fabulous",
       "url": "https://yfamilys.com/module/fabulous.module",
+      "title": "fabulous",
       "source": "upstreams/yfamilys/sources/module-fabulous.module",
       "sha256": "16bcc18d58cca7142f7a167d099a391e69dc29c55e169065b44528868974dd9f",
       "module": "Module/Enhancement/YFamily-fabulous.sgmodule",
@@ -984,8 +984,8 @@
       ]
     },
     {
-      "title": "番茄小说",
       "url": "https://yfamilys.com/module/fanqie.module",
+      "title": "番茄小说",
       "source": "upstreams/yfamilys/sources/module-fanqie.module",
       "sha256": "a44beb12dc2906543edeaf09777bf96a6ac3ae201ee48b09f87e99e1a3c97354",
       "module": "Module/AdBlock/FanQieNovel.sgmodule",
@@ -996,8 +996,8 @@
       "dependencies": []
     },
     {
-      "title": "fantastical",
       "url": "https://yfamilys.com/module/fantastical.module",
+      "title": "fantastical",
       "source": "upstreams/yfamilys/sources/module-fantastical.module",
       "sha256": "3fee22f8962b137a835a09f5f86380464ed54db047e6ded38dcb657b2141fd71",
       "module": "Module/Enhancement/YFamily-fantastical.sgmodule",
@@ -1008,8 +1008,8 @@
       ]
     },
     {
-      "title": "fimo",
       "url": "https://yfamilys.com/module/fimo.module",
+      "title": "fimo",
       "source": "upstreams/yfamilys/sources/module-fimo.module",
       "sha256": "58141176dcf35ee5817578992f52d6b0a97558e30f6a67e3b664f37f5d629ab9",
       "module": "Module/Enhancement/YFamily-fimo.sgmodule",
@@ -1020,8 +1020,8 @@
       ]
     },
     {
-      "title": "grammarly",
       "url": "https://yfamilys.com/module/grammarly.module",
+      "title": "grammarly",
       "source": "upstreams/yfamilys/sources/module-grammarly.module",
       "sha256": "fb48728ee9d65b8a500c1cb69dd011ec61e0398670af6997a4faef215cc7d542",
       "module": "Module/Enhancement/YFamily-grammarly.sgmodule",
@@ -1032,8 +1032,8 @@
       ]
     },
     {
-      "title": "grow",
       "url": "https://yfamilys.com/module/grow.module",
+      "title": "grow",
       "source": "upstreams/yfamilys/sources/module-grow.module",
       "sha256": "c7aa9ea05b4a4444c904354d2666a9f53a0eda224dfc4e8d4fa009a241b56d23",
       "module": "Module/Enhancement/YFamily-grow.sgmodule",
@@ -1044,8 +1044,8 @@
       ]
     },
     {
-      "title": "烘焙小屋",
       "url": "https://yfamilys.com/module/hbxw.module",
+      "title": "烘焙小屋",
       "source": "upstreams/yfamilys/sources/module-hbxw.module",
       "sha256": "b32d8e67767b48efb0e2eb76f9356a5b475703ace1505e743bda86134d0c7df3",
       "module": "Module/Enhancement/YFamily-hbxw.sgmodule",
@@ -1056,8 +1056,8 @@
       ]
     },
     {
-      "title": "京东历史价格",
       "url": "https://yfamilys.com/module/HistoryPrice.sgmodule",
+      "title": "京东历史价格",
       "source": "upstreams/yfamilys/sources/module-HistoryPrice.sgmodule",
       "sha256": "5abd6d61b26cc4e9fa6597d81614ae341d7abd0944c1aa1ce820f42091883e71",
       "module": "Module/Enhancement/YFamily-HistoryPrice.sgmodule",
@@ -1068,8 +1068,8 @@
       ]
     },
     {
-      "title": "海豚记账本",
       "url": "https://yfamilys.com/module/htjzb.module",
+      "title": "海豚记账本",
       "source": "upstreams/yfamilys/sources/module-htjzb.module",
       "sha256": "12c3bfa5a0a12d180511296fe44d9926b68058edb357729e620f81e7d4c8d12e",
       "module": "Module/Enhancement/YFamily-htjzb.sgmodule",
@@ -1080,8 +1080,8 @@
       ]
     },
     {
-      "title": "hyperweb",
       "url": "https://yfamilys.com/module/hyperweb.module",
+      "title": "hyperweb",
       "source": "upstreams/yfamilys/sources/module-hyperweb.module",
       "sha256": "2d244afb467b520ba4c7f4160afa02784181547061d73c8aeaa1dcea2db2c293",
       "module": "Module/Enhancement/YFamily-hyperweb.sgmodule",
@@ -1092,8 +1092,8 @@
       ]
     },
     {
-      "title": "ilovepdf",
       "url": "https://yfamilys.com/module/ilovepdf.module",
+      "title": "ilovepdf",
       "source": "upstreams/yfamilys/sources/module-ilovepdf.module",
       "sha256": "754b0b430968326a89888f9ff13d02bfada00858c6a0296201e083784a91a2c8",
       "module": "Module/Enhancement/YFamily-ilovepdf.sgmodule",
@@ -1104,8 +1104,8 @@
       ]
     },
     {
-      "title": "imuseum",
       "url": "https://yfamilys.com/module/imuseum.module",
+      "title": "imuseum",
       "source": "upstreams/yfamilys/sources/module-imuseum.module",
       "sha256": "df433b66b71ef9d39d07577a78f7fd59617a23ff5bf5b2d689aae69cb8bdf8f2",
       "module": "Module/Enhancement/YFamily-imuseum.sgmodule",
@@ -1116,8 +1116,8 @@
       ]
     },
     {
-      "title": "invideo",
       "url": "https://yfamilys.com/module/invideo.module",
+      "title": "invideo",
       "source": "upstreams/yfamilys/sources/module-invideo.module",
       "sha256": "c81ac6b60acdeadd4962660862c1924300b9570f8d1a1977325d92e312028d11",
       "module": "Module/Enhancement/YFamily-invideo.sgmodule",
@@ -1128,8 +1128,8 @@
       ]
     },
     {
-      "title": "jibjab",
       "url": "https://yfamilys.com/module/jibjab.module",
+      "title": "jibjab",
       "source": "upstreams/yfamilys/sources/module-jibjab.module",
       "sha256": "e7cfb16f411f9f1da8ad67d362f5b7a373d79f88f2c23f50920a7827897f0978",
       "module": "Module/Enhancement/YFamily-jibjab.sgmodule",
@@ -1140,8 +1140,8 @@
       ]
     },
     {
-      "title": "句读",
       "url": "https://yfamilys.com/module/judou.module",
+      "title": "句读",
       "source": "upstreams/yfamilys/sources/module-judou.module",
       "sha256": "9fa04c70b7769f47028007f4fbd9262c12e5472c55971f5df0cbc2e733a62337",
       "module": "Module/Enhancement/YFamily-judou.sgmodule",
@@ -1152,8 +1152,8 @@
       ]
     },
     {
-      "title": "kika",
       "url": "https://yfamilys.com/module/kika.module",
+      "title": "kika",
       "source": "upstreams/yfamilys/sources/module-kika.module",
       "sha256": "4d1e4d9e703aea4ba8cc0747675ea4287237a877f7f8c729ee2f1ad7750b3c60",
       "module": "Module/Enhancement/YFamily-kika.sgmodule",
@@ -1164,8 +1164,8 @@
       ]
     },
     {
-      "title": "酷我音乐",
       "url": "https://yfamilys.com/module/kuwo-unlock.sgmodule",
+      "title": "酷我音乐",
       "source": "upstreams/yfamilys/sources/module-kuwo-unlock.sgmodule",
       "sha256": "60f4b367629f16374e71f68802a30caf74e1c2315aaba6408739044572fc256e",
       "module": "Module/Enhancement/YFamily-kuwo-unlock.sgmodule",
@@ -1176,8 +1176,8 @@
       ]
     },
     {
-      "title": "lightroom",
       "url": "https://yfamilys.com/module/lightroom.module",
+      "title": "lightroom",
       "source": "upstreams/yfamilys/sources/module-lightroom.module",
       "sha256": "b211b4cbcc4ac3bb316dde085fb18bf983d56632fce1c7df38231e6c1a7d94c8",
       "module": "Module/Enhancement/YFamily-lightroom.sgmodule",
@@ -1188,8 +1188,8 @@
       ]
     },
     {
-      "title": "流利说·阅读",
       "url": "https://yfamilys.com/module/lls.module",
+      "title": "流利说·阅读",
       "source": "upstreams/yfamilys/sources/module-lls.module",
       "sha256": "bd58cdd72fc363587496866e2ddd0c45a644fc1fec566cf1d092f788063d6c0a",
       "module": "Module/Enhancement/YFamily-lls.sgmodule",
@@ -1200,8 +1200,8 @@
       ]
     },
     {
-      "title": "免耽漫画",
       "url": "https://yfamilys.com/module/mdmanhua.module",
+      "title": "免耽漫画",
       "source": "upstreams/yfamilys/sources/module-mdmanhua.module",
       "sha256": "baa3f91dd7e174031397ec933b63c581926ab8f384fb9150403ce7e7330cb2df",
       "module": "Module/Enhancement/YFamily-mdmanhua.sgmodule",
@@ -1212,8 +1212,8 @@
       ]
     },
     {
-      "title": "美篇",
       "url": "https://yfamilys.com/module/meipian.module",
+      "title": "美篇",
       "source": "upstreams/yfamilys/sources/module-meipian.module",
       "sha256": "f645136c1ad3bde435e555f9f9654606b29ac88c61ef70b8dd9262f1158344b0",
       "module": "Module/Enhancement/YFamily-meipian.sgmodule",
@@ -1224,8 +1224,8 @@
       ]
     },
     {
-      "title": "meistertask",
       "url": "https://yfamilys.com/module/meistertask.module",
+      "title": "meistertask",
       "source": "upstreams/yfamilys/sources/module-meistertask.module",
       "sha256": "38740bfa75b5e6936704510d2665900d83f339d57d3d0a8037a17f108d5c4cc7",
       "module": "Module/Enhancement/YFamily-meistertask.sgmodule",
@@ -1236,8 +1236,8 @@
       ]
     },
     {
-      "title": "美图秀秀",
       "url": "https://yfamilys.com/module/meituxx.module",
+      "title": "美图秀秀",
       "source": "upstreams/yfamilys/sources/module-meituxx.module",
       "sha256": "bfd66bb48270978f5740813606865499b8d21f160798ad2e6593c217532ebc6f",
       "module": "Module/Enhancement/YFamily-meituxx.sgmodule",
@@ -1248,8 +1248,8 @@
       ]
     },
     {
-      "title": "漫画台",
       "url": "https://yfamilys.com/module/mht.module",
+      "title": "漫画台",
       "source": "upstreams/yfamilys/sources/module-mht.module",
       "sha256": "8891bfc6b482c8d70d1c0f4c0b11533e31272d0e04145cf9c16d4a60d851a32a",
       "module": "Module/Enhancement/YFamily-mht.sgmodule",
@@ -1260,8 +1260,8 @@
       ]
     },
     {
-      "title": "mix-camera",
       "url": "https://yfamilys.com/module/mix-camera.module",
+      "title": "mix-camera",
       "source": "upstreams/yfamilys/sources/module-mix-camera.module",
       "sha256": "ae83dd0ff0031350db9cecf721990936509eeea1e0b18f85b9d83f0940e2c2c1",
       "module": "Module/Enhancement/YFamily-mix-camera.sgmodule",
@@ -1272,8 +1272,8 @@
       ]
     },
     {
-      "title": "马卡龙玩图",
       "url": "https://yfamilys.com/module/mklwt.module",
+      "title": "马卡龙玩图",
       "source": "upstreams/yfamilys/sources/module-mklwt.module",
       "sha256": "99dea48831ffb6d59315228ba3ead6e8220f3e9155468c8f47e6082341f53fc7",
       "module": "Module/Enhancement/YFamily-mklwt.sgmodule",
@@ -1284,8 +1284,8 @@
       ]
     },
     {
-      "title": "mojo",
       "url": "https://yfamilys.com/module/mojo.module",
+      "title": "mojo",
       "source": "upstreams/yfamilys/sources/module-mojo.module",
       "sha256": "5953fd3907f73ae05b858579f6c1cfc82511f9d1adf50f4a6d1f7d161d0e6e00",
       "module": "Module/Enhancement/YFamily-mojo.sgmodule",
@@ -1296,8 +1296,8 @@
       ]
     },
     {
-      "title": "molycam",
       "url": "https://yfamilys.com/module/molycam.module",
+      "title": "molycam",
       "source": "upstreams/yfamilys/sources/module-molycam.module",
       "sha256": "0080b99d0ed52099b200c0eacbb6711afc3cb8ac5fea71638059c6814fbbf883",
       "module": "Module/Enhancement/YFamily-molycam.sgmodule",
@@ -1308,8 +1308,8 @@
       ]
     },
     {
-      "title": "musixmatch",
       "url": "https://yfamilys.com/module/musixmatch.module",
+      "title": "musixmatch",
       "source": "upstreams/yfamilys/sources/module-musixmatch.module",
       "sha256": "d07a8ec9676351be731054cda9039c2b00505b62ed7e8862bbccd9196a1c1eee",
       "module": "Module/Enhancement/YFamily-musixmatch.sgmodule",
@@ -1320,8 +1320,8 @@
       ]
     },
     {
-      "title": "myfitnesspal",
       "url": "https://yfamilys.com/module/myfitnesspal.module",
+      "title": "myfitnesspal",
       "source": "upstreams/yfamilys/sources/module-myfitnesspal.module",
       "sha256": "b433f95b0635ecc70ddd0020a746fa07c31b67b66b79cbfff1882a00b2967906",
       "module": "Module/Enhancement/YFamily-myfitnesspal.sgmodule",
@@ -1332,8 +1332,8 @@
       ]
     },
     {
-      "title": "myplate",
       "url": "https://yfamilys.com/module/myplate.module",
+      "title": "myplate",
       "source": "upstreams/yfamilys/sources/module-myplate.module",
       "sha256": "f21066e511c6fb98322bb049bb7416cd01faa665b747c973b5ec3b5985c13d4a",
       "module": "Module/Enhancement/YFamily-myplate.sgmodule",
@@ -1344,8 +1344,8 @@
       ]
     },
     {
-      "title": "奈飞评分+双字幕",
       "url": "https://yfamilys.com/module/netflix_rating.sgmodule",
+      "title": "奈飞评分+双字幕",
       "source": "upstreams/yfamilys/sources/module-netflix_rating.sgmodule",
       "sha256": "1744488ce9f2ed2178f5b7403d8db61b94bad23efaee880dbc20f81d3eae7ea8",
       "module": "Module/Enhancement/YFamily-netflix_rating.sgmodule",
@@ -1358,8 +1358,8 @@
       ]
     },
     {
-      "title": "nicegram",
       "url": "https://yfamilys.com/module/nicegram.module",
+      "title": "nicegram",
       "source": "upstreams/yfamilys/sources/module-nicegram.module",
       "sha256": "feb00a3027a054625a46ab714dca47d286f793893dc69729a5e3c64a8ed30846",
       "module": "Module/Enhancement/YFamily-nicegram.sgmodule",
@@ -1370,8 +1370,8 @@
       ]
     },
     {
-      "title": "notability",
       "url": "https://yfamilys.com/module/notability.module",
+      "title": "notability",
       "source": "upstreams/yfamilys/sources/module-notability.module",
       "sha256": "41deb4cd61c7644d10f2ea0af00248b2a3c3c391cb2724c7eecda3c680a1df82",
       "module": "Module/Enhancement/YFamily-notability.sgmodule",
@@ -1382,8 +1382,8 @@
       ]
     },
     {
-      "title": "Now冥想",
       "url": "https://yfamilys.com/module/now.module",
+      "title": "Now冥想",
       "source": "upstreams/yfamilys/sources/module-now.module",
       "sha256": "c5de4ca310f85a1b7d3cbd198552737be60c510f2ca6ea7c2e26b7cc6550a536",
       "module": "Module/Enhancement/YFamily-now.sgmodule",
@@ -1394,8 +1394,8 @@
       ]
     },
     {
-      "title": "奶由壁纸",
       "url": "https://yfamilys.com/module/nybz.module",
+      "title": "奶由壁纸",
       "source": "upstreams/yfamilys/sources/module-nybz.module",
       "sha256": "d21e218f8f997ff6209df1141f9d543c3992cc6e3785a3fb3fb35cf09b8f41ce",
       "module": "Module/Enhancement/YFamily-nybz.sgmodule",
@@ -1406,8 +1406,8 @@
       ]
     },
     {
-      "title": "oldroll",
       "url": "https://yfamilys.com/module/oldroll.module",
+      "title": "oldroll",
       "source": "upstreams/yfamilys/sources/module-oldroll.module",
       "sha256": "ecaccc122de8212f5b9a1221e62b360bceba59c3b1507a06d0cd3f3e14a6dd9b",
       "module": "Module/Enhancement/YFamily-oldroll.sgmodule",
@@ -1418,8 +1418,8 @@
       ]
     },
     {
-      "title": "peak",
       "url": "https://yfamilys.com/module/peak.module",
+      "title": "peak",
       "source": "upstreams/yfamilys/sources/module-peak.module",
       "sha256": "cbcc8cb1312f63c9b1c458e189192b1772c97202e54e2daa75bda7a7156f5be2",
       "module": "Module/Enhancement/YFamily-peak.sgmodule",
@@ -1430,8 +1430,8 @@
       ]
     },
     {
-      "title": "配音秀",
       "url": "https://yfamilys.com/module/peiyinxiu.module",
+      "title": "配音秀",
       "source": "upstreams/yfamilys/sources/module-peiyinxiu.module",
       "sha256": "1c24f9c6ed24efa4206ec8f92f7936fc4044cd0085409dfd543e85a2ef6cbeec",
       "module": "Module/Enhancement/YFamily-peiyinxiu.sgmodule",
@@ -1442,8 +1442,8 @@
       ]
     },
     {
-      "title": "photomath",
       "url": "https://yfamilys.com/module/photomath.module",
+      "title": "photomath",
       "source": "upstreams/yfamilys/sources/module-photomath.module",
       "sha256": "daa9bdc0e511fa068ed74d178d2ba70df3fe378c826ad086816dfeeaadb87dfd",
       "module": "Module/Enhancement/YFamily-photomath.sgmodule",
@@ -1454,8 +1454,8 @@
       ]
     },
     {
-      "title": "photoshop Express",
       "url": "https://yfamilys.com/module/photoshop.module",
+      "title": "photoshop Express",
       "source": "upstreams/yfamilys/sources/module-photoshop.module",
       "sha256": "7affa14944c956073b88fb52daaf3710a50f7621c835a4722091bca6c03c059b",
       "module": "Module/Enhancement/YFamily-photoshop.sgmodule",
@@ -1466,8 +1466,8 @@
       ]
     },
     {
-      "title": "piccollage",
       "url": "https://yfamilys.com/module/piccollage.module",
+      "title": "piccollage",
       "source": "upstreams/yfamilys/sources/module-piccollage.module",
       "sha256": "3630eeecabac5bae4ecd16b19e64440d63e03b300f6cedd3c0f1fe3bcae2cfab",
       "module": "Module/Enhancement/YFamily-piccollage.sgmodule",
@@ -1478,8 +1478,8 @@
       ]
     },
     {
-      "title": "picsart",
       "url": "https://yfamilys.com/module/picsart.module",
+      "title": "picsart",
       "source": "upstreams/yfamilys/sources/module-picsart.module",
       "sha256": "74d7b9f2f4adb4a939892171efff486c868333f4dd26432580d6dfb7f2bc744b",
       "module": "Module/Enhancement/YFamily-picsart.sgmodule",
@@ -1490,8 +1490,8 @@
       ]
     },
     {
-      "title": "pillow",
       "url": "https://yfamilys.com/module/pillow.module",
+      "title": "pillow",
       "source": "upstreams/yfamilys/sources/module-pillow.module",
       "sha256": "7d029b748164bc0f81c4ade2f43a909c677cffc28349200a3f7f904957437791",
       "module": "Module/Enhancement/YFamily-pillow.sgmodule",
@@ -1502,8 +1502,8 @@
       ]
     },
     {
-      "title": "pixelcut",
       "url": "https://yfamilys.com/module/pixelcut.module",
+      "title": "pixelcut",
       "source": "upstreams/yfamilys/sources/module-pixelcut.module",
       "sha256": "cfc64dd1223c069d47d10e91590edc7cfb113c0ea1ba8405b4b4e3c28711430f",
       "module": "Module/Enhancement/YFamily-pixelcut.sgmodule",
@@ -1514,8 +1514,8 @@
       ]
     },
     {
-      "title": "pocket lists",
       "url": "https://yfamilys.com/module/pocketlists.module",
+      "title": "pocket lists",
       "source": "upstreams/yfamilys/sources/module-pocketlists.module",
       "sha256": "2c0bc1a26b14389cbcb09db78328f456312b7a29da100c39ec7bd67b83340e51",
       "module": "Module/Enhancement/YFamily-pocketlists.sgmodule",
@@ -1526,8 +1526,8 @@
       ]
     },
     {
-      "title": "polarr",
       "url": "https://yfamilys.com/module/polarr.module",
+      "title": "polarr",
       "source": "upstreams/yfamilys/sources/module-polarr.module",
       "sha256": "607fc711db5fb3ce2aa344fb3293df4c07a5624e69523106b4f24eeaa0ee77a0",
       "module": "Module/Enhancement/YFamily-polarr.sgmodule",
@@ -1538,8 +1538,8 @@
       ]
     },
     {
-      "title": "皮皮虾",
       "url": "https://yfamilys.com/module/ppx.module",
+      "title": "皮皮虾",
       "source": "upstreams/yfamilys/sources/module-ppx.module",
       "sha256": "9b2517f007de5d4fda86227cf6bc943197ca22daf83f28e5913bbfe4f811c299",
       "module": "Module/AdBlock/YFamily-ppx.sgmodule",
@@ -1550,8 +1550,8 @@
       ]
     },
     {
-      "title": "起伏",
       "url": "https://yfamilys.com/module/qifu.module",
+      "title": "起伏",
       "source": "upstreams/yfamilys/sources/module-qifu.module",
       "sha256": "6710018495dca9314536b042bf7fbf7cfbbe522de09821727476ced11ffe4a4d",
       "module": "Module/Enhancement/YFamily-qifu.sgmodule",
@@ -1562,8 +1562,8 @@
       ]
     },
     {
-      "title": "七猫小说",
       "url": "https://yfamilys.com/module/qmxs.module",
+      "title": "七猫小说",
       "source": "upstreams/yfamilys/sources/module-qmxs.module",
       "sha256": "4df1d28cbb84a2e64e373c3cf47561e8237eef35bec8ab06115124caf76a8daf",
       "module": "Module/Enhancement/YFamily-qmxs.sgmodule",
@@ -1574,8 +1574,8 @@
       ]
     },
     {
-      "title": "多重搜索",
       "url": "https://yfamilys.com/module/multisearch.module",
+      "title": "多重搜索",
       "source": "upstreams/yfamilys/sources/module-multisearch.module",
       "sha256": "73f1b11e65291cb8c4a00c0a03edaf8008fa33d4f11b21e81dcfeafd23bfb20f",
       "module": "Module/Enhancement/YFamily-multisearch.sgmodule",
@@ -1584,8 +1584,8 @@
       "dependencies": []
     },
     {
-      "title": "人人视频",
       "url": "https://yfamilys.com/module/rrsp.module",
+      "title": "人人视频",
       "source": "upstreams/yfamilys/sources/module-rrsp.module",
       "sha256": "2e5450cb39e0b999817864eb18c4da9aea5c876768dd26852b2575b2919497fa",
       "module": "Module/AdBlock/YFamily-rrsp.sgmodule",
@@ -1596,8 +1596,8 @@
       ]
     },
     {
-      "title": "时光手账",
       "url": "https://yfamilys.com/module/sgsz.module",
+      "title": "时光手账",
       "source": "upstreams/yfamilys/sources/module-sgsz.module",
       "sha256": "aa0705bc4029802fc24b393eb40f8f064fd27ab25e17501ac7455b5081ab4590",
       "module": "Module/Enhancement/YFamily-sgsz.sgmodule",
@@ -1608,8 +1608,8 @@
       ]
     },
     {
-      "title": "shadowlinkVPN",
       "url": "https://yfamilys.com/module/shadowlinkVPN.module",
+      "title": "shadowlinkVPN",
       "source": "upstreams/yfamilys/sources/module-shadowlinkVPN.module",
       "sha256": "74950782b4b35841f47f8b688787678a3902777092c60e9d421648bdf55d156c",
       "module": "Module/Enhancement/YFamily-shadowlinkVPN.sgmodule",
@@ -1620,8 +1620,8 @@
       ]
     },
     {
-      "title": "smallpdf",
       "url": "https://yfamilys.com/module/smallpdf.module",
+      "title": "smallpdf",
       "source": "upstreams/yfamilys/sources/module-smallpdf.module",
       "sha256": "1905f5f184d9d4b23809aa7975824adf6bcf017b3dc852a992320d34340c01e2",
       "module": "Module/Enhancement/YFamily-smallpdf.sgmodule",
@@ -1632,8 +1632,8 @@
       ]
     },
     {
-      "title": "石墨文档",
       "url": "https://yfamilys.com/module/smwd.module",
+      "title": "石墨文档",
       "source": "upstreams/yfamilys/sources/module-smwd.module",
       "sha256": "4e3a6b8caea152f149f49db4140f3f04a5d5c2734103b83c35fa8a5873db819c",
       "module": "Module/Enhancement/YFamily-smwd.sgmodule",
@@ -1644,8 +1644,8 @@
       ]
     },
     {
-      "title": "少年得到",
       "url": "https://yfamilys.com/module/sndd.module",
+      "title": "少年得到",
       "source": "upstreams/yfamilys/sources/module-sndd.module",
       "sha256": "eb9c882b702c092cf34e16be17899584b3b6e20a04e0c38554e5e4b09c6e4d7c",
       "module": "Module/Enhancement/YFamily-sndd.sgmodule",
@@ -1656,8 +1656,8 @@
       ]
     },
     {
-      "title": "soundcloud",
       "url": "https://yfamilys.com/module/soundcloud.module",
+      "title": "soundcloud",
       "source": "upstreams/yfamilys/sources/module-soundcloud.module",
       "sha256": "0cddc157ac3f109caa87bbf08a1923ccc508e82f6ad5e89c4e38ff6cf63545bf",
       "module": "Module/Enhancement/YFamily-soundcloud.sgmodule",
@@ -1668,8 +1668,8 @@
       ]
     },
     {
-      "title": "spotify",
       "url": "https://yfamilys.com/module/spotifyVIP.module",
+      "title": "spotify",
       "source": "upstreams/yfamilys/sources/module-spotifyVIP.module",
       "sha256": "a74aead80c1e685c3074960e760251f14206e173c324220332fcc2124ae0a785",
       "module": "Module/Enhancement/YFamily-spotifyVIP.sgmodule",
@@ -1681,8 +1681,8 @@
       ]
     },
     {
-      "title": "substore",
       "url": "https://yfamilys.com/module/substore.sgmodule",
+      "title": "substore",
       "source": "upstreams/yfamilys/sources/module-substore.sgmodule",
       "sha256": "2069bcd66af661098278bf672362ae0b7a844454609c798fb187a1be3dec1add",
       "module": "Module/Enhancement/YFamily-substore.sgmodule",
@@ -1693,8 +1693,8 @@
       ]
     },
     {
-      "title": "symbolab",
       "url": "https://yfamilys.com/module/symbolab.module",
+      "title": "symbolab",
       "source": "upstreams/yfamilys/sources/module-symbolab.module",
       "sha256": "a19b43937277b6300f171e6796feb21545ebcd5e33b81ad85f939efa37b1e1bd",
       "module": "Module/Enhancement/YFamily-symbolab.sgmodule",
@@ -1705,8 +1705,8 @@
       ]
     },
     {
-      "title": "tangerine",
       "url": "https://yfamilys.com/module/tangerine.module",
+      "title": "tangerine",
       "source": "upstreams/yfamilys/sources/module-tangerine.module",
       "sha256": "d1e7846b024d169a57ad1daea84cce5f9cfdd2d3c9b16efbb8318a01164f094c",
       "module": "Module/Enhancement/YFamily-tangerine.sgmodule",
@@ -1717,8 +1717,8 @@
       ]
     },
     {
-      "title": "tenpercent",
       "url": "https://yfamilys.com/module/tenpercent.module",
+      "title": "tenpercent",
       "source": "upstreams/yfamilys/sources/module-tenpercent.module",
       "sha256": "820503c09eee97ae398f7b54af2fa9dd07d5e7e11768ff1f3756f4c08ba8adf8",
       "module": "Module/Enhancement/YFamily-tenpercent.sgmodule",
@@ -1729,8 +1729,8 @@
       ]
     },
     {
-      "title": "迅雷",
       "url": "https://yfamilys.com/module/thunder.module",
+      "title": "迅雷",
       "source": "upstreams/yfamilys/sources/module-thunder.module",
       "sha256": "35655049aa8b74ed50a34c24e0364513a3d81006ea9ca5a4ad9d1ac0900e904f",
       "module": "Module/Enhancement/YFamily-thunder.sgmodule",
@@ -1741,8 +1741,8 @@
       ]
     },
     {
-      "title": "tok cam",
       "url": "https://yfamilys.com/module/tokcam.module",
+      "title": "tok cam",
       "source": "upstreams/yfamilys/sources/module-tokcam.module",
       "sha256": "021eeb5b99d5eea5400634b145f4120c5910a3978d5a822f377f2bcd01866811",
       "module": "Module/Enhancement/YFamily-tokcam.sgmodule",
@@ -1753,8 +1753,8 @@
       ]
     },
     {
-      "title": "图图记账",
       "url": "https://yfamilys.com/module/tutu.module",
+      "title": "图图记账",
       "source": "upstreams/yfamilys/sources/module-tutu.module",
       "sha256": "5dffbae83402c3c1516d67990577fee73d6f4443aa68e4e9cc7e5b726a63b2e6",
       "module": "Module/Enhancement/YFamily-tutu.sgmodule",
@@ -1765,8 +1765,8 @@
       ]
     },
     {
-      "title": "vista看天下",
       "url": "https://yfamilys.com/module/vista.module",
+      "title": "vista看天下",
       "source": "upstreams/yfamilys/sources/module-vista.module",
       "sha256": "0de0505fb31841c9bcfb55b6de7fab9ce9c45715aec940d5161b42c57f387fbf",
       "module": "Module/Enhancement/YFamily-vista.sgmodule",
@@ -1777,8 +1777,8 @@
       ]
     },
     {
-      "title": "vsco",
       "url": "https://yfamilys.com/module/vsco.module",
+      "title": "vsco",
       "source": "upstreams/yfamilys/sources/module-vsco.module",
       "sha256": "6c9f65dd726c4486d3320a4ce35a7b2ded72e51ca087302a0c11b92e113c1e7b",
       "module": "Module/Enhancement/YFamily-vsco.sgmodule",
@@ -1789,8 +1789,8 @@
       ]
     },
     {
-      "title": "wallcraft",
       "url": "https://yfamilys.com/module/wallcraft.module",
+      "title": "wallcraft",
       "source": "upstreams/yfamilys/sources/module-wallcraft.module",
       "sha256": "4e57926b7d62376013ba92b1fa85396f9832a2fd712fe1abb7e83908b559b229",
       "module": "Module/Enhancement/YFamily-wallcraft.sgmodule",
@@ -1801,8 +1801,8 @@
       ]
     },
     {
-      "title": "豌豆清单",
       "url": "https://yfamilys.com/module/wdqd.module",
+      "title": "豌豆清单",
       "source": "upstreams/yfamilys/sources/module-wdqd.module",
       "sha256": "747bed52dd0e8dbdff02784e61b4debfbfd986bfd356d0d8826bfc72dc5c2b79",
       "module": "Module/Enhancement/YFamily-wdqd.sgmodule",
@@ -1813,8 +1813,8 @@
       ]
     },
     {
-      "title": "微信公众号去广告",
       "url": "https://yfamilys.com/module/wechatad.module",
+      "title": "微信公众号去广告",
       "source": "upstreams/yfamilys/sources/module-wechatad.module",
       "sha256": "ecbff8b3d93b7972c0844c2ec6d771574938129bf2b152b2c5dafb6bf4e141cf",
       "module": "Module/AdBlock/YFamily-wechatad.sgmodule",
@@ -1825,8 +1825,8 @@
       ]
     },
     {
-      "title": "微博去广告",
       "url": "https://yfamilys.com/module/weiboad.module",
+      "title": "微博去广告",
       "source": "upstreams/yfamilys/sources/module-weiboad.module",
       "sha256": "8526126af1f2a401f67850b6beb7e6c782491b1cbd791fd86e00567e05bf270c",
       "module": "Module/AdBlock/YFamily-weiboad.sgmodule",
@@ -1838,8 +1838,8 @@
       ]
     },
     {
-      "title": "workout for women",
       "url": "https://yfamilys.com/module/wfw.module",
+      "title": "workout for women",
       "source": "upstreams/yfamilys/sources/module-wfw.module",
       "sha256": "a319bdc2bceced8c482a56ef9e46b8eb117120acb5c3539fb14fff3bb271c42c",
       "module": "Module/Enhancement/YFamily-wfw.sgmodule",
@@ -1850,8 +1850,8 @@
       ]
     },
     {
-      "title": "widgetsmith",
       "url": "https://yfamilys.com/module/widgetsmith.module",
+      "title": "widgetsmith",
       "source": "upstreams/yfamilys/sources/module-widgetsmith.module",
       "sha256": "b6c60c45c5600170e594653780ed864a3fa285525a7a939bdf86b78cec686ef4",
       "module": "Module/Enhancement/YFamily-widgetsmith.sgmodule",
@@ -1862,8 +1862,8 @@
       ]
     },
     {
-      "title": "万能变声器",
       "url": "https://yfamilys.com/module/wnbsq.module",
+      "title": "万能变声器",
       "source": "upstreams/yfamilys/sources/module-wnbsq.module",
       "sha256": "9b6bc103d3494a8521fd95b37aa50ecfc30b68f8fa5f2b2d87f6e56c4d3ffaa0",
       "module": "Module/Enhancement/YFamily-wnbsq.sgmodule",
@@ -1874,8 +1874,8 @@
       ]
     },
     {
-      "title": "网易蜗牛读书",
       "url": "https://yfamilys.com/module/wnds.module",
+      "title": "网易蜗牛读书",
       "source": "upstreams/yfamilys/sources/module-wnds.module",
       "sha256": "bf638ddf226ec52f681961105025b323ba62a4691532d3fbfabe16987fc52320",
       "module": "Module/Enhancement/YFamily-wnds.sgmodule",
@@ -1886,8 +1886,8 @@
       ]
     },
     {
-      "title": "WPS",
       "url": "https://yfamilys.com/module/WPS.module",
+      "title": "WPS",
       "source": "upstreams/yfamilys/sources/module-WPS.module",
       "sha256": "afea935cad0a34bb52cb8f92405e7d5c845ff65298a8bb560b16895f4cc5d509",
       "module": "Module/Enhancement/YFamily-WPS.sgmodule",
@@ -1898,8 +1898,8 @@
       ]
     },
     {
-      "title": "西窗烛",
       "url": "https://yfamilys.com/module/xcz.module",
+      "title": "西窗烛",
       "source": "upstreams/yfamilys/sources/module-xcz.module",
       "sha256": "0ab65da09c96ab426ca92f75b971ea4739b3d8746cc9c0701bb50c96529d568d",
       "module": "Module/Enhancement/YFamily-xcz.sgmodule",
@@ -1910,8 +1910,8 @@
       ]
     },
     {
-      "title": "小影",
       "url": "https://yfamilys.com/module/xiaoying.module",
+      "title": "小影",
       "source": "upstreams/yfamilys/sources/module-xiaoying.module",
       "sha256": "13786c3f65c1cc9dd3d41ef1b697c69941af55ea2ee251dbe15b31fdd0385798",
       "module": "Module/Enhancement/YFamily-xiaoying.sgmodule",
@@ -1922,8 +1922,8 @@
       ]
     },
     {
-      "title": "香蕉视频",
       "url": "https://yfamilys.com/module/xjsp.module",
+      "title": "香蕉视频",
       "source": "upstreams/yfamilys/sources/module-xjsp.module",
       "sha256": "62c56ef8bfabab46ad05e0e385a299e82dbb0de6845b2d2c227c98432472c581",
       "module": "Module/Enhancement/YFamily-xjsp.sgmodule",
@@ -1934,8 +1934,8 @@
       ]
     },
     {
-      "title": "xmind思维导图",
       "url": "https://yfamilys.com/module/xmind.module",
+      "title": "xmind思维导图",
       "source": "upstreams/yfamilys/sources/module-xmind.module",
       "sha256": "e5675cc91fff0a4196f27ccc72fb6d823cacadecfcac3ddddda3673640cb7fca",
       "module": "Module/Enhancement/YFamily-xmind.sgmodule",
@@ -1946,8 +1946,8 @@
       ]
     },
     {
-      "title": "喜马拉雅去广告",
       "url": "https://yfamilys.com/module/xmlyad.module",
+      "title": "喜马拉雅去广告",
       "source": "upstreams/yfamilys/sources/module-xmlyad.module",
       "sha256": "530dbd7e9590024c6c7fc6ab439d7fd492c788fe291e82320656c537c417837d",
       "module": "Module/AdBlock/YFamily-xmlyad.sgmodule",
@@ -1958,8 +1958,8 @@
       ]
     },
     {
-      "title": "小习惯",
       "url": "https://yfamilys.com/module/xxg.module",
+      "title": "小习惯",
       "source": "upstreams/yfamilys/sources/module-xxg.module",
       "sha256": "5fcf813608fe87aaacced68d97ce1328c8d2bb1f0221cb708ba79e7ee89f47b3",
       "module": "Module/Enhancement/YFamily-xxg.sgmodule",
@@ -1970,8 +1970,8 @@
       ]
     },
     {
-      "title": "新语听书",
       "url": "https://yfamilys.com/module/xyts.module",
+      "title": "新语听书",
       "source": "upstreams/yfamilys/sources/module-xyts.module",
       "sha256": "8aea380c5e422915b55df0d2fe88ac380e2baae7c4a8386380d4f648e16f9d91",
       "module": "Module/Enhancement/YFamily-xyts.sgmodule",
@@ -1982,8 +1982,8 @@
       ]
     },
     {
-      "title": "有道云笔记",
       "url": "https://yfamilys.com/module/ydybj.module",
+      "title": "有道云笔记",
       "source": "upstreams/yfamilys/sources/module-ydybj.module",
       "sha256": "de159716dfc977cb7b0b22b673e91148b6b03d2ff98c234be9de9afb849b89dd",
       "module": "Module/Enhancement/YFamily-ydybj.sgmodule",
@@ -1994,8 +1994,8 @@
       ]
     },
     {
-      "title": "亦飞GIF",
       "url": "https://yfamilys.com/module/yifeigif.module",
+      "title": "亦飞GIF",
       "source": "upstreams/yfamilys/sources/module-yifeigif.module",
       "sha256": "805550045ad9cc2723edaaec28c67f956a6324a72ecd65a8f8eb01eaf273565c",
       "module": "Module/Enhancement/YFamily-yifeigif.sgmodule",
@@ -2006,8 +2006,8 @@
       ]
     },
     {
-      "title": "一甜相机",
       "url": "https://yfamilys.com/module/yitian.module",
+      "title": "一甜相机",
       "source": "upstreams/yfamilys/sources/module-yitian.module",
       "sha256": "18db6ecada9c312f7743be96392dd473c198fa3630560e1f04b96a06e5843996",
       "module": "Module/Enhancement/YFamily-yitian.sgmodule",
@@ -2018,8 +2018,8 @@
       ]
     },
     {
-      "title": "一言",
       "url": "https://yfamilys.com/module/yiyan.module",
+      "title": "一言",
       "source": "upstreams/yfamilys/sources/module-yiyan.module",
       "sha256": "749394fcab23d8f4c254a48a3ebd039e2c1a3813f4ec319e194f2b77d50a9aff",
       "module": "Module/Enhancement/YFamily-yiyan.sgmodule",
@@ -2030,8 +2030,8 @@
       ]
     },
     {
-      "title": "云听",
       "url": "https://yfamilys.com/module/yunting.module",
+      "title": "云听",
       "source": "upstreams/yfamilys/sources/module-yunting.module",
       "sha256": "92ee79a6eb600b0f8ab7abb5881dd68ce06a989a2febc7a6eb166b5a4244437c",
       "module": "Module/Enhancement/YFamily-yunting.sgmodule",
@@ -2042,8 +2042,8 @@
       ]
     },
     {
-      "title": "语文趣配音",
       "url": "https://yfamilys.com/module/ywqpy.module",
+      "title": "语文趣配音",
       "source": "upstreams/yfamilys/sources/module-ywqpy.module",
       "sha256": "c10ea7b61449fe0142c2fe6f333059da2661c6f12e9ba76cd55aebeab0a0584c",
       "module": "Module/Enhancement/YFamily-ywqpy.sgmodule",
@@ -2054,8 +2054,8 @@
       ]
     },
     {
-      "title": "斑马海报",
       "url": "https://yfamilys.com/module/zebra.module",
+      "title": "斑马海报",
       "source": "upstreams/yfamilys/sources/module-zebra.module",
       "sha256": "23b255e8b0a40e976a5a33815c51c9b233ee97d43236b38d816b8bd528349236",
       "module": "Module/Enhancement/YFamily-zebra.sgmodule",
@@ -2066,8 +2066,8 @@
       ]
     },
     {
-      "title": "知乎去广告",
       "url": "https://yfamilys.com/sgmodule/ZhihuBlock.sgmodule",
+      "title": "知乎去广告",
       "source": "upstreams/yfamilys/sources/sgmodule-ZhihuBlock.sgmodule",
       "sha256": "4eb1ea49dd0c157a96afba16781e1b9423925d9a587e58426d223fbfc6408ab0",
       "module": "Module/AdBlock/YFamily-ZhihuBlock.sgmodule",
@@ -2078,8 +2078,8 @@
       ]
     },
     {
-      "title": "知乎优化",
       "url": "https://yfamilys.com/module/ZhihuOpt.sgmodule",
+      "title": "知乎优化",
       "source": "upstreams/yfamilys/sources/module-ZhihuOpt.sgmodule",
       "sha256": "b94902d31678dc6196e31bed06acb89f19176a6298a516a9f68bf47164611770",
       "module": "Module/Enhancement/YFamily-ZhihuOpt.sgmodule",
@@ -2088,8 +2088,8 @@
       "dependencies": []
     },
     {
-      "title": "纸条",
       "url": "https://yfamilys.com/module/zhitiao.module",
+      "title": "纸条",
       "source": "upstreams/yfamilys/sources/module-zhitiao.module",
       "sha256": "2603477e5437b937977101c1140dcb9a0c2909dcfa4dcf9a3705dbe59cb81f1e",
       "module": "Module/Enhancement/YFamily-zhitiao.sgmodule",
@@ -2100,8 +2100,8 @@
       ]
     },
     {
-      "title": "指尖时光",
       "url": "https://yfamilys.com/module/zjsg.module",
+      "title": "指尖时光",
       "source": "upstreams/yfamilys/sources/module-zjsg.module",
       "sha256": "a970cdf65822953886a77599afc3b887e91355caa96e89dcd4c1777e3ad3d45b",
       "module": "Module/Enhancement/YFamily-zjsg.sgmodule",
@@ -2112,8 +2112,8 @@
       ]
     },
     {
-      "title": "知音漫客",
       "url": "https://yfamilys.com/module/zymk.module",
+      "title": "知音漫客",
       "source": "upstreams/yfamilys/sources/module-zymk.module",
       "sha256": "6937d10f8f2ebfb6482a8748bd251482f29a9c81ef220c540279add34205fc55",
       "module": "Module/Enhancement/YFamily-zymk.sgmodule",
@@ -2124,8 +2124,8 @@
       ]
     },
     {
-      "title": "Spotify歌词翻译",
       "url": "https://yfamilys.com/module/spotify_lyric.module",
+      "title": "Spotify歌词翻译",
       "source": "upstreams/yfamilys/sources/module-spotify_lyric.module",
       "sha256": "e87ed4725f8a7eb4a965db64b08f4be98718ebff05f53f80d037b8d6ffdf5f5e",
       "module": "Module/Enhancement/YFamily-spotify_lyric.sgmodule",
@@ -2138,8 +2138,8 @@
       ]
     },
     {
-      "title": "NFC门禁卡公交卡",
       "url": "https://yfamilys.com/module/nfc.module",
+      "title": "NFC门禁卡公交卡",
       "source": "upstreams/yfamilys/sources/module-nfc.module",
       "sha256": "0c8aabecf4828a185f39ef8a6c935be85f860a9437f7cf953aeba446d1a80056",
       "module": "Module/Enhancement/YFamily-nfc.sgmodule",
@@ -2150,8 +2150,8 @@
       ]
     },
     {
-      "title": "搜图神器",
       "url": "https://yfamilys.com/module/stsq.module",
+      "title": "搜图神器",
       "source": "upstreams/yfamilys/sources/module-stsq.module",
       "sha256": "5f387129b66c629f2056965e0de44c987ad4be74d501368952e0efb23c1a0ea7",
       "module": "Module/Enhancement/YFamily-stsq.sgmodule",
@@ -2162,8 +2162,8 @@
       ]
     },
     {
-      "title": "彩云天气通知任务",
       "url": "https://yfamilys.com/module/caiyun_cron.module",
+      "title": "彩云天气通知任务",
       "source": "upstreams/yfamilys/sources/module-caiyun_cron.module",
       "sha256": "55ac64b8246e36b7498e28aa5bf76e73bbbf90bd00cd28ed1f3a0137fb27582b",
       "module": "Module/Enhancement/YFamily-caiyun_cron.sgmodule",
@@ -2176,8 +2176,8 @@
       ]
     },
     {
-      "title": "Calm解锁",
       "url": "https://yfamilys.com/module/calm.module",
+      "title": "Calm解锁",
       "source": "upstreams/yfamilys/sources/module-calm.module",
       "sha256": "c021bead8c62636bd756515c642fb42466977a2187eb4c8b17a1291ac30f59cf",
       "module": "Module/Enhancement/YFamily-calm.sgmodule",
@@ -2188,8 +2188,8 @@
       ]
     },
     {
-      "title": "HTTPS抓包",
       "url": "https://yfamilys.com/module/https.module",
+      "title": "HTTPS抓包",
       "source": "upstreams/yfamilys/sources/module-https.module",
       "sha256": "0ebe5b7ea1949af70ec7e6eef7ca980b59716c88f6bae40d54a52306a44130dd",
       "module": "Module/Enhancement/YFamily-https.sgmodule",
@@ -2200,8 +2200,8 @@
       ]
     },
     {
-      "title": "SSA丝社",
       "url": "https://yfamilys.com/module/ssa.module",
+      "title": "SSA丝社",
       "source": "upstreams/yfamilys/sources/module-ssa.module",
       "sha256": "142a2df43faa2c891ec9797ccfe59a81602684b5bb42d27b3ed518cf14908103",
       "module": "Module/Enhancement/YFamily-ssa.sgmodule",
@@ -2212,8 +2212,8 @@
       ]
     },
     {
-      "title": "小小优趣",
       "url": "https://yfamilys.com/module/xxyq.module",
+      "title": "小小优趣",
       "source": "upstreams/yfamilys/sources/module-xxyq.module",
       "sha256": "7db0bfd6253872edecf5b0b90d7dc45734791e53278344a7da0736cdd6fbd0b1",
       "module": "Module/Enhancement/YFamily-xxyq.sgmodule",
@@ -2224,8 +2224,8 @@
       ]
     },
     {
-      "title": "幻影相册",
       "url": "https://yfamilys.com/module/hyxc.module",
+      "title": "幻影相册",
       "source": "upstreams/yfamilys/sources/module-hyxc.module",
       "sha256": "90b57bedbc1e59c1a6a579d4851d0545e6b37291a4079055797d0fdc7e80d954",
       "module": "Module/Enhancement/YFamily-hyxc.sgmodule",
@@ -2236,8 +2236,8 @@
       ]
     },
     {
-      "title": "精塾国学",
       "url": "https://yfamilys.com/module/jsgx.module",
+      "title": "精塾国学",
       "source": "upstreams/yfamilys/sources/module-jsgx.module",
       "sha256": "93edffc105d1b7cfddaa9730322addfcf546631f398c9255bed8ab48a9c8d437",
       "module": "Module/Enhancement/YFamily-jsgx.sgmodule",
@@ -2248,8 +2248,8 @@
       ]
     },
     {
-      "title": "PrettyUp",
       "url": "https://yfamilys.com/module/prettyup.module",
+      "title": "PrettyUp",
       "source": "upstreams/yfamilys/sources/module-prettyup.module",
       "sha256": "f7345d7cd7a74f7fee12550c1aadde3d43331e9993f9fd0ddc69332142bc871f",
       "module": "Module/Enhancement/YFamily-prettyup.sgmodule",
@@ -2260,8 +2260,8 @@
       ]
     },
     {
-      "title": "微博lite去广告",
       "url": "https://yfamilys.com/sgmodule/weibolitead.module",
+      "title": "微博lite去广告",
       "source": "upstreams/yfamilys/sources/sgmodule-weibolitead.module",
       "sha256": "3b2fa83d2130a278e3f34a16ced08f13c8c45282c8178044534493b0692240c1",
       "module": "Module/AdBlock/YFamily-weibolitead.sgmodule",
@@ -2272,8 +2272,8 @@
       ]
     },
     {
-      "title": "BILI自动地区",
       "url": "https://yfamilys.com/module/bili-region.module",
+      "title": "BILI自动地区",
       "source": "upstreams/yfamilys/sources/module-bili-region.module",
       "sha256": "2cafe9f98412db9fd785519428d70c8d1d7be06ff7242f0b0f65fe411338fa07",
       "module": "Module/Enhancement/YFamily-bili-region.sgmodule",
@@ -2284,8 +2284,8 @@
       ]
     },
     {
-      "title": "CUBOX",
       "url": "https://yfamilys.com/module/cubox.sgmodule",
+      "title": "CUBOX",
       "source": "upstreams/yfamilys/sources/module-cubox.sgmodule",
       "sha256": "52adb4355c6d83b70236a8a2c659abb4c31dbf14b09f1489a8c7d06653dbbff2",
       "module": "Module/Enhancement/YFamily-cubox.sgmodule",
@@ -2296,8 +2296,8 @@
       ]
     },
     {
-      "title": "pandora",
       "url": "https://yfamilys.com/module/pandora.module",
+      "title": "pandora",
       "source": "upstreams/yfamilys/sources/module-pandora.module",
       "sha256": "c43357eafb9062fdf0c56e51bb8f77f68ffc05f73216997bcd339979ac502df3",
       "module": "Module/Enhancement/YFamily-pandora.sgmodule",
@@ -2308,8 +2308,8 @@
       ]
     },
     {
-      "title": "微信阅读积分兑换",
       "url": "https://yfamilys.com/module/wechatread.module",
+      "title": "微信阅读积分兑换",
       "source": "upstreams/yfamilys/sources/module-wechatread.module",
       "sha256": "c613462f66bef4c1f96aaba4fbdd8483d46a381fcc298b140d2b5a523344636b",
       "module": "Module/Enhancement/YFamily-wechatread.sgmodule",
@@ -2320,8 +2320,8 @@
       ]
     },
     {
-      "title": "来音智能陪练",
       "url": "https://yfamilys.com/module/ly.module",
+      "title": "来音智能陪练",
       "source": "upstreams/yfamilys/sources/module-ly.module",
       "sha256": "c1a8df1117b950020081c79143c91884d5510d4f79b843a5258c977e32366bf0",
       "module": "Module/Enhancement/YFamily-ly.sgmodule",
@@ -2332,8 +2332,8 @@
       ]
     },
     {
-      "title": "熊掌记",
       "url": "https://yfamilys.com/module/xzj.module",
+      "title": "熊掌记",
       "source": "upstreams/yfamilys/sources/module-xzj.module",
       "sha256": "4fa41689d00567ad571e30dab9715363cf2fa7a0255e365ae1f1f540e368e88c",
       "module": "Module/Enhancement/YFamily-xzj.sgmodule",
@@ -2344,8 +2344,8 @@
       ]
     },
     {
-      "title": "如期",
       "url": "https://yfamilys.com/module/rq.module",
+      "title": "如期",
       "source": "upstreams/yfamilys/sources/module-rq.module",
       "sha256": "e497e9ce4e25a05701fb291a145e380ae2b6a4bb0cf33531992963b6b474053f",
       "module": "Module/Enhancement/YFamily-rq.sgmodule",
@@ -2356,8 +2356,8 @@
       ]
     },
     {
-      "title": "CEO周课",
       "url": "https://yfamilys.com/module/ceo.module",
+      "title": "CEO周课",
       "source": "upstreams/yfamilys/sources/module-ceo.module",
       "sha256": "13ae5f41685324c886550e12a7535bfa35d999768d9d7cb111b14d35455ef49a",
       "module": "Module/Enhancement/YFamily-ceo.sgmodule",
@@ -2368,8 +2368,8 @@
       ]
     },
     {
-      "title": "Fileball",
       "url": "https://yfamilys.com/module/fileball.module",
+      "title": "Fileball",
       "source": "upstreams/yfamilys/sources/module-fileball.module",
       "sha256": "796046e29554950c919249763ba67ee942cab2372f9e14fed258ad3eed5bee44",
       "module": "Module/Enhancement/YFamily-fileball.sgmodule",
@@ -2380,8 +2380,8 @@
       ]
     },
     {
-      "title": "1blocker",
       "url": "https://yfamilys.com/module/1blocker.module",
+      "title": "1blocker",
       "source": "upstreams/yfamilys/sources/module-1blocker.module",
       "sha256": "849ca7982239da2fd999836adc500436a04a21311cb7c461ac691caaa30340b0",
       "module": "Module/Enhancement/YFamily-1blocker.sgmodule",
@@ -2392,8 +2392,8 @@
       ]
     },
     {
-      "title": "AI换脸秀",
       "url": "https://yfamilys.com/module/ai.module",
+      "title": "AI换脸秀",
       "source": "upstreams/yfamilys/sources/module-ai.module",
       "sha256": "9b2d879556bd40c27e1c3fad2ef4ecb558eb626bb94062a0bce285f82dde7fb9",
       "module": "Module/Enhancement/YFamily-ai.sgmodule",
@@ -2404,8 +2404,8 @@
       ]
     },
     {
-      "title": "proknockout",
       "url": "https://yfamilys.com/module/proknockout.module",
+      "title": "proknockout",
       "source": "upstreams/yfamilys/sources/module-proknockout.module",
       "sha256": "24f1d595ce9c13b2b66edeefc04230ea22c9d3919252c00d5993a66884d0562e",
       "module": "Module/Enhancement/YFamily-proknockout.sgmodule",
@@ -2416,8 +2416,8 @@
       ]
     },
     {
-      "title": "青柠海报",
       "url": "https://yfamilys.com/module/qnhb.module",
+      "title": "青柠海报",
       "source": "upstreams/yfamilys/sources/module-qnhb.module",
       "sha256": "eec121da232a81941d02cff3beb6059ee85b989496d1742705744af17fe2266f",
       "module": "Module/Enhancement/YFamily-qnhb.sgmodule",
@@ -2428,8 +2428,8 @@
       ]
     },
     {
-      "title": "Faintv",
       "url": "https://yfamilys.com/module/faintv.module",
+      "title": "Faintv",
       "source": "upstreams/yfamilys/sources/module-faintv.module",
       "sha256": "686e821d34282266119324c49258e1b9f1c87fd98d3ff9ee2ba4fc18d330c814",
       "module": "Module/AdBlock/YFamily-faintv.sgmodule",
@@ -2440,8 +2440,8 @@
       ]
     },
     {
-      "title": "微信听书",
       "url": "https://yfamilys.com/module/wxts.module",
+      "title": "微信听书",
       "source": "upstreams/yfamilys/sources/module-wxts.module",
       "sha256": "cdee7eb5e084e45e099f356b8eb89803f930646a3c7039646f0d5ff76dac9ac0",
       "module": "Module/Enhancement/YFamily-wxts.sgmodule",
@@ -2452,8 +2452,8 @@
       ]
     },
     {
-      "title": "人民日报去广告",
       "url": "https://yfamilys.com/module/rmrb.module",
+      "title": "人民日报去广告",
       "source": "upstreams/yfamilys/sources/module-rmrb.module",
       "sha256": "4be8e774c94055269058dac891abe739272a2fecc70ca989db8442317aaeba2d",
       "module": "Module/AdBlock/YFamily-rmrb.sgmodule",
@@ -2464,8 +2464,8 @@
       ]
     },
     {
-      "title": "爱企查",
       "url": "https://yfamilys.com/module/aqc.module",
+      "title": "爱企查",
       "source": "upstreams/yfamilys/sources/module-aqc.module",
       "sha256": "4787b8b575111b3ff9fa95dd5f077858a339951de0c30a1791a292191e9f8fef",
       "module": "Module/Enhancement/YFamily-aqc.sgmodule",
@@ -2476,8 +2476,8 @@
       ]
     },
     {
-      "title": "微信读书免费卡解锁",
       "url": "https://yfamilys.com/module/wxds.module",
+      "title": "微信读书免费卡解锁",
       "source": "upstreams/yfamilys/sources/module-wxds.module",
       "sha256": "114475d3bedcf2a85902c9a2c573b661b0d076f98c9ac93ed20671231300c142",
       "module": "Module/Enhancement/YFamily-wxds.sgmodule",
@@ -2488,8 +2488,8 @@
       ]
     },
     {
-      "title": "chic",
       "url": "https://yfamilys.com/module/chic.module",
+      "title": "chic",
       "source": "upstreams/yfamilys/sources/module-chic.module",
       "sha256": "0e958ade3448fb4decb279fad2660e67651ea8771e76b3fc316fff0ee0ee3f24",
       "module": "Module/Enhancement/YFamily-chic.sgmodule",
@@ -2500,8 +2500,8 @@
       ]
     },
     {
-      "title": "有道词典",
       "url": "https://yfamilys.com/module/ydcd.module",
+      "title": "有道词典",
       "source": "upstreams/yfamilys/sources/module-ydcd.module",
       "sha256": "31ac7b533abd99517c0c8e4a6bb97346a5919e17243415a2c51ae6c85fe9eaba",
       "module": "Module/Enhancement/YFamily-ydcd.sgmodule",
@@ -2512,8 +2512,8 @@
       ]
     },
     {
-      "title": "网速测试大师",
       "url": "https://yfamilys.com/module/wscsds.module",
+      "title": "网速测试大师",
       "source": "upstreams/yfamilys/sources/module-wscsds.module",
       "sha256": "c0053c987f122f3001c3f989ef600a0a451677d58ff4747d2c02b015bba33428",
       "module": "Module/Enhancement/YFamily-wscsds.sgmodule",
@@ -2524,8 +2524,8 @@
       ]
     },
     {
-      "title": "网速管家",
       "url": "https://yfamilys.com/module/wsgj.module",
+      "title": "网速管家",
       "source": "upstreams/yfamilys/sources/module-wsgj.module",
       "sha256": "b5adff81cd5d5e3770c9c67c85a988f085cf8d3767d901802f935feaa6d1ec13",
       "module": "Module/Enhancement/YFamily-wsgj.sgmodule",
@@ -2536,8 +2536,8 @@
       ]
     },
     {
-      "title": "EFEKT美易",
       "url": "https://yfamilys.com/module/efekt.module",
+      "title": "EFEKT美易",
       "source": "upstreams/yfamilys/sources/module-efekt.module",
       "sha256": "ddfb5ca86c97800b20a059847191215af3159b90500503c55b001b82f590aadd",
       "module": "Module/Enhancement/YFamily-efekt.sgmodule",
@@ -2548,8 +2548,8 @@
       ]
     },
     {
-      "title": "WPS稻壳会员",
       "url": "https://yfamilys.com/module/doc.module",
+      "title": "WPS稻壳会员",
       "source": "upstreams/yfamilys/sources/module-doc.module",
       "sha256": "1699a8b69211d867d7494d3165658e008754ddb9516bc131fafcef14cb590797",
       "module": "Module/Enhancement/YFamily-doc.sgmodule",
@@ -2561,8 +2561,8 @@
       ]
     },
     {
-      "title": "米克锁屏",
       "url": "https://yfamilys.com/module/mksp.module",
+      "title": "米克锁屏",
       "source": "upstreams/yfamilys/sources/module-mksp.module",
       "sha256": "826fd2666e07c2d1f663166c0c183928bbea9725775fb188496959b11822ef06",
       "module": "Module/Enhancement/YFamily-mksp.sgmodule",
@@ -2573,8 +2573,8 @@
       ]
     },
     {
-      "title": "阿布睡前故事",
       "url": "https://yfamilys.com/module/absqgs.module",
+      "title": "阿布睡前故事",
       "source": "upstreams/yfamilys/sources/module-absqgs.module",
       "sha256": "cabb949f35bb37d80e5c638cb3d3210d52d7a883982a3564e044eafda8d1b775",
       "module": "Module/Enhancement/YFamily-absqgs.sgmodule",
@@ -2585,8 +2585,8 @@
       ]
     },
     {
-      "title": "collart",
       "url": "https://yfamilys.com/module/collart.module",
+      "title": "collart",
       "source": "upstreams/yfamilys/sources/module-collart.module",
       "sha256": "f5c945fb91cd58757c5dcbbd723276e6737f13023edd0ca68d665edb3e0abe9c",
       "module": "Module/Enhancement/YFamily-collart.sgmodule",
@@ -2597,8 +2597,8 @@
       ]
     },
     {
-      "title": "博商小麦",
       "url": "https://yfamilys.com/module/bsxm.module",
+      "title": "博商小麦",
       "source": "upstreams/yfamilys/sources/module-bsxm.module",
       "sha256": "ec1e1367c851f34d6ea4f4f16029e23c525463fd8c9ad7a6b27af1703895f278",
       "module": "Module/Enhancement/YFamily-bsxm.sgmodule",
@@ -2609,8 +2609,8 @@
       ]
     },
     {
-      "title": "MEMRISE",
       "url": "https://yfamilys.com/module/memrise.module",
+      "title": "MEMRISE",
       "source": "upstreams/yfamilys/sources/module-memrise.module",
       "sha256": "f3375023fe6f054e048639a3fd9f8a4f959bef25cc7917015d898a64b5d1cf7f",
       "module": "Module/Enhancement/YFamily-memrise.sgmodule",
@@ -2621,8 +2621,8 @@
       ]
     },
     {
-      "title": "堆糖",
       "url": "https://yfamilys.com/module/duitang.module",
+      "title": "堆糖",
       "source": "upstreams/yfamilys/sources/module-duitang.module",
       "sha256": "c3d2399679ee7c264731cfb9037addcd22f15cf5d337872ae2df180c9fca6f19",
       "module": "Module/Enhancement/YFamily-duitang.sgmodule",
@@ -2633,8 +2633,8 @@
       ]
     },
     {
-      "title": "Flomo",
       "url": "https://yfamilys.com/module/flomo.module",
+      "title": "Flomo",
       "source": "upstreams/yfamilys/sources/module-flomo.module",
       "sha256": "53c739058c3893b33bd55e994858373b87a919a58463a28753cb4c6ca1383915",
       "module": "Module/Enhancement/YFamily-flomo.sgmodule",
@@ -2645,8 +2645,8 @@
       ]
     },
     {
-      "title": "APTV",
       "url": "https://yfamilys.com/module/aptv.module",
+      "title": "APTV",
       "source": "upstreams/yfamilys/sources/module-aptv.module",
       "sha256": "562e8acba53677b06868a8aa0820aa1c2e2794f10a2ecbd6017b2436fd98d118",
       "module": "Module/Enhancement/YFamily-aptv.sgmodule",
@@ -2657,8 +2657,8 @@
       ]
     },
     {
-      "title": "香哈菜谱大全",
       "url": "https://yfamilys.com/module/cp.module",
+      "title": "香哈菜谱大全",
       "source": "upstreams/yfamilys/sources/module-cp.module",
       "sha256": "98fcc6774063acb6bced6201f577fe1df9bf34a925f62bed5bb3475c8a4c1040",
       "module": "Module/Enhancement/YFamily-cp.sgmodule",
@@ -2670,8 +2670,8 @@
       ]
     },
     {
-      "title": "长相思",
       "url": "https://yfamilys.com/module/cxs.module",
+      "title": "长相思",
       "source": "upstreams/yfamilys/sources/module-cxs.module",
       "sha256": "202d6d03d6a1c39f88017e1d4f6fb888dd4f826ce892436df564306f5b38f0ad",
       "module": "Module/Enhancement/YFamily-cxs.sgmodule",
@@ -2682,8 +2682,8 @@
       ]
     },
     {
-      "title": "电子请柬制作",
       "url": "https://yfamilys.com/module/dzqj.module",
+      "title": "电子请柬制作",
       "source": "upstreams/yfamilys/sources/module-dzqj.module",
       "sha256": "2296cb8fec1e55e5a180ba51b2ed67ec624f7b7507c3c3e0bdd22acff8d305dc",
       "module": "Module/Enhancement/YFamily-dzqj.sgmodule",
@@ -2694,8 +2694,8 @@
       ]
     },
     {
-      "title": "黄油相机",
       "url": "https://yfamilys.com/module/hyxj.module",
+      "title": "黄油相机",
       "source": "upstreams/yfamilys/sources/module-hyxj.module",
       "sha256": "b8ecc10b590fb351e05994c4fd9af0f0a2526ba218bcb1db9243871d5272c660",
       "module": "Module/Enhancement/YFamily-hyxj.sgmodule",
@@ -2706,8 +2706,8 @@
       ]
     },
     {
-      "title": "Lingokids",
       "url": "https://yfamilys.com/module/lingokids.module",
+      "title": "Lingokids",
       "source": "upstreams/yfamilys/sources/module-lingokids.module",
       "sha256": "1fbf4543a6185c158b8439de37f878f3029872de30a1534974330695c6641bd4",
       "module": "Module/Enhancement/YFamily-lingokids.sgmodule",
@@ -2718,8 +2718,8 @@
       ]
     },
     {
-      "title": "百度文库",
       "url": "https://yfamilys.com/module/bdwk.module",
+      "title": "百度文库",
       "source": "upstreams/yfamilys/sources/module-bdwk.module",
       "sha256": "5d63706abb6d244686641edd15f75e9cc5d9563f5a8be7f82b20749389442c95",
       "module": "Module/Enhancement/YFamily-bdwk.sgmodule",
@@ -2730,8 +2730,8 @@
       ]
     },
     {
-      "title": "Craft",
       "url": "https://yfamilys.com/module/craft.module",
+      "title": "Craft",
       "source": "upstreams/yfamilys/sources/module-craft.module",
       "sha256": "3515936c0d6db72f5e1582d1d758fdbb6357fecdde9fc7cbeaff7349cbb486e1",
       "module": "Module/Enhancement/YFamily-craft.sgmodule",
@@ -2742,8 +2742,8 @@
       ]
     },
     {
-      "title": "Panda小组件",
       "url": "https://yfamilys.com/module/panda.module",
+      "title": "Panda小组件",
       "source": "upstreams/yfamilys/sources/module-panda.module",
       "sha256": "1e94ee8f72a20ef4a9de2458353b5b45b8996bd916bcfd4e469b3ddfdd30053d",
       "module": "Module/Enhancement/YFamily-panda.sgmodule",
@@ -2754,8 +2754,8 @@
       ]
     },
     {
-      "title": "Keep",
       "url": "https://yfamilys.com/module/keep.module",
+      "title": "Keep",
       "source": "upstreams/yfamilys/sources/module-keep.module",
       "sha256": "7f26b47a1f9ac5a2089582eb1c4fe34d393ef8086ba19a216a72da82d2d83afc",
       "module": "Module/Enhancement/YFamily-keep.sgmodule",
@@ -2766,8 +2766,8 @@
       ]
     },
     {
-      "title": "Documents",
       "url": "https://yfamilys.com/module/documents.module",
+      "title": "Documents",
       "source": "upstreams/yfamilys/sources/module-documents.module",
       "sha256": "acb518819b725326d48139ed1ab5268c27ff0feda42d324652bc4e0ae9b06484",
       "module": "Module/Enhancement/YFamily-documents.sgmodule",
@@ -2778,8 +2778,8 @@
       ]
     },
     {
-      "title": "Planny",
       "url": "https://yfamilys.com/module/planny.module",
+      "title": "Planny",
       "source": "upstreams/yfamilys/sources/module-planny.module",
       "sha256": "18e5f483af091f0146fdcdc02688591dc92027a15eefd44ea6efde1377f6affe",
       "module": "Module/Enhancement/YFamily-planny.sgmodule",
@@ -2790,8 +2790,8 @@
       ]
     },
     {
-      "title": "Ego Reader",
       "url": "https://yfamilys.com/module/ego.module",
+      "title": "Ego Reader",
       "source": "upstreams/yfamilys/sources/module-ego.module",
       "sha256": "11a01d2904cbd73efdabf67eaf62284cc02679aaf89a69c03e29df1f0e454ef0",
       "module": "Module/Enhancement/YFamily-ego.sgmodule",
@@ -2802,8 +2802,8 @@
       ]
     },
     {
-      "title": "极速扫描仪",
       "url": "https://yfamilys.com/module/jssmy.module",
+      "title": "极速扫描仪",
       "source": "upstreams/yfamilys/sources/module-jssmy.module",
       "sha256": "77f2556e4815af4a6b90d6aac0001a3ad3a644b9cf0cd60c6b444d17edbf8694",
       "module": "Module/Enhancement/YFamily-jssmy.sgmodule",
@@ -2814,8 +2814,8 @@
       ]
     },
     {
-      "title": "指尖笔记",
       "url": "https://yfamilys.com/module/zjbj.module",
+      "title": "指尖笔记",
       "source": "upstreams/yfamilys/sources/module-zjbj.module",
       "sha256": "6f67a2a040ce367dcabfe00e41a38cea4bbc93a750431132de2f950fdc1c9efb",
       "module": "Module/Enhancement/YFamily-zjbj.sgmodule",
@@ -2826,8 +2826,8 @@
       ]
     },
     {
-      "title": "钱迹",
       "url": "https://yfamilys.com/module/qj.module",
+      "title": "钱迹",
       "source": "upstreams/yfamilys/sources/module-qj.module",
       "sha256": "00e86dd4d6cf3e8232983fecf6cd9f0c154d077bba123df7051a7122a28d1de9",
       "module": "Module/Enhancement/YFamily-qj.sgmodule",
@@ -2838,8 +2838,8 @@
       ]
     },
     {
-      "title": "Agenda",
       "url": "https://yfamilys.com/module/agenda.module",
+      "title": "Agenda",
       "source": "upstreams/yfamilys/sources/module-agenda.module",
       "sha256": "c5e0eea1d99b02a14dc28dc5a76169c8bb4402a96cc9427f38c05fa09acd15ff",
       "module": "Module/Enhancement/YFamily-agenda.sgmodule",
@@ -2850,8 +2850,8 @@
       ]
     },
     {
-      "title": "Day One",
       "url": "https://yfamilys.com/module/dayone.module",
+      "title": "Day One",
       "source": "upstreams/yfamilys/sources/module-dayone.module",
       "sha256": "ea97c186d0c6916e461523a67e15cffa5b764527045af7d53627070db1d4a6e1",
       "module": "Module/Enhancement/YFamily-dayone.sgmodule",
@@ -2862,8 +2862,8 @@
       ]
     },
     {
-      "title": "Usage",
       "url": "https://yfamilys.com/module/usage.module",
+      "title": "Usage",
       "source": "upstreams/yfamilys/sources/module-usage.module",
       "sha256": "f8441b3021ad90634132491578707119b26dae93aca6efef374bf644668c9096",
       "module": "Module/Enhancement/YFamily-usage.sgmodule",
@@ -2874,8 +2874,8 @@
       ]
     },
     {
-      "title": "谜底时钟",
       "url": "https://yfamilys.com/module/mdsz.module",
+      "title": "谜底时钟",
       "source": "upstreams/yfamilys/sources/module-mdsz.module",
       "sha256": "9fa59bbb6b4e7aebecd223369525c08a6a756a10db98eb33db1d3244c8c42fcf",
       "module": "Module/Enhancement/YFamily-mdsz.sgmodule",
@@ -2886,8 +2886,8 @@
       ]
     },
     {
-      "title": "MoneyThings",
       "url": "https://yfamilys.com/module/moneythings.module",
+      "title": "MoneyThings",
       "source": "upstreams/yfamilys/sources/module-moneythings.module",
       "sha256": "359a5ea4cd91c1d657c31f0eb19b5cc449f966a31cde4de8d153aa188afc4c9f",
       "module": "Module/Enhancement/YFamily-moneythings.sgmodule",
@@ -2898,8 +2898,8 @@
       ]
     },
     {
-      "title": "手机扫描仪",
       "url": "https://yfamilys.com/module/sjsmy.module",
+      "title": "手机扫描仪",
       "source": "upstreams/yfamilys/sources/module-sjsmy.module",
       "sha256": "7b87fa1e198716f56d0602accd14d64a726960ddf926971b9c88b066c855085b",
       "module": "Module/Enhancement/YFamily-sjsmy.sgmodule",
@@ -2910,8 +2910,8 @@
       ]
     },
     {
-      "title": "Sorted",
       "url": "https://yfamilys.com/module/sorted.module",
+      "title": "Sorted",
       "source": "upstreams/yfamilys/sources/module-sorted.module",
       "sha256": "273806c0545131a86c1d2f3fd80a766409d00b2bdd61c0ff10aa45d3cd80953c",
       "module": "Module/Enhancement/YFamily-sorted.sgmodule",
@@ -2922,8 +2922,8 @@
       ]
     },
     {
-      "title": "尽简衣橱",
       "url": "https://yfamilys.com/module/jjyc.module",
+      "title": "尽简衣橱",
       "source": "upstreams/yfamilys/sources/module-jjyc.module",
       "sha256": "b2a190a0067fc59bf54f2c5d56bb425267416893b968eb536ef209b873d529e4",
       "module": "Module/Enhancement/YFamily-jjyc.sgmodule",
@@ -2934,8 +2934,8 @@
       ]
     },
     {
-      "title": "看理想",
       "url": "https://yfamilys.com/module/klx.module",
+      "title": "看理想",
       "source": "upstreams/yfamilys/sources/module-klx.module",
       "sha256": "eea13ecab1a218eb69583a7aa674376f9161c4a7dd2e234f3cba83b4a7b6be25",
       "module": "Module/Enhancement/YFamily-klx.sgmodule",
@@ -2946,8 +2946,8 @@
       ]
     },
     {
-      "title": "目标地图",
       "url": "https://yfamilys.com/module/mbdt.module",
+      "title": "目标地图",
       "source": "upstreams/yfamilys/sources/module-mbdt.module",
       "sha256": "bd58ac47bc9a0c0c51df8e2533c3c9448a7d4cb393d1d876b9c3f13496054fb3",
       "module": "Module/Enhancement/YFamily-mbdt.sgmodule",
@@ -2958,8 +2958,8 @@
       ]
     },
     {
-      "title": "拼图酱",
       "url": "https://yfamilys.com/module/ptj.module",
+      "title": "拼图酱",
       "source": "upstreams/yfamilys/sources/module-ptj.module",
       "sha256": "b398cbe304972a89f05d9dabea06facaae8f58adcda81deb9bf614262e01368a",
       "module": "Module/Enhancement/YFamily-ptj.sgmodule",
@@ -2970,8 +2970,8 @@
       ]
     },
     {
-      "title": "向日葵阅读",
       "url": "https://yfamilys.com/module/xrk.module",
+      "title": "向日葵阅读",
       "source": "upstreams/yfamilys/sources/module-xrk.module",
       "sha256": "7597547b75275ea67113fd732d58d95ee633cfffc3dc515106b6b9f0f90b7c18",
       "module": "Module/Enhancement/YFamily-xrk.sgmodule",
@@ -2982,8 +2982,8 @@
       ]
     },
     {
-      "title": "卡片日记",
       "url": "https://yfamilys.com/module/kprj.module",
+      "title": "卡片日记",
       "source": "upstreams/yfamilys/sources/module-kprj.module",
       "sha256": "7c9c2a87d8c22d2299842a0296b5daac1c52590a2115f54263bfcf069021ff57",
       "module": "Module/Enhancement/YFamily-kprj.sgmodule",
@@ -2994,8 +2994,8 @@
       ]
     },
     {
-      "title": "莉景天气",
       "url": "https://yfamilys.com/module/ljtq.module",
+      "title": "莉景天气",
       "source": "upstreams/yfamilys/sources/module-ljtq.module",
       "sha256": "01a3c0db22d78ea22f9b37876cf102f818d510cdd602c1e82dfc32ba0d141567",
       "module": "Module/Enhancement/YFamily-ljtq.sgmodule",
@@ -3006,8 +3006,8 @@
       ]
     },
     {
-      "title": "Motivation",
       "url": "https://yfamilys.com/module/motivation.module",
+      "title": "Motivation",
       "source": "upstreams/yfamilys/sources/module-motivation.module",
       "sha256": "5b9531da546e43fe8b2de228ef796d4f59bfc0cb3c0b2a44e6a2a7fd6c688a21",
       "module": "Module/Enhancement/YFamily-motivation.sgmodule",
@@ -3018,8 +3018,8 @@
       ]
     },
     {
-      "title": "PDF Viewer",
       "url": "https://yfamilys.com/module/pdfviewer.module",
+      "title": "PDF Viewer",
       "source": "upstreams/yfamilys/sources/module-pdfviewer.module",
       "sha256": "0216f5bc939ac46351688002d078cee613041a307eaced4699d90715c311c6bc",
       "module": "Module/Enhancement/YFamily-pdfviewer.sgmodule",
@@ -3030,8 +3030,8 @@
       ]
     },
     {
-      "title": "Percento",
       "url": "https://yfamilys.com/module/percento.module",
+      "title": "Percento",
       "source": "upstreams/yfamilys/sources/module-percento.module",
       "sha256": "77024b948b0a1f262e5253af51cf531ce23d255d63626427a554a8a86eff1df6",
       "module": "Module/Enhancement/YFamily-percento.sgmodule",
@@ -3042,8 +3042,8 @@
       ]
     },
     {
-      "title": "Pixelance",
       "url": "https://yfamilys.com/module/pixelance.module",
+      "title": "Pixelance",
       "source": "upstreams/yfamilys/sources/module-pixelance.module",
       "sha256": "a9ee772d29765a314027e48fe3dd1c0ec271a3b34310acc07f639030b6bd189a",
       "module": "Module/Enhancement/YFamily-pixelance.sgmodule",
@@ -3054,8 +3054,8 @@
       ]
     },
     {
-      "title": "Retake",
       "url": "https://yfamilys.com/module/retake.module",
+      "title": "Retake",
       "source": "upstreams/yfamilys/sources/module-retake.module",
       "sha256": "1908ea1362ad404bfb6f94864e7ebe3f72d602f2ac320c89b69e680ab07f98b3",
       "module": "Module/Enhancement/YFamily-retake.sgmodule",
@@ -3066,8 +3066,8 @@
       ]
     },
     {
-      "title": "色采",
       "url": "https://yfamilys.com/module/sc.module",
+      "title": "色采",
       "source": "upstreams/yfamilys/sources/module-sc.module",
       "sha256": "846541972f732301cacc3069f3599d7d266c102c5e7ccadfe21ba8ca5702ed19",
       "module": "Module/Enhancement/YFamily-sc.sgmodule",
@@ -3078,8 +3078,8 @@
       ]
     },
     {
-      "title": "闪萌表情",
       "url": "https://yfamilys.com/module/smbq.module",
+      "title": "闪萌表情",
       "source": "upstreams/yfamilys/sources/module-smbq.module",
       "sha256": "705ff853f914b8c51af3a3c70348dff6b7dbc6a94b90706a7fcd7f9415e357f3",
       "module": "Module/Enhancement/YFamily-smbq.sgmodule",
@@ -3090,8 +3090,8 @@
       ]
     },
     {
-      "title": "音频剪辑",
       "url": "https://yfamilys.com/module/ypjj.module",
+      "title": "音频剪辑",
       "source": "upstreams/yfamilys/sources/module-ypjj.module",
       "sha256": "8dc093cd367f540fe01063d2000a07386b5924d444314da7101186afaa8b21fc",
       "module": "Module/Enhancement/YFamily-ypjj.sgmodule",
@@ -3102,8 +3102,8 @@
       ]
     },
     {
-      "title": "Varlens",
       "url": "https://yfamilys.com/module/varlens.module",
+      "title": "Varlens",
       "source": "upstreams/yfamilys/sources/module-varlens.module",
       "sha256": "5b4d9c92735dc5a99f2676b99d0aee422a9919f7752bcbfe3a594a97723c946c",
       "module": "Module/Enhancement/YFamily-varlens.sgmodule",
@@ -3114,8 +3114,8 @@
       ]
     },
     {
-      "title": "一木记账",
       "url": "https://yfamilys.com/module/ymjz.module",
+      "title": "一木记账",
       "source": "upstreams/yfamilys/sources/module-ymjz.module",
       "sha256": "f981aa15cf3577773e8ac91ab535beca65575e2c8370ebfb44134ce63dc603e7",
       "module": "Module/Enhancement/YFamily-ymjz.sgmodule",
@@ -3126,8 +3126,8 @@
       ]
     },
     {
-      "title": "Drafts",
       "url": "https://yfamilys.com/module/drafts.module",
+      "title": "Drafts",
       "source": "upstreams/yfamilys/sources/module-drafts.module",
       "sha256": "aa4a4007e04a42c7b56f15589d4032890e5e7b25c510e5496da91066c3955cc5",
       "module": "Module/Enhancement/YFamily-drafts.sgmodule",
@@ -3138,8 +3138,8 @@
       ]
     },
     {
-      "title": "叮叮水印相机",
       "url": "https://yfamilys.com/module/ddsyxj.module",
+      "title": "叮叮水印相机",
       "source": "upstreams/yfamilys/sources/module-ddsyxj.module",
       "sha256": "61fc151aeb8895f00c894ae53caed137f46df35e3fecda38d8449401fec37855",
       "module": "Module/Enhancement/YFamily-ddsyxj.sgmodule",
@@ -3150,8 +3150,8 @@
       ]
     },
     {
-      "title": "Emote",
       "url": "https://yfamilys.com/module/emote.module",
+      "title": "Emote",
       "source": "upstreams/yfamilys/sources/module-emote.module",
       "sha256": "678b7b1a18d60527a8ed99446e86fa916056e608b80c06e7cf4a990346631314",
       "module": "Module/Enhancement/YFamily-emote.sgmodule",
@@ -3162,8 +3162,8 @@
       ]
     },
     {
-      "title": "灵敢足迹",
       "url": "https://yfamilys.com/module/lgzj.module",
+      "title": "灵敢足迹",
       "source": "upstreams/yfamilys/sources/module-lgzj.module",
       "sha256": "5dbcc260a343f32977daf01778d64537cf61cb181d4d2b1d87ac4da06cfa8f11",
       "module": "Module/Enhancement/YFamily-lgzj.sgmodule",
@@ -3174,8 +3174,8 @@
       ]
     },
     {
-      "title": "7分钟HIIT运动",
       "url": "https://yfamilys.com/module/seven.module",
+      "title": "7分钟HIIT运动",
       "source": "upstreams/yfamilys/sources/module-seven.module",
       "sha256": "6404a0680856af4bb8503148e175460298e8905a959730c567759489ba4ceaa4",
       "module": "Module/Enhancement/YFamily-seven.sgmodule",
@@ -3186,8 +3186,8 @@
       ]
     },
     {
-      "title": "私密相册管家",
       "url": "https://yfamilys.com/module/smxcgj.module",
+      "title": "私密相册管家",
       "source": "upstreams/yfamilys/sources/module-smxcgj.module",
       "sha256": "b15dc0c72883a1a234dcc8ab7d636d34470eed8ab9800b651010b4cf08c0049a",
       "module": "Module/Enhancement/YFamily-smxcgj.sgmodule",
@@ -3198,8 +3198,8 @@
       ]
     },
     {
-      "title": "FitnessView",
       "url": "https://yfamilys.com/module/fnv.module",
+      "title": "FitnessView",
       "source": "upstreams/yfamilys/sources/module-fnv.module",
       "sha256": "81218b6580b07f4b2c891ac9bbe7f5da5e985a5064d77cee69f14b365e4bef3f",
       "module": "Module/Enhancement/YFamily-fnv.sgmodule",
@@ -3210,8 +3210,8 @@
       ]
     },
     {
-      "title": "TODO清单",
       "url": "https://yfamilys.com/module/todo.module",
+      "title": "TODO清单",
       "source": "upstreams/yfamilys/sources/module-todo.module",
       "sha256": "0ad03ae357194501bb97f3bf579810251815b6a9f6591d1d1e1ceefc0ea961e8",
       "module": "Module/Enhancement/YFamily-todo.sgmodule",
@@ -3222,8 +3222,8 @@
       ]
     },
     {
-      "title": "淘票票评分",
       "url": "https://yfamilys.com/module/tpp.module",
+      "title": "淘票票评分",
       "source": "upstreams/yfamilys/sources/module-tpp.module",
       "sha256": "c2c9ac488a1e9d7113dec95e65cb98d9b63750da0be45fc2bbc002f7a123ab68",
       "module": "Module/Enhancement/YFamily-tpp.sgmodule",
@@ -3234,8 +3234,8 @@
       ]
     },
     {
-      "title": "天天豆",
       "url": "https://yfamilys.com/module/ttd.module",
+      "title": "天天豆",
       "source": "upstreams/yfamilys/sources/module-ttd.module",
       "sha256": "4cccb7f35e2fed2ebcb13a130d50cf1d223cbc7cef552b586cce9596ab2acc96",
       "module": "Module/Enhancement/YFamily-ttd.sgmodule",
@@ -3246,8 +3246,8 @@
       ]
     },
     {
-      "title": "咖映",
       "url": "https://yfamilys.com/module/ky.module",
+      "title": "咖映",
       "source": "upstreams/yfamilys/sources/module-ky.module",
       "sha256": "4c7d31b433542db7d959b62f53c91d1e276d081dfdeba21ada3ff9aa3234d888",
       "module": "Module/Enhancement/YFamily-ky.sgmodule",
@@ -3258,8 +3258,8 @@
       ]
     },
     {
-      "title": "VCUS",
       "url": "https://yfamilys.com/module/vcus.module",
+      "title": "VCUS",
       "source": "upstreams/yfamilys/sources/module-vcus.module",
       "sha256": "081e8888c58ac915422d82a2fcef75158ca2de69225e63508401957ad75cd7b8",
       "module": "Module/Enhancement/YFamily-vcus.sgmodule",
@@ -3270,8 +3270,8 @@
       ]
     },
     {
-      "title": "傲软PDF编辑",
       "url": "https://yfamilys.com/module/arpdfbj.module",
+      "title": "傲软PDF编辑",
       "source": "upstreams/yfamilys/sources/module-arpdfbj.module",
       "sha256": "7cf4a1314970a0d3f8cc33d49284e7241a5af62c2ec1427b87b8a5bdbe213be2",
       "module": "Module/Enhancement/YFamily-arpdfbj.sgmodule",
@@ -3282,8 +3282,8 @@
       ]
     },
     {
-      "title": "傲软投屏",
       "url": "https://yfamilys.com/module/artp.module",
+      "title": "傲软投屏",
       "source": "upstreams/yfamilys/sources/module-artp.module",
       "sha256": "9f8e741e4438017f471b24e6a6ad6fc2c564784764bf25e063c3eeb842e185f0",
       "module": "Module/Enhancement/YFamily-artp.sgmodule",
@@ -3294,8 +3294,8 @@
       ]
     },
     {
-      "title": "幻休",
       "url": "https://yfamilys.com/module/hx.module",
+      "title": "幻休",
       "source": "upstreams/yfamilys/sources/module-hx.module",
       "sha256": "a32d086feb9c14f47f5ce0c9e62435a3320859071d7b8b79b16176eba577e889",
       "module": "Module/Enhancement/YFamily-hx.sgmodule",
@@ -3306,8 +3306,8 @@
       ]
     },
     {
-      "title": "绘影字幕",
       "url": "https://yfamilys.com/module/hyzm.module",
+      "title": "绘影字幕",
       "source": "upstreams/yfamilys/sources/module-hyzm.module",
       "sha256": "e2ccdf2f3f74f85189f3c0b0112b996e12920c8229ce9ca29d2cbb0a3b748335",
       "module": "Module/Enhancement/YFamily-hyzm.sgmodule",
@@ -3318,8 +3318,8 @@
       ]
     },
     {
-      "title": "汇中考",
       "url": "https://yfamilys.com/module/hzk.module",
+      "title": "汇中考",
       "source": "upstreams/yfamilys/sources/module-hzk.module",
       "sha256": "eb3a91c145eeac7e752d6ef3d27bae384e0efb55a0764f8bd99c449337ad7102",
       "module": "Module/Enhancement/YFamily-hzk.sgmodule",
@@ -3330,8 +3330,8 @@
       ]
     },
     {
-      "title": "iScreen",
       "url": "https://yfamilys.com/module/iscreen.module",
+      "title": "iScreen",
       "source": "upstreams/yfamilys/sources/module-iscreen.module",
       "sha256": "b966fdd499a4520f3875fcd515c27df6aa91a9eefa5e9a27bcfb176596854429",
       "module": "Module/Enhancement/YFamily-iscreen.sgmodule",
@@ -3342,8 +3342,8 @@
       ]
     },
     {
-      "title": "小组件盒子",
       "url": "https://yfamilys.com/module/xzjhz.module",
+      "title": "小组件盒子",
       "source": "upstreams/yfamilys/sources/module-xzjhz.module",
       "sha256": "8aec724b14e2086306b56ebd36aff8994300efa064016694e49644036f8d417a",
       "module": "Module/Enhancement/YFamily-xzjhz.sgmodule",
@@ -3354,8 +3354,8 @@
       ]
     },
     {
-      "title": "佐糖",
       "url": "https://yfamilys.com/module/zt.module",
+      "title": "佐糖",
       "source": "upstreams/yfamilys/sources/module-zt.module",
       "sha256": "b427a707ef38c0c7752ca80233d02f23d0e9dea02ceb3eb0e0c5a33e31faf630",
       "module": "Module/Enhancement/YFamily-zt.sgmodule",
@@ -3366,8 +3366,8 @@
       ]
     },
     {
-      "title": "飞鱼计划",
       "url": "https://yfamilys.com/module/fyjh.module",
+      "title": "飞鱼计划",
       "source": "upstreams/yfamilys/sources/module-fyjh.module",
       "sha256": "944bbf7b0640081e13aeefe871ad05fd0762c0f883336da0d24c1a9bec01ef3a",
       "module": "Module/Enhancement/YFamily-fyjh.sgmodule",
@@ -3378,8 +3378,8 @@
       ]
     },
     {
-      "title": "过期啦",
       "url": "https://yfamilys.com/module/gql.module",
+      "title": "过期啦",
       "source": "upstreams/yfamilys/sources/module-gql.module",
       "sha256": "b3dda56292cb836227708e1d5402bbf8674a514079cce8a21bd0fbb58d738482",
       "module": "Module/Enhancement/YFamily-gql.sgmodule",
@@ -3390,8 +3390,8 @@
       ]
     },
     {
-      "title": "乃糖小组件",
       "url": "https://yfamilys.com/module/nt.module",
+      "title": "乃糖小组件",
       "source": "upstreams/yfamilys/sources/module-nt.module",
       "sha256": "71696fb1c9afbcbdcd6b0f971a55a93076ef7a223dcd22267103c5a4fab10284",
       "module": "Module/Enhancement/YFamily-nt.sgmodule",
@@ -3402,8 +3402,8 @@
       ]
     },
     {
-      "title": "一书一课",
       "url": "https://yfamilys.com/module/ysyk.module",
+      "title": "一书一课",
       "source": "upstreams/yfamilys/sources/module-ysyk.module",
       "sha256": "77c062c4823105d42feb42556abc0717d3445579d8912584b4f4f24dbd71122a",
       "module": "Module/Enhancement/YFamily-ysyk.sgmodule",
@@ -3414,8 +3414,8 @@
       ]
     },
     {
-      "title": "充电助手",
       "url": "https://yfamilys.com/module/cdzs.module",
+      "title": "充电助手",
       "source": "upstreams/yfamilys/sources/module-cdzs.module",
       "sha256": "ead68b042380082018d184ee933ae0c23ab084450bc8b1cf6c944de1aad7229e",
       "module": "Module/Enhancement/YFamily-cdzs.sgmodule",
@@ -3426,8 +3426,8 @@
       ]
     },
     {
-      "title": "电视家",
       "url": "https://yfamilys.com/module/dsj.module",
+      "title": "电视家",
       "source": "upstreams/yfamilys/sources/module-dsj.module",
       "sha256": "000fa7901151ba63b1b37781555ac82f059988aedd57e0059cd5a230f9b3b0d7",
       "module": "Module/Enhancement/YFamily-dsj.sgmodule",
@@ -3438,8 +3438,8 @@
       ]
     },
     {
-      "title": "Endel",
       "url": "https://yfamilys.com/module/endel.module",
+      "title": "Endel",
       "source": "upstreams/yfamilys/sources/module-endel.module",
       "sha256": "eb4860eeeaab16e34e6cc84d36523cbe9c9261bc6510705e15a02e38209d0a06",
       "module": "Module/Enhancement/YFamily-endel.sgmodule",
@@ -3450,8 +3450,8 @@
       ]
     },
     {
-      "title": "格至日记",
       "url": "https://yfamilys.com/module/gzrj.module",
+      "title": "格至日记",
       "source": "upstreams/yfamilys/sources/module-gzrj.module",
       "sha256": "da17959ea350f23a981897801794bbfdfdaadb159c17915b47a9e167a9c49096",
       "module": "Module/Enhancement/YFamily-gzrj.sgmodule",
@@ -3462,8 +3462,8 @@
       ]
     },
     {
-      "title": "高德地图去广告",
       "url": "https://yfamilys.com/sgmodule/gddt.module",
+      "title": "高德地图去广告",
       "source": "upstreams/yfamilys/sources/sgmodule-gddt.module",
       "sha256": "9d7219f841f49acb3f2e9680ee26ab6beff54a48a032b98620d248659a432b6a",
       "module": "Module/AdBlock/YFamily-gddt.sgmodule",
@@ -3476,8 +3476,8 @@
       ]
     },
     {
-      "title": "好事发生",
       "url": "https://yfamilys.com/module/hsfs.module",
+      "title": "好事发生",
       "source": "upstreams/yfamilys/sources/module-hsfs.module",
       "sha256": "b3ba473f04e7aa837013f7b3c7510d95db6484e60d62b44177964193f0ee55f3",
       "module": "Module/Enhancement/YFamily-hsfs.sgmodule",
@@ -3488,8 +3488,8 @@
       ]
     },
     {
-      "title": "简讯",
       "url": "https://yfamilys.com/sgmodule/jianxun.module",
+      "title": "简讯",
       "source": "upstreams/yfamilys/sources/sgmodule-jianxun.module",
       "sha256": "bd352e31f25763c56b91fed15f4ad132b37992c3b498ff90b4c7ef8cf2bb72d6",
       "module": "Module/Enhancement/YFamily-jianxun.sgmodule",
@@ -3500,8 +3500,8 @@
       ]
     },
     {
-      "title": "可拍",
       "url": "https://yfamilys.com/module/kepai.module",
+      "title": "可拍",
       "source": "upstreams/yfamilys/sources/module-kepai.module",
       "sha256": "d309c30162e2f5339c042b4dbbd163e0d6cc6dec17c367dbfb691429be978ec2",
       "module": "Module/Enhancement/YFamily-kepai.sgmodule",
@@ -3512,8 +3512,8 @@
       ]
     },
     {
-      "title": "Lifeviewer",
       "url": "https://yfamilys.com/module/lifeviewer.module",
+      "title": "Lifeviewer",
       "source": "upstreams/yfamilys/sources/module-lifeviewer.module",
       "sha256": "ddbca9f9240e8e406a21c135b765c12fa6799f7c965f07d87fcce34434d357c6",
       "module": "Module/Enhancement/YFamily-lifeviewer.sgmodule",
@@ -3524,8 +3524,8 @@
       ]
     },
     {
-      "title": "Relens",
       "url": "https://yfamilys.com/module/relens.module",
+      "title": "Relens",
       "source": "upstreams/yfamilys/sources/module-relens.module",
       "sha256": "b9c42af906f33a5852f1a4d9f7982eee4b73005aef2e23bcab3a8d9ce27820ef",
       "module": "Module/Enhancement/YFamily-relens.sgmodule",
@@ -3536,8 +3536,8 @@
       ]
     },
     {
-      "title": "Vivacut",
       "url": "https://yfamilys.com/module/vivacut.module",
+      "title": "Vivacut",
       "source": "upstreams/yfamilys/sources/module-vivacut.module",
       "sha256": "f1203d8949c66f58c008b8200a3703ed365561e325d2dc2b4166515d03e31d94",
       "module": "Module/Enhancement/YFamily-vivacut.sgmodule",
@@ -3548,8 +3548,8 @@
       ]
     },
     {
-      "title": "Watchout",
       "url": "https://yfamilys.com/module/watchout.module",
+      "title": "Watchout",
       "source": "upstreams/yfamilys/sources/module-watchout.module",
       "sha256": "0410fce46b8ae23f08ad4903cbcada344f14ada4d1a3c600fa043413100f2b76",
       "module": "Module/Enhancement/YFamily-watchout.sgmodule",
@@ -3560,8 +3560,8 @@
       ]
     },
     {
-      "title": "无痕去水印",
       "url": "https://yfamilys.com/module/whqsy.module",
+      "title": "无痕去水印",
       "source": "upstreams/yfamilys/sources/module-whqsy.module",
       "sha256": "72b645cacdb47708c2c2f700bf8d6a7eccb34baf220d45c785dc5e650806b13d",
       "module": "Module/Enhancement/YFamily-whqsy.sgmodule",
@@ -3572,8 +3572,8 @@
       ]
     },
     {
-      "title": "一键换脸",
       "url": "https://yfamilys.com/module/yjhl.module",
+      "title": "一键换脸",
       "source": "upstreams/yfamilys/sources/module-yjhl.module",
       "sha256": "69384a59322251c6f32f3b853873e907d11b8523954c25ef6d0970f91160190b",
       "module": "Module/Enhancement/YFamily-yjhl.sgmodule",
@@ -3584,8 +3584,8 @@
       ]
     },
     {
-      "title": "Styleart",
       "url": "https://yfamilys.com/module/styleart.module",
+      "title": "Styleart",
       "source": "upstreams/yfamilys/sources/module-styleart.module",
       "sha256": "e564799e72ef377b3ae29be4f76281c8ff9f2959a9bc84c5e7438521c19d9501",
       "module": "Module/Enhancement/YFamily-styleart.sgmodule",
@@ -3596,8 +3596,8 @@
       ]
     },
     {
-      "title": "7动",
       "url": "https://yfamilys.com/module/7dong.module",
+      "title": "7动",
       "source": "upstreams/yfamilys/sources/module-7dong.module",
       "sha256": "4cd35fb68e5ed3f2bcf68dbb2a98290906b859e6f54c7587c5981d4f7e2a3c21",
       "module": "Module/Enhancement/YFamily-7dong.sgmodule",
@@ -3608,8 +3608,8 @@
       ]
     },
     {
-      "title": "生活指数定时提醒",
       "url": "https://yfamilys.com/module/lifeindex.module",
+      "title": "生活指数定时提醒",
       "source": "upstreams/yfamilys/sources/module-lifeindex.module",
       "sha256": "84f06608c4aa823962cadfa0e658b40f9963f3729b863811ebda6440a852917c",
       "module": "Module/Enhancement/YFamily-lifeindex.sgmodule",
@@ -3620,8 +3620,8 @@
       ]
     },
     {
-      "title": "油价提醒",
       "url": "https://yfamilys.com/module/oil.module",
+      "title": "油价提醒",
       "source": "upstreams/yfamilys/sources/module-oil.module",
       "sha256": "e794f47d4d3859cc800d3b29349618819d6928cca1d041fbfe2588a5eff41854",
       "module": "Module/Enhancement/YFamily-oil.sgmodule",
@@ -3632,8 +3632,8 @@
       ]
     },
     {
-      "title": "海报工厂",
       "url": "https://yfamilys.com/module/hbgc.module",
+      "title": "海报工厂",
       "source": "upstreams/yfamilys/sources/module-hbgc.module",
       "sha256": "4a756e124f5644570fd63072498e914f2cc05604098322bb33b208e198d566ff",
       "module": "Module/Enhancement/YFamily-hbgc.sgmodule",
@@ -3644,8 +3644,8 @@
       ]
     },
     {
-      "title": "我的番茄",
       "url": "https://yfamilys.com/module/wdfq.module",
+      "title": "我的番茄",
       "source": "upstreams/yfamilys/sources/module-wdfq.module",
       "sha256": "d6378b18f4470326b7c40281ef4bb2657378605efb5e0020d626f6c1636caf4e",
       "module": "Module/Enhancement/YFamily-wdfq.sgmodule",
@@ -3656,8 +3656,8 @@
       ]
     },
     {
-      "title": "FoMz",
       "url": "https://yfamilys.com/module/fomz.module",
+      "title": "FoMz",
       "source": "upstreams/yfamilys/sources/module-fomz.module",
       "sha256": "ddddea5ec518390c9a6c13ee3c223a841aeb66f15095dbefd70162a3b96618a9",
       "module": "Module/Enhancement/YFamily-fomz.sgmodule",
@@ -3668,8 +3668,8 @@
       ]
     },
     {
-      "title": "日杂相机",
       "url": "https://yfamilys.com/module/rzxj.module",
+      "title": "日杂相机",
       "source": "upstreams/yfamilys/sources/module-rzxj.module",
       "sha256": "76371c8665dcb06c60b41e9e0854b1efa827359e731da0df21d84bdd9aee1f8a",
       "module": "Module/Enhancement/YFamily-rzxj.sgmodule",
@@ -3680,8 +3680,8 @@
       ]
     },
     {
-      "title": "古诗词大全",
       "url": "https://yfamilys.com/module/gscdq.module",
+      "title": "古诗词大全",
       "source": "upstreams/yfamilys/sources/module-gscdq.module",
       "sha256": "6c3379925401005ea7598c2771bd6a16d780e624320bac4de42e45e1ebee12ae",
       "module": "Module/Enhancement/YFamily-gscdq.sgmodule",
@@ -3692,8 +3692,8 @@
       ]
     },
     {
-      "title": "Mondly",
       "url": "https://yfamilys.com/module/mondly.module",
+      "title": "Mondly",
       "source": "upstreams/yfamilys/sources/module-mondly.module",
       "sha256": "552c267e8c6da67f79dd968de8077bd3cb2afec556b547c257ae1156be998227",
       "module": "Module/Enhancement/YFamily-mondly.sgmodule",
@@ -3704,8 +3704,8 @@
       ]
     },
     {
-      "title": "猫头鹰文件",
       "url": "https://yfamilys.com/module/mtywj.module",
+      "title": "猫头鹰文件",
       "source": "upstreams/yfamilys/sources/module-mtywj.module",
       "sha256": "6837beaf19d87fd0357526be176354eadbdaa160c6647a342ada72dbb6bc4552",
       "module": "Module/Enhancement/YFamily-mtywj.sgmodule",
@@ -3716,8 +3716,8 @@
       ]
     },
     {
-      "title": "YouTube去广告",
       "url": "https://yfamilys.com/sgmodule/YouTubeAd.sgmodule",
+      "title": "YouTube去广告",
       "source": "upstreams/yfamilys/sources/sgmodule-YouTubeAd.sgmodule",
       "sha256": "0afef6ff0b966b94f7dea11d07a580e70383393bc1f4ac47b28258ce1afb717b",
       "module": "Module/AdBlock/YFamily-YouTubeAd.sgmodule",
@@ -3731,8 +3731,8 @@
       ]
     },
     {
-      "title": "YouTube双字幕",
       "url": "https://yfamilys.com/module/ytbdualsub.module",
+      "title": "YouTube双字幕",
       "source": "upstreams/yfamilys/sources/module-ytbdualsub.module",
       "sha256": "bb5f1afe3a21f9e983d8549dfc7313c4d4bb2cf89eb060bdfddd78b93b76b9c0",
       "module": "Module/Enhancement/YFamily-ytbdualsub.sgmodule",
@@ -3745,8 +3745,8 @@
       ]
     },
     {
-      "title": "汉堡儿童故事",
       "url": "https://yfamilys.com/module/hbetgs.module",
+      "title": "汉堡儿童故事",
       "source": "upstreams/yfamilys/sources/module-hbetgs.module",
       "sha256": "466ed45d3b7c8b28a2521c71965f51febb4ce08b9e5711441407daa4fcf47cf7",
       "module": "Module/Enhancement/YFamily-hbetgs.sgmodule",
@@ -3757,8 +3757,8 @@
       ]
     },
     {
-      "title": "iconKiller",
       "url": "https://yfamilys.com/module/iconkiller.module",
+      "title": "iconKiller",
       "source": "upstreams/yfamilys/sources/module-iconkiller.module",
       "sha256": "c10a1b07c7c6427b1da9da20a70d61d8e341311271c889ea67016692d5082b6f",
       "module": "Module/Enhancement/YFamily-iconkiller.sgmodule",
@@ -3769,8 +3769,8 @@
       ]
     },
     {
-      "title": "一寸证件照",
       "url": "https://yfamilys.com/module/yczjz.module",
+      "title": "一寸证件照",
       "source": "upstreams/yfamilys/sources/module-yczjz.module",
       "sha256": "3521baf94f77f8fab86cd2f7f433b72247ffebdb2acb31e250adf8bc811dcccb",
       "module": "Module/Enhancement/YFamily-yczjz.sgmodule",
@@ -3781,8 +3781,8 @@
       ]
     },
     {
-      "title": "中华诗词库",
       "url": "https://yfamilys.com/module/zhsck.module",
+      "title": "中华诗词库",
       "source": "upstreams/yfamilys/sources/module-zhsck.module",
       "sha256": "fc40092aa7664f906330de1937cca9751b6738f98b21c4b76b164c883e459cf1",
       "module": "Module/Enhancement/YFamily-zhsck.sgmodule",
@@ -3793,8 +3793,8 @@
       ]
     },
     {
-      "title": "字体册",
       "url": "https://yfamilys.com/module/ztc.module",
+      "title": "字体册",
       "source": "upstreams/yfamilys/sources/module-ztc.module",
       "sha256": "5621938d8b7ff164e69fb40d24813346a024de354417e127266931e16c06d76f",
       "module": "Module/Enhancement/YFamily-ztc.sgmodule",
@@ -3805,8 +3805,8 @@
       ]
     },
     {
-      "title": "配音",
       "url": "https://yfamilys.com/module/peiyin.module",
+      "title": "配音",
       "source": "upstreams/yfamilys/sources/module-peiyin.module",
       "sha256": "5215c2d1186d542c51f875a26cf8877864d06bb9a6333824b690e0b636a72bf8",
       "module": "Module/Enhancement/YFamily-peiyin.sgmodule",
@@ -3817,8 +3817,8 @@
       ]
     },
     {
-      "title": "AdGuard",
       "url": "https://yfamilys.com/module/adguard.module",
+      "title": "AdGuard",
       "source": "upstreams/yfamilys/sources/module-adguard.module",
       "sha256": "40bad917af626eada7aba4f5462392e3fbdd6aa9f0279e727b0cf8141674d5b4",
       "module": "Module/Enhancement/YFamily-adguard.sgmodule",
@@ -3829,8 +3829,8 @@
       ]
     },
     {
-      "title": "阿里云盘签到",
       "url": "https://yfamilys.com/module/aliyun.module",
+      "title": "阿里云盘签到",
       "source": "upstreams/yfamilys/sources/module-aliyun.module",
       "sha256": "c021ce65bcf271afe7bd9d2cf5ea952c042cb4475b2397db08f34e80cc53d1c5",
       "module": "Module/Enhancement/YFamily-aliyun.sgmodule",
@@ -3841,8 +3841,8 @@
       ]
     },
     {
-      "title": "爱提词",
       "url": "https://yfamilys.com/module/atc.module",
+      "title": "爱提词",
       "source": "upstreams/yfamilys/sources/module-atc.module",
       "sha256": "9eb2ecac48e09fec170d98d27ef5a58996a7664a8517817d9a9731dafb82e7c9",
       "module": "Module/Enhancement/YFamily-atc.sgmodule",
@@ -3853,8 +3853,8 @@
       ]
     },
     {
-      "title": "Beelinguapp",
       "url": "https://yfamilys.com/module/beelinguapp.module",
+      "title": "Beelinguapp",
       "source": "upstreams/yfamilys/sources/module-beelinguapp.module",
       "sha256": "e6599fede9de36357332add4da42c310081710fcb28ee6c61ad2bee9f6d72020",
       "module": "Module/Enhancement/YFamily-beelinguapp.sgmodule",
@@ -3865,8 +3865,8 @@
       ]
     },
     {
-      "title": "蛋啵",
       "url": "https://yfamilys.com/module/danbo.module",
+      "title": "蛋啵",
       "source": "upstreams/yfamilys/sources/module-danbo.module",
       "sha256": "ceb59be9e07dd90dc5d8e8730e2556225006c2711c14493b0a692b36e83987c6",
       "module": "Module/Enhancement/YFamily-danbo.sgmodule",
@@ -3877,8 +3877,8 @@
       ]
     },
     {
-      "title": "Happy:Days",
       "url": "https://yfamilys.com/module/happydays.module",
+      "title": "Happy:Days",
       "source": "upstreams/yfamilys/sources/module-happydays.module",
       "sha256": "7e2863a4f570ee0a5b0402e76c04439f6731c5969d578c13f8c9ddf3b7e7e893",
       "module": "Module/Enhancement/YFamily-happydays.sgmodule",
@@ -3889,8 +3889,8 @@
       ]
     },
     {
-      "title": "Spark Mail",
       "url": "https://yfamilys.com/module/spark.module",
+      "title": "Spark Mail",
       "source": "upstreams/yfamilys/sources/module-spark.module",
       "sha256": "f3cd52a23fae902313a432ff781ebc52634b086f424e5fe5a9761457310141d6",
       "module": "Module/Enhancement/YFamily-spark.sgmodule",
@@ -3901,8 +3901,8 @@
       ]
     },
     {
-      "title": "VN视频剪辑",
       "url": "https://yfamilys.com/module/vn.module",
+      "title": "VN视频剪辑",
       "source": "upstreams/yfamilys/sources/module-vn.module",
       "sha256": "34828659df53ba6142eff4415e4a54127b7d260177d4a4b887ae7ff1db00bbf6",
       "module": "Module/Enhancement/YFamily-vn.sgmodule",
@@ -3913,8 +3913,8 @@
       ]
     },
     {
-      "title": "小决定",
       "url": "https://yfamilys.com/module/xjd.module",
+      "title": "小决定",
       "source": "upstreams/yfamilys/sources/module-xjd.module",
       "sha256": "26acca6ce4b3db01ecdc45d98dd53a14cf31bd542012be6feb0194ed2bba0525",
       "module": "Module/Enhancement/YFamily-xjd.sgmodule",
@@ -3925,8 +3925,8 @@
       ]
     },
     {
-      "title": "Art Widget",
       "url": "https://yfamilys.com/module/artwidget.module",
+      "title": "Art Widget",
       "source": "upstreams/yfamilys/sources/module-artwidget.module",
       "sha256": "1299e5865d5b9e1c286291d72161f2e96ad7afe289f79c228f316f4603cbcd78",
       "module": "Module/Enhancement/YFamily-artwidget.sgmodule",
@@ -3937,8 +3937,8 @@
       ]
     },
     {
-      "title": "薄荷健康",
       "url": "https://yfamilys.com/module/bhjk.module",
+      "title": "薄荷健康",
       "source": "upstreams/yfamilys/sources/module-bhjk.module",
       "sha256": "a7049888e6fcac0b86c0708544ad3e9850882b4ec5a54a241fb289b789e773a7",
       "module": "Module/Enhancement/YFamily-bhjk.sgmodule",
@@ -3949,8 +3949,8 @@
       ]
     },
     {
-      "title": "不折叠输入法",
       "url": "https://yfamilys.com/module/bzdsrf.module",
+      "title": "不折叠输入法",
       "source": "upstreams/yfamilys/sources/module-bzdsrf.module",
       "sha256": "16f9b96f5bcab4f3a966c0efef3e9bce858c059c0ae901944610e377bf9f7bf5",
       "module": "Module/Enhancement/YFamily-bzdsrf.sgmodule",
@@ -3961,8 +3961,8 @@
       ]
     },
     {
-      "title": "才士题库",
       "url": "https://yfamilys.com/module/cstk.module",
+      "title": "才士题库",
       "source": "upstreams/yfamilys/sources/module-cstk.module",
       "sha256": "230c5b07f0abe94c6f913459fc32904d5dbcbe85b909627dfe1d0201a5498686",
       "module": "Module/Enhancement/YFamily-cstk.sgmodule",
@@ -3973,8 +3973,8 @@
       ]
     },
     {
-      "title": "当燃",
       "url": "https://yfamilys.com/module/dangran.module",
+      "title": "当燃",
       "source": "upstreams/yfamilys/sources/module-dangran.module",
       "sha256": "77649374c1bbe5d740b43dca1ca904733001ded49984527fc555e46bde52f1eb",
       "module": "Module/Enhancement/YFamily-dangran.sgmodule",
@@ -3985,8 +3985,8 @@
       ]
     },
     {
-      "title": "得间小说",
       "url": "https://yfamilys.com/module/djxs.module",
+      "title": "得间小说",
       "source": "upstreams/yfamilys/sources/module-djxs.module",
       "sha256": "6dbb07d65bb1c94baaffa9b1de3540ec6788dad710b011851cea8f4e84fb58b7",
       "module": "Module/Enhancement/YFamily-djxs.sgmodule",
@@ -3997,8 +3997,8 @@
       ]
     },
     {
-      "title": "大神水印",
       "url": "https://yfamilys.com/module/dssy.module",
+      "title": "大神水印",
       "source": "upstreams/yfamilys/sources/module-dssy.module",
       "sha256": "3427ebe0f1a39666c4571caa319436a596b7040fafcb452899467c9e29568847",
       "module": "Module/Enhancement/YFamily-dssy.sgmodule",
@@ -4009,8 +4009,8 @@
       ]
     },
     {
-      "title": "丁香医考",
       "url": "https://yfamilys.com/module/dxyk.module",
+      "title": "丁香医考",
       "source": "upstreams/yfamilys/sources/module-dxyk.module",
       "sha256": "16cdc84894284a1b6a45831abd6045d1f49ca9ea70f8cd13e18f8ed49875be60",
       "module": "Module/Enhancement/YFamily-dxyk.sgmodule",
@@ -4021,8 +4021,8 @@
       ]
     },
     {
-      "title": "电音阁DJ解锁",
       "url": "https://yfamilys.com/module/dygdj.module",
+      "title": "电音阁DJ解锁",
       "source": "upstreams/yfamilys/sources/module-dygdj.module",
       "sha256": "5366df8756f1457971a7649f12ca153f8fd57bf2f2c4f1c17b07d2e52af4708d",
       "module": "Module/Enhancement/YFamily-dygdj.sgmodule",
@@ -4033,8 +4033,8 @@
       ]
     },
     {
-      "title": "饭橘减肥",
       "url": "https://yfamilys.com/module/fanju.module",
+      "title": "饭橘减肥",
       "source": "upstreams/yfamilys/sources/module-fanju.module",
       "sha256": "34b29c76a27ad4a3c93807c2323d17b955bc745c3b888b5ab1d2074aa1a3edaa",
       "module": "Module/Enhancement/YFamily-fanju.sgmodule",
@@ -4045,8 +4045,8 @@
       ]
     },
     {
-      "title": "分贝仪",
       "url": "https://yfamilys.com/module/fenbeiyi.module",
+      "title": "分贝仪",
       "source": "upstreams/yfamilys/sources/module-fenbeiyi.module",
       "sha256": "cc2ad9fbdfd0e9a30e3004d9743e3b3eb8c486169c33ca4e38c9a04ad27f6fc9",
       "module": "Module/Enhancement/YFamily-fenbeiyi.sgmodule",
@@ -4057,8 +4057,8 @@
       ]
     },
     {
-      "title": "高级恋爱话术",
       "url": "https://yfamilys.com/module/gjlahs.module",
+      "title": "高级恋爱话术",
       "source": "upstreams/yfamilys/sources/module-gjlahs.module",
       "sha256": "ec32109cc3465e284ffd78d92a820621bc360d20ce9c484f17ce483b342d27db",
       "module": "Module/Enhancement/YFamily-gjlahs.sgmodule",
@@ -4069,8 +4069,8 @@
       ]
     },
     {
-      "title": "婚礼精选",
       "url": "https://yfamilys.com/module/hljx.module",
+      "title": "婚礼精选",
       "source": "upstreams/yfamilys/sources/module-hljx.module",
       "sha256": "60edf3b16755bcf4046899c2e2c7416589a4496461e870e2d6313d778939fe03",
       "module": "Module/Enhancement/YFamily-hljx.sgmodule",
@@ -4081,8 +4081,8 @@
       ]
     },
     {
-      "title": "画世界",
       "url": "https://yfamilys.com/module/huashijie.module",
+      "title": "画世界",
       "source": "upstreams/yfamilys/sources/module-huashijie.module",
       "sha256": "0e947c8c9c346442e073153792d7cda284632d3cb434aeead61090e43cc3ae15",
       "module": "Module/Enhancement/YFamily-huashijie.sgmodule",
@@ -4093,8 +4093,8 @@
       ]
     },
     {
-      "title": "呼吸 小组件",
       "url": "https://yfamilys.com/module/hxxzj.module",
+      "title": "呼吸 小组件",
       "source": "upstreams/yfamilys/sources/module-hxxzj.module",
       "sha256": "aa1324803543c607249c57d430f13d0efc35c74e7ce264e9d519598880093d58",
       "module": "Module/Enhancement/YFamily-hxxzj.sgmodule",
@@ -4105,8 +4105,8 @@
       ]
     },
     {
-      "title": "简影",
       "url": "https://yfamilys.com/module/jianying.module",
+      "title": "简影",
       "source": "upstreams/yfamilys/sources/module-jianying.module",
       "sha256": "f69b5536a0c022abf718eeb8aa49d69749e2d3ca8067ac42159c427de9a5f1c9",
       "module": "Module/Enhancement/YFamily-jianying.sgmodule",
@@ -4117,8 +4117,8 @@
       ]
     },
     {
-      "title": "开心拍",
       "url": "https://yfamilys.com/module/kaixinpai.module",
+      "title": "开心拍",
       "source": "upstreams/yfamilys/sources/module-kaixinpai.module",
       "sha256": "799351710afabf027f640bf895dafc4e03ca3820ff67d7807c3031d7e2b00ac8",
       "module": "Module/Enhancement/YFamily-kaixinpai.sgmodule",
@@ -4129,8 +4129,8 @@
       ]
     },
     {
-      "title": "看剧学英语",
       "url": "https://yfamilys.com/module/kjxyy.module",
+      "title": "看剧学英语",
       "source": "upstreams/yfamilys/sources/module-kjxyy.module",
       "sha256": "50a4e6e2b21994c6aa8eaa4ef76258e4b3341e0d46c9f83ce97a71db17714677",
       "module": "Module/Enhancement/YFamily-kjxyy.sgmodule",
@@ -4141,8 +4141,8 @@
       ]
     },
     {
-      "title": "Koan 提问日记",
       "url": "https://yfamilys.com/module/koan.module",
+      "title": "Koan 提问日记",
       "source": "upstreams/yfamilys/sources/module-koan.module",
       "sha256": "9c05fd396f7ffb299b951ad970953d949336ab8efaf5a9f66bcb4b396d14182f",
       "module": "Module/Enhancement/YFamily-koan.sgmodule",
@@ -4153,8 +4153,8 @@
       ]
     },
     {
-      "title": "蓝基因",
       "url": "https://yfamilys.com/module/lanjiyin.module",
+      "title": "蓝基因",
       "source": "upstreams/yfamilys/sources/module-lanjiyin.module",
       "sha256": "8a856d263057c99f71c5cd281c6c4a963e7bde3c24cf05551f7b248995fba1ef",
       "module": "Module/Enhancement/YFamily-lanjiyin.sgmodule",
@@ -4165,8 +4165,8 @@
       ]
     },
     {
-      "title": "lUV-万能小组件",
       "url": "https://yfamilys.com/module/luv.module",
+      "title": "lUV-万能小组件",
       "source": "upstreams/yfamilys/sources/module-luv.module",
       "sha256": "fae03c61dbb1bca387fa89529c8169713eb7b4be13053680356a2c5c5ea57445",
       "module": "Module/Enhancement/YFamily-luv.sgmodule",
@@ -4177,8 +4177,8 @@
       ]
     },
     {
-      "title": "薄荷壁纸",
       "url": "https://yfamilys.com/module/mint.module",
+      "title": "薄荷壁纸",
       "source": "upstreams/yfamilys/sources/module-mint.module",
       "sha256": "0e8337395629acf8074ecf25948c150a36acf22efef3fcf74cbff2df40d1574d",
       "module": "Module/Enhancement/YFamily-mint.sgmodule",
@@ -4189,8 +4189,8 @@
       ]
     },
     {
-      "title": "MOJi辞書",
       "url": "https://yfamilys.com/module/moji.module",
+      "title": "MOJi辞書",
       "source": "upstreams/yfamilys/sources/module-moji.module",
       "sha256": "9d501c2a13112efe2f94b749dbcd0f280a59105c06469699d6f203af41d067b6",
       "module": "Module/Enhancement/YFamily-moji.sgmodule",
@@ -4201,8 +4201,8 @@
       ]
     },
     {
-      "title": "轻图",
       "url": "https://yfamilys.com/module/qingtu.module",
+      "title": "轻图",
       "source": "upstreams/yfamilys/sources/module-qingtu.module",
       "sha256": "86444d9918685ce99fe929347a706e97b51dc24872173b8d0b7db3fc5ca05750",
       "module": "Module/Enhancement/YFamily-qingtu.sgmodule",
@@ -4213,8 +4213,8 @@
       ]
     },
     {
-      "title": "趣铃",
       "url": "https://yfamilys.com/module/quling.module",
+      "title": "趣铃",
       "source": "upstreams/yfamilys/sources/module-quling.module",
       "sha256": "e718f72edcd61b5899e3cf5d0ccab4f9c60dacae64debbc372b08f9b7a9c1d5d",
       "module": "Module/Enhancement/YFamily-quling.sgmodule",
@@ -4225,8 +4225,8 @@
       ]
     },
     {
-      "title": "趣拍",
       "url": "https://yfamilys.com/module/qupai.module",
+      "title": "趣拍",
       "source": "upstreams/yfamilys/sources/module-qupai.module",
       "sha256": "9b8c77e0b85634d6223ba7263b0964a2d95c676b6cffbf0d8eddb856e51deeff",
       "module": "Module/Enhancement/YFamily-qupai.sgmodule",
@@ -4237,8 +4237,8 @@
       ]
     },
     {
-      "title": "趣颜",
       "url": "https://yfamilys.com/module/quyan.module",
+      "title": "趣颜",
       "source": "upstreams/yfamilys/sources/module-quyan.module",
       "sha256": "fc3775697cb9b18a8083b13a647052db0c908cef452ff277e71799362aa28f40",
       "module": "Module/Enhancement/YFamily-quyan.sgmodule",
@@ -4249,8 +4249,8 @@
       ]
     },
     {
-      "title": "Silimini",
       "url": "https://yfamilys.com/module/silimini.module",
+      "title": "Silimini",
       "source": "upstreams/yfamilys/sources/module-silimini.module",
       "sha256": "9efd1c299502c6a5cc609167c6f6b01394e7f9d98dead14b1648d5c33679927d",
       "module": "Module/Enhancement/YFamily-silimini.sgmodule",
@@ -4261,8 +4261,8 @@
       ]
     },
     {
-      "title": "You're So Great",
       "url": "https://yfamilys.com/module/sogreat.module",
+      "title": "You're So Great",
       "source": "upstreams/yfamilys/sources/module-sogreat.module",
       "sha256": "d978c15fd75524d105c789f1b783492be8b7d49ab139c0987d06b6b3b208cdb2",
       "module": "Module/Enhancement/YFamily-sogreat.sgmodule",
@@ -4273,8 +4273,8 @@
       ]
     },
     {
-      "title": "TouchRetouch",
       "url": "https://yfamilys.com/module/touchretouch.module",
+      "title": "TouchRetouch",
       "source": "upstreams/yfamilys/sources/module-touchretouch.module",
       "sha256": "880275f04a1e8d3e94a5275cfee25655d11106408992b529dcea133eb1ee16db",
       "module": "Module/Enhancement/YFamily-touchretouch.sgmodule",
@@ -4285,8 +4285,8 @@
       ]
     },
     {
-      "title": "Weather Fit",
       "url": "https://yfamilys.com/module/weatherfit.module",
+      "title": "Weather Fit",
       "source": "upstreams/yfamilys/sources/module-weatherfit.module",
       "sha256": "7c6a546f1bfd7ade0fb1056350a843ffe8676d13402642a37a931796013dab1c",
       "module": "Module/Enhancement/YFamily-weatherfit.sgmodule",
@@ -4297,8 +4297,8 @@
       ]
     },
     {
-      "title": "Wink",
       "url": "https://yfamilys.com/module/wink.module",
+      "title": "Wink",
       "source": "upstreams/yfamilys/sources/module-wink.module",
       "sha256": "3c37c509ab00e56ecff81676db13f2dfa89ba7e2eaa5cad02069eabe1cb208a5",
       "module": "Module/Enhancement/YFamily-wink.sgmodule",
@@ -4309,8 +4309,8 @@
       ]
     },
     {
-      "title": "问真八字",
       "url": "https://yfamilys.com/module/wzbz.module",
+      "title": "问真八字",
       "source": "upstreams/yfamilys/sources/module-wzbz.module",
       "sha256": "d0afc3a137853ae84c2957c79cf0ef1fdc65f8402dd23ddc215ae20fa6571b6e",
       "module": "Module/Enhancement/YFamily-wzbz.sgmodule",
@@ -4321,8 +4321,8 @@
       ]
     },
     {
-      "title": "习惯管家",
       "url": "https://yfamilys.com/module/xggj.module",
+      "title": "习惯管家",
       "source": "upstreams/yfamilys/sources/module-xggj.module",
       "sha256": "d657da58313eda88ee071fd61a8ba7cd0e3d79b5d45c330eff401c0e5785ef4a",
       "module": "Module/Enhancement/YFamily-xggj.sgmodule",
@@ -4333,8 +4333,8 @@
       ]
     },
     {
-      "title": "小鸡专注",
       "url": "https://yfamilys.com/module/xjzz.module",
+      "title": "小鸡专注",
       "source": "upstreams/yfamilys/sources/module-xjzz.module",
       "sha256": "cbf379fbdafbfc171e91075ee695fa74827461d8eef68d7ae9e980e334fafec8",
       "module": "Module/Enhancement/YFamily-xjzz.sgmodule",
@@ -4345,8 +4345,8 @@
       ]
     },
     {
-      "title": "小鹿声文",
       "url": "https://yfamilys.com/module/xlsw.module",
+      "title": "小鹿声文",
       "source": "upstreams/yfamilys/sources/module-xlsw.module",
       "sha256": "93583d8e4aa1d89b91f50a0376bda4f2841deb51fe756ba4a64c4dad80d72c9d",
       "module": "Module/Enhancement/YFamily-xlsw.sgmodule",
@@ -4357,8 +4357,8 @@
       ]
     },
     {
-      "title": "熊猫睡眠",
       "url": "https://yfamilys.com/module/xmsm.module",
+      "title": "熊猫睡眠",
       "source": "upstreams/yfamilys/sources/module-xmsm.module",
       "sha256": "5b93a92371ed5dd407007c156436fac4f1b2d4e286e68db6d7267c26f057e813",
       "module": "Module/Enhancement/YFamily-xmsm.sgmodule",
@@ -4369,8 +4369,8 @@
       ]
     },
     {
-      "title": "小熊便签",
       "url": "https://yfamilys.com/module/xxbq.module",
+      "title": "小熊便签",
       "source": "upstreams/yfamilys/sources/module-xxbq.module",
       "sha256": "e2b238c6a2f6429de972986c1a9147490c79ef4e0a12425a5132a1ed23850615",
       "module": "Module/Enhancement/YFamily-xxbq.sgmodule",
@@ -4381,8 +4381,8 @@
       ]
     },
     {
-      "title": "小熊录屏",
       "url": "https://yfamilys.com/module/xxlp.module",
+      "title": "小熊录屏",
       "source": "upstreams/yfamilys/sources/module-xxlp.module",
       "sha256": "1f01e01af6ac282088b98afcae6b272d7e0243ca27fe4c338773765e5bd3541b",
       "module": "Module/Enhancement/YFamily-xxlp.sgmodule",
@@ -4393,8 +4393,8 @@
       ]
     },
     {
-      "title": "阅读记录",
       "url": "https://yfamilys.com/module/ydjl.module",
+      "title": "阅读记录",
       "source": "upstreams/yfamilys/sources/module-ydjl.module",
       "sha256": "e36002d619147d44478ae482c8934b21f3446358da51cb9b412d847c675a2016",
       "module": "Module/Enhancement/YFamily-ydjl.sgmodule",
@@ -4405,8 +4405,8 @@
       ]
     },
     {
-      "title": "一天阅读",
       "url": "https://yfamilys.com/module/ytyd.module",
+      "title": "一天阅读",
       "source": "upstreams/yfamilys/sources/module-ytyd.module",
       "sha256": "3c4f4396aac0ef9b709d992c892dfe5edadf726879a845a2b4d9bbb4d82de9c5",
       "module": "Module/Enhancement/YFamily-ytyd.sgmodule",
@@ -4417,8 +4417,8 @@
       ]
     },
     {
-      "title": "元气桌面壁纸",
       "url": "https://yfamilys.com/module/yuanqi.module",
+      "title": "元气桌面壁纸",
       "source": "upstreams/yfamilys/sources/module-yuanqi.module",
       "sha256": "c9bd21361e5c8b5725093615b1d0939e48a7f9e5bdec0d4357f198a66ce4b226",
       "module": "Module/Enhancement/YFamily-yuanqi.sgmodule",
@@ -4429,8 +4429,8 @@
       ]
     },
     {
-      "title": "中华日历",
       "url": "https://yfamilys.com/module/zhrl.module",
+      "title": "中华日历",
       "source": "upstreams/yfamilys/sources/module-zhrl.module",
       "sha256": "1acaf22f5ae8bbca8191674f6a5eb15a76356635cc70b7282f1bd64855426c7d",
       "module": "Module/Enhancement/YFamily-zhrl.sgmodule",
@@ -4441,8 +4441,8 @@
       ]
     },
     {
-      "title": "站酷高高手",
       "url": "https://yfamilys.com/module/zkggs.module",
+      "title": "站酷高高手",
       "source": "upstreams/yfamilys/sources/module-zkggs.module",
       "sha256": "dfabe921662153e6dff6beabea2aba239b6ea4a1d951368f7f2cb332d63504d3",
       "module": "Module/Enhancement/YFamily-zkggs.sgmodule",
@@ -4453,8 +4453,8 @@
       ]
     },
     {
-      "title": "凹凸啦查妆",
       "url": "https://yfamilys.com/module/atlcz.module",
+      "title": "凹凸啦查妆",
       "source": "upstreams/yfamilys/sources/module-atlcz.module",
       "sha256": "28a768a0a99bd7f88eda8f39c84cece2892b53c48ce983e06b49068e172985c6",
       "module": "Module/Enhancement/YFamily-atlcz.sgmodule",
@@ -4465,8 +4465,8 @@
       ]
     },
     {
-      "title": "安心天气",
       "url": "https://yfamilys.com/module/axtq.module",
+      "title": "安心天气",
       "source": "upstreams/yfamilys/sources/module-axtq.module",
       "sha256": "43d71cb5cfa61d698fdee68f8216974d0dfd8495bdbfb7cb10917673847b17fc",
       "module": "Module/Enhancement/YFamily-axtq.sgmodule",
@@ -4477,8 +4477,8 @@
       ]
     },
     {
-      "title": "爱证件",
       "url": "https://yfamilys.com/module/azj.module",
+      "title": "爱证件",
       "source": "upstreams/yfamilys/sources/module-azj.module",
       "sha256": "479d7402076e1a56927454981872ea148a4a6eb5a9f4be5471736a103df53568",
       "module": "Module/Enhancement/YFamily-azj.sgmodule",
@@ -4489,8 +4489,8 @@
       ]
     },
     {
-      "title": "表格大师",
       "url": "https://yfamilys.com/module/bgds.module",
+      "title": "表格大师",
       "source": "upstreams/yfamilys/sources/module-bgds.module",
       "sha256": "50f45d712427064f6e5be046a51bb3ad183a80759d1bff86357234054092de6c",
       "module": "Module/Enhancement/YFamily-bgds.sgmodule",
@@ -4501,8 +4501,8 @@
       ]
     },
     {
-      "title": "超级简历",
       "url": "https://yfamilys.com/module/cjjl.module",
+      "title": "超级简历",
       "source": "upstreams/yfamilys/sources/module-cjjl.module",
       "sha256": "10b0e33293e76b693f1c615bb69294ad1ad2adeb158046b34d02c5003c78cb4b",
       "module": "Module/Enhancement/YFamily-cjjl.sgmodule",
@@ -4513,8 +4513,8 @@
       ]
     },
     {
-      "title": "Clica",
       "url": "https://yfamilys.com/module/clica.module",
+      "title": "Clica",
       "source": "upstreams/yfamilys/sources/module-clica.module",
       "sha256": "6f7da2ab4b3878434822823db06935e1e2b4c4f3c3a6880549e7515e99d4eb16",
       "module": "Module/Enhancement/YFamily-clica.sgmodule",
@@ -4525,8 +4525,8 @@
       ]
     },
     {
-      "title": "车票票",
       "url": "https://yfamilys.com/module/cpp.module",
+      "title": "车票票",
       "source": "upstreams/yfamilys/sources/module-cpp.module",
       "sha256": "a01ee243c326c40734a85114ae78da314ec239f63d2b71e43c28b891c0f1efb0",
       "module": "Module/Enhancement/YFamily-cpp.sgmodule",
@@ -4537,8 +4537,8 @@
       ]
     },
     {
-      "title": "Currency",
       "url": "https://yfamilys.com/module/currency.module",
+      "title": "Currency",
       "source": "upstreams/yfamilys/sources/module-currency.module",
       "sha256": "ea10706f545cd05244bf8073bd6b9dfb75a0a0967f9b911326d9bcf1fcfbdf1c",
       "module": "Module/Enhancement/YFamily-currency.sgmodule",
@@ -4549,8 +4549,8 @@
       ]
     },
     {
-      "title": "查妆妆",
       "url": "https://yfamilys.com/module/czz.module",
+      "title": "查妆妆",
       "source": "upstreams/yfamilys/sources/module-czz.module",
       "sha256": "eaba0eaab216fbbe1d31b8d1d45150f83977110b19e3887ee1840eda65309969",
       "module": "Module/Enhancement/YFamily-czz.sgmodule",
@@ -4561,8 +4561,8 @@
       ]
     },
     {
-      "title": "倒放挑战",
       "url": "https://yfamilys.com/module/dftz.module",
+      "title": "倒放挑战",
       "source": "upstreams/yfamilys/sources/module-dftz.module",
       "sha256": "9eb0ebdd24291f6d09edd9ddfff209fb9a5fc98498080479cdbe501b84669b4b",
       "module": "Module/Enhancement/YFamily-dftz.sgmodule",
@@ -4573,8 +4573,8 @@
       ]
     },
     {
-      "title": "电工计算器",
       "url": "https://yfamilys.com/module/dgjsj.module",
+      "title": "电工计算器",
       "source": "upstreams/yfamilys/sources/module-dgjsj.module",
       "sha256": "0fd6de2040635a94e3689267806099766ce1f144ebd618512c21660cb20d2738",
       "module": "Module/Enhancement/YFamily-dgjsj.sgmodule",
@@ -4585,8 +4585,8 @@
       ]
     },
     {
-      "title": "Dofm",
       "url": "https://yfamilys.com/module/dofm.module",
+      "title": "Dofm",
       "source": "upstreams/yfamilys/sources/module-dofm.module",
       "sha256": "02fe85fe9a371996b72a49841376080e323ee67f599ac2ecfa08f64939dff570",
       "module": "Module/Enhancement/YFamily-dofm.sgmodule",
@@ -4597,8 +4597,8 @@
       ]
     },
     {
-      "title": "倒数鸭",
       "url": "https://yfamilys.com/module/dsy.module",
+      "title": "倒数鸭",
       "source": "upstreams/yfamilys/sources/module-dsy.module",
       "sha256": "1fdc75341f218b203b579e5fd20630f5de38ae47d040f57efc6df8d1253a6ac6",
       "module": "Module/Enhancement/YFamily-dsy.sgmodule",
@@ -4609,8 +4609,8 @@
       ]
     },
     {
-      "title": "多漫",
       "url": "https://yfamilys.com/module/duoman.module",
+      "title": "多漫",
       "source": "upstreams/yfamilys/sources/module-duoman.module",
       "sha256": "2011e37fa8c49768fcf6afcd033c52bb3d0a67f8c9dd8891e5fa4577ec4ec256",
       "module": "Module/Enhancement/YFamily-duoman.sgmodule",
@@ -4621,8 +4621,8 @@
       ]
     },
     {
-      "title": "DVD相机",
       "url": "https://yfamilys.com/module/dvd.module",
+      "title": "DVD相机",
       "source": "upstreams/yfamilys/sources/module-dvd.module",
       "sha256": "db42667548e246b5b7e2a726740039ba5198980ce62279c1adefdb479a26fead",
       "module": "Module/Enhancement/YFamily-dvd.sgmodule",
@@ -4633,8 +4633,8 @@
       ]
     },
     {
-      "title": "Flowkey钢琴",
       "url": "https://yfamilys.com/module/flowkey.module",
+      "title": "Flowkey钢琴",
       "source": "upstreams/yfamilys/sources/module-flowkey.module",
       "sha256": "58d2f2e0956f2f5830d92664837cbb609456552ba364c48cdc4af019858e33dc",
       "module": "Module/Enhancement/YFamily-flowkey.sgmodule",
@@ -4645,8 +4645,8 @@
       ]
     },
     {
-      "title": "翻译全能王",
       "url": "https://yfamilys.com/module/fyqnw.module",
+      "title": "翻译全能王",
       "source": "upstreams/yfamilys/sources/module-fyqnw.module",
       "sha256": "b310a47fa21da32e10f41f8ecd2facfb5e5bdf4ab74d64d7f1f91894e45055a0",
       "module": "Module/Enhancement/YFamily-fyqnw.sgmodule",
@@ -4657,8 +4657,8 @@
       ]
     },
     {
-      "title": "工地记工",
       "url": "https://yfamilys.com/module/gdrj.module",
+      "title": "工地记工",
       "source": "upstreams/yfamilys/sources/module-gdrj.module",
       "sha256": "d6f21a30a626a28c3f28f069fe2fcced38baed10b0b0924a9988592145dd6853",
       "module": "Module/Enhancement/YFamily-gdrj.sgmodule",
@@ -4669,8 +4669,8 @@
       ]
     },
     {
-      "title": "瓜瓜龙启蒙",
       "url": "https://yfamilys.com/module/gglqm.module",
+      "title": "瓜瓜龙启蒙",
       "source": "upstreams/yfamilys/sources/module-gglqm.module",
       "sha256": "3d04cc37b4da2193b9e13cba4c517c1145bd91bf52e084b39fd65277bd26440b",
       "module": "Module/Enhancement/YFamily-gglqm.sgmodule",
@@ -4681,8 +4681,8 @@
       ]
     },
     {
-      "title": "故事飞船",
       "url": "https://yfamilys.com/module/gsfc.module",
+      "title": "故事飞船",
       "source": "upstreams/yfamilys/sources/module-gsfc.module",
       "sha256": "f1afdfccf1e7b2c55d7145c580eb839a14e04c2a53616320895cd5fba60dceb1",
       "module": "Module/Enhancement/YFamily-gsfc.sgmodule",
@@ -4693,8 +4693,8 @@
       ]
     },
     {
-      "title": "GUGA一超级白板",
       "url": "https://yfamilys.com/module/guga.module",
+      "title": "GUGA一超级白板",
       "source": "upstreams/yfamilys/sources/module-guga.module",
       "sha256": "fcaf62aa45f39b63cee92e03ddba1d65f46daea50a59e362fa8c519689b0d4fd",
       "module": "Module/Enhancement/YFamily-guga.sgmodule",
@@ -4705,8 +4705,8 @@
       ]
     },
     {
-      "title": "慧考智学",
       "url": "https://yfamilys.com/module/hkzx.module",
+      "title": "慧考智学",
       "source": "upstreams/yfamilys/sources/module-hkzx.module",
       "sha256": "759234ce1cfc4824223710fcca6bfd51abb6c7787a6173657734c46f9fef322d",
       "module": "Module/Enhancement/YFamily-hkzx.sgmodule",
@@ -4717,8 +4717,8 @@
       ]
     },
     {
-      "title": "海豚儿童英语",
       "url": "https://yfamilys.com/module/htetyy.module",
+      "title": "海豚儿童英语",
       "source": "upstreams/yfamilys/sources/module-htetyy.module",
       "sha256": "65d20fcdbbf0b833ff979249bf223551c9de41d39fe11726a67dca1730f81eff",
       "module": "Module/Enhancement/YFamily-htetyy.sgmodule",
@@ -4729,8 +4729,8 @@
       ]
     },
     {
-      "title": "减脂食谱",
       "url": "https://yfamilys.com/module/jfsp.module",
+      "title": "减脂食谱",
       "source": "upstreams/yfamilys/sources/module-jfsp.module",
       "sha256": "dfe7d24cf502da08f521d5733955ea22021ebf7a98de1f55b29927365bd187e8",
       "module": "Module/Enhancement/YFamily-jfsp.sgmodule",
@@ -4741,8 +4741,8 @@
       ]
     },
     {
-      "title": "建工计算器",
       "url": "https://yfamilys.com/module/jgjsq.module",
+      "title": "建工计算器",
       "source": "upstreams/yfamilys/sources/module-jgjsq.module",
       "sha256": "df26b9265cc611a8d16fd5bde9d7828b61c949a14dae8eae5c2791369490ae4a",
       "module": "Module/Enhancement/YFamily-jgjsq.sgmodule",
@@ -4753,8 +4753,8 @@
       ]
     },
     {
-      "title": "记乎",
       "url": "https://yfamilys.com/module/jihu.module",
+      "title": "记乎",
       "source": "upstreams/yfamilys/sources/module-jihu.module",
       "sha256": "eeb3ec643040ee63200135f94351bfef42dfd426514cfdf2fdaaf983edadf3d6",
       "module": "Module/Enhancement/YFamily-jihu.sgmodule",
@@ -4765,8 +4765,8 @@
       ]
     },
     {
-      "title": "极简日记",
       "url": "https://yfamilys.com/module/jjrj.module",
+      "title": "极简日记",
       "source": "upstreams/yfamilys/sources/module-jjrj.module",
       "sha256": "8b6e66f2665c6bdedfa64dd328e30eca9e9d91b1b15089f6c4729102f0d49588",
       "module": "Module/Enhancement/YFamily-jjrj.sgmodule",
@@ -4777,8 +4777,8 @@
       ]
     },
     {
-      "title": "极简时钟",
       "url": "https://yfamilys.com/module/jjsz.module",
+      "title": "极简时钟",
       "source": "upstreams/yfamilys/sources/module-jjsz.module",
       "sha256": "9d44e849b392329626435618a548c04730d238e76ce87cc089cd3aef72f3f932",
       "module": "Module/Enhancement/YFamily-jjsz.sgmodule",
@@ -4789,8 +4789,8 @@
       ]
     },
     {
-      "title": "简易表格",
       "url": "https://yfamilys.com/module/jybg.module",
+      "title": "简易表格",
       "source": "upstreams/yfamilys/sources/module-jybg.module",
       "sha256": "58d4abd46d446663257abf2eb7066d216c95b9750557f59c4f432753f8109031",
       "module": "Module/Enhancement/YFamily-jybg.sgmodule",
@@ -4801,8 +4801,8 @@
       ]
     },
     {
-      "title": "九州短剧",
       "url": "https://yfamilys.com/module/jzdj.module",
+      "title": "九州短剧",
       "source": "upstreams/yfamilys/sources/module-jzdj.module",
       "sha256": "32c495e503b7482c1abb554e4d539ad4b6327b5c2cb633a59f3eed1c158aec5a",
       "module": "Module/Enhancement/YFamily-jzdj.sgmodule",
@@ -4813,8 +4813,8 @@
       ]
     },
     {
-      "title": "快影",
       "url": "https://yfamilys.com/module/kuaiying.module",
+      "title": "快影",
       "source": "upstreams/yfamilys/sources/module-kuaiying.module",
       "sha256": "af56dd78e2bc522c47d15f374213c73e912cee27502a9b1f7f1c39bd5950915a",
       "module": "Module/Enhancement/YFamily-kuaiying.sgmodule",
@@ -4825,8 +4825,8 @@
       ]
     },
     {
-      "title": "徕卡水印相机",
       "url": "https://yfamilys.com/module/laika.module",
+      "title": "徕卡水印相机",
       "source": "upstreams/yfamilys/sources/module-laika.module",
       "sha256": "81c2657370669821d7fd56d018e372a6e1082e3a86ec2b292f7bde13b8b900e4",
       "module": "Module/Enhancement/YFamily-laika.sgmodule",
@@ -4837,8 +4837,8 @@
       ]
     },
     {
-      "title": "灵敢提词器",
       "url": "https://yfamilys.com/module/lgtcq.module",
+      "title": "灵敢提词器",
       "source": "upstreams/yfamilys/sources/module-lgtcq.module",
       "sha256": "b0c7de6f0645c18ca707fb850f5fb221f04fc56f334e37a8291239ff54eebd8f",
       "module": "Module/Enhancement/YFamily-lgtcq.sgmodule",
@@ -4849,8 +4849,8 @@
       ]
     },
     {
-      "title": "蓝基因",
       "url": "https://yfamilys.com/module/ljy.module",
+      "title": "蓝基因",
       "source": "upstreams/yfamilys/sources/module-ljy.module",
       "sha256": "6bb5d1fe0ce7847d45b6c703fc43dc21b2176e6d4ce42f89e277cfb200f5ded9",
       "module": "Module/Enhancement/YFamily-ljy.sgmodule",
@@ -4861,8 +4861,8 @@
       ]
     },
     {
-      "title": "乐刷短剧",
       "url": "https://yfamilys.com/module/lsdj.module",
+      "title": "乐刷短剧",
       "source": "upstreams/yfamilys/sources/module-lsdj.module",
       "sha256": "b7ebb2222b38c3e785ce105f35cb6f7b928eab9599b9f236c8087ca80bbc9ce1",
       "module": "Module/Enhancement/YFamily-lsdj.sgmodule",
@@ -4873,8 +4873,8 @@
       ]
     },
     {
-      "title": "录音机",
       "url": "https://yfamilys.com/module/lyj.module",
+      "title": "录音机",
       "source": "upstreams/yfamilys/sources/module-lyj.module",
       "sha256": "073a84c903e059dad6c975a06fbf4fe29fd843394b1688677cf649f90606da53",
       "module": "Module/Enhancement/YFamily-lyj.sgmodule",
@@ -4885,8 +4885,8 @@
       ]
     },
     {
-      "title": "录音专业版",
       "url": "https://yfamilys.com/module/lyzyb.module",
+      "title": "录音专业版",
       "source": "upstreams/yfamilys/sources/module-lyzyb.module",
       "sha256": "d2f69be6c958fd8ba0fb45641c23eb3a23c6530baf6b9b0e284f727e18a09b7f",
       "module": "Module/Enhancement/YFamily-lyzyb.sgmodule",
@@ -4897,8 +4897,8 @@
       ]
     },
     {
-      "title": "梦剧场",
       "url": "https://yfamilys.com/module/mjc.module",
+      "title": "梦剧场",
       "source": "upstreams/yfamilys/sources/module-mjc.module",
       "sha256": "6d366d97ce4c62b067d3b57fb41bcbb494d34ffbde2a3e4261a86c46cdf9b8d5",
       "module": "Module/Enhancement/YFamily-mjc.sgmodule",
@@ -4909,8 +4909,8 @@
       ]
     },
     {
-      "title": "OneTodo",
       "url": "https://yfamilys.com/module/onetodo.module",
+      "title": "OneTodo",
       "source": "upstreams/yfamilys/sources/module-onetodo.module",
       "sha256": "68ea866d8d9546e1b8db2cf757fcd4d1edcd6155edef14a6dc794c5c6376b533",
       "module": "Module/Enhancement/YFamily-onetodo.sgmodule",
@@ -4921,8 +4921,8 @@
       ]
     },
     {
-      "title": "派客",
       "url": "https://yfamilys.com/module/paike.module",
+      "title": "派客",
       "source": "upstreams/yfamilys/sources/module-paike.module",
       "sha256": "3eb00afee343889b072bdcbd24ae2cfeb087f47842b3f55633b6681f987674dc",
       "module": "Module/Enhancement/YFamily-paike.sgmodule",
@@ -4933,8 +4933,8 @@
       ]
     },
     {
-      "title": "PhotoRoom",
       "url": "https://yfamilys.com/module/photoroom.module",
+      "title": "PhotoRoom",
       "source": "upstreams/yfamilys/sources/module-photoroom.module",
       "sha256": "9ce55491bd27dbe21bf5dd9e7eec08f6ecb6b76c894fbce04fb99a599b934586",
       "module": "Module/Enhancement/YFamily-photoroom.sgmodule",
@@ -4945,8 +4945,8 @@
       ]
     },
     {
-      "title": "普通话测试",
       "url": "https://yfamilys.com/module/pthcs.module",
+      "title": "普通话测试",
       "source": "upstreams/yfamilys/sources/module-pthcs.module",
       "sha256": "55df14a21e8b9c844ce82ff40afbe0ee212d30ac75c5034bbde0d4e566fca85a",
       "module": "Module/Enhancement/YFamily-pthcs.sgmodule",
@@ -4957,8 +4957,8 @@
       ]
     },
     {
-      "title": "千本笔记",
       "url": "https://yfamilys.com/module/qbbj.module",
+      "title": "千本笔记",
       "source": "upstreams/yfamilys/sources/module-qbbj.module",
       "sha256": "eb7a9299b96aba75d0c05b77a2c0dee7b15d2e54e6ba732a81e862963783c2eb",
       "module": "Module/Enhancement/YFamily-qbbj.sgmodule",
@@ -4969,8 +4969,8 @@
       ]
     },
     {
-      "title": "情侣飞行棋",
       "url": "https://yfamilys.com/module/qlfxq.module",
+      "title": "情侣飞行棋",
       "source": "upstreams/yfamilys/sources/module-qlfxq.module",
       "sha256": "39eede9563a7f0a2a4e78b014b1072c7e692cde61062aeb7f96172bd0e3fd3f6",
       "module": "Module/Enhancement/YFamily-qlfxq.sgmodule",
@@ -4981,8 +4981,8 @@
       ]
     },
     {
-      "title": "全民幸福社",
       "url": "https://yfamilys.com/module/qmxfs.module",
+      "title": "全民幸福社",
       "source": "upstreams/yfamilys/sources/module-qmxfs.module",
       "sha256": "3b451bd71ec8602bf4d7b94f075f6d60eb865fcf11b8969b093827ff0392803e",
       "module": "Module/Enhancement/YFamily-qmxfs.sgmodule",
@@ -4993,8 +4993,8 @@
       ]
     },
     {
-      "title": "瑞网微视",
       "url": "https://yfamilys.com/module/rwws.module",
+      "title": "瑞网微视",
       "source": "upstreams/yfamilys/sources/module-rwws.module",
       "sha256": "dae4479b1de0bb0fca083c054f980f508c78da1d652c61a9da1d821ffe1b07a6",
       "module": "Module/Enhancement/YFamily-rwws.sgmodule",
@@ -5005,8 +5005,8 @@
       ]
     },
     {
-      "title": "时光序",
       "url": "https://yfamilys.com/module/sgx.module",
+      "title": "时光序",
       "source": "upstreams/yfamilys/sources/module-sgx.module",
       "sha256": "60feb97bed13c7c76a1d8ff91c556bd26ffb5856acbb283b4fba33e78c34c51e",
       "module": "Module/Enhancement/YFamily-sgx.sgmodule",
@@ -5017,8 +5017,8 @@
       ]
     },
     {
-      "title": "手机通话录音机",
       "url": "https://yfamilys.com/module/sjthly.module",
+      "title": "手机通话录音机",
       "source": "upstreams/yfamilys/sources/module-sjthly.module",
       "sha256": "0ac489a08f7bdd52cec015811108bd8f615501c46802318cb51d43f3f1bbc07b",
       "module": "Module/Enhancement/YFamily-sjthly.sgmodule",
@@ -5029,8 +5029,8 @@
       ]
     },
     {
-      "title": "Smart Al",
       "url": "https://yfamilys.com/module/smartai.module",
+      "title": "Smart Al",
       "source": "upstreams/yfamilys/sources/module-smartai.module",
       "sha256": "285f6dd8388cd467e559ac42d653dfe00b321427d7c865907800fca88ca0a0df",
       "module": "Module/Enhancement/YFamily-smartai.sgmodule",
@@ -5041,8 +5041,8 @@
       ]
     },
     {
-      "title": "SODA相机",
       "url": "https://yfamilys.com/module/soda.module",
+      "title": "SODA相机",
       "source": "upstreams/yfamilys/sources/module-soda.module",
       "sha256": "88d2d25eb8071bd92a12453a355efc76e82e2efb4f0436476038f1516faf7cd2",
       "module": "Module/Enhancement/YFamily-soda.sgmodule",
@@ -5053,8 +5053,8 @@
       ]
     },
     {
-      "title": "通话录音",
       "url": "https://yfamilys.com/module/thly.module",
+      "title": "通话录音",
       "source": "upstreams/yfamilys/sources/module-thly.module",
       "sha256": "44a8ac37811673d57c9f201ac97e8928588884c3c3e4e84ccba264ae527e0c14",
       "module": "Module/Enhancement/YFamily-thly.sgmodule",
@@ -5065,8 +5065,8 @@
       ]
     },
     {
-      "title": "套路键盘",
       "url": "https://yfamilys.com/module/tljp.module",
+      "title": "套路键盘",
       "source": "upstreams/yfamilys/sources/module-tljp.module",
       "sha256": "14e3fd863fbeec9ff0a2ee543a20d6e6caca4a146c3a2273bcd2eb1e804012f4",
       "module": "Module/Enhancement/YFamily-tljp.sgmodule",
@@ -5077,8 +5077,8 @@
       ]
     },
     {
-      "title": "ToonMe卡通头像",
       "url": "https://yfamilys.com/module/toonme.module",
+      "title": "ToonMe卡通头像",
       "source": "upstreams/yfamilys/sources/module-toonme.module",
       "sha256": "519ea889d8b780bc2a896f751bd79a54749dd1f3a8f26717829cbb5dc51cc458",
       "module": "Module/Enhancement/YFamily-toonme.sgmodule",
@@ -5089,8 +5089,8 @@
       ]
     },
     {
-      "title": "Wake瑜伽",
       "url": "https://yfamilys.com/module/wakeyj.module",
+      "title": "Wake瑜伽",
       "source": "upstreams/yfamilys/sources/module-wakeyj.module",
       "sha256": "d08260c173c74ae61d784fd76d65b86be4205a973a6e92aa11d713c8f8d6e249",
       "module": "Module/Enhancement/YFamily-wakeyj.sgmodule",
@@ -5101,8 +5101,8 @@
       ]
     },
     {
-      "title": "五年日记本",
       "url": "https://yfamilys.com/module/wnrjb.module",
+      "title": "五年日记本",
       "source": "upstreams/yfamilys/sources/module-wnrjb.module",
       "sha256": "4292da9c20cb3dc0bad2f707c8658fa8e35be52c88fae13797bbace4247b159f",
       "module": "Module/Enhancement/YFamily-wnrjb.sgmodule",
@@ -5113,8 +5113,8 @@
       ]
     },
     {
-      "title": "万源阅读",
       "url": "https://yfamilys.com/module/wnyd.module",
+      "title": "万源阅读",
       "source": "upstreams/yfamilys/sources/module-wnyd.module",
       "sha256": "52d3b282bfaf8bfb6f98419fe39653ae8d54a624c6b768237ca8c6082af81ac0",
       "module": "Module/Enhancement/YFamily-wnyd.sgmodule",
@@ -5125,8 +5125,8 @@
       ]
     },
     {
-      "title": "小伴龙学数学",
       "url": "https://yfamilys.com/module/xblxsx.module",
+      "title": "小伴龙学数学",
       "source": "upstreams/yfamilys/sources/module-xblxsx.module",
       "sha256": "1208758bfea0ecf1f64fe51d4d14407d8f07c04d01d2e8df6e7415aabdd8fb03",
       "module": "Module/Enhancement/YFamily-xblxsx.sgmodule",
@@ -5137,8 +5137,8 @@
       ]
     },
     {
-      "title": "小熊油耗",
       "url": "https://yfamilys.com/module/xxyh.module",
+      "title": "小熊油耗",
       "source": "upstreams/yfamilys/sources/module-xxyh.module",
       "sha256": "574a9cdf84d26ee406b5552b7abf55c84b7777be184284e4f64bd85c6541198f",
       "module": "Module/Enhancement/YFamily-xxyh.sgmodule",
@@ -5149,8 +5149,8 @@
       ]
     },
     {
-      "title": "小鹦看看",
       "url": "https://yfamilys.com/module/xykk.module",
+      "title": "小鹦看看",
       "source": "upstreams/yfamilys/sources/module-xykk.module",
       "sha256": "d5e0d775d4bec5da8289ddf62f1bce3293fc87ef1b8e3d943c75901ea71d7498",
       "module": "Module/Enhancement/YFamily-xykk.sgmodule",
@@ -5161,8 +5161,8 @@
       ]
     },
     {
-      "title": "亚瑟浏览器",
       "url": "https://yfamilys.com/module/yase.module",
+      "title": "亚瑟浏览器",
       "source": "upstreams/yfamilys/sources/module-yase.module",
       "sha256": "df91acf57a100f117b5858cd16571360ecd38c8ba3a96f1c3b74e72fefee721e",
       "module": "Module/Enhancement/YFamily-yase.sgmodule",
@@ -5173,8 +5173,8 @@
       ]
     },
     {
-      "title": "易截图2",
       "url": "https://yfamilys.com/module/yjt2.module",
+      "title": "易截图2",
       "source": "upstreams/yfamilys/sources/module-yjt2.module",
       "sha256": "4e651e76953b5b0932cfb3700e1bfa27f6d55dd3e620ab532ae312ce7316f7bc",
       "module": "Module/Enhancement/YFamily-yjt2.sgmodule",
@@ -5185,8 +5185,8 @@
       ]
     },
     {
-      "title": "医考帮",
       "url": "https://yfamilys.com/module/ykb.module",
+      "title": "医考帮",
       "source": "upstreams/yfamilys/sources/module-ykb.module",
       "sha256": "094150a88d406bf1354cee22d1b6f7c3a199909e6da15d9c8aacb519eaaf3743",
       "module": "Module/Enhancement/YFamily-ykb.sgmodule",
@@ -5197,8 +5197,8 @@
       ]
     },
     {
-      "title": "一起欺词",
       "url": "https://yfamilys.com/module/yqqc.module",
+      "title": "一起欺词",
       "source": "upstreams/yfamilys/sources/module-yqqc.module",
       "sha256": "9b1056696c435ef63c55bab3cc413efd3ff4ae8de512b27fd2d780d7b8f2ba1a",
       "module": "Module/Enhancement/YFamily-yqqc.sgmodule",
@@ -5209,8 +5209,8 @@
       ]
     },
     {
-      "title": "一万年日记",
       "url": "https://yfamilys.com/module/ywnrj.module",
+      "title": "一万年日记",
       "source": "upstreams/yfamilys/sources/module-ywnrj.module",
       "sha256": "72bc06827a5df2c8ed3977b58c38dc382f9affc1a28ff4530f12e8a969dd1cb8",
       "module": "Module/Enhancement/YFamily-ywnrj.sgmodule",
@@ -5221,8 +5221,8 @@
       ]
     },
     {
-      "title": "证件照高清版",
       "url": "https://yfamilys.com/module/zjzgqb.module",
+      "title": "证件照高清版",
       "source": "upstreams/yfamilys/sources/module-zjzgqb.module",
       "sha256": "98cb61632cbb9039046d80a651516c1a1f30bb6dbd6ebdc6862df139130364b8",
       "module": "Module/Enhancement/YFamily-zjzgqb.sgmodule",
@@ -5233,8 +5233,8 @@
       ]
     },
     {
-      "title": "朝暮计划",
       "url": "https://yfamilys.com/module/zmjh.module",
+      "title": "朝暮计划",
       "source": "upstreams/yfamilys/sources/module-zmjh.module",
       "sha256": "d4e7c55ecfb04c5b0b5a8105ce3bacaadb16dbe3b110020ffdc7704d106eb37a",
       "module": "Module/Enhancement/YFamily-zmjh.sgmodule",
@@ -5245,8 +5245,8 @@
       ]
     },
     {
-      "title": "智能视频抠图",
       "url": "https://yfamilys.com/module/znspkt.module",
+      "title": "智能视频抠图",
       "source": "upstreams/yfamilys/sources/module-znspkt.module",
       "sha256": "d8bb96c16b7af28721179a707ab48197e320e9e0f3af7cc388f380e57641a3ee",
       "module": "Module/Enhancement/YFamily-znspkt.sgmodule",
@@ -5257,8 +5257,8 @@
       ]
     },
     {
-      "title": "指南针定位",
       "url": "https://yfamilys.com/module/znzdw.module",
+      "title": "指南针定位",
       "source": "upstreams/yfamilys/sources/module-znzdw.module",
       "sha256": "d6e69c0a6c3c461f2ef8574fd1313062e53f0ba87d9a8cbcf698fe8900f36a63",
       "module": "Module/Enhancement/YFamily-znzdw.sgmodule",
@@ -5269,8 +5269,8 @@
       ]
     },
     {
-      "title": "真题伴侣",
       "url": "https://yfamilys.com/module/ztbl.module",
+      "title": "真题伴侣",
       "source": "upstreams/yfamilys/sources/module-ztbl.module",
       "sha256": "ad5d11e16a737c6c8b191d4d36441fb51e7cb26901cf96017108abb08ac642da",
       "module": "Module/Enhancement/YFamily-ztbl.sgmodule",
@@ -5283,8 +5283,8 @@
       ]
     },
     {
-      "title": "真心话大冒险",
       "url": "https://yfamilys.com/module/zxhdmx.module",
+      "title": "真心话大冒险",
       "source": "upstreams/yfamilys/sources/module-zxhdmx.module",
       "sha256": "80c1c389f7e5a745070f62ceab3bc76b15c5d25fc479e970cf1fca9f953ea95a",
       "module": "Module/Enhancement/YFamily-zxhdmx.sgmodule",
@@ -5295,8 +5295,8 @@
       ]
     },
     {
-      "title": "杂志天下",
       "url": "https://yfamilys.com/module/zztx.module",
+      "title": "杂志天下",
       "source": "upstreams/yfamilys/sources/module-zztx.module",
       "sha256": "8eae09fc48f5bcbc28977a6e787d0be563a51de178c88393c72ca58dab77e37c",
       "module": "Module/Enhancement/YFamily-zztx.sgmodule",
