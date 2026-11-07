@@ -18,14 +18,14 @@ GROUPS = {'DNS': 'DNS', 'Enhancement': '功能增强', 'AdBlock': '去广告', '
 
 def digest(s): return hashlib.sha256(s.encode()).hexdigest()
 
-def get_text(url):
+def get_text(url, html=False):
     for attempt in range(3):
         try:
             with urlopen(Request(url, headers={'User-Agent': 'RoaycL-Surge-Upstream-Sync'}), timeout=25) as response:
                 data = response.read(4_000_001)
             if len(data) > 4_000_000: raise ValueError('source exceeds 4 MB')
             text = data.decode('utf-8-sig').replace('\r\n', '\n').replace('\r', '\n')
-            if not text.strip() or text.lstrip().lower().startswith(('<!doctype', '<html')):
+            if not text.strip() or (not html and text.lstrip().lower().startswith(('<!doctype', '<html'))):
                 raise ValueError('empty or HTML response')
             return text
         except Exception:
@@ -133,7 +133,7 @@ def write(path, text):
 def sync(offline=False):
     if offline:
         items = json.loads((SNAPSHOT / 'index.json').read_text())
-    else: items = parse_index(get_text(INDEX))
+    else: items = parse_index(get_text(INDEX, html=True))
     old_path = SNAPSHOT / 'manifest.json'
     old = json.loads(old_path.read_text()) if old_path.exists() else {'modules':[]}
     results = []

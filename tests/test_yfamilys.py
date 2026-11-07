@@ -5,9 +5,19 @@ import unittest
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'scripts'))
-from sync_yfamilys import IndexParser, render_module, comment_blocks
+from sync_yfamilys import IndexParser, render_module, comment_blocks, get_text, parse_index
 
 class YFamilyTests(unittest.TestCase):
+    def test_network_index_accepts_html_but_module_download_rejects_it(self):
+        from unittest.mock import patch
+        import io
+        html = '<!DOCTYPE html><html>' + ''.join(f'<a href="/module/test{i}.module">App {i}</a>' for i in range(101)) + '</html>'
+        with patch('sync_yfamilys.urlopen', return_value=io.BytesIO(html.encode())):
+            self.assertEqual(len(parse_index(get_text('https://yfamilys.com/surge', html=True))),101)
+        with patch('sync_yfamilys.urlopen', side_effect=lambda *a,**k: io.BytesIO(html.encode())), patch('sync_yfamilys.time.sleep'):
+            with self.assertRaisesRegex(ValueError,'HTML response'):
+                get_text('https://yfamilys.com/module/test.module')
+
     def test_index_excludes_profiles_and_deduplicates(self):
         p=IndexParser();p.feed('<a href="/module/x.module">X</a><a href="/module/x.module">Alias</a><a href="/config/a.conf">Config</a><a href="/sgmodule/p.sgmodule">Panel</a><a href="https://elsewhere.example/a.module">Other</a>')
         self.assertEqual(list(p.items),['https://yfamilys.com/module/x.module','https://yfamilys.com/sgmodule/p.sgmodule'])
