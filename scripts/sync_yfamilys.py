@@ -103,7 +103,7 @@ def render_module(item, source):
     if not sections or set(sections) - allowed: raise ValueError('unreviewed module sections: ' + str(sections))
     name = meta.get('name') or item['title'].removeprefix('🎨面板·')
     label = name + ' ' + meta.get('desc','') + ' ' + item['title']
-    group = 'Panel' if 'Panel' in sections or item['title'].startswith('🎨') else 'DNS' if re.search(r'(?m)^\s*(?:encrypted-)?dns-server\s*=',text) else 'AdBlock' if re.search(r'广告|去开屏|NoAD|AdBlock',label,re.I) else 'Enhancement'
+    group = item.get('group') or ('Panel' if 'Panel' in sections or item['title'].startswith('🎨') else 'DNS' if re.search(r'(?m)^\s*(?:encrypted-)?dns-server\s*=',text) else 'AdBlock' if re.search(r'广告|去开屏|NoAD|AdBlock',label,re.I) else 'Enhancement')
     stem = Path(urlsplit(item['url']).path).stem
     if not re.fullmatch(r'[A-Za-z0-9_.-]+',stem): raise ValueError('unsafe source filename')
     dest = f'Module/{group}/YFamily-' + ('Panel-' if group == 'Panel' else '') + stem + '.sgmodule'
@@ -167,8 +167,12 @@ def sync(offline=False):
     else: items = parse_index(get_text(INDEX, html=True))
     old_path = SNAPSHOT / 'manifest.json'
     old = json.loads(old_path.read_text()) if old_path.exists() else {'modules':[]}
+    previous = {m['url']: m for m in old['modules']}
     results = []
     def load(item):
+        # Preserve installed URLs if upstream descriptions/categories change.
+        if item['url'] in previous:
+            item = {**item, 'group': previous[item['url']]['group']}
         rel = 'upstreams/yfamilys/sources/' + urlsplit(item['url']).path.strip('/').replace('/','-')
         if offline: text = (ROOT / rel).read_text()
         else: text = get_text(item['url'])
@@ -191,7 +195,7 @@ def sync(offline=False):
     write('upstreams/yfamilys/index.json',json.dumps(items,ensure_ascii=False,indent=2)+'\n')
     manifest = {'index':INDEX,'modules':[m for m,_,_ in results]}
     write('upstreams/yfamilys/manifest.json',json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
-    lines = ['# yfamilys 模块目录','','来源：[Surge 页面]('+INDEX+')。按 URL 去重，模块与面板共 '+str(len(items))+' 个；不包含页面的两份完整配置。', '', '模块保留原作者署名，添加来源标识和分类；外部脚本继续使用原链接。原文快照、SHA-256、脚本依赖及适配说明记录在 `upstreams/yfamilys/manifest.json`。', '', '`Sync yfamilys Surge modules` 每 6 小时读取页面并同步全部模块；任一下载或适配失败即停止发布，保留上一次有效版本。也可在 Actions 手动运行。', '', '融合版与同类单 App 模块请择一使用，避免重复的脚本标识和规则覆盖。', '', '语法通过不代表第三方脚本仍可下载，也不代表各 App 功能已实测；账户、订阅、定位等参数须按模块说明自行填写。同一 App 的不同来源模块不要重复启用。', '', '| 名称 | 模块 | 适配说明 |','| --- | --- | --- |']
+    lines = ['# yfamilys 模块目录','','来源：[Surge 页面]('+INDEX+')。按 URL 去重，模块与面板共 '+str(len(items))+' 个；不包含页面的两份完整配置。', '', '模块保留原作者署名，添加来源标识和分类；外部脚本继续使用原链接。原文快照、SHA-256、脚本依赖及适配说明记录在 `upstreams/yfamilys/manifest.json`。', '', '`Sync yfamilys Surge modules` 每 6 小时读取页面并同步全部模块；任一下载或适配失败即停止发布，保留上一次有效版本。也可在 Actions 手动运行。', '', '代码推送仅重新生成并校验已有快照；定时和手动运行才下载上游，避免反复批量请求。', '', '融合版与同类单 App 模块请择一使用，避免重复的脚本标识和规则覆盖。', '', '语法通过不代表第三方脚本仍可下载，也不代表各 App 功能已实测；账户、订阅、定位等参数须按模块说明自行填写。同一 App 的不同来源模块不要重复启用。', '', '| 名称 | 模块 | 适配说明 |','| --- | --- | --- |']
     for m,_,_ in results:
         esc=lambda s:s.replace('|','\\|').replace('\n',' ')
         lines.append('| ['+esc(m['title'])+']('+m['url']+') | ['+Path(m['module']).name+'](../'+m['module']+') | '+esc('；'.join(m['notes']))+' |')

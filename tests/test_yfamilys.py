@@ -29,6 +29,14 @@ class YFamilyTests(unittest.TestCase):
             self.assertIn('[Rule]',get_text(error.url))
             self.assertIn(unittest.mock.call(cooldown=17.0),slot.call_args_list)
 
+    def test_installed_url_stays_stable_when_source_description_changes(self):
+        source='#!name=App\n#!desc=新增去广告功能\n[MITM]\nhostname=api.example.com\n'
+        item={'url':'https://yfamilys.com/module/example.module','title':'App'}
+        self.assertEqual(render_module(item,source)[2],'AdBlock')
+        path,_,group,_=render_module({**item,'group':'Enhancement'},source)
+        self.assertEqual(path,'Module/Enhancement/YFamily-example.sgmodule')
+        self.assertEqual(group,'Enhancement')
+
     def test_index_excludes_profiles_and_deduplicates(self):
         p=IndexParser();p.feed('<a href="/module/x.module">X</a><a href="/module/x.module">Alias</a><a href="/config/a.conf">Config</a><a href="/sgmodule/p.sgmodule">Panel</a><a href="https://elsewhere.example/a.module">Other</a>')
         self.assertEqual(list(p.items),['https://yfamilys.com/module/x.module','https://yfamilys.com/sgmodule/p.sgmodule'])

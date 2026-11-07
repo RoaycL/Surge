@@ -38,8 +38,13 @@ jobs:
           node-version: 24
       - name: Ensure jq
         run: command -v jq || (sudo apt-get update && sudo apt-get install -y jq)
-      - name: Download and adapt all listed modules
-        run: python3 scripts/sync_yfamilys.py
+      - name: Download on scheduled/manual runs; regenerate snapshots on pushes
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            python3 scripts/sync_yfamilys.py --offline
+          else
+            python3 scripts/sync_yfamilys.py
+          fi
       - name: All repository checks
         run: bash scripts/run_checks.sh
       - name: Commit validated generated outputs
