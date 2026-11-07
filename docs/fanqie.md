@@ -1,10 +1,10 @@
-# 番茄小说去广告（合并版）
+# 番茄小说去广告
 
 唯一安装地址：
 
 https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AdBlock/FanQieNovel.sgmodule
 
-合并前请记录并停用 `FanQieNovel.sgmodule`、`DragonRead_remove_ads.sgmodule` 两个旧模块，更新或安装上述合并版。旧的 DragonRead 模块地址已删除。HTTPS 请求重写需要启用 MITM，并安装、信任 Surge 证书。
+仓库仅提供上述一个番茄小说模块。旧的 `DragonRead_remove_ads.sgmodule` 已删除；已有用户请停用或移除旧模块，再更新当前模块。HTTPS 请求重写需要启用 MITM，并安装、信任 Surge 证书。
 
 ## 来源与处理
 
@@ -15,6 +15,6 @@ https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AdBlock/FanQieNovel.s
 - 保留来源的 `zijieapi` 关键词和 `bytedance.com`、`bytegoofy.com`、`byteorge.com` 等广域拦截，因此也可能影响抖音、今日头条等其他字节系 App。模块不具备 iOS 按 App 隔离这些规则的能力。
 - 第三方原文中标注用途未知的 motor 接口拦截也按本次“汇总”要求保留；它不一定只影响番茄小说。
 
-`FanQieNovel.plugin` 和 yfamilys 文件按已审核快照使用，不自动追踪该站点；FKIKelee 的番茄输入仍随原有同步流程更新。两条生成流程共用 `scripts/merge_fanqie.py`，不会重新生成独立的 DragonRead 模块，也不会把合并版覆盖回旧的纯域名版。
+`FanQieNovel.plugin` 和 yfamilys 文件按已审核快照使用，不自动追踪该站点；FKIKelee 的番茄输入仍随原有同步流程更新。两条生成流程共用 `scripts/merge_fanqie.py`，不会重新生成独立的 DragonRead 模块，也不会把当前模块覆盖回旧的纯域名版。
 
 已验证语法、规则去重、匹配样例和生成一致性；未在真实番茄小说版本中验收所有广告位。原始快照及署名保留在 `upstreams/`。

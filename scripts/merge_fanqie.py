@@ -41,11 +41,11 @@ def merge_fanqie(base, extra=None, dragon=None):
                 raise ValueError('Unreviewed FanQie rewrite: ' + line)
             line = line.replace(r'\.byteimg.com', r'\.byteimg\.com').replace(r'\.snssdk.com', r'\.snssdk\.com')
             if line not in rewrites: rewrites.append(line)
-    header = '''#!name=番茄小说去广告（合并版）
-#!desc=合并可莉与 zqzess 版本，拦截开屏、章末及广告 SDK 请求。含字节系广域拦截，可能影响其他字节系 App；HTTPS 重写需开启 MITM 并信任证书。请停用两个旧番茄模块，勿重复启用。
+    header = '''#!name=番茄小说去广告
+#!desc=合并可莉与 zqzess 版本，拦截开屏、章末及广告 SDK 请求。含字节系广域拦截，可能影响其他字节系 App；HTTPS 重写需开启 MITM 并信任证书。请勿与其他番茄去广告模块重复启用。
 #!author=可莉🅥, zqzess；Surge 合并适配：RoaycL
 #!category=去广告
-#!homepage=https://github.com/RoaycL/Surge/blob/main/docs/fanqie-merge.md
+#!homepage=https://github.com/RoaycL/Surge/blob/main/docs/fanqie.md
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/DragonRead.png
 #!date=__SOURCE_DATE__
 # Merge revision: 2026-11-07
