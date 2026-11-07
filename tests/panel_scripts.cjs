@@ -1,7 +1,7 @@
 // Behavior tests for the VMISS and AliDNS panel scripts (JS/Panel).
 const fs = require('node:fs'), vm = require('node:vm'), assert = require('node:assert/strict');
 
-async function run(file, {argument = '', request, response, http = () => ({status: 200, headers: {}, body: ''}), store = {}} = {}) {
+async function run(file, {argument = '', trigger, request, response, http = () => ({status: 200, headers: {}, body: ''}), store = {}} = {}) {
   const notifications = [], requests = [];
   let result, calls = 0;
   const context = {
@@ -12,6 +12,7 @@ async function run(file, {argument = '', request, response, http = () => ({statu
     $httpClient: {get: (options, callback) => { requests.push(options); const r = http(options); setImmediate(() => callback(r.error || null, {status: r.status, headers: r.headers || {}}, r.body)); }},
     setTimeout, clearTimeout, URL, Date, Math, JSON, Promise,
   };
+  if (trigger) context.$trigger = trigger;
   if (request) context.$request = request;
   if (response) context.$response = response;
   vm.runInNewContext(fs.readFileSync(file, 'utf8'), context, {timeout: 3000});
@@ -80,6 +81,16 @@ async function run(file, {argument = '', request, response, http = () => ({statu
   r = await run(V, {argument: 'mode=keepalive&notify=true', store, http: challenge});
   assert.deepEqual(JSON.parse(JSON.stringify(r.result)), {});
   assert.equal(r.notifications.length, 0, 'no repeated notification for the same failure');
+  r = await run(V, {argument: 'mode=panel&notify=true', store, http: challenge, trigger: 'auto-interval'});
+  assert.equal(r.notifications.length, 0, 'automatic panel refresh does not repeat the notification');
+  // A manual tap on the panel refresh button always offers the login link, even with background notifications off.
+  for (const notify of ['true', 'false']) {
+    r = await run(V, {argument: `mode=panel&notify=${notify}`, store, http: challenge, trigger: 'button'});
+    assert.equal(r.notifications.length, 1, 'manual refresh while expired notifies every time');
+    assert.equal(r.notifications[0][3].url, page(7));
+    assert.match(r.notifications[0][2], /点此前往登录/);
+    assert.match(r.result.content, /⚠️/);
+  }
 
   // Opening the page again repairs it automatically and announces the recovery.
   r = await run(V, {argument: 'mode=capture&capture=true', store, request: {url: page(7), headers: {...browser, Cookie: 'WHMCSabc=sess5; cf_clearance=cf3'}}, response: {status: 200, headers: {}}});

@@ -315,10 +315,13 @@ async function refresh(keepalive) {
     const next = { ...state };
     if (credential) {
       next.invalidSince = state.invalidSince || Date.now();
-      // One notification per failure; tapping it opens the page that refreshes the credential.
-      if (!state.notifiedAt && enabled(args.notify)) {
+      // Background refreshes notify once per failure; a manual tap on the panel's
+      // refresh button always does. Tapping the notification opens the login page,
+      // and the successful page load refreshes the credential automatically.
+      const manual = !keepalive && typeof $trigger !== "undefined" && $trigger === "button";
+      if (manual || (!state.notifiedAt && enabled(args.notify))) {
         const productId = readJson(STORE_KEY)?.productId;
-        $notification.post("VMISS 流量", "登录凭证已失效", `${error.message}。点此打开产品页，凭证会自动更新`,
+        $notification.post("VMISS 流量", "登录凭证已失效", `${error.message}。点此前往登录，凭证会自动更新`,
           { action: "open-url", url: `${BASE}/clientarea.php${productId ? `?action=productdetails&id=${productId}` : ""}` });
         next.notifiedAt = Date.now();
       }
