@@ -12,11 +12,22 @@ class YFamilyTests(unittest.TestCase):
         from unittest.mock import patch
         import io
         html = '<!DOCTYPE html><html>' + ''.join(f'<a href="/module/test{i}.module">App {i}</a>' for i in range(101)) + '</html>'
-        with patch('sync_yfamilys.urlopen', return_value=io.BytesIO(html.encode())):
+        with patch('sync_yfamilys.urlopen', return_value=io.BytesIO(html.encode())), patch('sync_yfamilys.request_slot'):
             self.assertEqual(len(parse_index(get_text('https://yfamilys.com/surge', html=True))),101)
-        with patch('sync_yfamilys.urlopen', side_effect=lambda *a,**k: io.BytesIO(html.encode())), patch('sync_yfamilys.time.sleep'):
+        with patch('sync_yfamilys.urlopen', side_effect=lambda *a,**k: io.BytesIO(html.encode())), patch('sync_yfamilys.time.sleep'), patch('sync_yfamilys.request_slot'):
             with self.assertRaisesRegex(ValueError,'HTML response'):
                 get_text('https://yfamilys.com/module/test.module')
+
+    def test_rate_limit_respects_upstream_retry_after(self):
+        import io
+        from unittest.mock import patch
+        from urllib.error import HTTPError
+        from email.message import Message
+        headers=Message();headers['Retry-After']='17'
+        error=HTTPError('https://yfamilys.com/module/x.module',429,'Too Many Requests',headers,None)
+        with patch('sync_yfamilys.urlopen', side_effect=[error,io.BytesIO(b'[Rule]\nDOMAIN,x,REJECT')]), patch('sync_yfamilys.request_slot') as slot:
+            self.assertIn('[Rule]',get_text(error.url))
+            self.assertIn(unittest.mock.call(cooldown=17.0),slot.call_args_list)
 
     def test_index_excludes_profiles_and_deduplicates(self):
         p=IndexParser();p.feed('<a href="/module/x.module">X</a><a href="/module/x.module">Alias</a><a href="/config/a.conf">Config</a><a href="/sgmodule/p.sgmodule">Panel</a><a href="https://elsewhere.example/a.module">Other</a>')

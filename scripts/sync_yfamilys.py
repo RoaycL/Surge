@@ -6,6 +6,9 @@ import hashlib
 import json
 import re
 import time
+import threading
+from urllib.error import HTTPError
+from email.utils import parsedate_to_datetime
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urljoin, urlsplit
@@ -18,9 +21,33 @@ GROUPS = {'DNS': 'DNS', 'Enhancement': '功能增强', 'AdBlock': '去广告', '
 
 def digest(s): return hashlib.sha256(s.encode()).hexdigest()
 
+_request_lock = threading.Lock()
+_next_request = 0.0
+
+def request_slot(cooldown=None):
+    """Share a conservative request rate and upstream cooldown across workers."""
+    global _next_request
+    with _request_lock:
+        if cooldown is not None:
+            _next_request = max(_next_request, time.monotonic() + cooldown)
+            return
+        delay = _next_request - time.monotonic()
+        if delay > 0: time.sleep(delay)
+        _next_request = time.monotonic() + 1.1
+
+def retry_after(error):
+    value = error.headers.get('Retry-After') if error.headers else None
+    if value:
+        try: return max(0.0, float(value))
+        except ValueError:
+            try: return max(0.0, parsedate_to_datetime(value).timestamp() - time.time())
+            except (TypeError, ValueError): pass
+    return 60.0
+
 def get_text(url, html=False):
     for attempt in range(3):
         try:
+            request_slot()
             with urlopen(Request(url, headers={'User-Agent': 'RoaycL-Surge-Upstream-Sync'}), timeout=25) as response:
                 data = response.read(4_000_001)
             if len(data) > 4_000_000: raise ValueError('source exceeds 4 MB')
@@ -28,9 +55,13 @@ def get_text(url, html=False):
             if not text.strip() or (not html and text.lstrip().lower().startswith(('<!doctype', '<html'))):
                 raise ValueError('empty or HTML response')
             return text
-        except Exception:
-            if attempt == 2: raise
-            time.sleep(attempt + 1)
+        except Exception as error:
+            if attempt == 2: raise ValueError(url + ': ' + str(error)) from error
+            if isinstance(error, HTTPError) and error.code == 429:
+                wait = retry_after(error)
+                print(f'Upstream rate limit; waiting {wait:.0f}s before retry: {url}', flush=True)
+                request_slot(cooldown=wait)
+            else: time.sleep(attempt + 1)
 
 class IndexParser(HTMLParser):
     def __init__(self):
