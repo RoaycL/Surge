@@ -135,9 +135,13 @@ async function run(file, {argument = '', trigger, request, response, http = () =
   r = await run(A, {argument: 'name1=A&id1=K1&secret1=S1&name2=Long-1&id2=K2&secret2=S2', http: o => ({status: 200, headers: {},
     body: JSON.stringify({Data: [{HttpCount: o.url.includes('AccessKeyId=K1') ? 10000000 : 1234567, HttpsCount: 0}]})})});
   assert.deepEqual(r.result.content.split('\n'), [
-    mono('A_____  100.00%  余__0.0万'),
-    mono('Long-1  _12.35%  余876.5万'),
+    mono('A_____  \u2008100%  余__0.0万'),
+    mono('Long-1  12.3%  余876.5万'),
   ]);
+  // Percentages of 10% or more drop to one decimal, so every row keeps three digits.
+  r = await run(A, {argument: 'name1=A1&id1=K1&secret1=S1&name2=B2&id2=K2&secret2=S2&name3=C3&id3=K3&secret3=S3', http: o => ({status: 200, headers: {},
+    body: JSON.stringify({Data: [{HttpCount: {K1: 71000, K2: 1080000, K3: 999600}[new URL(o.url).searchParams.get('AccessKeyId')], HttpsCount: 0}]})})});
+  assert.deepEqual(r.result.content.split('\n'), [mono('A1  0.71%  余992.9万'), mono('B2  10.8%  余892.0万'), mono('C3  10.0%  余900.0万')]);
   // A failed account keeps its error text and does not break alignment of the others.
   r = await run(A, {argument: 'name1=A1&id1=K1&secret1=S1&name2=B2&id2=K2&secret2=S2', http: o => o.url.includes('AccessKeyId=K1')
     ? {status: 403, headers: {}, body: '{"Message":"denied"}'} : {status: 200, headers: {}, body: '{"Data":[{"HttpCount":1}]}'}});
