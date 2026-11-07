@@ -187,8 +187,13 @@ function usageProgress(used, quota) {
   };
 }
 
+// Always three digits (0.71 / 10.8), so the percent column never needs padding:
+// a space-based pad renders slightly wider there than a mono digit on device.
+// 100% has no decimal point; PUNCTUATION SPACE stands in for its width.
 function percentageNumber(value) {
-  return value.toFixed(2);
+  if (Number(value.toFixed(2)) < 10) return value.toFixed(2);
+  if (Number(value.toFixed(1)) < 100) return value.toFixed(1);
+  return "\u2008100";
 }
 
 // Surge panels use a proportional font (digit widths differ), so ordinary digits
