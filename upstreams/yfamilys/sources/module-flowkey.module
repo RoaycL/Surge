@@ -1,0 +1,12 @@
+#!name=Flowkey钢琴
+#!desc=Flowkey钢琴解锁
+#!icon=https://raw.githubusercontent.com/deezertidal/private/main/icons/Plugallery.png
+#!homepage=https://yfamilys.com
+#!author=89996462
+[Script]
+flowkey=type=http-response,pattern=^http[s]?:\/\/graphql.flowkey.com.cn\/graphql,requires-body=1,script-path=https://raw.githubusercontent.com/89996462/Quantumult-X/main/ycdz/flowkey.js
+
+
+
+[MITM]
+hostname = %APPEND% graphql.flowkey.com.cn

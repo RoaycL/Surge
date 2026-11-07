@@ -1,0 +1,12 @@
+#!name=减脂食谱
+#!desc=减脂食谱解锁
+#!icon=https://raw.githubusercontent.com/deezertidal/private/main/icons/Plugallery.png
+#!homepage=https://yfamilys.com
+#!author=89996462
+[Script]
+JZSP=type=http-response,pattern=^http[s]?:\/\/gugu.zomoplan.com,requires-body=1,script-path=https://raw.githubusercontent.com/89996462/Quantumult-X/main/ycdz/JZSP.js
+
+
+
+[MITM]
+hostname = %APPEND% gugu.zomoplan.com

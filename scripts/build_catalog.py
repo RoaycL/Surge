@@ -15,9 +15,9 @@ def escape(s):
     return s.replace('|', '\\|').replace('\n', ' ').replace('\r', ' ')
 
 def render():
-    lines = ['# Surge', '', '自用 Surge 模块与脚本，收录原有模块和 [FKIKelee 转换模块](https://github.com/RoaycL/fkikelee)。', '',
+    lines = ['# Surge', '', '自用 Surge 模块与脚本，收录自用模块、[FKIKelee 转换模块](https://github.com/RoaycL/fkikelee)和 [yfamilys 原生模块](https://yfamilys.com/surge)。', '',
              '点击名称获取文件地址；模块可在 Surge「模块 → 从 URL 安装」中添加。一键导入使用 Surge URL Scheme；若 GitHub 未唤起应用，请复制名称对应的地址。面板归入功能增强。', '',
-             '[使用与兼容性说明](docs/fkikelee.md) · [仓库目录规范](docs/repository-layout.md) · [新旧地址对照](docs/path-migration.md) · [面板与历史脚本](Module/Panel/README.md)', '',
+             '[使用与兼容性说明](docs/fkikelee.md) · [仓库目录规范](docs/repository-layout.md) · [新旧地址对照](docs/path-migration.md) · [面板与历史脚本](Module/Panel/README.md) · [yfamilys 来源目录](docs/yfamilys.md)', '',
              '同一 App 的多个去广告版本请按需选择，避免重复启用。迁移后旧路径已删除，已有安装和配置需改用本页的新地址。', '']
     known = {p.name for p in (ROOT / 'upstreams/fkikelee/lpx').glob('*.lpx')}
     groups = [('DNS', ['DNS']), ('功能增强', ['Enhancement', 'Panel']), ('去广告', ['AdBlock'])]
@@ -29,7 +29,8 @@ def render():
             name = meta.get('name', p.stem); desc = meta.get('desc', '')
             desc = desc if len(desc) <= 90 else desc[:89] + '…'
             notes = []
-            if p.stem + '.lpx' not in known: notes.append('原有模块')
+            if p.name.startswith('YFamily-') or p.name == 'FanQieNovel.sgmodule': notes.append('yfamilys 原生模块')
+            elif p.stem + '.lpx' not in known: notes.append('原有模块')
             if '#!arguments=' in text: notes.append('支持模块参数')
             if '# NOTE: 主配置需添加：RULE-SET,' in text: notes.append('需配套分流规则，见文件注释')
             notes.append(desc)

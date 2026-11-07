@@ -1,0 +1,12 @@
+#!name=证件照高清版
+#!desc=证件照高清版解锁
+#!icon=https://raw.githubusercontent.com/deezertidal/private/main/icons/Plugallery.png
+#!homepage=https://yfamilys.com
+#!author=89996462
+[Script]
+zjzgqb=type=http-response,pattern=^https?:\/\/buy\.itunes\.apple\.com\/verifyReceipt$,requires-body=1,script-path=https://raw.githubusercontent.com/89996462/Quantumult-X/main/ycdz/zjzgqb.js
+
+
+
+[MITM]
+hostname = %APPEND% buy.itunes.apple.com

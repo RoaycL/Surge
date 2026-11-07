@@ -10,12 +10,10 @@ on:
       - '.github/workflows/sync-upstream.yml'
       - 'scripts/sync_upstream.py'
       - 'scripts/build_catalog.py'
-      - 'scripts/fanqie.py'
       - 'scripts/run_checks.sh'
       - 'tests/upstream_runtime.cjs'
       - 'tests/test_converter.py'
       - 'tests/fixtures/**'
-      - 'upstreams/FanQieNovel.plugin'
 
 permissions:
   contents: write
@@ -23,6 +21,7 @@ permissions:
 # Shared with sync-fkikelee so the two generators never push concurrently.
 concurrency:
   group: generated-sync
+  queue: max
   cancel-in-progress: false
 
 jobs:
@@ -32,6 +31,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          ref: main
           persist-credentials: false
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
@@ -50,9 +50,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          git add -A -- README.md 'upstreams/*.snippet' upstreams/FanQieNovel.plugin upstreams/lock.json \
+          git add -A -- README.md 'upstreams/*.snippet' upstreams/lock.json \
             Module/AdBlock/Pinduoduo.sgmodule Module/AdBlock/hlwxx_remove_ads.sgmodule Module/AdBlock/Weibo.sgmodule \
-            Module/AdBlock/FanQieNovel.sgmodule Module/AdBlock/TxvideoAD.sgmodule 'JS/*.surge.js'
+            Module/AdBlock/TxvideoAD.sgmodule 'JS/*.surge.js'
           if git diff --cached --quiet; then
             echo 'Upstream unchanged; no commit needed.'
             exit 0

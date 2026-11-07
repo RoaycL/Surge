@@ -5,4 +5,4 @@ upstreams/fkikelee/lpx/** -whitespace
 upstreams/fkikelee/extra/** -whitespace
 
 # Preserve the supplied plugin snapshot byte-for-byte.
-upstreams/FanQieNovel.plugin -whitespace
+upstreams/yfamilys/sources/** -whitespace

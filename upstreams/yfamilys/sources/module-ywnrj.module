@@ -1,0 +1,12 @@
+#!name=一万年日记
+#!desc=一万年日记解锁
+#!icon=https://raw.githubusercontent.com/deezertidal/private/main/icons/Plugallery.png
+#!homepage=https://yfamilys.com
+#!author=89996462
+[Script]
+everjournal=type=http-response,pattern=^http[s]?:\/\/api.everjournal.life,requires-body=1,script-path=https://raw.githubusercontent.com/89996462/Quantumult-X/main/ycdz/everjournal.js
+
+
+
+[MITM]
+hostname = %APPEND% api.everjournal.life

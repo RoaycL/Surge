@@ -1,0 +1,12 @@
+#!name=工地记工
+#!desc=工地记工解锁
+#!icon=https://raw.githubusercontent.com/deezertidal/private/main/icons/Plugallery.png
+#!homepage=https://yfamilys.com
+#!author=89996462
+[Script]
+cdmgkj=type=http-response,pattern=^http[s]?:\/\/app.cdmgkj.cn\/api\/v3\/vip\/status,requires-body=1,script-path=https://raw.githubusercontent.com/89996462/Quantumult-X/main/ycdz/cdmgkj.js
+
+
+
+[MITM]
+hostname = %APPEND% app.cdmgkj.cn

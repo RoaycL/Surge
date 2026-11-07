@@ -28,3 +28,7 @@
 - 历史面板脚本只迁移路径，未冒充已实测的新模块。节日倒数脚本内置的是 2022–2024 年数据，需要自行维护日期。
 
 2026-11-06 的迁移按用户选择彻底删除旧路径，不提供兼容副本；完整对应关系见[迁移清单](path-migration.md)。
+
+## yfamilys 同步
+
+页面原生模块按功能放在原有目录内，文件名前缀 `YFamily-`，面板使用 `YFamily-Panel-`；番茄沿用 `FanQieNovel.sgmodule`。来源目录、原文快照与摘要保存在 `upstreams/yfamilys`。通过 `scripts/sync_yfamilys.py` 同步，`scripts/validate_yfamilys.py` 校验；第三方脚本仍引用原地址。

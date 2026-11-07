@@ -1,0 +1,12 @@
+#!name=易截图2
+#!desc=易截图2解锁
+#!icon=https://raw.githubusercontent.com/deezertidal/private/main/icons/Plugallery.png
+#!homepage=https://yfamilys.com
+#!author=89996462
+[Script]
+comyjt=type=http-response,pattern=^http[s]?:\/\/1jietu.com\/apiv2\/user,requires-body=1,script-path=https://raw.githubusercontent.com/89996462/Quantumult-X/main/ycdz/comyjt.js
+
+
+
+[MITM]
+hostname = %APPEND% 1jietu.com

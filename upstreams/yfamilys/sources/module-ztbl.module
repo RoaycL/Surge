@@ -1,0 +1,13 @@
+#!name=真题伴侣
+#!desc=真题伴侣解锁
+#!icon=https://raw.githubusercontent.com/deezertidal/private/main/icons/Plugallery.png
+#!homepage=https://yfamilys.com
+#!author=89996462
+[Script]
+ztbl=type=http-response,pattern=http:\/\/newtest\.zoooy111\.com\/mobile\.php\/User\/index,requires-body=1,script-path=https://raw.githubusercontent.com/89996462/Quantumult-X/main/ycdz/ztbl.js
+
+
+
+mobile.php
+[MITM]
+hostname = %APPEND% newtest.zoooy111.com,newtest.zoooy111.com

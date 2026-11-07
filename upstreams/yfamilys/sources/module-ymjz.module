@@ -1,0 +1,17 @@
+#!name=一木记账
+
+#!desc=一木记账解锁会员
+
+#!homepage=https://yfamilys.com
+
+#!author= I-am-R-E
+
+#!icon=https://raw.githubusercontent.com/deezertidal/private/main/icons/ymjz.png
+
+[MITM]
+
+hostname = %APPEND% yimuapp.com:8082
+
+[Script]
+
+一木记账=type=http-response,pattern=^https?:\/\/yimuapp\.com(:8082)?\/bookkeeping\/user\/getUser\/,requires-body=1,script-path=https://raw.githubusercontent.com/deezertidal/Surge_Module/master/files/ymjz.js

@@ -1,0 +1,11 @@
+#!name=九州短剧
+#!desc=九州短剧解锁
+#!icon=https://raw.githubusercontent.com/deezertidal/private/main/icons/Plugallery.png
+#!homepage=https://yfamilys.com
+#!author=89996462
+[Script]
+sanwubeixin=type=http-response,pattern=^http[s]?:\/\/iosshortplay.sanwubeixin.cn\/ct\/user\/info,requires-body=1,script-path=https://raw.githubusercontent.com/89996462/Quantumult-X/main/ycdz/sanwubeixin.js
+
+
+[MITM]
+hostname = %APPEND% iosshortplay.sanwubeixin.cn

@@ -1,0 +1,12 @@
+#!name=ToonMe卡通头像
+#!desc=ToonMe卡通头像解锁
+#!icon=https://raw.githubusercontent.com/deezertidal/private/main/icons/Plugallery.png
+#!homepage=https://yfamilys.com
+#!author=89996462
+[Script]
+ToonMe=type=http-response,pattern=^https?:\/\/purchases\.ws\.pho\.to\/api\/v2\/apple\/verifyReceipt,requires-body=1,script-path=https://raw.githubusercontent.com/89996462/Quantumult-X/main/ycdz/ToonMe.js
+
+
+
+[MITM]
+hostname = %APPEND% purchases.ws.pho.to

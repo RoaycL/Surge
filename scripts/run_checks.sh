@@ -21,3 +21,10 @@ node tests/upstream_runtime.cjs
 python3 scripts/validate_repository.py
 node tests/alidns_auto_switch.cjs
 node tests/panel_scripts.cjs
+
+if [ -n "${SURGE_CLI:-}" ]; then
+  python3 scripts/validate_yfamilys.py --surge-cli "$SURGE_CLI"
+else
+  python3 scripts/validate_yfamilys.py
+fi
+python3 -m unittest discover -s tests -p 'test_yfamilys.py'

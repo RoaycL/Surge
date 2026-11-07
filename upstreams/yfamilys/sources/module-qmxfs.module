@@ -1,0 +1,12 @@
+#!name=全民幸福社
+#!desc=全民幸福社解锁
+#!icon=https://raw.githubusercontent.com/deezertidal/private/main/icons/Plugallery.png
+#!homepage=https://yfamilys.com
+#!author=89996462
+[Script]
+qmxfs=type=http-response,pattern=^http[s]?:\/\/api.qmxfs.com,requires-body=1,script-path=https://raw.githubusercontent.com/89996462/Quantumult-X/main/ycdz/qmxfs.js
+
+
+
+[MITM]
+hostname = %APPEND% api.qmxfs.com

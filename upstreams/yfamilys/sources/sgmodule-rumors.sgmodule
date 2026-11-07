@@ -1,0 +1,9 @@
+#!name=今日辟谣
+#!desc=今日辟谣面板 
+#!homepage=https://yfamilys.com
+
+[Panel]
+rumors=script-name=rumors
+
+[Script]
+rumors=type=generic,script-path=https://raw.githubusercontent.com/deezertidal/Surge_Module/master/files/rumors.js,argument=icon=questionmark&color=#b01919

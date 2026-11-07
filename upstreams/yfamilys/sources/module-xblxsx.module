@@ -1,0 +1,12 @@
+#!name=小伴龙学数学
+#!desc=小伴龙学数学解锁
+#!icon=https://raw.githubusercontent.com/deezertidal/private/main/icons/Plugallery.png
+#!homepage=https://yfamilys.com
+#!author=89996462
+[Script]
+XBLXSX=type=http-response,pattern=^http[s]?:\/\/xblmath.youban.com\/api-go-2\/svr\/get\/vip,requires-body=1,script-path=https://raw.githubusercontent.com/89996462/Quantumult-X/main/ycdz/XBLXSX.js
+
+
+
+[MITM]
+hostname = %APPEND% xblmath.youban.com

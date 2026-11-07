@@ -1,0 +1,12 @@
+#!name=Wake瑜伽
+#!desc=Wake瑜伽解锁
+#!icon=https://raw.githubusercontent.com/deezertidal/private/main/icons/Plugallery.png
+#!homepage=https://yfamilys.com
+#!author=89996462
+[Script]
+wakeyoga=type=http-response,pattern=^http[s]?:\/\/api.wakeyoga.com,requires-body=1,script-path=https://raw.githubusercontent.com/89996462/Quantumult-X/main/ycdz/wakeyoga.js
+
+
+
+[MITM]
+hostname = %APPEND% api.wakeyoga.com

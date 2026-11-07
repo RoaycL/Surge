@@ -20,3 +20,5 @@
 | [functionstatus.js](../../JS/Panel/functionstatus.js) | 功能状态，点击重载配置 |
 | [timecard.js](../../JS/Panel/timecard.js) | 历史节日倒数；内置日期已过期，使用前自行更新 |
 | [trafficstatistics.js](../../JS/Panel/trafficstatistics.js) | 接口流量统计 |
+
+新增 yfamilys 面板也存放在本目录，文件名前缀为 `YFamily-Panel-`，完整来源和安装目录见 [yfamilys 模块目录](../../docs/yfamilys.md)。

@@ -1,0 +1,11 @@
+#!name=酷我音乐会员
+#!desc=酷我音乐会员解锁
+#!author=yingzi
+#!icon=https://raw.githubusercontent.com/deezertidal/private/main/icons/kuwosvip.png
+#!homepage=https://yfamilys.com
+
+[Script]
+酷我音乐 = type=http-response, pattern=^(?!.*img).*?kuwo\.cn(/vip|/openapi)?(/enc|/audi.tion|/v[\d]/(user/vip\?(vers|apiVersion|platform|op\=ui|_t)|theme\?op=gd|sysinfo\?op=getRePayAndDoPayBoxNew|api(/pay)?/((user/personal/)?user/info|payInfo/kwplayer/payMiniBar|advert/(myPage|iListen|album))|album/(adBar|myRec/vipMusic))|/kuwopay/vip-tab/setting|/(audioApi/)?a\.p($|\?op\=getvip|.*?ptype\=vip)|/mobi\.s\?f\=kwxs|/music\.pay\?newver\=3$|/(EcomResource|(Mobile)?Ad)Serv(er|ice)), script-path=https://kw.sub-domain.workers.dev/kw.js, requires-body=true, timeout=60
+
+[MITM]
+hostname = %APPEND% *.kuwo.cn

@@ -1,0 +1,12 @@
+#!name=建工计算器
+#!desc=建工计算器解锁
+#!icon=https://raw.githubusercontent.com/deezertidal/private/main/icons/Plugallery.png
+#!homepage=https://yfamilys.com
+#!author=89996462
+[Script]
+jiangongjsq=type=http-response,pattern=^https:\/\/calc\.kuaicad\.com\/authority\/verify_vip\?,requires-body=1,script-path=https://raw.githubusercontent.com/89996462/Quantumult-X/main/ycdz/jiangongjsq.js
+
+
+
+[MITM]
+hostname = %APPEND% calc.kuaicad.com

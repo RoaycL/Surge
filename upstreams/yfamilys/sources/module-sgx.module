@@ -1,0 +1,12 @@
+#!name=时光序
+#!desc=时光序解锁
+#!icon=https://raw.githubusercontent.com/deezertidal/private/main/icons/Plugallery.png
+#!homepage=https://yfamilys.com
+#!author=89996462
+[Script]
+shiguangxu=type=http-response,pattern=^https:\/\/api\.weilaizhushou\.com\/base\/user\/vip\/getUserVip,requires-body=1,script-path=https://raw.githubusercontent.com/89996462/Quantumult-X/main/ycdz/shiguangxu.js
+
+
+
+[MITM]
+hostname = %APPEND% api.weilaizhushou.com

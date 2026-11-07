@@ -9,7 +9,7 @@ from fanqie import CANONICAL, UPSTREAM, convert_fanqie, sections
 
 class FanQieTests(unittest.TestCase):
     def test_upstream_only_and_reproducible(self):
-        source = (ROOT / 'upstreams/FanQieNovel.plugin').read_text(encoding='utf-8-sig')
+        source = (ROOT / 'upstreams/yfamilys/sources/module-fanqie.module').read_text(encoding='utf-8-sig')
         output = convert_fanqie(source)
         self.assertEqual(output, (ROOT / CANONICAL).read_text())
         parsed = sections(output)
@@ -23,7 +23,7 @@ class FanQieTests(unittest.TestCase):
         self.assertNotIn('[Script]', output)
 
     def test_all_upstream_rules_preserved(self):
-        source = sections((ROOT / 'upstreams/FanQieNovel.plugin').read_text(encoding='utf-8-sig'))
+        source = sections((ROOT / 'upstreams/yfamilys/sources/module-fanqie.module').read_text(encoding='utf-8-sig'))
         result = sections((ROOT / CANONICAL).read_text())['[Rule]']
         for line in source['[Rule]']:
             fields = [x.strip() for x in line.split(',')]
@@ -49,8 +49,9 @@ class FanQieTests(unittest.TestCase):
     def test_independent_sources_and_live_updates(self):
         spec = importlib.util.spec_from_file_location('sync_fanqie', ROOT / 'scripts/sync_upstream.py')
         sync = importlib.util.module_from_spec(spec); spec.loader.exec_module(sync)
-        self.assertEqual(sync.SOURCES['FanQieNovel'], UPSTREAM)
-        snapshot = (ROOT / 'upstreams/FanQieNovel.plugin').read_text()
+        self.assertNotIn('FanQieNovel', sync.SOURCES)
+        self.assertEqual(UPSTREAM, 'https://yfamilys.com/module/fanqie.module')
+        snapshot = (ROOT / 'upstreams/yfamilys/sources/module-fanqie.module').read_text()
         self.assertEqual(sync.convert_fanqie(snapshot), (ROOT / CANONICAL).read_text())
         spec = importlib.util.spec_from_file_location('loon_fanqie', ROOT / 'scripts/convert_loon.py')
         loon = importlib.util.module_from_spec(spec); spec.loader.exec_module(loon)

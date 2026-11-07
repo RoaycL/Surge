@@ -1,0 +1,12 @@
+#!name=小鹦看看
+#!desc=小鹦看看解锁
+#!icon=https://raw.githubusercontent.com/deezertidal/private/main/icons/Plugallery.png
+#!homepage=https://yfamilys.com
+#!author=89996462
+[Script]
+pollykann=type=http-response,pattern=^http[s]?:\/\/api.pollykann.com\/media,requires-body=1,script-path=https://raw.githubusercontent.com/89996462/Quantumult-X/main/ycdz/pollykann.js
+
+
+
+[MITM]
+hostname = %APPEND% api.pollykann.com

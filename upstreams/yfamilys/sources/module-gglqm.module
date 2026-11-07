@@ -1,0 +1,12 @@
+#!name=瓜瓜龙启蒙
+#!desc=瓜瓜龙启蒙解锁
+#!icon=https://raw.githubusercontent.com/deezertidal/private/main/icons/Plugallery.png
+#!homepage=https://yfamilys.com
+#!author=89996462
+[Script]
+gglqm=type=http-response,pattern=^http[s]?:\/\/www-lf.ggl.cn,requires-body=1,script-path=https://raw.githubusercontent.com/89996462/Quantumult-X/main/ycdz/gglqm.js
+
+
+
+[MITM]
+hostname = %APPEND% www-lf.ggl.cn

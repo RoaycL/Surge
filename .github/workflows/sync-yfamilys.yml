@@ -1,0 +1,62 @@
+name: Sync yfamilys Surge modules
+
+on:
+  schedule:
+    - cron: '11 */6 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/sync-yfamilys.yml'
+      - 'scripts/sync_yfamilys.py'
+      - 'scripts/validate_yfamilys.py'
+      - 'scripts/fanqie.py'
+      - 'scripts/build_catalog.py'
+      - 'scripts/run_checks.sh'
+      - 'tests/test_yfamilys.py'
+      - 'tests/test_fanqie.py'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: generated-sync
+  queue: max
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version: 24
+      - name: Ensure jq
+        run: command -v jq || (sudo apt-get update && sudo apt-get install -y jq)
+      - name: Download and adapt all listed modules
+        run: python3 scripts/sync_yfamilys.py
+      - name: All repository checks
+        run: bash scripts/run_checks.sh
+      - name: Commit validated generated outputs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git add -A -- README.md docs/yfamilys.md upstreams/yfamilys Module
+          if git diff --cached --quiet; then
+            echo 'yfamilys unchanged; no commit needed.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'chore: sync yfamilys Surge modules'
+          gh auth setup-git
+          for attempt in 1 2 3; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((attempt * 5))
+          done
+          exit 1

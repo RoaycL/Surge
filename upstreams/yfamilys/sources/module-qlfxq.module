@@ -1,0 +1,12 @@
+#!name=情侣飞行棋
+#!desc=情侣飞行棋解锁
+#!icon=https://raw.githubusercontent.com/deezertidal/private/main/icons/Plugallery.png
+#!homepage=https://yfamilys.com
+#!author=89996462
+[Script]
+chatmoon=type=http-response,pattern=^http[s]?:\/\/api.chatmoon.cn,requires-body=1,script-path=https://raw.githubusercontent.com/89996462/Quantumult-X/main/ycdz/chatmoon.js
+
+
+
+[MITM]
+hostname = %APPEND% api.chatmoon.cn

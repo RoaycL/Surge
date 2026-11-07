@@ -1,0 +1,12 @@
+#!name=千本笔记
+#!desc=千本笔记解锁
+#!icon=https://raw.githubusercontent.com/deezertidal/private/main/icons/Plugallery.png
+#!homepage=https://yfamilys.com
+#!author=89996462
+[Script]
+qmbj=type=http-response,pattern=^https?:\/\/buy\.itunes\.apple\.com\/verifyReceipt$,requires-body=1,script-path=https://raw.githubusercontent.com/89996462/Quantumult-X/main/ycdz/qmbj.js
+
+
+
+[MITM]
+hostname = %APPEND% buy.itunes.apple.com
