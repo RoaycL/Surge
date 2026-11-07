@@ -66,7 +66,7 @@
     "Module/FKIKelee/AdBlock/Social/DouBan_remove_ads.sgmodule": "Module/AdBlock/DouBan_remove_ads.sgmodule",
     "Module/FKIKelee/AdBlock/Social/DoubanRead_remove_ads.sgmodule": "Module/AdBlock/DoubanRead_remove_ads.sgmodule",
     "Module/FKIKelee/AdBlock/Media/Douyu_remove_ads.sgmodule": "Module/AdBlock/Douyu_remove_ads.sgmodule",
-    "Module/FKIKelee/AdBlock/Reading/DragonRead_remove_ads.sgmodule": "Module/AdBlock/FanQieNovel.sgmodule",
+    "Module/FKIKelee/AdBlock/Reading/DragonRead_remove_ads.sgmodule": "Module/AdBlock/DragonRead_remove_ads.sgmodule",
     "Module/FKIKelee/AdBlock/Media/DubbingShow_remove_ads.sgmodule": "Module/AdBlock/DubbingShow_remove_ads.sgmodule",
     "Module/FKIKelee/AdBlock/Life/DuiTang_remove_ads.sgmodule": "Module/AdBlock/DuiTang_remove_ads.sgmodule",
     "Module/FKIKelee/AdBlock/Travel/EasyBike_remove_ads.sgmodule": "Module/AdBlock/EasyBike_remove_ads.sgmodule",
@@ -316,7 +316,6 @@
     "Ruleset/FKIKelee/DNS/Prevent_DNS_Leaks.list": "Ruleset/DNS/Prevent_DNS_Leaks.list",
     "Ruleset/FKIKelee/Data/BoxJs.list": "Ruleset/Enhancement/BoxJs.list",
     "Ruleset/FKIKelee/Enhancement/TestFlightRegionUnlock.list": "Ruleset/Enhancement/TestFlightRegionUnlock.list",
-    "Ruleset/FKIKelee/Subscription/Sub-Store.list": "Ruleset/Enhancement/Sub-Store.list",
-    "Module/AdBlock/DragonRead_remove_ads.sgmodule": "Module/AdBlock/FanQieNovel.sgmodule"
+    "Ruleset/FKIKelee/Subscription/Sub-Store.list": "Ruleset/Enhancement/Sub-Store.list"
   }
 }

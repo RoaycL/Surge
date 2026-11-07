@@ -247,9 +247,6 @@ class Converter:
         return dest
 
     def convert(self, f):
-        # FanQie is exclusively owned by the yfamilys upstream converter.
-        if f.stem == 'DragonRead_remove_ads':
-            return
         source = f.read_text()
         sections = collections.defaultdict(list)
         meta = {}
@@ -268,6 +265,8 @@ class Converter:
         cat = CATS.get(tag, 'Enhancement')
         stem = f.stem
         name = meta['name']
+        if stem == 'DragonRead_remove_ads':
+            name += '（可莉）'
         sub = ''
         folder = cat
         out = collections.defaultdict(list)

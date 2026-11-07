@@ -39,7 +39,7 @@ def convert_fanqie(source):
         if line not in rewrites: rewrites.append(line)
     if not rules:
         raise ValueError('FanQie upstream has no rules; refusing empty output')
-    header = """#!name=番茄小说去广告
+    header = """#!name=番茄小说去广告（yfamilys）
 #!desc=来自 yfamilys 的番茄小说去广告插件，自动跟随上游更新。含字节系广域拦截，可能影响其他字节系 App；HTTPS 重写需开启 MITM 并信任证书。
 #!author=zqzess；Surge 适配：RoaycL
 #!category=去广告

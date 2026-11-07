@@ -134,7 +134,7 @@
 | `Module/FKIKelee/AdBlock/Reading/36Kr_remove_ads.sgmodule` | [`Module/AdBlock/36Kr_remove_ads.sgmodule`](../Module/AdBlock/36Kr_remove_ads.sgmodule) |
 | `Module/FKIKelee/AdBlock/Reading/CaixinMedia_remove_ads.sgmodule` | [`Module/AdBlock/CaixinMedia_remove_ads.sgmodule`](../Module/AdBlock/CaixinMedia_remove_ads.sgmodule) |
 | `Module/FKIKelee/AdBlock/Reading/Daily_remove_ads.sgmodule` | [`Module/AdBlock/Daily_remove_ads.sgmodule`](../Module/AdBlock/Daily_remove_ads.sgmodule) |
-| `Module/FKIKelee/AdBlock/Reading/DragonRead_remove_ads.sgmodule` | [`Module/AdBlock/FanQieNovel.sgmodule`](../Module/AdBlock/FanQieNovel.sgmodule) |
+| `Module/FKIKelee/AdBlock/Reading/DragonRead_remove_ads.sgmodule` | [`Module/AdBlock/DragonRead_remove_ads.sgmodule`](../Module/AdBlock/DragonRead_remove_ads.sgmodule) |
 | `Module/FKIKelee/AdBlock/Reading/FinanceNews_remove_ads.sgmodule` | [`Module/AdBlock/FinanceNews_remove_ads.sgmodule`](../Module/AdBlock/FinanceNews_remove_ads.sgmodule) |
 | `Module/FKIKelee/AdBlock/Reading/Huxiu_remove_ads.sgmodule` | [`Module/AdBlock/Huxiu_remove_ads.sgmodule`](../Module/AdBlock/Huxiu_remove_ads.sgmodule) |
 | `Module/FKIKelee/AdBlock/Reading/IThome_remove_ads.sgmodule` | [`Module/AdBlock/IThome_remove_ads.sgmodule`](../Module/AdBlock/IThome_remove_ads.sgmodule) |
@@ -323,4 +323,4 @@
 | `Ruleset/FKIKelee/Enhancement/TestFlightRegionUnlock.list` | [`Ruleset/Enhancement/TestFlightRegionUnlock.list`](../Ruleset/Enhancement/TestFlightRegionUnlock.list) |
 | `Ruleset/FKIKelee/Subscription/Sub-Store.list` | [`Ruleset/Enhancement/Sub-Store.list`](../Ruleset/Enhancement/Sub-Store.list) |
 
-2026-11-07 番茄小说入口统一（仅由 yfamilys 上游维护）：`Module/AdBlock/DragonRead_remove_ads.sgmodule` 已删除，统一使用 [FanQieNovel.sgmodule](../Module/AdBlock/FanQieNovel.sgmodule)。
+2026-11-07 番茄小说保留两个独立版本：[可莉版](../Module/AdBlock/DragonRead_remove_ads.sgmodule) 与 [yfamilys 版](../Module/AdBlock/FanQieNovel.sgmodule)，各自跟随对应上游更新。

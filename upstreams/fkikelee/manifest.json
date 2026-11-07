@@ -944,6 +944,20 @@
       "scripts": 1
     },
     {
+      "id": "DragonRead_remove_ads",
+      "name": "番茄小说去广告（可莉）",
+      "category": "去广告",
+      "subcategory": "",
+      "module": "Module/AdBlock/DragonRead_remove_ads.sgmodule",
+      "source": "lpx/DragonRead_remove_ads.lpx",
+      "source_sha256": "da052ba71baa527147c11c63b88b5391eff2ac52da6c64bb7d696979f7e8aaee",
+      "parameters": {},
+      "notes": [],
+      "rules": 34,
+      "rewrites": 0,
+      "scripts": 0
+    },
+    {
       "id": "DubbingShow_remove_ads",
       "name": "配音秀去广告",
       "category": "去广告",

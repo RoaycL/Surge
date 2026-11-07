@@ -46,7 +46,7 @@ class FanQieTests(unittest.TestCase):
         for host in ['*.snssdk.com', '*.byteimg.com', '*.pstatp.com', '*.pangolin-sdk-toutiao.com', '*.pglstatp-toutiao.com']:
             self.assertIn(host, hosts)
 
-    def test_single_owner_and_live_source(self):
+    def test_independent_sources_and_live_updates(self):
         spec = importlib.util.spec_from_file_location('sync_fanqie', ROOT / 'scripts/sync_upstream.py')
         sync = importlib.util.module_from_spec(spec); spec.loader.exec_module(sync)
         self.assertEqual(sync.SOURCES['FanQieNovel'], UPSTREAM)
@@ -55,13 +55,16 @@ class FanQieTests(unittest.TestCase):
         spec = importlib.util.spec_from_file_location('loon_fanqie', ROOT / 'scripts/convert_loon.py')
         loon = importlib.util.module_from_spec(spec); spec.loader.exec_module(loon)
         c = loon.Converter(ROOT / 'upstreams/fkikelee')
-        # Exclusion must happen before opening the removed original file.
+        c.source_sha = 'test'
         c.convert(ROOT / 'upstreams/fkikelee/lpx/DragonRead_remove_ads.lpx')
-        self.assertEqual(c.entries, [])
-        self.assertEqual(c.files, {})
-        self.assertFalse((ROOT / 'Module/AdBlock/DragonRead_remove_ads.sgmodule').exists())
+        self.assertEqual(c.entries[0]['module'], 'Module/AdBlock/DragonRead_remove_ads.sgmodule')
+        self.assertNotIn(CANONICAL, c.files)
+        keli = c.files['Module/AdBlock/DragonRead_remove_ads.sgmodule']
+        self.assertIn('（可莉）', keli)
+        self.assertNotIn('[URL Rewrite]', keli)
+        self.assertIn('DOMAIN, log3-applog.fqnovel.com, REJECT', keli)
+        self.assertTrue((ROOT / 'Module/AdBlock/DragonRead_remove_ads.sgmodule').exists())
         self.assertFalse((ROOT / 'upstreams/FanQieNovel.yfamilys.plugin').exists())
-        self.assertFalse((ROOT / 'upstreams/fkikelee/lpx/DragonRead_remove_ads.lpx').exists())
         updated = snapshot + '\n[Rule]\nDOMAIN,new-ad.example,REJECT\n'
         self.assertIn('DOMAIN,new-ad.example,REJECT', sync.convert_fanqie(updated))
 
