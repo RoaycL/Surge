@@ -17,6 +17,7 @@ if str(ROOT / 'scripts') not in sys.path:
     sys.path.insert(0, str(ROOT / 'scripts'))
 RAW = 'https://raw.githubusercontent.com/RoaycL/Surge/main/'
 SOURCES = {
+    'FanQieNovel': 'https://yfamilys.com/plugin/fanqienovel.plugin',
     'Pinduoduo': 'https://raw.githubusercontent.com/ZenmoFeiShi/Qx/refs/heads/main/Pinduoduo.snippet',
     'hlwxx_remove_ads': 'https://raw.githubusercontent.com/ZenmoFeiShi/Qx/refs/heads/main/hlwxx_remove_ads.snippet',
     'Weibo': 'https://raw.githubusercontent.com/fmz200/wool_scripts/main/QuantumultX/rewrite/weibo.snippet',
@@ -312,8 +313,8 @@ def convert_tx(text, fetch):
 
 
 def convert_fanqie(text):
-    from merge_fanqie import merge_fanqie
-    return merge_fanqie(text)
+    from fanqie import convert_fanqie as convert
+    return convert(text)
 
 
 def validate(outputs):
@@ -347,12 +348,13 @@ def main():
     outputs = {}
     for name, url in SOURCES.items():
         text = fetch.get(url)
-        outputs['upstreams/' + name + '.snippet'] = text
-        outputs.update(convert_tx(text, fetch) if name == 'TxvideoAD' else convert(name, text, fetch))
-    # Until a canonical upstream URL is supplied, keep the user's pasted FanQie snapshot.
-    snapshot = (ROOT / 'upstreams/FanQieNovel.plugin').read_text()
-    outputs['Module/AdBlock/FanQieNovel.sgmodule'] = convert_fanqie(snapshot)
-    outputs['upstreams/lock.json'] = json.dumps({'sha256': fetch.manifest, 'static_sources': ['upstreams/FanQieNovel.plugin', 'upstreams/FanQieNovel.yfamilys.plugin']}, indent=2, ensure_ascii=False) + '\n'
+        if name == 'FanQieNovel':
+            outputs['upstreams/FanQieNovel.plugin'] = text
+            outputs['Module/AdBlock/FanQieNovel.sgmodule'] = convert_fanqie(text)
+        else:
+            outputs['upstreams/' + name + '.snippet'] = text
+            outputs.update(convert_tx(text, fetch) if name == 'TxvideoAD' else convert(name, text, fetch))
+    outputs['upstreams/lock.json'] = json.dumps({'sha256': fetch.manifest, 'static_sources': []}, indent=2, ensure_ascii=False) + '\n'
     validate(outputs)
     changed = []
     for name, content in outputs.items():

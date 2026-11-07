@@ -323,4 +323,4 @@
 | `Ruleset/FKIKelee/Enhancement/TestFlightRegionUnlock.list` | [`Ruleset/Enhancement/TestFlightRegionUnlock.list`](../Ruleset/Enhancement/TestFlightRegionUnlock.list) |
 | `Ruleset/FKIKelee/Subscription/Sub-Store.list` | [`Ruleset/Enhancement/Sub-Store.list`](../Ruleset/Enhancement/Sub-Store.list) |
 
-2026-11-07 番茄小说合并：`Module/AdBlock/DragonRead_remove_ads.sgmodule` 已删除，统一使用 [FanQieNovel.sgmodule](../Module/AdBlock/FanQieNovel.sgmodule)。
+2026-11-07 番茄小说入口统一（仅由 yfamilys 上游维护）：`Module/AdBlock/DragonRead_remove_ads.sgmodule` 已删除，统一使用 [FanQieNovel.sgmodule](../Module/AdBlock/FanQieNovel.sgmodule)。

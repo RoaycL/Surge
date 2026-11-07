@@ -112,7 +112,14 @@ class ConverterTests(unittest.TestCase):
         meta, *_ = converter.parse_qx("#!name=x\n#!date=2026-10-02 13:57:49\n#!update = 2026-01-01\n^https://t url reject-dict\nhostname = t")
         self.assertEqual([m for m in meta if 'date' in m], ['#!date=2026-10-02 13:57:49'])
         for name in converter.SOURCES:
-            self.assertRegex((converter.ROOT / f'Module/AdBlock/{name}.sgmodule').read_text(), r'(?m)^#!date=\S')
+            output = (converter.ROOT / f'Module/AdBlock/{name}.sgmodule').read_text()
+            if name == 'FanQieNovel':
+                import re
+                source = (converter.ROOT / 'upstreams/FanQieNovel.plugin').read_text()
+                expected = [m.strip() for m in re.findall(r'^#!date=(.*)$', source, re.M) if m.strip()]
+                self.assertEqual(re.findall(r'^#!date=(.*)$', output, re.M), expected)
+            else:
+                self.assertRegex(output, r'(?m)^#!date=\S')
 
 
 if __name__ == '__main__':

@@ -11,8 +11,6 @@ on:
       - 'scripts/convert_loon.py'
       - 'scripts/loon_*.tpl'
       - 'scripts/build_catalog.py'
-      - 'scripts/merge_fanqie.py'
-      - 'upstreams/FanQieNovel.yfamilys.plugin'
       - 'scripts/run_checks.sh'
       - 'tests/argument_probe.cjs'
 

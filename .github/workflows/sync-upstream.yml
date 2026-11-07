@@ -10,8 +10,7 @@ on:
       - '.github/workflows/sync-upstream.yml'
       - 'scripts/sync_upstream.py'
       - 'scripts/build_catalog.py'
-      - 'scripts/merge_fanqie.py'
-      - 'upstreams/FanQieNovel.yfamilys.plugin'
+      - 'scripts/fanqie.py'
       - 'scripts/run_checks.sh'
       - 'tests/upstream_runtime.cjs'
       - 'tests/test_converter.py'
@@ -51,7 +50,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          git add -A -- README.md 'upstreams/*.snippet' upstreams/lock.json \
+          git add -A -- README.md 'upstreams/*.snippet' upstreams/FanQieNovel.plugin upstreams/lock.json \
             Module/AdBlock/Pinduoduo.sgmodule Module/AdBlock/hlwxx_remove_ads.sgmodule Module/AdBlock/Weibo.sgmodule \
             Module/AdBlock/FanQieNovel.sgmodule Module/AdBlock/TxvideoAD.sgmodule 'JS/*.surge.js'
           if git diff --cached --quiet; then

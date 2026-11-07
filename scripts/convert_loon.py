@@ -4,10 +4,6 @@ import argparse, collections, hashlib, json, re, subprocess
 from pathlib import Path
 from urllib.parse import quote
 ROOT = Path(__file__).resolve().parents[1]
-# Support sibling helpers when the converter is loaded by offline test tools.
-import sys
-if str(ROOT / 'scripts') not in sys.path:
-    sys.path.insert(0, str(ROOT / 'scripts'))
 RAW = 'https://raw.githubusercontent.com/RoaycL/Surge/main/'
 CATS = {'去广告': 'AdBlock', 'DNS': 'DNS', **dict.fromkeys(['功能增强', '节点检测', '签到', '定时任务', '订阅管理', '配置管理', '资源转换', '数据管理', '其他'], 'Enhancement')}
 def js(v):
@@ -251,6 +247,9 @@ class Converter:
         return dest
 
     def convert(self, f):
+        # FanQie is exclusively owned by the yfamilys upstream converter.
+        if f.stem == 'DragonRead_remove_ads':
+            return
         source = f.read_text()
         sections = collections.defaultdict(list)
         meta = {}
@@ -510,11 +509,6 @@ class Converter:
         headers += ['# NOTE: ' + s for s in dict.fromkeys(notes)]
         text = '\n'.join(headers) + '\n' + ''.join(('\n[' + s + ']\n' + '\n'.join(v) + '\n' for s, v in out.items() if v))
         dest = f'Module/{folder}/{stem}.sgmodule'
-        if stem == 'DragonRead_remove_ads':
-            from merge_fanqie import CANONICAL, merge_fanqie
-            dest = CANONICAL
-            text = merge_fanqie((ROOT / 'upstreams/FanQieNovel.plugin').read_text(), dragon=source)
-            notes.append('与原有 FanQieNovel 及 yfamilys 快照合并，仅保留一个模块。')
         self.put(dest, text)
         self.put('upstreams/fkikelee/lpx/' + f.name, source)
         self.entries.append(dict(id=stem, name=name, category=tag, subcategory=sub, module=dest, source='lpx/' + f.name, source_sha256=sha(source), parameters=params, notes=list(dict.fromkeys(notes)), rules=len(sections['[rule]']), rewrites=len(sections['[rewrite]']), scripts=len(sections['[script]'])))
@@ -533,7 +527,7 @@ class Converter:
         # JS/FKIKelee is generated in full; upstreams/fkikelee/extra holds manual vendored resources.
         stale.update(str(x.relative_to(ROOT)) for x in (ROOT / 'JS/FKIKelee').rglob('*') if x.is_file())
         stale.update(str(x.relative_to(ROOT)) for x in (ROOT / 'upstreams/fkikelee/lpx').glob('*.lpx'))
-        # The unified FanQie module is jointly maintained, even if its FK input disappears.
+        # FanQie is owned exclusively by scripts/sync_upstream.py, not this generator.
         stale.discard('Module/AdBlock/FanQieNovel.sgmodule')
         for p in sorted(stale - set(self.files)):
             if (ROOT / p).is_file():

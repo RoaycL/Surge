@@ -16,7 +16,7 @@ node tests/argument_probe.cjs
 python3 -m unittest discover -s tests -p 'test_amap.py'
 python3 -m unittest discover -s tests -p 'test_external_jq.py'
 python3 -m unittest discover -s tests -p 'test_converter.py'
-python3 -m unittest discover -s tests -p 'test_fanqie_merge.py'
+python3 -m unittest discover -s tests -p 'test_fanqie.py'
 node tests/upstream_runtime.cjs
 python3 scripts/validate_repository.py
 node tests/alidns_auto_switch.cjs
