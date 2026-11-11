@@ -318,7 +318,7 @@
       "title": "去开屏广告融合版",
       "group": "AdBlock",
       "source": "upstreams/yfamilys/sources/module-startingad.sgmodule",
-      "sha256": "6ba7d21785806e2c27c98aecb8b3bd69fee7c7e932a121851793cb479a7d4b58",
+      "sha256": "f25ba434480a0c29fe08589f2a7892d07f87d6b7ada05c5e71840ecb8245ecd2",
       "module": "Module/AdBlock/YFamily-startingad.sgmodule",
       "notes": [
         "为含逗号的正则添加引号。",
@@ -369,7 +369,12 @@
         "https://gist.githubusercontent.com/blackmatrix7/f5f780d0f56b319b6ad9848fd080bb18/raw/zheye.min.js",
         "https://raw.githubusercontent.com/app2smile/rules/master/js/tieba-json.js",
         "https://raw.githubusercontent.com/app2smile/rules/master/js/tieba-proto.js",
-        "https://raw.githubusercontent.com/app2smile/rules/master/js/qidian.js"
+        "https://raw.githubusercontent.com/app2smile/rules/master/js/qidian.js",
+        "https://royal-block-f6b1.q00.workers.dev/scripts/bdpan.ads.js",
+        "https://github.com/ddgksf2013/Scripts/raw/master/12306.js",
+        "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/reddit.js",
+        "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/chelaile.js",
+        "https://royal-block-f6b1.q00.workers.dev/scripts/soutushenqi.vip.js"
       ]
     },
     {
@@ -377,7 +382,7 @@
       "title": "去开屏广告融合版ultra",
       "group": "AdBlock",
       "source": "upstreams/yfamilys/sources/module-adultra.sgmodule",
-      "sha256": "1cbb531aea689c7365fcd78a435edd7cb024ac9c1ccacec6430ebe071299fece",
+      "sha256": "172ba45a042f50daa4ba27e45454980dbd662b7a5ab8a381f29263a45e979cd6",
       "module": "Module/AdBlock/YFamily-adultra.sgmodule",
       "notes": [
         "为含逗号的正则添加引号。"
@@ -427,7 +432,12 @@
         "https://gist.githubusercontent.com/blackmatrix7/f5f780d0f56b319b6ad9848fd080bb18/raw/zheye.min.js",
         "https://raw.githubusercontent.com/app2smile/rules/master/js/tieba-json.js",
         "https://raw.githubusercontent.com/app2smile/rules/master/js/tieba-proto.js",
-        "https://raw.githubusercontent.com/app2smile/rules/master/js/qidian.js"
+        "https://raw.githubusercontent.com/app2smile/rules/master/js/qidian.js",
+        "https://royal-block-f6b1.q00.workers.dev/scripts/bdpan.ads.js",
+        "https://github.com/ddgksf2013/Scripts/raw/master/12306.js",
+        "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/reddit.js",
+        "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/chelaile.js",
+        "https://royal-block-f6b1.q00.workers.dev/scripts/soutushenqi.vip.js"
       ]
     },
     {
@@ -435,7 +445,7 @@
       "title": "去开屏广告融合版ultra+",
       "group": "AdBlock",
       "source": "upstreams/yfamilys/sources/module-adultraplus.sgmodule",
-      "sha256": "ce40b45d8900ee97108607245a96ffd54bf7cb469b1ee32d004edd6513f92884",
+      "sha256": "8783b70742a706bf002fb05986be9a0d9af98674cd1067f34b153ad8780bee03",
       "module": "Module/AdBlock/YFamily-adultraplus.sgmodule",
       "notes": [
         "为含逗号的正则添加引号。",
@@ -489,6 +499,7 @@
         "https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/QuDa.js",
         "https://gist.githubusercontent.com/ddgksf2013/4f53b7c6083678df25fecc8ff68b52c4/raw/netease.adblock.js",
         "https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/dianping.js",
+        "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/reddit.js",
         "https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/reddit.js",
         "https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/caixin/caixinAd.js",
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/caixinads.js",
@@ -519,8 +530,10 @@
         "https://raw.githubusercontent.com/NobyDa/Script/master/Bahamut/BahamutAnimeAds.js",
         "https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/coolapk.js",
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/coolapk.js",
+        "https://royal-block-f6b1.q00.workers.dev/scripts/bdpan.ads.js",
         "https://raw.githubusercontent.com/kokoryh/Script/master/js/12306.js",
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/12306.js",
+        "https://github.com/ddgksf2013/Scripts/raw/master/12306.js",
         "https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/freshippo.js",
         "https://royal-block-f6b1.q00.workers.dev/scripts/redbook.ads.js",
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/cainiao_json.js",
@@ -531,6 +544,7 @@
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/hanglvzongheng.js",
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/fly.js",
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/iqiyi_open_ads.js",
+        "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/chelaile.js",
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/ximalaya_json.js",
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/amap.js",
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/ahfs.js",
@@ -557,6 +571,7 @@
         "https://raw.githubusercontent.com/app2smile/rules/master/js/spotify-qx-header.js",
         "https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/maimai/maimai_ads.js",
         "https://raw.githubusercontent.com/app2smile/rules/master/js/adsense.js",
+        "https://royal-block-f6b1.q00.workers.dev/scripts/soutushenqi.vip.js",
         "https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/umetrip/umetrip_ads.js",
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/amdc.js",
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/applet.js"
