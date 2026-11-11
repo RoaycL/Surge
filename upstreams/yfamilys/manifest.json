@@ -445,7 +445,7 @@
       "title": "去开屏广告融合版ultra+",
       "group": "AdBlock",
       "source": "upstreams/yfamilys/sources/module-adultraplus.sgmodule",
-      "sha256": "8783b70742a706bf002fb05986be9a0d9af98674cd1067f34b153ad8780bee03",
+      "sha256": "cb049c5233694e62fa1377e68ed503ff5f9b3173a45ee358450c303592d0bc05",
       "module": "Module/AdBlock/YFamily-adultraplus.sgmodule",
       "notes": [
         "为含逗号的正则添加引号。",
