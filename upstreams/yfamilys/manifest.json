@@ -280,7 +280,7 @@
       "title": "去开屏广告轻量版",
       "group": "AdBlock",
       "source": "upstreams/yfamilys/sources/module-adlite.sgmodule",
-      "sha256": "4f2288cf9fa562278b292f2fa0bf3857dc49ffcfbdc4da84a42abb5487e19591",
+      "sha256": "8fc3afbc04532efe04f9604e49c3586fe008133bfa7d930268fbd60043e7aaf9",
       "module": "Module/AdBlock/YFamily-adlite.sgmodule",
       "notes": [
         "为含逗号的正则添加引号。"
@@ -318,7 +318,7 @@
       "title": "去开屏广告融合版",
       "group": "AdBlock",
       "source": "upstreams/yfamilys/sources/module-startingad.sgmodule",
-      "sha256": "e2c569ba03e46b32e8d9650ec206fcb5cc410aaf5bc1dace2046b73f20d8c623",
+      "sha256": "6ba7d21785806e2c27c98aecb8b3bd69fee7c7e932a121851793cb479a7d4b58",
       "module": "Module/AdBlock/YFamily-startingad.sgmodule",
       "notes": [
         "为含逗号的正则添加引号。",
@@ -377,7 +377,7 @@
       "title": "去开屏广告融合版ultra",
       "group": "AdBlock",
       "source": "upstreams/yfamilys/sources/module-adultra.sgmodule",
-      "sha256": "3c34816fcbe3fb9d2ae7d5780abb6831fd1a34d0621b4b5d7b797a6a0c136f61",
+      "sha256": "1cbb531aea689c7365fcd78a435edd7cb024ac9c1ccacec6430ebe071299fece",
       "module": "Module/AdBlock/YFamily-adultra.sgmodule",
       "notes": [
         "为含逗号的正则添加引号。"
