@@ -280,7 +280,7 @@
       "title": "去开屏广告轻量版",
       "group": "AdBlock",
       "source": "upstreams/yfamilys/sources/module-adlite.sgmodule",
-      "sha256": "8fc3afbc04532efe04f9604e49c3586fe008133bfa7d930268fbd60043e7aaf9",
+      "sha256": "fbde6396a92efa05890f347fd5600b7d86ae2479f429ed243546d2215db2509b",
       "module": "Module/AdBlock/YFamily-adlite.sgmodule",
       "notes": [
         "为含逗号的正则添加引号。"
@@ -318,7 +318,7 @@
       "title": "去开屏广告融合版",
       "group": "AdBlock",
       "source": "upstreams/yfamilys/sources/module-startingad.sgmodule",
-      "sha256": "f25ba434480a0c29fe08589f2a7892d07f87d6b7ada05c5e71840ecb8245ecd2",
+      "sha256": "c45882a75b77a4c7427a9306684436fbf22186bf2e9d6c961c6d96d44146f8fb",
       "module": "Module/AdBlock/YFamily-startingad.sgmodule",
       "notes": [
         "为含逗号的正则添加引号。",
@@ -382,7 +382,7 @@
       "title": "去开屏广告融合版ultra",
       "group": "AdBlock",
       "source": "upstreams/yfamilys/sources/module-adultra.sgmodule",
-      "sha256": "172ba45a042f50daa4ba27e45454980dbd662b7a5ab8a381f29263a45e979cd6",
+      "sha256": "c37b603e6725abb5d3d63d8cdf7d045c8ce06d5b947017dc98fd5628b9f60ee9",
       "module": "Module/AdBlock/YFamily-adultra.sgmodule",
       "notes": [
         "为含逗号的正则添加引号。"
@@ -445,11 +445,10 @@
       "title": "去开屏广告融合版ultra+",
       "group": "AdBlock",
       "source": "upstreams/yfamilys/sources/module-adultraplus.sgmodule",
-      "sha256": "cb049c5233694e62fa1377e68ed503ff5f9b3173a45ee358450c303592d0bc05",
+      "sha256": "1a70a74abfca8e080a638dab264a52d0ce6a4d0dca6e3ac3dfed5a6c352027df",
       "module": "Module/AdBlock/YFamily-adultraplus.sgmodule",
       "notes": [
-        "为含逗号的正则添加引号。",
-        "将混入 Script 段的 QX 声明转换为 Surge；外部脚本 API 仍需实测。"
+        "为含逗号的正则添加引号。"
       ],
       "dependencies": [
         "https://raw.githubusercontent.com/Keywos/rule/main/script/wy/js/wyres.js",
@@ -494,6 +493,7 @@
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/master/abchina.js",
         "https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/xiaotucc.js",
         "https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/mafengwo.js",
+        "https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/bilibiliManga.js",
         "https://raw.githubusercontent.com/app2smile/rules/master/js/qidian.js",
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/master/pupumarket.js",
         "https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/QuDa.js",
@@ -568,7 +568,6 @@
         "https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/jingdong/jingdong.js",
         "https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/bohe/bohe_ads.js",
         "https://github.com/fmz200/wool_scripts/raw/main/Scripts/mlxx/mlxx.js",
-        "https://raw.githubusercontent.com/app2smile/rules/master/js/spotify-qx-header.js",
         "https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/maimai/maimai_ads.js",
         "https://raw.githubusercontent.com/app2smile/rules/master/js/adsense.js",
         "https://royal-block-f6b1.q00.workers.dev/scripts/soutushenqi.vip.js",
