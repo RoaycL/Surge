@@ -9,6 +9,12 @@
 # NOTE: 为含逗号的正则添加引号。
 
 # 由yfamilys.com自动维护 202611
+[Rule]
+DOMAIN-SUFFIX,shenshiads.com,REJECT
+DOMAIN-SUFFIX,yfanads.com,REJECT
+DOMAIN-SUFFIX,iyes.youku.com,REJECT
+DOMAIN-SUFFIX,innoads.cn,REJECT
+DOMAIN-SUFFIX,adlog-ztjy.szy.cn,REJECT
 [URL Rewrite]
 ^https?:\/\/choicegw2.eastmoney.com\/ads\/userauth\/api\/Ad\/GetLaunchAd _ reject
 ^https?:\/\/api\.vistopia\.com\.cn\/api\/v\d\/home\/advertisement _ reject

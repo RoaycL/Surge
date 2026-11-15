@@ -9,6 +9,17 @@
 # NOTE: 为含逗号的正则添加引号。
 
 # 由yfamilys.com自动维护 202611
+[Rule]
+DOMAIN-SUFFIX,shenshiads.com,REJECT
+DOMAIN-SUFFIX,yfanads.com,REJECT
+DOMAIN-SUFFIX,iyes.youku.com,REJECT
+DOMAIN-SUFFIX,innoads.cn,REJECT
+DOMAIN-SUFFIX,adlog-ztjy.szy.cn,REJECT
+DOMAIN,adstrategy.biz.weibo.com,REJECT
+DOMAIN-SUFFIX,api.touch-moblie.com,REJECT
+DOMAIN-SUFFIX,iyes.youku.com,REJECT
+DOMAIN-SUFFIX,adlaunch.moji.com,REJECT
+DOMAIN-SUFFIX,ad.10010.com,REJECT
 [URL Rewrite]
 ^https?://(www.)?(g|google)\.cn https://www.google.com 302
 ^https?://(ditu|maps)\.google\.cn https://maps.google.com 302

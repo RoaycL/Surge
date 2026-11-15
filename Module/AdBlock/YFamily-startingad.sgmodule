@@ -10,6 +10,17 @@
 
 # 融合：通用开屏，高德地图，微信小程序，B站，菜鸟裹裹，bing,keep style,网易云，随手记，微信公众号，小红书，喜马拉雅，知乎，Pixiv，酷安，多多视频，百度地图
 # 由yfamilys.com自动维护 202611
+[Rule]
+DOMAIN-SUFFIX,shenshiads.com,REJECT
+DOMAIN-SUFFIX,yfanads.com,REJECT
+DOMAIN-SUFFIX,iyes.youku.com,REJECT
+DOMAIN-SUFFIX,innoads.cn,REJECT
+DOMAIN-SUFFIX,adlog-ztjy.szy.cn,REJECT
+DOMAIN,adstrategy.biz.weibo.com,REJECT
+DOMAIN-SUFFIX,api.touch-moblie.com,REJECT
+DOMAIN-SUFFIX,iyes.youku.com,REJECT
+DOMAIN-SUFFIX,adlaunch.moji.com,REJECT
+DOMAIN-SUFFIX,ad.10010.com,REJECT
 [URL Rewrite]
 ^https?:\/\/choicegw2.eastmoney.com\/ads\/userauth\/api\/Ad\/GetLaunchAd _ reject
 ^https?:\/\/api\.vistopia\.com\.cn\/api\/v\d\/home\/advertisement _ reject
