@@ -38,7 +38,7 @@
 | [Four in One](https://yfamilys.com/module/4in1.module) | [YFamily-4in1.sgmodule](../Module/Enhancement/YFamily-4in1.sgmodule) |  |
 | [BingAI for Safari](https://yfamilys.com/module/bfs.module) | [YFamily-bfs.sgmodule](../Module/Enhancement/YFamily-bfs.sgmodule) |  |
 | [去开屏广告轻量版](https://yfamilys.com/module/adlite.sgmodule) | [YFamily-adlite.sgmodule](../Module/AdBlock/YFamily-adlite.sgmodule) | 为含逗号的正则添加引号。 |
-| [去开屏广告融合版](https://yfamilys.com/module/startingad.sgmodule) | [YFamily-startingad.sgmodule](../Module/AdBlock/YFamily-startingad.sgmodule) | 为含逗号的正则添加引号。；将混入 Script 段的 QX 声明转换为 Surge；外部脚本 API 仍需实测。 |
+| [去开屏广告融合版](https://yfamilys.com/module/startingad.sgmodule) | [YFamily-startingad.sgmodule](../Module/AdBlock/YFamily-startingad.sgmodule) | 为含逗号的正则添加引号。 |
 | [去开屏广告融合版ultra](https://yfamilys.com/module/adultra.sgmodule) | [YFamily-adultra.sgmodule](../Module/AdBlock/YFamily-adultra.sgmodule) | 为含逗号的正则添加引号。 |
 | [去开屏广告融合版ultra+](https://yfamilys.com/module/adultraplus.sgmodule) | [YFamily-adultraplus.sgmodule](../Module/AdBlock/YFamily-adultraplus.sgmodule) | 为含逗号的正则添加引号。 |
 | [accuweather解锁](https://yfamilys.com/module/accu.module) | [YFamily-accu.sgmodule](../Module/Enhancement/YFamily-accu.sgmodule) |  |

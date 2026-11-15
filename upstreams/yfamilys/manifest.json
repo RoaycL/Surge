@@ -280,7 +280,7 @@
       "title": "去开屏广告轻量版",
       "group": "AdBlock",
       "source": "upstreams/yfamilys/sources/module-adlite.sgmodule",
-      "sha256": "fbde6396a92efa05890f347fd5600b7d86ae2479f429ed243546d2215db2509b",
+      "sha256": "85a7caddd378382cf05dcc66fb9263aaecda9d99ce904af1f1406476ebe5d7ec",
       "module": "Module/AdBlock/YFamily-adlite.sgmodule",
       "notes": [
         "为含逗号的正则添加引号。"
@@ -318,11 +318,10 @@
       "title": "去开屏广告融合版",
       "group": "AdBlock",
       "source": "upstreams/yfamilys/sources/module-startingad.sgmodule",
-      "sha256": "c45882a75b77a4c7427a9306684436fbf22186bf2e9d6c961c6d96d44146f8fb",
+      "sha256": "db93d17b8dba3dafe6c8769b498a720701d2ce3b397b483c65d4945a4f0426d4",
       "module": "Module/AdBlock/YFamily-startingad.sgmodule",
       "notes": [
-        "为含逗号的正则添加引号。",
-        "将混入 Script 段的 QX 声明转换为 Surge；外部脚本 API 仍需实测。"
+        "为含逗号的正则添加引号。"
       ],
       "dependencies": [
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/smzdm_json.js",
@@ -382,7 +381,7 @@
       "title": "去开屏广告融合版ultra",
       "group": "AdBlock",
       "source": "upstreams/yfamilys/sources/module-adultra.sgmodule",
-      "sha256": "c37b603e6725abb5d3d63d8cdf7d045c8ce06d5b947017dc98fd5628b9f60ee9",
+      "sha256": "2f11d502d3c4987d2b696fea2511ce0b07e8632ea76d404472c2ae5c8d0acf03",
       "module": "Module/AdBlock/YFamily-adultra.sgmodule",
       "notes": [
         "为含逗号的正则添加引号。"
@@ -445,7 +444,7 @@
       "title": "去开屏广告融合版ultra+",
       "group": "AdBlock",
       "source": "upstreams/yfamilys/sources/module-adultraplus.sgmodule",
-      "sha256": "1a70a74abfca8e080a638dab264a52d0ce6a4d0dca6e3ac3dfed5a6c352027df",
+      "sha256": "7749baf4d097ba99c60c0420e43faf47da2b5f7d9c7879bfa343f402c57b29ec",
       "module": "Module/AdBlock/YFamily-adultraplus.sgmodule",
       "notes": [
         "为含逗号的正则添加引号。"
@@ -563,6 +562,7 @@
         "https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/lawson.js",
         "https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/PupuSplashAds.js",
         "https://raw.githubusercontent.com/ishowshu/qx/refs/heads/main/script/goofish.js",
+        "https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/template/req_replace_body.js",
         "https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/meiyou/meiyou_ads.js",
         "https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/dianyinglieshou.js",
         "https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/jingdong/jingdong.js",
