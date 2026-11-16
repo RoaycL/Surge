@@ -381,7 +381,7 @@
       "title": "去开屏广告融合版ultra",
       "group": "AdBlock",
       "source": "upstreams/yfamilys/sources/module-adultra.sgmodule",
-      "sha256": "781534bb028f2a286a401ebda5dbcc61962c475bf873668a01bee76fc61aba2a",
+      "sha256": "704ee1789a9b974543328a191e52decb250ee720173ee5e9bcd0b62df1a42770",
       "module": "Module/AdBlock/YFamily-adultra.sgmodule",
       "notes": [
         "为含逗号的正则添加引号。"
@@ -444,7 +444,7 @@
       "title": "去开屏广告融合版ultra+",
       "group": "AdBlock",
       "source": "upstreams/yfamilys/sources/module-adultraplus.sgmodule",
-      "sha256": "e16278ef92265a2d283a5c7ef2eb5d5cb1a4a6f63a95895c50dcde148a7d88de",
+      "sha256": "e039324290fb4e66974497af10a9a77e75c12fee21101d73f43ba48804c345ad",
       "module": "Module/AdBlock/YFamily-adultraplus.sgmodule",
       "notes": [
         "为含逗号的正则添加引号。"

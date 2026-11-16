@@ -3523,7 +3523,6 @@ http:\/\/ad\.myfriday\.cn\/d\/json\/1\.1 _ reject
 ^http:\/\/101\.42\.130\.147\/httpdns\/resolve\/ _ reject
 ^http://(www.)?aicoin\.cn/$ https://www.aicoin.com/ 302
 ^(http:\/\/www\.vgtime\.com\/app\/topic\/\d+\.jhtml\?.*?&close_ad=)false(&page=\d&sign=\w+&timestamp=\d+&font_size=\d$) $1true$2 302
-(^https?://passport\.biliintl\.com/x/intl/passport-login/.+)(&s_locale=zh-Hans_[A-Z]{2})(.+)(&sim_code=\d+)(.+) $1&s_locale=zh-Hans_PH$35&sim_code=51503$5 302
 (^https?://app\.biliintl\.com/(x/)?(intl|dm|reply|history|v\d/(fav|msgfeed)).+?)(&s_locale=zh-Hans_[A-Z]{2})(.+?)(&sim_code=\d+)(.+) $1&s_locale=zh-Hans_PH$6&sim_code=51503$8 302
 [Body Rewrite]
 http-response https://beta-api.crunchyroll.com/cms offset_ms":\d+ offset_ms":99999999999999
