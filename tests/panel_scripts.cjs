@@ -29,10 +29,20 @@ async function run(file, {argument = '', trigger, request, response, http = () =
   const api = (used, resetInDays = 3.2) => () => ({status: 200, headers: {}, body: JSON.stringify({used: used * GiB, nextReset: new Date(Date.now() + resetInDays * day).toISOString()})});
   const params = (extra = '') => 'url=http://1.2.3.4:8890/traffic&token=T0k&total=500&reset={{{重置日}}}&tz={{{重置时区}}}&due={{{到期日}}}&showtz={{{显示时区}}}&title={{{标题}}}&policy={{{请求策略}}}' + extra;
   const store = {};
+  // Display text without the alignment machinery: monospace digits -> ASCII, padding removed.
+  const plain = t => t.replace(/[\u{1D7F6}-\u{1D7FF}]/gu, d => String(d.codePointAt(0) - 0x1D7F6)).replace(/[\u2007\u2009\u200a]/g, '');
+  // Same width model as the script (1/100 em); the "|" columns must start at the same offset.
+  const W = {mono: 70.7, '.': 21.48, '%': 80.81, cjk: 94.36, '\u2007': 60.45, '\u2009': 10.25, '\u200a': 5.13};
+  const width = t => [...t].reduce((sum, c) => sum + (/[\u{1D7F6}-\u{1D7FF}]/u.test(c) ? W.mono : /[\u3000-\u303f\u4e00-\u9fff\uff00-\uffef]/.test(c) ? W.cjk : W[c] ?? 60.45), 0);
+  const aligned = content => {
+    const lefts = content.split('\n').filter(l => l.includes('  |  ')).map(l => width(l.split('  |  ')[0]));
+    assert.ok(lefts.length === 2 && Math.abs(lefts[0] - lefts[1]) <= 2.6, `separators misaligned: ${lefts}`);
+  };
 
   let r = await run(V, {argument: params(), store, http: api(113.61)});
   assert.match(r.result.title, /^VMISS \| 500 GB \| \d\d:\d\d$/);
-  assert.equal(r.result.content, '已用：22.7% \t|  剩余：386.39 GB\n重置：4天后');
+  assert.equal(plain(r.result.content), '已用：22.7%  |  剩余：386.39 GB\n重置：4天后');
+  assert.doesNotMatch(r.result.content, /[0-9]%|[0-9]天/, 'numbers in the aligned column use monospace digits');
   assert.equal(r.requests[0].url, 'http://1.2.3.4:8890/traffic?reset_day=23&utc_offset=-5', 'defaults: 23rd, UTC-5');
   assert.equal(r.requests[0].headers['X-Token'], 'T0k');
   assert.equal(r.requests[0].policy, undefined, 'unset policy follows rules');
@@ -40,7 +50,11 @@ async function run(file, {argument = '', trigger, request, response, http = () =
 
   r = await run(V, {argument: params().replace('{{{到期日}}}', '2026-12-23').replace('{{{标题}}}', 'TRI').replace('{{{请求策略}}}', 'Fixed%20Node'), store: {}, http: api(600)});
   assert.match(r.result.title, /^TRI \| 500 GB/);
-  assert.match(r.result.content, /已用：100\.0% .*剩余：0 GB\n重置：4天后 \t\|  到期：2026\.12\.24/, 'UTC-5 due date 12-23 is shown as the UTC+8 date 12-24');
+  assert.equal(plain(r.result.content), '已用：100.0%  |  剩余：0 GB\n重置：4天后  |  到期：2026.12.24\n⚠️ 流量已用完，等待重置', 'UTC-5 due date 12-23 is shown as the UTC+8 date 12-24');
+  aligned(r.result.content);
+  for (const used of [0.5, 49.9, 113.61, 499]) {
+    for (const reset of [0.5, 9.2, 29.9]) aligned((await run(V, {argument: params().replace('{{{到期日}}}', '2026-12-23'), store: {}, http: api(used, reset)})).result.content);
+  }
   assert.equal(r.requests[0].policy, 'Fixed Node');
   // Due date: end of the VMISS (UTC-5) day, shown as a UTC+8 date; rolls months and years.
   const dueShown = async (due, extra = '') => (await run(V, {argument: params(extra).replace('{{{到期日}}}', due), store: {}, http: api(1)})).result.content.match(/到期：(\S+)/)[1];
@@ -54,19 +68,20 @@ async function run(file, {argument = '', trigger, request, response, http = () =
   r = await run(V, {argument: params(), store: {}, http: () => ({status: 404, headers: {}, body: '{"error":"not found"}'})});
   assert.match(r.result.content, /接口地址错误/);
 
-  // Forecast at this period's average pace.
+  // Forecast at this period's average pace, in coarse words only.
   const paced = (usedGiB, elapsedDays, resetInDays) => () => ({status: 200, headers: {}, body: JSON.stringify({used: usedGiB * GiB,
     periodStart: new Date(Date.now() - elapsedDays * day).toISOString(), nextReset: new Date(Date.now() + resetInDays * day).toISOString()})});
   const advice = async (http, extra = '') => (await run(V, {argument: params(extra), store: {}, http})).result.content.split('\n')[2];
-  assert.match(await advice(paced(450, 20, 10)), /^⚠️ 照此速度，(后天|\d+\.\d+) \d\d:\d\d 用完，建议每天 ≤ 5 GB$/, '22.5 GB/day leaves 50 GB for ~2.2 days');
-  assert.equal(await advice(paced(100, 20, 10)), '照此速度，重置前约用 30%，每天可用 40 GB');
-  assert.match(await advice(paced(600, 20, 10)), /^⚠️ 流量已用完，\S+ \d\d:\d\d 重置后恢复$/);
+  assert.equal(await advice(paced(100, 20, 10)), '到重置前：非常富裕', 'projected 150/500 = 30%');
+  assert.equal(await advice(paced(240, 20, 10)), '到重置前：足够', 'projected 72%');
+  assert.equal(await advice(paced(320, 20, 10)), '到重置前：刚好够用', 'projected 96%');
+  assert.equal(await advice(paced(450, 20, 10)), '⚠️ 到重置前：会提前用完', 'projected 135%');
+  assert.equal(await advice(paced(600, 20, 10)), '⚠️ 流量已用完，等待重置');
   assert.equal(await advice(paced(10, 2 / 24, 29)), undefined, 'no forecast in the first hours of a period');
-  assert.match(await advice(paced(499, 20, 10)), /^⚠️ 照此速度，(今天|明天) \d\d:\d\d 用完/, 'runs out within the hour');
 
   // Failures keep the last good numbers visible with the reason.
   r = await run(V, {argument: params(), store, http: () => ({status: 401, headers: {}, body: '{"error":"unauthorized"}'})});
-  assert.match(r.result.content, /已用：22\.7%[\s\S]*⚠️ 访问密钥错误/);
+  assert.match(plain(r.result.content), /已用：22\.7%[\s\S]*⚠️ 访问密钥错误/);
   r = await run(V, {argument: params(), store, http: () => ({error: 'timeout'})});
   assert.match(r.result.content, /⚠️ 连接失败：timeout/);
   r = await run(V, {argument: params(), store: {}, http: () => ({status: 500, headers: {}, body: '{"error":"vnstat missing"}'})});

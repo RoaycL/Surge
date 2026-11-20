@@ -85,31 +85,55 @@ function request() {
   });
 }
 
-// A moment as the user's clock shows it: 今天/明天/后天 or M.D, plus HH:MM.
-function when(time, now, showTz) {
-  const local = (t) => new Date(t + showTz * 3600000);
-  const at = local(time), today = local(now);
-  const days = Math.round((Date.UTC(at.getUTCFullYear(), at.getUTCMonth(), at.getUTCDate()) -
-    Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate())) / 86400000);
-  const day = ["今天", "明天", "后天"][days] || `${at.getUTCMonth() + 1}.${at.getUTCDate()}`;
-  return `${day} ${String(at.getUTCHours()).padStart(2, "0")}:${String(at.getUTCMinutes()).padStart(2, "0")}`;
-}
-
-// Forecast at this period's average pace: will the allowance last until the reset?
-function forecast(used, total, startAt, resetAt, now, showTz) {
+// Forecast at this period's average pace: how comfortably the allowance lasts
+// until the reset. Deliberately coarse; no times or daily numbers.
+function forecast(used, total, startAt, resetAt, now) {
+  if (used >= total) return "⚠️ 流量已用完，等待重置";
   if (!Number.isFinite(startAt) || !Number.isFinite(resetAt) || resetAt <= now) return "";
-  const remaining = total - used;
-  if (remaining <= 0) return `⚠️ 流量已用完，${when(resetAt, now, showTz)} 重置后恢复`;
   const elapsed = now - startAt;
   if (elapsed < 6 * 3600000 || used <= 0) return "";  // too early in the period to judge the pace
-  const rate = used / elapsed;
-  const daily = remaining / ((resetAt - now) / 86400000);
-  const runOutAt = now + remaining / rate;
-  if (runOutAt < resetAt) {
-    return `⚠️ 照此速度，${when(runOutAt, now, showTz)} 用完，建议每天 ≤ ${displayNumber(daily)} GB`;
+  const projected = (used + (used / elapsed) * (resetAt - now)) / total;
+  if (projected <= 0.5) return "到重置前：非常富裕";
+  if (projected <= 0.8) return "到重置前：足够";
+  if (projected <= 1) return "到重置前：刚好够用";
+  return "⚠️ 到重置前：会提前用完";
+}
+
+// Surge panels use a proportional font, so the "|" columns are aligned by
+// width. Digits become mathematical monospace digits (one fixed width); other
+// glyph widths are in 1/100 em of the panel font. The monospace digit equals
+// FIGURE SPACE + THIN SPACE, as measured on device for the AliDNS panel.
+const MONO_DIGITS = ["𝟶", "𝟷", "𝟸", "𝟹", "𝟺", "𝟻", "𝟼", "𝟽", "𝟾", "𝟿"];
+const WIDTH = { mono: 70.7, ".": 21.48, "%": 80.81, cjk: 94.36, figure: 60.45, thin: 10.25, hair: 5.13 };
+
+function mono(value) {
+  return String(value).replace(/\d/g, (digit) => MONO_DIGITS[digit]);
+}
+
+function textWidth(text) {
+  let width = 0;
+  for (const char of text) {
+    if (MONO_DIGITS.includes(char)) width += WIDTH.mono;
+    else if (/[\u3000-\u303f\u4e00-\u9fff\uff00-\uffef]/.test(char)) width += WIDTH.cjk;
+    else width += WIDTH[char] ?? WIDTH.figure;
   }
-  const projected = Math.round(((used + rate * (resetAt - now)) / total) * 100);
-  return `照此速度，重置前约用 ${projected}%，每天可用 ${displayNumber(daily)} GB`;
+  return width;
+}
+
+// Pad with figure / thin / hair spaces to the nearest hair space (~1/20 em).
+function spaces(width) {
+  let rest = Math.max(width, 0), out = "";
+  for (const [char, size] of [["\u2007", WIDTH.figure], ["\u2009", WIDTH.thin], ["\u200a", WIDTH.hair]]) {
+    const count = size === WIDTH.hair ? Math.round(rest / size) : Math.floor(rest / size);
+    out += char.repeat(count);
+    rest -= count * size;
+  }
+  return out;
+}
+
+function columns(rows) {
+  const width = Math.max(...rows.map(([left]) => textWidth(left)));
+  return rows.map(([left, right]) => right ? `${left}${spaces(width - textWidth(left))}  |  ${right}` : left);
 }
 
 function render(data, total, now) {
@@ -120,11 +144,11 @@ function render(data, total, now) {
   const resetAt = Date.parse(data.nextReset);
   const resetDays = Number.isFinite(resetAt) ? Math.max(0, Math.ceil((resetAt - now) / 86400000)) : null;
   const due = dueDate(args.due, offset(args.tz, -5), offset(args.showtz, 8));
-  const lines = [`已用：${percent.toFixed(1)}% \t|  剩余：${displayNumber(remaining)} GB`];
-  if (resetDays !== null && due) lines.push(`重置：${resetDays}天后 \t|  到期：${due}`);
-  else if (resetDays !== null) lines.push(`重置：${resetDays}天后`);
-  else if (due) lines.push(`到期：${due}`);
-  const advice = forecast(used, total, Date.parse(data.periodStart), resetAt, now, offset(args.showtz, 8));
+  const rows = [[`已用：${mono(percent.toFixed(1))}%`, `剩余：${displayNumber(remaining)} GB`]];
+  if (resetDays !== null) rows.push([`重置：${mono(resetDays)}天后`, due ? `到期：${due}` : ""]);
+  else if (due) rows.push([`到期：${due}`, ""]);
+  const lines = columns(rows);
+  const advice = forecast(used, total, Date.parse(data.periodStart), resetAt, now);
   if (advice) lines.push(advice);
   return lines.join("\n");
 }
