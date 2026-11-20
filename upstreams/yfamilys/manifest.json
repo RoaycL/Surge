@@ -280,11 +280,9 @@
       "title": "去开屏广告轻量版",
       "group": "AdBlock",
       "source": "upstreams/yfamilys/sources/module-adlite.sgmodule",
-      "sha256": "3d0901289fea49068a6e456eb369d336ade935ff0f9ab55597be523ee4003327",
+      "sha256": "eb2e1051ee7267c7288bfcec8dbb75f201a03a4e768790d7b88e8bcb9188719c",
       "module": "Module/AdBlock/YFamily-adlite.sgmodule",
-      "notes": [
-        "为含逗号的正则添加引号。"
-      ],
+      "notes": [],
       "dependencies": [
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/dict.js",
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/555Ad.js",
@@ -294,6 +292,7 @@
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/ahfs.js",
         "https://raw.githubusercontent.com/app2smile/rules/master/js/baidumap.js",
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/master/baishitv.js",
+        "https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/replace-body.js",
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/caixinads.js",
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/fly.js",
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/hanglvzongheng.js",
@@ -318,11 +317,9 @@
       "title": "去开屏广告融合版",
       "group": "AdBlock",
       "source": "upstreams/yfamilys/sources/module-startingad.sgmodule",
-      "sha256": "6ed0f99f8af6d2c11ef6ed7cd9ad05543f190e57a14c174c933111411e967ee4",
+      "sha256": "1ed18900e223ede073b4ef59a2d5c8a4a6ac0388c473d79a2137487e961e6ef4",
       "module": "Module/AdBlock/YFamily-startingad.sgmodule",
-      "notes": [
-        "为含逗号的正则添加引号。"
-      ],
+      "notes": [],
       "dependencies": [
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/smzdm_json.js",
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/dict.js",
@@ -333,6 +330,7 @@
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/ahfs.js",
         "https://raw.githubusercontent.com/app2smile/rules/master/js/baidumap.js",
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/master/baishitv.js",
+        "https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/replace-body.js",
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/caixinads.js",
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/fly.js",
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/hanglvzongheng.js",
@@ -381,12 +379,11 @@
       "title": "去开屏广告融合版ultra",
       "group": "AdBlock",
       "source": "upstreams/yfamilys/sources/module-adultra.sgmodule",
-      "sha256": "704ee1789a9b974543328a191e52decb250ee720173ee5e9bcd0b62df1a42770",
+      "sha256": "24fe227f85fec382eb977eeb6dda055ddc02d08333d9031503343bf6dde5b6a2",
       "module": "Module/AdBlock/YFamily-adultra.sgmodule",
-      "notes": [
-        "为含逗号的正则添加引号。"
-      ],
+      "notes": [],
       "dependencies": [
+        "https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/replace-body.js",
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/smzdm_json.js",
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/dict.js",
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/555Ad.js",
@@ -444,15 +441,14 @@
       "title": "去开屏广告融合版ultra+",
       "group": "AdBlock",
       "source": "upstreams/yfamilys/sources/module-adultraplus.sgmodule",
-      "sha256": "e039324290fb4e66974497af10a9a77e75c12fee21101d73f43ba48804c345ad",
+      "sha256": "9ae8dd7b11b7e45ebfeb714d32d11fad282f4cf3257b20939bcfb728875daa34",
       "module": "Module/AdBlock/YFamily-adultraplus.sgmodule",
-      "notes": [
-        "为含逗号的正则添加引号。"
-      ],
+      "notes": [],
       "dependencies": [
         "https://raw.githubusercontent.com/Keywos/rule/main/script/wy/js/wyres.js",
         "https://raw.githubusercontent.com/Sliverkiss/QuantumultX/main/AdBlock/xmApp/xmApp.js",
         "https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/shunfeng_json.js",
+        "https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/replace-body.js",
         "https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/rrtv_json.js",
         "https://github.com/ddgksf2013/Scripts/raw/master/rrtv_json.js",
         "https://github.com/ddgksf2013/Scripts/raw/master/coolapk.js",
@@ -1682,14 +1678,13 @@
       ]
     },
     {
-      "url": "https://yfamilys.com/module/spotifyVIP.module",
+      "url": "https://yfamilys.com/sgmodule/spotifyVIP.sgmodule",
       "title": "spotify",
-      "group": "Enhancement",
-      "source": "upstreams/yfamilys/sources/module-spotifyVIP.module",
-      "sha256": "8c3d908140452a3b2844fc6b1317766cd17b30aa3c6f90a61fa5c587b7336980",
+      "source": "upstreams/yfamilys/sources/sgmodule-spotifyVIP.sgmodule",
+      "sha256": "1dad10f8a38adc2274f9a64fb0e41fc4e7a67e60661dc60514295931dc66c45a",
       "module": "Module/Enhancement/YFamily-spotifyVIP.sgmodule",
+      "group": "Enhancement",
       "notes": [
-        "将 reject-200/reject-dict 转为等价 Map Local 响应。",
         "将 Spotify 远程配置开关转为 Surge 注释前缀参数；默认关闭远程处理，保留本地回退和原脚本地址。"
       ],
       "dependencies": [

@@ -37,10 +37,10 @@
 | [🎨面板·机场信息](https://yfamilys.com/sgmodule/sub.sgmodule) | [YFamily-Panel-sub.sgmodule](../Module/Panel/YFamily-Panel-sub.sgmodule) |  |
 | [Four in One](https://yfamilys.com/module/4in1.module) | [YFamily-4in1.sgmodule](../Module/Enhancement/YFamily-4in1.sgmodule) |  |
 | [BingAI for Safari](https://yfamilys.com/module/bfs.module) | [YFamily-bfs.sgmodule](../Module/Enhancement/YFamily-bfs.sgmodule) |  |
-| [去开屏广告轻量版](https://yfamilys.com/module/adlite.sgmodule) | [YFamily-adlite.sgmodule](../Module/AdBlock/YFamily-adlite.sgmodule) | 为含逗号的正则添加引号。 |
-| [去开屏广告融合版](https://yfamilys.com/module/startingad.sgmodule) | [YFamily-startingad.sgmodule](../Module/AdBlock/YFamily-startingad.sgmodule) | 为含逗号的正则添加引号。 |
-| [去开屏广告融合版ultra](https://yfamilys.com/module/adultra.sgmodule) | [YFamily-adultra.sgmodule](../Module/AdBlock/YFamily-adultra.sgmodule) | 为含逗号的正则添加引号。 |
-| [去开屏广告融合版ultra+](https://yfamilys.com/module/adultraplus.sgmodule) | [YFamily-adultraplus.sgmodule](../Module/AdBlock/YFamily-adultraplus.sgmodule) | 为含逗号的正则添加引号。 |
+| [去开屏广告轻量版](https://yfamilys.com/module/adlite.sgmodule) | [YFamily-adlite.sgmodule](../Module/AdBlock/YFamily-adlite.sgmodule) |  |
+| [去开屏广告融合版](https://yfamilys.com/module/startingad.sgmodule) | [YFamily-startingad.sgmodule](../Module/AdBlock/YFamily-startingad.sgmodule) |  |
+| [去开屏广告融合版ultra](https://yfamilys.com/module/adultra.sgmodule) | [YFamily-adultra.sgmodule](../Module/AdBlock/YFamily-adultra.sgmodule) |  |
+| [去开屏广告融合版ultra+](https://yfamilys.com/module/adultraplus.sgmodule) | [YFamily-adultraplus.sgmodule](../Module/AdBlock/YFamily-adultraplus.sgmodule) |  |
 | [accuweather解锁](https://yfamilys.com/module/accu.module) | [YFamily-accu.sgmodule](../Module/Enhancement/YFamily-accu.sgmodule) |  |
 | [AdBlock](https://yfamilys.com/module/AdBlock.module) | [YFamily-AdBlock.sgmodule](../Module/AdBlock/YFamily-AdBlock.sgmodule) |  |
 | [alarmy](https://yfamilys.com/module/alarmy.module) | [YFamily-alarmy.sgmodule](../Module/Enhancement/YFamily-alarmy.sgmodule) |  |
@@ -133,7 +133,7 @@
 | [石墨文档](https://yfamilys.com/module/smwd.module) | [YFamily-smwd.sgmodule](../Module/Enhancement/YFamily-smwd.sgmodule) |  |
 | [少年得到](https://yfamilys.com/module/sndd.module) | [YFamily-sndd.sgmodule](../Module/Enhancement/YFamily-sndd.sgmodule) |  |
 | [soundcloud](https://yfamilys.com/module/soundcloud.module) | [YFamily-soundcloud.sgmodule](../Module/Enhancement/YFamily-soundcloud.sgmodule) |  |
-| [spotify](https://yfamilys.com/module/spotifyVIP.module) | [YFamily-spotifyVIP.sgmodule](../Module/Enhancement/YFamily-spotifyVIP.sgmodule) | 将 reject-200/reject-dict 转为等价 Map Local 响应。；将 Spotify 远程配置开关转为 Surge 注释前缀参数；默认关闭远程处理，保留本地回退和原脚本地址。 |
+| [spotify](https://yfamilys.com/sgmodule/spotifyVIP.sgmodule) | [YFamily-spotifyVIP.sgmodule](../Module/Enhancement/YFamily-spotifyVIP.sgmodule) | 将 Spotify 远程配置开关转为 Surge 注释前缀参数；默认关闭远程处理，保留本地回退和原脚本地址。 |
 | [substore](https://yfamilys.com/module/substore.sgmodule) | [YFamily-substore.sgmodule](../Module/Enhancement/YFamily-substore.sgmodule) |  |
 | [symbolab](https://yfamilys.com/module/symbolab.module) | [YFamily-symbolab.sgmodule](../Module/Enhancement/YFamily-symbolab.sgmodule) |  |
 | [tangerine](https://yfamilys.com/module/tangerine.module) | [YFamily-tangerine.sgmodule](../Module/Enhancement/YFamily-tangerine.sgmodule) |  |
