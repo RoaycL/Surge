@@ -29,24 +29,12 @@ async function run(file, {argument = '', trigger, request, response, http = () =
   const api = (used, resetInDays = 3.2) => () => ({status: 200, headers: {}, body: JSON.stringify({used: used * GiB, nextReset: new Date(Date.now() + resetInDays * day).toISOString()})});
   const params = (extra = '') => 'url=http://1.2.3.4:8890/traffic&token=T0k&total=500&reset={{{重置日}}}&tz={{{重置时区}}}&showtz={{{显示时区}}}&title={{{标题}}}&policy={{{请求策略}}}' + extra;
   const store = {};
-  // Display text without the alignment machinery: monospace digits -> ASCII, padding removed.
-  const plain = t => t.replace(/[\u{1D7F6}-\u{1D7FF}]/gu, d => String(d.codePointAt(0) - 0x1D7F6)).replace(/[\u2007\u2009\u200a]/g, '');
-  // Width model measured with CoreText (1/100 em, see the script); the "|" columns must start at the same offset.
-  const W = {mono: 60, '.': 21.48, '%': 80.81, ' ': 20.51, cjk: 94.36, '：': 97.37, '\u2007': 60.45, '\u2009': 10.25, '\u200a': 5.13};
-  const isMono = c => /[\u{1D7F6}-\u{1D7FF}]/u.test(c), isHan = c => /[\u4e00-\u9fff]/.test(c), isLatin = c => isMono(c) || /[0-9A-Za-z%]/.test(c);
-  const width = t => [...t].reduce((sum, c, i, a) => sum + (isMono(c) ? W.mono : isHan(c) ? W.cjk : W[c] ?? 60.45)
-    + (a[i + 1] && ((isHan(c) && isLatin(a[i + 1])) || (isLatin(c) && isHan(a[i + 1]))) ? 12.5 : 0), 0);
-  assert.equal(Math.round(width('已用：𝟺𝟾.𝟼%') * 10) / 10, 568.4, 'CoreText: 568.39');
-  assert.equal(Math.round(width('重置：𝟹天后') * 10) / 10, 547.3, 'CoreText: 547.31');
-  const aligned = content => {
-    const lefts = content.split('\n').filter(l => l.includes('  |  ')).map(l => width(l.split('  |  ')[0]));
-    assert.ok(lefts.length === 2 && Math.abs(lefts[0] - lefts[1]) <= 2.6, `separators misaligned: ${lefts}`);
-  };
+  // The "|" columns are aligned with one tab after the left cell.
+  const aligned = content => assert.deepEqual(content.split('\n').filter(l => l.includes('|')).map(l => /^[^\t|]+\t\|  \S/.test(l)), [true, true], content);
 
   let r = await run(V, {argument: params(), store, http: api(113.61)});
   assert.match(r.result.title, /^VMISS \| 500 GB \| \d\d:\d\d$/);
-  assert.match(plain(r.result.content), /^已用：22\.7%  \|  剩余：386\.39 GB\n重置：4天后  \|  到期：\d{4}\.\d{1,2}\.\d{1,2}$/);
-  assert.doesNotMatch(r.result.content, /[0-9]%|[0-9]天/, 'numbers in the aligned column use monospace digits');
+  assert.match(r.result.content, /^已用：22\.7%\t\|  剩余：386\.39 GB\n重置：4天后\t\|  到期：\d{4}\.\d{1,2}\.\d{1,2}$/);
   assert.equal(r.requests[0].url, 'http://1.2.3.4:8890/traffic?reset_day=23&utc_offset=-5', 'defaults: 23rd, UTC-5');
   assert.equal(r.requests[0].headers['X-Token'], 'T0k');
   assert.equal(r.requests[0].policy, undefined, 'unset policy follows rules');
@@ -54,7 +42,7 @@ async function run(file, {argument = '', trigger, request, response, http = () =
 
   r = await run(V, {argument: params().replace('{{{标题}}}', 'TRI').replace('{{{请求策略}}}', 'Fixed%20Node'), store: {}, http: api(600)});
   assert.match(r.result.title, /^TRI \| 500 GB/);
-  assert.match(plain(r.result.content), /^已用：100\.0%  \|  剩余：0 GB\n重置：4天后  \|  到期：\S+\n⚠️ 流量已经用完了，只能等重置了$/);
+  assert.match(r.result.content, /^已用：100\.0%\t\|  剩余：0 GB\n重置：4天后\t\|  到期：\S+\n⚠️ 流量已经用完了，只能等重置了$/);
   aligned(r.result.content);
   for (const used of [0.5, 49.9, 113.61, 499]) {
     for (const reset of [0.5, 9.2, 29.9]) aligned((await run(V, {argument: params(), store: {}, http: api(used, reset)})).result.content);
@@ -86,7 +74,7 @@ async function run(file, {argument = '', trigger, request, response, http = () =
 
   // Failures keep the last good numbers visible with the reason.
   r = await run(V, {argument: params(), store, http: () => ({status: 401, headers: {}, body: '{"error":"unauthorized"}'})});
-  assert.match(plain(r.result.content), /已用：22\.7%[\s\S]*⚠️ 访问密钥错误/);
+  assert.match(r.result.content, /已用：22\.7%[\s\S]*⚠️ 访问密钥错误/);
   r = await run(V, {argument: params(), store, http: () => ({error: 'timeout'})});
   assert.match(r.result.content, /⚠️ 连接失败：timeout/);
   r = await run(V, {argument: params(), store: {}, http: () => ({status: 500, headers: {}, body: '{"error":"vnstat missing"}'})});

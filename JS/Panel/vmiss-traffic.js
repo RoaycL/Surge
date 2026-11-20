@@ -94,49 +94,12 @@ function forecast(used, total, startAt, resetAt, now) {
   return "⚠️ 照现在的速度，重置前就会用完，省着点用";
 }
 
-// Surge panels use a proportional font (SF + PingFang), so the "|" columns are
-// aligned by width. Digits become mathematical monospace digits (one fixed
-// width). Widths are in 1/100 em, measured with CoreText (same as iOS):
-//   - the full-width colon is 47.37 at the end of a line but 97.37 mid-line;
-//   - an ideograph next to a letter, digit or "%" gets 12.5 extra (1/8 em
-//     CJK-Latin autospace); "." and spaces get none.
-const MONO_DIGITS = ["𝟶", "𝟷", "𝟸", "𝟹", "𝟺", "𝟻", "𝟼", "𝟽", "𝟾", "𝟿"];
-const WIDTH = { mono: 60, ".": 21.48, "%": 80.81, " ": 20.51, cjk: 94.36, colon: 97.37, autospace: 12.5, figure: 60.45, thin: 10.25, hair: 5.13 };
-const IDEOGRAPH = /[\u4e00-\u9fff]/;
-
-function mono(value) {
-  return String(value).replace(/\d/g, (digit) => MONO_DIGITS[digit]);
-}
-
-function textWidth(text) {
-  const chars = [...text];
-  const latin = (char) => MONO_DIGITS.includes(char) || /[0-9A-Za-z%]/.test(char);
-  let width = 0;
-  chars.forEach((char, index) => {
-    if (MONO_DIGITS.includes(char)) width += WIDTH.mono;
-    else if (char === "：") width += WIDTH.colon;
-    else if (IDEOGRAPH.test(char)) width += WIDTH.cjk;
-    else width += WIDTH[char] ?? WIDTH.figure;
-    const next = chars[index + 1];
-    if (next && ((IDEOGRAPH.test(char) && latin(next)) || (latin(char) && IDEOGRAPH.test(next)))) width += WIDTH.autospace;
-  });
-  return width;
-}
-
-// Pad with figure / thin / hair spaces to the nearest hair space (~1/20 em).
-function spaces(width) {
-  let rest = Math.max(width, 0), out = "";
-  for (const [char, size] of [["\u2007", WIDTH.figure], ["\u2009", WIDTH.thin], ["\u200a", WIDTH.hair]]) {
-    const count = size === WIDTH.hair ? Math.round(rest / size) : Math.floor(rest / size);
-    out += char.repeat(count);
-    rest -= count * size;
-  }
-  return out;
-}
-
+// Columns are aligned with a tab, as before: the panel's default tab stops are
+// every 28 pt, and every left cell ("已用：0.1%" .. "已用：100.0%", "重置：0天后" ..
+// "重置：31天后") measures 87-108 pt in the 17 pt system font, so all of them
+// stop at 112 pt.
 function columns(rows) {
-  const width = Math.max(...rows.map(([left]) => textWidth(left)));
-  return rows.map(([left, right]) => right ? `${left}${spaces(width - textWidth(left))}  |  ${right}` : left);
+  return rows.map(([left, right]) => right ? `${left}\t|  ${right}` : left);
 }
 
 function render(data, total, now) {
@@ -146,8 +109,8 @@ function render(data, total, now) {
   const remaining = Math.max(total - used, 0);
   const resetAt = Date.parse(data.nextReset);
   const resetDays = Number.isFinite(resetAt) ? Math.max(0, Math.ceil((resetAt - now) / 86400000)) : null;
-  const rows = [[`已用：${mono(percent.toFixed(1))}%`, `剩余：${displayNumber(remaining)} GB`]];
-  if (resetDays !== null) rows.push([`重置：${mono(resetDays)}天后`, `到期：${resetDate(resetAt, offset(args.showtz, 8))}`]);
+  const rows = [[`已用：${percent.toFixed(1)}%`, `剩余：${displayNumber(remaining)} GB`]];
+  if (resetDays !== null) rows.push([`重置：${resetDays}天后`, `到期：${resetDate(resetAt, offset(args.showtz, 8))}`]);
   const lines = columns(rows);
   const advice = forecast(used, total, Date.parse(data.periodStart), resetAt, now);
   if (advice) lines.push(advice);
