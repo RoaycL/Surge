@@ -20,6 +20,7 @@ python3 -m unittest discover -s tests -p 'test_fanqie.py'
 node tests/upstream_runtime.cjs
 python3 scripts/validate_repository.py
 node tests/alidns_auto_switch.cjs
+python3 -m unittest discover -s tests -p 'test_vmiss_service.py'
 node tests/panel_scripts.cjs
 
 if [ -n "${SURGE_CLI:-}" ]; then

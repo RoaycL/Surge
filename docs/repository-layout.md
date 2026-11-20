@@ -11,7 +11,7 @@
 | `JS/` | 模块引用的 JavaScript；`JS/DNS` 和 `JS/Panel` 存放自用脚本；`JS/FKIKelee` 保留转换资源的来源关系 |
 | `Ruleset/` | 所有规则集；DNS、功能增强、去广告分流规则分别存入对应目录；Emby 规则位于本目录 |
 | `Icon/` | 自制模块的图标（取自对应服务官方 logo） |
-| `Service/` | 独立服务项目及其部署文件 |
+| `Service/` | 独立服务项目及其部署文件（如 `Service/vmiss-traffic`：VMISS 面板用的 vnstat 接口） |
 | `docs/` | 使用说明、兼容性说明、迁移清单 |
 | `scripts/` | 转换、目录生成与校验工具 |
 | `tests/` | 回归测试和样例 |
