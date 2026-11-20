@@ -6,8 +6,47 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'scripts'))
 from sync_yfamilys import IndexParser, render_module, comment_blocks, get_text, parse_index
+from validate_yfamilys import native_text
 
 class YFamilyTests(unittest.TestCase):
+    def spotify_source(self, metadata=''):
+        return ('#!name=Spotify Premium\n#!desc=Spotify\n' + metadata +
+                '[Script]\n'
+                '{{{spot_remote_config}}}Spotify remote = type=http-response,pattern=^https://api.example.com/bootstrap,script-path=https://example.com/remote.js\n'
+                'Spotify local = type=http-response,pattern=^https://api.example.com/bootstrap,script-path=https://example.com/local.js\n')
+
+    def test_spotify_remote_is_optional_and_defaults_to_local(self):
+        item={'url':'https://yfamilys.com/module/spotifyVIP.module','title':'Spotify','group':'Enhancement'}
+        path,out,group,notes=render_module(item,self.spotify_source('#!arguments=other:kept\n#!arguments-desc=existing help\n'))
+        self.assertEqual(path,'Module/Enhancement/YFamily-spotifyVIP.sgmodule')
+        self.assertIn('#!arguments=other:kept,spot_remote_config:#\n',out)
+        self.assertIn('#!arguments-desc=existing help\\n',out)
+        self.assertTrue(any('Spotify' in note for note in notes))
+        active=lambda text:[l for l in native_text(text).splitlines() if l.strip() and not l.lstrip().startswith('#') and 'type=http-response' in l]
+        self.assertEqual(len(active(out)),1)
+        self.assertIn('script-path=https://example.com/local.js',active(out)[0])
+        enabled=out.replace('spot_remote_config:#\n','spot_remote_config:\n')
+        self.assertEqual(len(active(enabled)),2)
+        self.assertIn('script-path=https://example.com/remote.js',active(enabled)[0])
+        self.assertIn('script-path=https://example.com/local.js',active(enabled)[1])
+
+    def test_spotify_declared_boolean_defaults_keep_their_meaning(self):
+        item={'url':'https://yfamilys.com/module/spotifyVIP.module','title':'Spotify'}
+        for value,prefix in [('false','#'),('true',''),('#','#'),('','')]:
+            with self.subTest(value=value):
+                _,out,_,_=render_module(item,self.spotify_source('#!arguments=spot_remote_config:'+value+',other:kept\n'))
+                self.assertIn('#!arguments=spot_remote_config:'+prefix+',other:kept\n',out)
+                self.assertEqual(out.count('spot_remote_config:'),1)
+        with self.assertRaisesRegex(ValueError,'unreviewed Spotify remote control'):
+            render_module(item,self.spotify_source('#!arguments=spot_remote_config:unexpected\n'))
+
+    def test_spotify_adapter_does_not_default_unknown_parameters(self):
+        item={'url':'https://yfamilys.com/module/other.module','title':'Other'}
+        _,out,_,_=render_module(item,self.spotify_source())
+        self.assertNotIn('#!arguments=',out)
+        with self.assertRaisesRegex(ValueError,'undeclared parameters'):
+            native_text(out)
+
     def test_network_index_accepts_html_but_module_download_rejects_it(self):
         from unittest.mock import patch
         import io

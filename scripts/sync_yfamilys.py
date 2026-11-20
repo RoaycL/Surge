@@ -110,7 +110,7 @@ def render_module(item, source):
     if item['url'] == 'https://yfamilys.com/module/fanqie.module':
         from fanqie import CANONICAL, convert_fanqie
         return CANONICAL, convert_fanqie(source), 'AdBlock', ['沿用已有番茄模块地址；切换原生 Surge 上游。']
-    body = []; sec = ''; maps = []
+    body = []; sec = ''; maps = []; spotify_remote_control = False
     for line in text.splitlines():
         stripped = line.strip()
         if stripped.startswith('#!'): continue
@@ -118,6 +118,8 @@ def render_module(item, source):
             sec = stripped.strip('[]'); body.append('[' + ('MITM' if sec == 'MitM' else sec) + ']'); continue
         if not stripped or stripped.startswith(('#',';','//')): body.append(line); continue
         if sec == 'Script':
+            if stem == 'spotifyVIP' and re.match(r'^\s*\{\{\{spot_remote_config\}\}\}\s*[^=]+\s*=\s*type=http-response\b', line):
+                spotify_remote_control = True
             mixed = re.fullmatch(r'([^=]+)=type=http-response,pattern=(.+?) url script-(request|response)-(body|header) (https?://\S+)',line)
             if mixed:
                 name0, pattern, phase, mode, url = mixed.groups()
@@ -146,6 +148,23 @@ def render_module(item, source):
             key, value = line.split('=',1); value = value.strip()
             line = 'hostname = ' + (value if value.startswith(('%APPEND%','%INSERT%')) else '%APPEND% ' + value)
         body.append(line)
+    if spotify_remote_control:
+        # Loon's optional remote handler precedes the local fallback. Surge also
+        # runs only the first matching response script. A comment-prefix argument
+        # preserves that ordering and the author's recommended default (off).
+        parts = re.split(r',(?=[^,:"]+:)', meta.get('arguments', '')) if meta.get('arguments') else []
+        controls = [i for i, part in enumerate(parts) if part.partition(':')[0].strip() == 'spot_remote_config']
+        if len(controls) > 1: raise ValueError('duplicate Spotify remote control')
+        value = parts[controls[0]].partition(':')[2].strip().strip('"') if controls else 'false'
+        prefixes = {'false': '#', 'true': '', '#': '#', '': ''}
+        if value not in prefixes: raise ValueError('unreviewed Spotify remote control default: ' + value)
+        control = 'spot_remote_config:' + prefixes[value]
+        if controls: parts[controls[0]] = control
+        else: parts.append(control)
+        meta['arguments'] = ','.join(parts)
+        desc = 'spot_remote_config：保留 #（默认）使用本地配置；清空此参数启用远程配置。不要填写 true/false；仅首个匹配的响应脚本执行。'
+        meta['arguments-desc'] = (meta['arguments-desc'] + '\\n' if meta.get('arguments-desc') else '') + desc
+        notes.append('将 Spotify 远程配置开关转为 Surge 注释前缀参数；默认关闭远程处理，保留本地回退和原脚本地址。')
     if maps: body += ['','[Map Local]'] + maps
     if stem == 'YouTubeAd':
         meta.setdefault('arguments', '脚本执行引擎:jsc,歌词翻译语言:zh-Hans,字幕翻译语言:zh-Hans,屏蔽上传按钮:false,屏蔽选段按钮:false,启用调试模式:false')

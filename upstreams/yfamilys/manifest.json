@@ -1686,12 +1686,19 @@
       "title": "spotify",
       "group": "Enhancement",
       "source": "upstreams/yfamilys/sources/module-spotifyVIP.module",
-      "sha256": "a74aead80c1e685c3074960e760251f14206e173c324220332fcc2124ae0a785",
+      "sha256": "8c3d908140452a3b2844fc6b1317766cd17b30aa3c6f90a61fa5c587b7336980",
       "module": "Module/Enhancement/YFamily-spotifyVIP.sgmodule",
-      "notes": [],
+      "notes": [
+        "将 reject-200/reject-dict 转为等价 Map Local 响应。",
+        "将 Spotify 远程配置开关转为 Surge 注释前缀参数；默认关闭远程处理，保留本地回退和原脚本地址。"
+      ],
       "dependencies": [
-        "https://raw.githubusercontent.com/app2smile/rules/master/js/spotify-json.js",
-        "https://raw.githubusercontent.com/app2smile/rules/master/js/spotify-proto.js"
+        "https://raw.githubusercontent.com/devchristian1337/loon-plugins/refs/heads/main/Scripts/Spotify/spot-gabo.js",
+        "https://raw.githubusercontent.com/devchristian1337/loon-plugins/refs/heads/main/Scripts/Spotify/spot-NoSearchAd.js",
+        "https://raw.githubusercontent.com/devchristian1337/loon-plugins/refs/heads/main/Scripts/Spotify/spot-NoHomeAd.js",
+        "https://raw.githubusercontent.com/devchristian1337/loon-plugins/refs/heads/main/Scripts/Spotify/spot-NoScrollAd.js",
+        "https://raw.githubusercontent.com/devchristian1337/loon-plugins/refs/heads/main/Scripts/Spotify/spot-proto-eevee.js",
+        "https://raw.githubusercontent.com/devchristian1337/loon-plugins/refs/heads/main/Scripts/Spotify/spot-proto-ev3.js"
       ]
     },
     {

@@ -133,7 +133,7 @@
 | [石墨文档](https://yfamilys.com/module/smwd.module) | [YFamily-smwd.sgmodule](../Module/Enhancement/YFamily-smwd.sgmodule) |  |
 | [少年得到](https://yfamilys.com/module/sndd.module) | [YFamily-sndd.sgmodule](../Module/Enhancement/YFamily-sndd.sgmodule) |  |
 | [soundcloud](https://yfamilys.com/module/soundcloud.module) | [YFamily-soundcloud.sgmodule](../Module/Enhancement/YFamily-soundcloud.sgmodule) |  |
-| [spotify](https://yfamilys.com/module/spotifyVIP.module) | [YFamily-spotifyVIP.sgmodule](../Module/Enhancement/YFamily-spotifyVIP.sgmodule) |  |
+| [spotify](https://yfamilys.com/module/spotifyVIP.module) | [YFamily-spotifyVIP.sgmodule](../Module/Enhancement/YFamily-spotifyVIP.sgmodule) | 将 reject-200/reject-dict 转为等价 Map Local 响应。；将 Spotify 远程配置开关转为 Surge 注释前缀参数；默认关闭远程处理，保留本地回退和原脚本地址。 |
 | [substore](https://yfamilys.com/module/substore.sgmodule) | [YFamily-substore.sgmodule](../Module/Enhancement/YFamily-substore.sgmodule) |  |
 | [symbolab](https://yfamilys.com/module/symbolab.module) | [YFamily-symbolab.sgmodule](../Module/Enhancement/YFamily-symbolab.sgmodule) |  |
 | [tangerine](https://yfamilys.com/module/tangerine.module) | [YFamily-tangerine.sgmodule](../Module/Enhancement/YFamily-tangerine.sgmodule) |  |
