@@ -95,7 +95,11 @@ class YFamilyTests(unittest.TestCase):
         self.assertTrue(any('pattern' in n for n in notes))
 
     def test_regex_commas_and_foreign_script_syntax(self):
-        m,s=self.source('startingad.sgmodule');_,out,_,_=render_module(m,s)
+        # External catalogs may remove/rename scripts. Exercise these repairs
+        # against a fixed input, independently of the live source snapshot.
+        m={'url':'https://yfamilys.com/module/startingad.sgmodule','title':'Rewrite fixture'}
+        s=(ROOT/'tests/fixtures/yfamilys-rewrites.module').read_text()
+        _,out,_,_=render_module(m,s)
         line=next(l for l in out.splitlines() if l.startswith('555Ad='))
         self.assertIn('pattern="',line)
         self.assertIn('{1,4}',line)

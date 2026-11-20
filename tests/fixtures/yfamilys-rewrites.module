@@ -1,0 +1,6 @@
+#!name=Rewrite regression fixture
+#!desc=Frozen examples of comma-containing regexes and mixed QX script syntax.
+
+[Script]
+555Ad=type=http-response,pattern=^https?:\/\/api\.example\.com\/v[0-9]{1,4}\/recommend,requires-body=true,script-path=https://example.com/555Ad.js
+zheye.min2=type=http-response,pattern=^https?:\/\/api\.example\.com\/feed url script-request-body https://example.com/zheye.js
