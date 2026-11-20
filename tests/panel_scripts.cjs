@@ -22,94 +22,41 @@ async function run(file, {argument = '', trigger, request, response, http = () =
 }
 
 (async () => {
-  // ---------------- VMISS ----------------
+  // ---------------- VMISS (vnstat API) ----------------
   const V = 'JS/Panel/vmiss-traffic.js';
-  const page = id => `https://app.vmiss.com/clientarea.php?action=productdetails&id=${id}`;
-  const browser = {Cookie: 'WHMCSabc=sess1; cf_clearance=cf1', 'User-Agent': 'Safari/1', 'Accept-Language': 'zh-CN'};
-  const json = JSON.stringify({trafficUsed: '120.5 GB', trafficTotal: 1000, flow_reset_day: 1, nextduedate: '2027-01-15'});
+  const GiB = 1024 ** 3;
+  const day = 86400000;
+  const api = (used, resetInDays = 3.2) => () => ({status: 200, headers: {}, body: JSON.stringify({used: used * GiB, nextReset: new Date(Date.now() + resetInDays * day).toISOString()})});
+  const params = (extra = '') => 'url=http://1.2.3.4:8890/traffic&token=T0k&total=500&due={{{到期日}}}&title={{{标题}}}&policy={{{请求策略}}}' + extra;
   const store = {};
 
-  // A page blocked by Cloudflare or failing never becomes the saved credential.
-  let r = await run(V, {argument: 'mode=capture&capture=true', store, request: {url: page(7), headers: browser}, response: {status: 403, headers: {'cf-mitigated': 'challenge'}}});
-  assert.equal(store.VMISS_Traffic_Headers_v1, undefined);
-  r = await run(V, {argument: 'mode=capture&capture=true', store, request: {url: page(7) + '&getJSON', headers: browser}, response: {status: 200, headers: {}}});
-  assert.equal(store.VMISS_Traffic_Headers_v1, undefined, 'script-initiated JSON requests are not captures');
-  r = await run(V, {argument: 'mode=capture&capture=false', store, request: {url: page(7), headers: browser}, response: {status: 200, headers: {}}});
-  assert.equal(store.VMISS_Traffic_Headers_v1, undefined, 'capture can be switched off');
-
-  // First successful page load saves the credential automatically and says so once.
-  r = await run(V, {argument: 'mode=capture&capture=true', store, request: {url: page(7), headers: browser}, response: {status: 200, headers: {'Set-Cookie': 'WHMCSabc=sess2; path=/; HttpOnly'}}});
-  let saved = JSON.parse(store.VMISS_Traffic_Headers_v1);
-  assert.equal(saved.productId, '7');
-  assert.equal(saved.headers.Cookie, 'WHMCSabc=sess2; cf_clearance=cf1', 'response Set-Cookie wins over the request cookie');
-  assert.equal(saved.headers['User-Agent'], 'Safari/1');
-  assert.equal(r.notifications.length, 1);
-  // Later successful visits refresh silently.
-  r = await run(V, {argument: 'mode=capture&capture=true', store, request: {url: 'https://app.vmiss.com/clientarea.php', headers: {...browser, Cookie: 'WHMCSabc=sess3; cf_clearance=cf2'}}, response: {status: 200, headers: {}}});
-  saved = JSON.parse(store.VMISS_Traffic_Headers_v1);
-  assert.equal(saved.headers.Cookie, 'WHMCSabc=sess3; cf_clearance=cf2');
-  assert.equal(saved.productId, '7', 'product id survives visits to other client-area pages');
+  let r = await run(V, {argument: params(), store, http: api(113.61)});
+  assert.match(r.result.title, /^VMISS \| 500 GB \| \d\d:\d\d$/);
+  assert.equal(r.result.content, '已用：22.7% \t|  剩余：386.39 GB\n重置：4天后');
+  assert.equal(r.requests[0].url, 'http://1.2.3.4:8890/traffic');
+  assert.equal(r.requests[0].headers['X-Token'], 'T0k');
+  assert.equal(r.requests[0].policy, undefined, 'unset policy follows rules');
   assert.equal(r.notifications.length, 0);
 
-  // Panel success: content, rotated session cookie absorbed, last result cached, policy honoured.
-  r = await run(V, {argument: 'mode=panel&notify=true&policy=Fixed%20Node', store,
-    http: () => ({status: 200, headers: {'Set-Cookie': 'WHMCSabc=sess4; path=/, other=1; Max-Age=0'}, body: json})});
-  assert.match(r.result.title, /^VMISS \| 1,000 GB \| \d\d:\d\d$/);
-  assert.match(r.result.content, /已用：12\.0%/);
-  assert.match(r.result.content, /到期：2027\.1\.16/, 'due date is shown as official date + 1 day');
+  r = await run(V, {argument: params().replace('{{{到期日}}}', '2026-12-24').replace('{{{标题}}}', 'TRI').replace('{{{请求策略}}}', 'Fixed%20Node'), store: {}, http: api(600)});
+  assert.match(r.result.title, /^TRI \| 500 GB/);
+  assert.match(r.result.content, /已用：100\.0% .*剩余：0 GB\n重置：4天后 \t\|  到期：2026\.12\.24/);
   assert.equal(r.requests[0].policy, 'Fixed Node');
-  assert.equal(r.requests[0].headers.Cookie, 'WHMCSabc=sess3; cf_clearance=cf2');
-  assert.equal(JSON.parse(store.VMISS_Traffic_Headers_v1).headers.Cookie, 'WHMCSabc=sess4; cf_clearance=cf2');
-  assert.ok(JSON.parse(store.VMISS_Traffic_State_v1).last);
 
-  // +1 day rolls over month and year ends (separate store: keeps the cache test below intact).
-  const dateStore = {...store};
-  r = await run(V, {argument: 'mode=panel', store: dateStore, http: () => ({status: 200, headers: {}, body: JSON.stringify({trafficUsed: '1', trafficTotal: 10, nextduedate: '2026-12-31'})})});
-  assert.match(r.result.content, /到期：2027\.1\.1/);
-  r = await run(V, {argument: 'mode=panel', store: dateStore, http: () => ({status: 200, headers: {}, body: JSON.stringify({trafficUsed: '1', trafficTotal: 10, nextduedate: '2028-02-28'})})});
-  assert.match(r.result.content, /到期：2028\.2\.29/);
+  // Failures keep the last good numbers visible with the reason.
+  r = await run(V, {argument: params(), store, http: () => ({status: 401, headers: {}, body: '{"error":"unauthorized"}'})});
+  assert.match(r.result.content, /已用：22\.7%[\s\S]*⚠️ 访问密钥错误/);
+  r = await run(V, {argument: params(), store, http: () => ({error: 'timeout'})});
+  assert.match(r.result.content, /⚠️ 连接失败：timeout/);
+  r = await run(V, {argument: params(), store: {}, http: () => ({status: 500, headers: {}, body: '{"error":"vnstat missing"}'})});
+  assert.equal(r.result.content, '更新失败：接口错误：vnstat missing');
 
-  // Cloudflare 403: cached data stays visible, one notification that opens the product page.
-  const challenge = () => ({status: 403, headers: {'cf-mitigated': 'challenge'}, body: ''});
-  r = await run(V, {argument: 'mode=panel&notify=true&policy=', store, http: challenge});
-  assert.match(r.result.content, /已用：12\.0%/);
-  assert.match(r.result.content, /Cloudflare 验证已过期.*打开一次 VMISS 产品页即可自动更新凭证/);
-  assert.equal(r.notifications.length, 1);
-  assert.equal(r.notifications[0][3].url, page(7));
-  assert.equal(r.notifications[0][3].action, 'open-url');
-  assert.equal(r.requests[0].policy, undefined, 'empty policy follows rules');
-  r = await run(V, {argument: 'mode=keepalive&notify=true', store, http: challenge});
-  assert.deepEqual(JSON.parse(JSON.stringify(r.result)), {});
-  assert.equal(r.notifications.length, 0, 'no repeated notification for the same failure');
-  r = await run(V, {argument: 'mode=panel&notify=true', store, http: challenge, trigger: 'auto-interval'});
-  assert.equal(r.notifications.length, 0, 'automatic panel refresh does not repeat the notification');
-  // A manual tap on the panel refresh button always offers the login link, even with background notifications off.
-  for (const notify of ['true', 'false']) {
-    r = await run(V, {argument: `mode=panel&notify=${notify}`, store, http: challenge, trigger: 'button'});
-    assert.equal(r.notifications.length, 1, 'manual refresh while expired notifies every time');
-    assert.equal(r.notifications[0][3].url, page(7));
-    assert.match(r.notifications[0][2], /点此前往登录/);
-    assert.match(r.result.content, /⚠️/);
-  }
-
-  // Opening the page again repairs it automatically and announces the recovery.
-  r = await run(V, {argument: 'mode=capture&capture=true', store, request: {url: page(7), headers: {...browser, Cookie: 'WHMCSabc=sess5; cf_clearance=cf3'}}, response: {status: 200, headers: {}}});
-  assert.equal(r.notifications.length, 1);
-  assert.match(r.notifications[0][1], /自动更新/);
-  assert.equal(JSON.parse(store.VMISS_Traffic_State_v1).invalidSince, 0);
-  r = await run(V, {argument: 'mode=panel&notify=true', store, http: () => ({status: 200, headers: {}, body: json})});
-  assert.doesNotMatch(r.result.content, /⚠️/);
-
-  // Expired WHMCS session (HTML login page instead of JSON) is a credential failure too.
-  r = await run(V, {argument: 'mode=panel&notify=true', store, http: () => ({status: 200, headers: {}, body: '<html>login</html>'})});
-  assert.match(r.result.content, /登录会话已过期/);
-  assert.equal(r.notifications.length, 1);
-  // Unresolved Surge placeholders behave like defaults.
-  r = await run(V, {argument: 'mode=capture&capture={{{自动更新凭证}}}', store: {}, request: {url: page(9), headers: browser}, response: {status: 200, headers: {}}});
-  assert.equal(r.notifications.length, 1);
-  // No credential at all.
-  r = await run(V, {argument: 'mode=panel', store: {}});
-  assert.match(r.result.content, /尚未获取登录凭证/);
+  // Missing parameters explain what to fill in, without any request.
+  r = await run(V, {argument: 'url={{{接口地址}}}&token={{{访问密钥}}}&total=500'});
+  assert.match(r.result.content, /填写接口地址和访问密钥/);
+  assert.equal(r.requests.length, 0);
+  r = await run(V, {argument: 'url=http://x/traffic&token=t&total={{{总流量}}}'});
+  assert.match(r.result.content, /填写总流量/);
 
   // ---------------- AliDNS ----------------
   const A = 'JS/Panel/alidns-usage.js';
@@ -147,5 +94,5 @@ async function run(file, {argument = '', trigger, request, response, http = () =
     ? {status: 403, headers: {}, body: '{"Message":"denied"}'} : {status: 200, headers: {}, body: '{"Data":[{"HttpCount":1}]}'}});
   assert.equal(r.result.content, 'A1：查询失败\nHTTP 403: denied\n' + mono('B2  0.00%  余1000.0万'));
 
-  console.log('PASS: VMISS auto credential capture/refresh/notification/cache and AliDNS column alignment');
+  console.log('PASS: VMISS vnstat panel and AliDNS column alignment');
 })().catch(e => { console.error(e); process.exit(1); });
