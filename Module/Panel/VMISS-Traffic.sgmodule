@@ -1,5 +1,5 @@
 #!name=VMISS 流量概况
-#!desc=在 Surge Panel 中显示 VMISS 本月已用流量、剩余流量和重置倒计时，重置日和时区由模块参数设置。数据来自部署在你自己 VPS 上的 vnstat 接口（Service/vmiss-traffic），不再访问 VMISS 客户中心，不受 Cloudflare 验证影响；服务器重启不丢数据。
+#!desc=在 Surge Panel 中显示 VMISS 本月已用流量、剩余流量和重置倒计时，并按本周期的平均速度预测流量能否撑到重置、给出每天建议用量；重置日和时区由模块参数设置。数据来自部署在你自己 VPS 上的 vnstat 接口（Service/vmiss-traffic），不再访问 VMISS 客户中心，不受 Cloudflare 验证影响；服务器重启不丢数据。
 #!arguments=接口地址:"",访问密钥:"",总流量:"",重置日:23,重置时区:-5,到期日:"",显示时区:8,标题:VMISS,请求策略:"",刷新间隔:300
 #!arguments-desc=接口地址：vnstat 接口地址，如 http://1.2.3.4:8890/traffic。部署方法见仓库 Service/vmiss-traffic/README.md。\n访问密钥：服务器 /etc/vmiss-traffic.env 中 VMISS_TOKEN 的值。\n总流量：每月流量额度（GB），如 500。\n重置日：每月几号重置流量（1–31，没有该日的月份按月底算）。\n重置时区：重置时间（当天 0 点）所在时区，填相对 UTC 的整数小时，如 -5 表示 UTC-5，8 表示北京时间。\n到期日：可选，填 VMISS 产品页上的到期日（格式 2026-11-23，属于重置时区）。面板把“该日结束”的时刻换算到显示时区后显示，如 UTC-5 的 11-23 显示为 2026.11.24。\n显示时区：到期日换算到哪个时区显示，相对 UTC 的整数小时，默认 8（北京时间）。\n标题：面板标题前缀，默认 VMISS。\n请求策略：可选，访问接口使用的 Surge 策略名，留空跟随规则。\n刷新间隔：面板刷新间隔（秒）。
 #!category=Panel

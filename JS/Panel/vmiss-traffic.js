@@ -85,6 +85,57 @@ function request() {
   });
 }
 
+// Forecast at this period's average pace: how comfortably the allowance lasts
+// until the reset. Deliberately coarse; no times or daily numbers.
+function forecast(used, total, startAt, resetAt, now) {
+  if (used >= total) return "⚠️ 流量已经用完了，只能等重置了";
+  if (!Number.isFinite(startAt) || !Number.isFinite(resetAt) || resetAt <= now) return "";
+  const elapsed = now - startAt;
+  if (elapsed < 6 * 3600000 || used <= 0) return "";  // too early in the period to judge the pace
+  const projected = (used + (used / elapsed) * (resetAt - now)) / total;
+  if (projected <= 0.5) return "照现在的速度，用到重置还绰绰有余";
+  if (projected <= 0.8) return "照现在的速度，撑到重置没问题";
+  if (projected <= 1) return "照现在的速度，差不多刚好够用到重置";
+  return "⚠️ 照现在的速度，重置前就会用完，省着点用";
+}
+
+// Surge panels use a proportional font, so the "|" columns are aligned by
+// width. Digits become mathematical monospace digits (one fixed width); other
+// glyph widths are in 1/100 em of the panel font. The monospace digit equals
+// FIGURE SPACE + THIN SPACE, as measured on device for the AliDNS panel.
+const MONO_DIGITS = ["𝟶", "𝟷", "𝟸", "𝟹", "𝟺", "𝟻", "𝟼", "𝟽", "𝟾", "𝟿"];
+const WIDTH = { mono: 70.7, ".": 21.48, "%": 80.81, cjk: 94.36, figure: 60.45, thin: 10.25, hair: 5.13 };
+
+function mono(value) {
+  return String(value).replace(/\d/g, (digit) => MONO_DIGITS[digit]);
+}
+
+function textWidth(text) {
+  let width = 0;
+  for (const char of text) {
+    if (MONO_DIGITS.includes(char)) width += WIDTH.mono;
+    else if (/[\u3000-\u303f\u4e00-\u9fff\uff00-\uffef]/.test(char)) width += WIDTH.cjk;
+    else width += WIDTH[char] ?? WIDTH.figure;
+  }
+  return width;
+}
+
+// Pad with figure / thin / hair spaces to the nearest hair space (~1/20 em).
+function spaces(width) {
+  let rest = Math.max(width, 0), out = "";
+  for (const [char, size] of [["\u2007", WIDTH.figure], ["\u2009", WIDTH.thin], ["\u200a", WIDTH.hair]]) {
+    const count = size === WIDTH.hair ? Math.round(rest / size) : Math.floor(rest / size);
+    out += char.repeat(count);
+    rest -= count * size;
+  }
+  return out;
+}
+
+function columns(rows) {
+  const width = Math.max(...rows.map(([left]) => textWidth(left)));
+  return rows.map(([left, right]) => right ? `${left}${spaces(width - textWidth(left))}  |  ${right}` : left);
+}
+
 function render(data, total, now) {
   const used = Number(data.used) / GB;
   if (!Number.isFinite(used)) throw new Error("接口数据无效");
@@ -93,10 +144,12 @@ function render(data, total, now) {
   const resetAt = Date.parse(data.nextReset);
   const resetDays = Number.isFinite(resetAt) ? Math.max(0, Math.ceil((resetAt - now) / 86400000)) : null;
   const due = dueDate(args.due, offset(args.tz, -5), offset(args.showtz, 8));
-  const lines = [`已用：${percent.toFixed(1)}% \t|  剩余：${displayNumber(remaining)} GB`];
-  if (resetDays !== null && due) lines.push(`重置：${resetDays}天后 \t|  到期：${due}`);
-  else if (resetDays !== null) lines.push(`重置：${resetDays}天后`);
-  else if (due) lines.push(`到期：${due}`);
+  const rows = [[`已用：${mono(percent.toFixed(1))}%`, `剩余：${displayNumber(remaining)} GB`]];
+  if (resetDays !== null) rows.push([`重置：${mono(resetDays)}天后`, due ? `到期：${due}` : ""]);
+  else if (due) rows.push([`到期：${due}`, ""]);
+  const lines = columns(rows);
+  const advice = forecast(used, total, Date.parse(data.periodStart), resetAt, now);
+  if (advice) lines.push(advice);
   return lines.join("\n");
 }
 
