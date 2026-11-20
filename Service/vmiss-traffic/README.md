@@ -7,7 +7,8 @@ VMISS 客户中心对所有非浏览器请求都返回 Cloudflare 验证，面�
 ## 特点
 
 - vnstat 把流量写进 `/var/lib/vnstat/vnstat.db`，服务器重启后接着累计，不会清零。
-- 按 VMISS 的计费周期统计：默认每月 23 号 0 点（UTC-5）重置，进出双向都计入。
+- 重置日和时区由面板的模块参数决定，服务器不用改：vnstat 按小时记录流量（保留 70 天），每次请求时按面板传来的重置日和时区现算本周期用量。默认每月 23 号 0 点（UTC-5），进出双向都计入。
+- 一台服务器可以给不同重置规则的面板同时使用。
 - 只暴露一个只读接口 `GET /traffic`，必须带访问密钥，否则返回 401。
 
 ## 部署（Ubuntu / Debian，root）
@@ -33,12 +34,12 @@ grep VMISS_TOKEN /etc/vmiss-traffic.env
 | `VMISS_TOKEN` | 随机 | 访问密钥，填进模块的“访问密钥” |
 | `VMISS_IFACE` | `eth0` | 统计的网卡 |
 | `VMISS_PORT` | `8890` | 接口端口 |
-| `VMISS_RESET_DAY` | `23` | 每月重置日（1–28） |
-| `VMISS_UTC_OFFSET` | `-5` | 重置时间所在时区，相对 UTC 的小时数 |
+| `VMISS_RESET_DAY` | `23` | 请求未带 `reset_day` 时的默认重置日 |
+| `VMISS_UTC_OFFSET` | `-5` | 请求未带 `utc_offset` 时的默认时区 |
 | `VMISS_BASE_BYTES` | `0` | 部署前本周期已用的字节数（vnstat 只能统计安装之后的流量） |
-| `VMISS_BASE_PERIOD` | 空 | 上一项所属周期的开始日期，如 `2026-10-23`；之后的周期自动忽略 |
+| `VMISS_BASE_AT` | 空 | vnstat 开始统计的时间，如 `2026-11-20T03:30:00+00:00`；上一项只计入包含这一刻的周期 |
 
-修改后重新运行 `bash install.sh`（改了时区或网卡时），或只重启接口：
+修改后重新运行 `bash install.sh`（改了网卡时），或只重启接口：
 
 ```bash
 systemctl restart vmiss-traffic
@@ -49,6 +50,7 @@ systemctl restart vmiss-traffic
 - 接口地址：`http://<服务器IP>:8890/traffic`
 - 访问密钥：`VMISS_TOKEN` 的值
 - 总流量：套餐每月流量（GB，按 1024³ 字节计）
+- 重置日 / 重置时区：每月几号、哪个时区的 0 点重置，如 `23` / `-5`
 
 如果服务器有防火墙或云厂商安全组，需要放行 `VMISS_PORT`。
 
@@ -56,7 +58,7 @@ systemctl restart vmiss-traffic
 
 ```bash
 . /etc/vmiss-traffic.env
-curl -H "X-Token: $VMISS_TOKEN" http://127.0.0.1:$VMISS_PORT/traffic
+curl -H "X-Token: $VMISS_TOKEN" "http://127.0.0.1:$VMISS_PORT/traffic?reset_day=23&utc_offset=-5"
 ```
 
 返回示例：
@@ -69,6 +71,6 @@ curl -H "X-Token: $VMISS_TOKEN" http://127.0.0.1:$VMISS_PORT/traffic
 
 ```bash
 systemctl disable --now vmiss-traffic
-rm -rf /etc/systemd/system/vmiss-traffic.service /opt/vmiss-traffic /etc/vmiss-traffic.env /etc/systemd/system/vnstat.service.d/vmiss-tz.conf
+rm -rf /etc/systemd/system/vmiss-traffic.service /opt/vmiss-traffic /etc/vmiss-traffic.env
 systemctl daemon-reload
 ```

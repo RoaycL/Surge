@@ -27,13 +27,13 @@ async function run(file, {argument = '', trigger, request, response, http = () =
   const GiB = 1024 ** 3;
   const day = 86400000;
   const api = (used, resetInDays = 3.2) => () => ({status: 200, headers: {}, body: JSON.stringify({used: used * GiB, nextReset: new Date(Date.now() + resetInDays * day).toISOString()})});
-  const params = (extra = '') => 'url=http://1.2.3.4:8890/traffic&token=T0k&total=500&due={{{到期日}}}&title={{{标题}}}&policy={{{请求策略}}}' + extra;
+  const params = (extra = '') => 'url=http://1.2.3.4:8890/traffic&token=T0k&total=500&reset={{{重置日}}}&tz={{{重置时区}}}&due={{{到期日}}}&title={{{标题}}}&policy={{{请求策略}}}' + extra;
   const store = {};
 
   let r = await run(V, {argument: params(), store, http: api(113.61)});
   assert.match(r.result.title, /^VMISS \| 500 GB \| \d\d:\d\d$/);
   assert.equal(r.result.content, '已用：22.7% \t|  剩余：386.39 GB\n重置：4天后');
-  assert.equal(r.requests[0].url, 'http://1.2.3.4:8890/traffic');
+  assert.equal(r.requests[0].url, 'http://1.2.3.4:8890/traffic?reset_day=23&utc_offset=-5', 'defaults: 23rd, UTC-5');
   assert.equal(r.requests[0].headers['X-Token'], 'T0k');
   assert.equal(r.requests[0].policy, undefined, 'unset policy follows rules');
   assert.equal(r.notifications.length, 0);
@@ -42,6 +42,10 @@ async function run(file, {argument = '', trigger, request, response, http = () =
   assert.match(r.result.title, /^TRI \| 500 GB/);
   assert.match(r.result.content, /已用：100\.0% .*剩余：0 GB\n重置：4天后 \t\|  到期：2026\.12\.24/);
   assert.equal(r.requests[0].policy, 'Fixed Node');
+  r = await run(V, {argument: params().replace('{{{重置日}}}', '1').replace('{{{重置时区}}}', '8'), store: {}, http: api(1)});
+  assert.equal(r.requests[0].url, 'http://1.2.3.4:8890/traffic?reset_day=1&utc_offset=8', 'reset day and zone come from module parameters');
+  r = await run(V, {argument: params(), store: {}, http: () => ({status: 404, headers: {}, body: '{"error":"not found"}'})});
+  assert.match(r.result.content, /接口地址错误/);
 
   // Failures keep the last good numbers visible with the reason.
   r = await run(V, {argument: params(), store, http: () => ({status: 401, headers: {}, body: '{"error":"unauthorized"}'})});

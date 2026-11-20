@@ -1,24 +1,29 @@
 #!/usr/bin/env python3
-"""VMISS traffic API: serves this billing period's traffic from vnstat.
+"""VMISS traffic API: serves the current billing period's traffic from vnstat.
 
-VMISS counts inbound + outbound and resets on day RESET_DAY at 00:00 in
-UTC+UTC_OFFSET. vnstatd runs with that time zone, so its daily buckets start
-at VMISS midnight; summing the days since the last reset gives this billing
-period. vnstat keeps its database on disk, so totals survive reboots.
+vnstatd records hourly buckets (kept for HourlyDays=70 days, longer than any
+billing period). The caller says when its period resets, so one server
+works for any reset day / time zone; the period is cut on hour boundaries,
+which is exact for every whole-hour UTC offset. vnstat keeps its database on
+disk, so totals survive reboots. Inbound + outbound are both counted.
 
-GET /traffic   (header X-Token: <token>, or ?token=<token>)
--> {"used": bytes, "rx": bytes, "tx": bytes, "periodStart": iso, "nextReset": iso, "updated": iso}
+GET /traffic?reset_day=23&utc_offset=-5   (header X-Token: <token>, or ?token=)
+  reset_day   1-31; a day missing from a month means that month's last day
+  utc_offset  whole hours, -12..14
+-> {"used": bytes, "rx": bytes, "tx": bytes, "base": bytes,
+    "periodStart": iso, "nextReset": iso, "updated": iso}
 
 Environment (see vmiss-traffic.env.example):
   VMISS_TOKEN        required shared secret
   VMISS_IFACE        default eth0
   VMISS_PORT         default 8890
-  VMISS_RESET_DAY    default 23 (1-28)
-  VMISS_UTC_OFFSET   default -5
-  VMISS_BASE_BYTES   traffic already used before vnstat was installed
-  VMISS_BASE_PERIOD  period start (YYYY-MM-DD) that VMISS_BASE_BYTES belongs to;
-                     ignored in every later period
+  VMISS_RESET_DAY    default reset day when the request gives none (23)
+  VMISS_UTC_OFFSET   default UTC offset when the request gives none (-5)
+  VMISS_BASE_BYTES   traffic already used in the running period before vnstat started
+  VMISS_BASE_AT      when vnstat started (ISO time); the base counts only for
+                     the period that contains this moment
 """
+import calendar
 import datetime as dt
 import hmac
 import json
@@ -32,52 +37,65 @@ IFACE = os.environ.get("VMISS_IFACE", "eth0")
 PORT = int(os.environ.get("VMISS_PORT", "8890"))
 RESET_DAY = int(os.environ.get("VMISS_RESET_DAY", "23"))
 UTC_OFFSET = int(os.environ.get("VMISS_UTC_OFFSET", "-5"))
-TZ = dt.timezone(dt.timedelta(hours=UTC_OFFSET))
-VNSTAT_TZ = "Etc/GMT%+d" % -UTC_OFFSET
 BASE_BYTES = int(os.environ.get("VMISS_BASE_BYTES", "0") or 0)
-BASE_PERIOD = os.environ.get("VMISS_BASE_PERIOD", "")
+BASE_AT = os.environ.get("VMISS_BASE_AT", "")
 
 
-def period(now):
-    """Start of the current billing period and the next reset, in VMISS time."""
-    local = now.astimezone(TZ)
+def reset_at(year, month, day, tz):
+    return dt.datetime(year, month, min(day, calendar.monthrange(year, month)[1]), tzinfo=tz)
+
+
+def period(now, reset_day=RESET_DAY, utc_offset=UTC_OFFSET):
+    """Start of the current billing period and the next reset."""
+    tz = dt.timezone(dt.timedelta(hours=utc_offset))
+    local = now.astimezone(tz)
     year, month = local.year, local.month
-    if local.day < RESET_DAY:
+    start = reset_at(year, month, reset_day, tz)
+    if local < start:
         year, month = (year - 1, 12) if month == 1 else (year, month - 1)
-    start = dt.datetime(year, month, RESET_DAY, tzinfo=TZ)
-    nxt = dt.datetime(year + 1, 1, RESET_DAY, tzinfo=TZ) if month == 12 else dt.datetime(year, month + 1, RESET_DAY, tzinfo=TZ)
-    return start, nxt
+        start = reset_at(year, month, reset_day, tz)
+    year, month = (year + 1, 1) if month == 12 else (year, month + 1)
+    return start, reset_at(year, month, reset_day, tz)
 
 
-def vnstat_since(start, run=subprocess.run):
-    """rx/tx summed over vnstat's daily buckets from the period start day on.
-
-    vnstatd writes days in VMISS local time (TZ=VNSTAT_TZ), so the period starts
-    exactly at a day boundary. DailyDays defaults to 62, more than one period.
-    """
-    # Read with the same time zone vnstatd writes in (POSIX Etc/GMT sign is inverted).
-    out = run(["vnstat", "--json", "d", "-i", IFACE], capture_output=True, text=True, check=True,
-              env={**os.environ, "TZ": VNSTAT_TZ})
-    days = json.loads(out.stdout)["interfaces"][0]["traffic"]["day"]
-    first = (start.year, start.month, start.day)
+def vnstat_between(start, end, run=subprocess.run):
+    """rx/tx summed over vnstat's hourly buckets that begin in [start, end)."""
+    # Read in the system time zone, the same one vnstatd writes its buckets in;
+    # each bucket's "timestamp" is then the true epoch of that hour.
+    out = run(["vnstat", "--json", "h", "0", "-i", IFACE], capture_output=True, text=True, check=True)
+    hours = json.loads(out.stdout)["interfaces"][0]["traffic"]["hour"]
+    first, last = start.timestamp(), end.timestamp()
     rx = tx = 0
-    for day in days:
-        if (day["date"]["year"], day["date"]["month"], day["date"]["day"]) >= first:
-            rx += int(day["rx"])
-            tx += int(day["tx"])
+    for hour in hours:
+        if first <= hour["timestamp"] < last:
+            rx += int(hour["rx"])
+            tx += int(hour["tx"])
     return rx, tx
 
 
-def traffic(now=None, run=subprocess.run):
+def traffic(now=None, run=subprocess.run, reset_day=RESET_DAY, utc_offset=UTC_OFFSET):
     now = now or dt.datetime.now(dt.timezone.utc)
-    start, nxt = period(now)
-    rx, tx = vnstat_since(start, run)
-    base = BASE_BYTES if BASE_PERIOD == start.date().isoformat() else 0
+    start, nxt = period(now, reset_day, utc_offset)
+    rx, tx = vnstat_between(start, nxt, run)
+    base_at = dt.datetime.fromisoformat(BASE_AT) if BASE_AT else None
+    base = BASE_BYTES if base_at and start <= base_at < nxt else 0
     return {
         "used": rx + tx + base, "rx": rx, "tx": tx, "base": base,
         "periodStart": start.isoformat(), "nextReset": nxt.isoformat(),
         "updated": now.isoformat(timespec="seconds"),
     }
+
+
+def parse_params(query):
+    """reset_day / utc_offset from the query string; ValueError when invalid."""
+    values = parse_qs(query)
+    day = int(values.get("reset_day", [RESET_DAY])[0])
+    offset = int(values.get("utc_offset", [UTC_OFFSET])[0])
+    if not 1 <= day <= 31:
+        raise ValueError("reset_day must be 1-31")
+    if not -12 <= offset <= 14:
+        raise ValueError("utc_offset must be whole hours between -12 and 14")
+    return day, offset
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -100,7 +118,11 @@ class Handler(BaseHTTPRequestHandler):
         if url.path != "/traffic":
             return self.send(404, {"error": "not found"})
         try:
-            self.send(200, traffic())
+            reset_day, utc_offset = parse_params(url.query)
+        except ValueError as error:
+            return self.send(400, {"error": str(error)})
+        try:
+            self.send(200, traffic(reset_day=reset_day, utc_offset=utc_offset))
         except Exception as error:  # vnstat missing, no data yet, ...
             self.send(500, {"error": str(error)[:200]})
 
