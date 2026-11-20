@@ -83,15 +83,15 @@ function request() {
 // Forecast at this period's average pace: how comfortably the allowance lasts
 // until the reset. Deliberately coarse; no times or daily numbers.
 function forecast(used, total, startAt, resetAt, now) {
-  if (used >= total) return "⚠️ 流量已用完，等待重置";
+  if (used >= total) return "⚠️ 流量已经用完了，只能等重置了";
   if (!Number.isFinite(startAt) || !Number.isFinite(resetAt) || resetAt <= now) return "";
   const elapsed = now - startAt;
   if (elapsed < 6 * 3600000 || used <= 0) return "";  // too early in the period to judge the pace
   const projected = (used + (used / elapsed) * (resetAt - now)) / total;
-  if (projected <= 0.7) return "到重置前：非常富裕";
-  if (projected <= 0.9) return "到重置前：足够";
-  if (projected <= 1) return "到重置前：刚好够用";
-  return "⚠️ 到重置前：会提前用完";
+  if (projected <= 0.7) return "照现在的速度，用到重置还绰绰有余";
+  if (projected <= 0.9) return "照现在的速度，撑到重置没问题";
+  if (projected <= 1) return "照现在的速度，差不多刚好够用到重置";
+  return "⚠️ 照现在的速度，重置前就会用完，省着点用";
 }
 
 // Columns are aligned with a tab, as before: the panel's default tab stops are
