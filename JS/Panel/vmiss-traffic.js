@@ -10,6 +10,8 @@
  *   token   value of VMISS_TOKEN in /etc/vmiss-traffic.env
  *   total   monthly allowance in GB
  *   due     optional due date shown as-is (YYYY-MM-DD)
+ *   reset   day of month the allowance resets (1-31, default 23)
+ *   tz      UTC offset in whole hours of that reset (default -5)
  *   title   panel title prefix
  *   policy  optional Surge policy for the request
  */
@@ -48,14 +50,21 @@ function readCache() {
   try { return JSON.parse($persistentStore.read(CACHE_KEY) || "null"); } catch (_) { return null; }
 }
 
+// The server counts traffic; when the period starts is this module's choice.
+function apiUrl() {
+  const query = `reset_day=${encodeURIComponent(args.reset || "23")}&utc_offset=${encodeURIComponent(args.tz || "-5")}`;
+  return `${args.url}${args.url.includes("?") ? "&" : "?"}${query}`;
+}
+
 function request() {
-  const options = { url: args.url, headers: { "X-Token": args.token, Accept: "application/json" }, timeout: 10 };
+  const options = { url: apiUrl(), headers: { "X-Token": args.token, Accept: "application/json" }, timeout: 10 };
   if (args.policy) options.policy = args.policy;
   return new Promise((resolve, reject) => {
     $httpClient.get(options, (error, response, data) => {
       if (error) return reject(new Error(`连接失败：${error}`));
       const status = Number(response?.status ?? response?.statusCode);
       if (status === 401) return reject(new Error("访问密钥错误"));
+      if (status === 404) return reject(new Error("接口地址错误（应以 /traffic 结尾）"));
       let body;
       try { body = JSON.parse(String(data || "")); } catch (_) { return reject(new Error(`接口返回异常（HTTP ${status}）`)); }
       if (status !== 200) return reject(new Error(body?.error ? `接口错误：${body.error}` : `接口返回 HTTP ${status}`));
