@@ -1680,10 +1680,10 @@
     {
       "url": "https://yfamilys.com/sgmodule/spotifyVIP.sgmodule",
       "title": "spotify",
+      "group": "Enhancement",
       "source": "upstreams/yfamilys/sources/sgmodule-spotifyVIP.sgmodule",
       "sha256": "1dad10f8a38adc2274f9a64fb0e41fc4e7a67e60661dc60514295931dc66c45a",
       "module": "Module/Enhancement/YFamily-spotifyVIP.sgmodule",
-      "group": "Enhancement",
       "notes": [
         "将 Spotify 远程配置开关转为 Surge 注释前缀参数；默认关闭远程处理，保留本地回退和原脚本地址。"
       ],
