@@ -31,9 +31,13 @@ async function run(file, {argument = '', trigger, request, response, http = () =
   const store = {};
   // Display text without the alignment machinery: monospace digits -> ASCII, padding removed.
   const plain = t => t.replace(/[\u{1D7F6}-\u{1D7FF}]/gu, d => String(d.codePointAt(0) - 0x1D7F6)).replace(/[\u2007\u2009\u200a]/g, '');
-  // Same width model as the script (1/100 em); the "|" columns must start at the same offset.
-  const W = {mono: 70.7, '.': 21.48, '%': 80.81, cjk: 94.36, '\u2007': 60.45, '\u2009': 10.25, '\u200a': 5.13};
-  const width = t => [...t].reduce((sum, c) => sum + (/[\u{1D7F6}-\u{1D7FF}]/u.test(c) ? W.mono : /[\u3000-\u303f\u4e00-\u9fff\uff00-\uffef]/.test(c) ? W.cjk : W[c] ?? 60.45), 0);
+  // Width model measured with CoreText (1/100 em, see the script); the "|" columns must start at the same offset.
+  const W = {mono: 60, '.': 21.48, '%': 80.81, ' ': 20.51, cjk: 94.36, '：': 97.37, '\u2007': 60.45, '\u2009': 10.25, '\u200a': 5.13};
+  const isMono = c => /[\u{1D7F6}-\u{1D7FF}]/u.test(c), isHan = c => /[\u4e00-\u9fff]/.test(c), isLatin = c => isMono(c) || /[0-9A-Za-z%]/.test(c);
+  const width = t => [...t].reduce((sum, c, i, a) => sum + (isMono(c) ? W.mono : isHan(c) ? W.cjk : W[c] ?? 60.45)
+    + (a[i + 1] && ((isHan(c) && isLatin(a[i + 1])) || (isLatin(c) && isHan(a[i + 1]))) ? 12.5 : 0), 0);
+  assert.equal(Math.round(width('已用：𝟺𝟾.𝟼%') * 10) / 10, 568.4, 'CoreText: 568.39');
+  assert.equal(Math.round(width('重置：𝟹天后') * 10) / 10, 547.3, 'CoreText: 547.31');
   const aligned = content => {
     const lefts = content.split('\n').filter(l => l.includes('  |  ')).map(l => width(l.split('  |  ')[0]));
     assert.ok(lefts.length === 2 && Math.abs(lefts[0] - lefts[1]) <= 2.6, `separators misaligned: ${lefts}`);
