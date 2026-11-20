@@ -9,7 +9,8 @@
  *   url     API address, e.g. http://1.2.3.4:8890/traffic
  *   token   value of VMISS_TOKEN in /etc/vmiss-traffic.env
  *   total   monthly allowance in GB
- *   due     optional due date shown as-is (YYYY-MM-DD)
+ *   due     optional due date as VMISS shows it (YYYY-MM-DD, in the tz zone)
+ *   showtz  UTC offset the due date is displayed in (default 8, Beijing)
  *   reset   day of month the allowance resets (1-31, default 23)
  *   tz      UTC offset in whole hours of that reset (default -5)
  *   title   panel title prefix
@@ -41,9 +42,20 @@ function displayNumber(value) {
   return Number(value).toLocaleString("en-US", { maximumFractionDigits: 2 });
 }
 
-function formatDate(value) {
+// VMISS's due date is a day in its own zone (tz); the service runs until that day
+// ends. Show the calendar day of that moment in the display zone (UTC+8 by
+// default), e.g. 2026-11-23 23:59:59 UTC-5 is 2026-11-24 12:59:59 UTC+8 -> 2026.11.24.
+function dueDate(value, tz, showTz) {
   const match = String(value || "").match(/(\d{4})[-/.]([01]?\d)[-/.]([0-3]?\d)/);
-  return match ? `${Number(match[1])}.${Number(match[2])}.${Number(match[3])}` : "";
+  if (!match) return "";
+  const end = Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3]) + 1) - tz * 3600000 - 1;
+  const shown = new Date(end + showTz * 3600000);
+  return `${shown.getUTCFullYear()}.${shown.getUTCMonth() + 1}.${shown.getUTCDate()}`;
+}
+
+function offset(value, fallback) {
+  const number = Number(value);
+  return value !== undefined && Number.isInteger(number) ? number : fallback;
 }
 
 function readCache() {
@@ -80,7 +92,7 @@ function render(data, total, now) {
   const remaining = Math.max(total - used, 0);
   const resetAt = Date.parse(data.nextReset);
   const resetDays = Number.isFinite(resetAt) ? Math.max(0, Math.ceil((resetAt - now) / 86400000)) : null;
-  const due = formatDate(args.due);
+  const due = dueDate(args.due, offset(args.tz, -5), offset(args.showtz, 8));
   const lines = [`已用：${percent.toFixed(1)}% \t|  剩余：${displayNumber(remaining)} GB`];
   if (resetDays !== null && due) lines.push(`重置：${resetDays}天后 \t|  到期：${due}`);
   else if (resetDays !== null) lines.push(`重置：${resetDays}天后`);

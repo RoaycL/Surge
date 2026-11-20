@@ -27,7 +27,7 @@ async function run(file, {argument = '', trigger, request, response, http = () =
   const GiB = 1024 ** 3;
   const day = 86400000;
   const api = (used, resetInDays = 3.2) => () => ({status: 200, headers: {}, body: JSON.stringify({used: used * GiB, nextReset: new Date(Date.now() + resetInDays * day).toISOString()})});
-  const params = (extra = '') => 'url=http://1.2.3.4:8890/traffic&token=T0k&total=500&reset={{{重置日}}}&tz={{{重置时区}}}&due={{{到期日}}}&title={{{标题}}}&policy={{{请求策略}}}' + extra;
+  const params = (extra = '') => 'url=http://1.2.3.4:8890/traffic&token=T0k&total=500&reset={{{重置日}}}&tz={{{重置时区}}}&due={{{到期日}}}&showtz={{{显示时区}}}&title={{{标题}}}&policy={{{请求策略}}}' + extra;
   const store = {};
 
   let r = await run(V, {argument: params(), store, http: api(113.61)});
@@ -38,10 +38,17 @@ async function run(file, {argument = '', trigger, request, response, http = () =
   assert.equal(r.requests[0].policy, undefined, 'unset policy follows rules');
   assert.equal(r.notifications.length, 0);
 
-  r = await run(V, {argument: params().replace('{{{到期日}}}', '2026-12-24').replace('{{{标题}}}', 'TRI').replace('{{{请求策略}}}', 'Fixed%20Node'), store: {}, http: api(600)});
+  r = await run(V, {argument: params().replace('{{{到期日}}}', '2026-12-23').replace('{{{标题}}}', 'TRI').replace('{{{请求策略}}}', 'Fixed%20Node'), store: {}, http: api(600)});
   assert.match(r.result.title, /^TRI \| 500 GB/);
-  assert.match(r.result.content, /已用：100\.0% .*剩余：0 GB\n重置：4天后 \t\|  到期：2026\.12\.24/);
+  assert.match(r.result.content, /已用：100\.0% .*剩余：0 GB\n重置：4天后 \t\|  到期：2026\.12\.24/, 'UTC-5 due date 12-23 is shown as the UTC+8 date 12-24');
   assert.equal(r.requests[0].policy, 'Fixed Node');
+  // Due date: end of the VMISS (UTC-5) day, shown as a UTC+8 date; rolls months and years.
+  const dueShown = async (due, extra = '') => (await run(V, {argument: params(extra).replace('{{{到期日}}}', due), store: {}, http: api(1)})).result.content.match(/到期：(\S+)/)[1];
+  assert.equal(await dueShown('2026-11-23'), '2026.11.24');
+  assert.equal(await dueShown('2026-11-30'), '2026.12.1');
+  assert.equal(await dueShown('2026-12-31'), '2027.1.1');
+  assert.equal(await dueShown('2026-11-23', '&showtz=-5'), '2026.11.23', 'shown in VMISS\'s own zone the date is unchanged');
+  assert.equal(await dueShown('2026-11-23', '&showtz=-12'), '2026.11.23');
   r = await run(V, {argument: params().replace('{{{重置日}}}', '1').replace('{{{重置时区}}}', '8'), store: {}, http: api(1)});
   assert.equal(r.requests[0].url, 'http://1.2.3.4:8890/traffic?reset_day=1&utc_offset=8', 'reset day and zone come from module parameters');
   r = await run(V, {argument: params(), store: {}, http: () => ({status: 404, headers: {}, body: '{"error":"not found"}'})});
