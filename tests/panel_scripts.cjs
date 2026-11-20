@@ -50,7 +50,7 @@ async function run(file, {argument = '', trigger, request, response, http = () =
 
   r = await run(V, {argument: params().replace('{{{到期日}}}', '2026-12-23').replace('{{{标题}}}', 'TRI').replace('{{{请求策略}}}', 'Fixed%20Node'), store: {}, http: api(600)});
   assert.match(r.result.title, /^TRI \| 500 GB/);
-  assert.equal(plain(r.result.content), '已用：100.0%  |  剩余：0 GB\n重置：4天后  |  到期：2026.12.24\n⚠️ 流量已用完，等待重置', 'UTC-5 due date 12-23 is shown as the UTC+8 date 12-24');
+  assert.equal(plain(r.result.content), '已用：100.0%  |  剩余：0 GB\n重置：4天后  |  到期：2026.12.24\n⚠️ 流量已经用完了，只能等重置了', 'UTC-5 due date 12-23 is shown as the UTC+8 date 12-24');
   aligned(r.result.content);
   for (const used of [0.5, 49.9, 113.61, 499]) {
     for (const reset of [0.5, 9.2, 29.9]) aligned((await run(V, {argument: params().replace('{{{到期日}}}', '2026-12-23'), store: {}, http: api(used, reset)})).result.content);
@@ -72,11 +72,11 @@ async function run(file, {argument = '', trigger, request, response, http = () =
   const paced = (usedGiB, elapsedDays, resetInDays) => () => ({status: 200, headers: {}, body: JSON.stringify({used: usedGiB * GiB,
     periodStart: new Date(Date.now() - elapsedDays * day).toISOString(), nextReset: new Date(Date.now() + resetInDays * day).toISOString()})});
   const advice = async (http, extra = '') => (await run(V, {argument: params(extra), store: {}, http})).result.content.split('\n')[2];
-  assert.equal(await advice(paced(100, 20, 10)), '到重置前：非常富裕', 'projected 150/500 = 30%');
-  assert.equal(await advice(paced(240, 20, 10)), '到重置前：足够', 'projected 72%');
-  assert.equal(await advice(paced(320, 20, 10)), '到重置前：刚好够用', 'projected 96%');
-  assert.equal(await advice(paced(450, 20, 10)), '⚠️ 到重置前：会提前用完', 'projected 135%');
-  assert.equal(await advice(paced(600, 20, 10)), '⚠️ 流量已用完，等待重置');
+  assert.equal(await advice(paced(100, 20, 10)), '照现在的速度，用到重置还绰绰有余', 'projected 150/500 = 30%');
+  assert.equal(await advice(paced(240, 20, 10)), '照现在的速度，撑到重置没问题', 'projected 72%');
+  assert.equal(await advice(paced(320, 20, 10)), '照现在的速度，差不多刚好够用到重置', 'projected 96%');
+  assert.equal(await advice(paced(450, 20, 10)), '⚠️ 照现在的速度，重置前就会用完，省着点用', 'projected 135%');
+  assert.equal(await advice(paced(600, 20, 10)), '⚠️ 流量已经用完了，只能等重置了');
   assert.equal(await advice(paced(10, 2 / 24, 29)), undefined, 'no forecast in the first hours of a period');
 
   // Failures keep the last good numbers visible with the reason.
