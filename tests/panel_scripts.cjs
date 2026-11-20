@@ -54,6 +54,16 @@ async function run(file, {argument = '', trigger, request, response, http = () =
   r = await run(V, {argument: params(), store: {}, http: () => ({status: 404, headers: {}, body: '{"error":"not found"}'})});
   assert.match(r.result.content, /接口地址错误/);
 
+  // Forecast at this period's average pace.
+  const paced = (usedGiB, elapsedDays, resetInDays) => () => ({status: 200, headers: {}, body: JSON.stringify({used: usedGiB * GiB,
+    periodStart: new Date(Date.now() - elapsedDays * day).toISOString(), nextReset: new Date(Date.now() + resetInDays * day).toISOString()})});
+  const advice = async (http, extra = '') => (await run(V, {argument: params(extra), store: {}, http})).result.content.split('\n')[2];
+  assert.match(await advice(paced(450, 20, 10)), /^⚠️ 照此速度，(后天|\d+\.\d+) \d\d:\d\d 用完，建议每天 ≤ 5 GB$/, '22.5 GB/day leaves 50 GB for ~2.2 days');
+  assert.equal(await advice(paced(100, 20, 10)), '照此速度，重置前约用 30%，每天可用 40 GB');
+  assert.match(await advice(paced(600, 20, 10)), /^⚠️ 流量已用完，\S+ \d\d:\d\d 重置后恢复$/);
+  assert.equal(await advice(paced(10, 2 / 24, 29)), undefined, 'no forecast in the first hours of a period');
+  assert.match(await advice(paced(499, 20, 10)), /^⚠️ 照此速度，(今天|明天) \d\d:\d\d 用完/, 'runs out within the hour');
+
   // Failures keep the last good numbers visible with the reason.
   r = await run(V, {argument: params(), store, http: () => ({status: 401, headers: {}, body: '{"error":"unauthorized"}'})});
   assert.match(r.result.content, /已用：22\.7%[\s\S]*⚠️ 访问密钥错误/);
