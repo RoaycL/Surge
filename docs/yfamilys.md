@@ -37,11 +37,11 @@
 | [🎨面板·机场信息](https://yfamilys.com/sgmodule/sub.sgmodule) | [YFamily-Panel-sub.sgmodule](../Module/Panel/YFamily-Panel-sub.sgmodule) |  |
 | [Four in One](https://yfamilys.com/module/4in1.module) | [YFamily-4in1.sgmodule](../Module/Enhancement/YFamily-4in1.sgmodule) |  |
 | [BingAI for Safari](https://yfamilys.com/module/bfs.module) | [YFamily-bfs.sgmodule](../Module/Enhancement/YFamily-bfs.sgmodule) |  |
-| [去开屏广告轻量版](https://yfamilys.com/module/adlite.sgmodule) | [YFamily-adlite.sgmodule](../Module/AdBlock/YFamily-adlite.sgmodule) |  |
-| [去开屏广告融合版](https://yfamilys.com/module/startingad.sgmodule) | [YFamily-startingad.sgmodule](../Module/AdBlock/YFamily-startingad.sgmodule) |  |
-| [去开屏广告融合版ultra](https://yfamilys.com/module/adultra.sgmodule) | [YFamily-adultra.sgmodule](../Module/AdBlock/YFamily-adultra.sgmodule) |  |
-| [去开屏广告融合版ultra+](https://yfamilys.com/module/adultraplus.sgmodule) | [YFamily-adultraplus.sgmodule](../Module/AdBlock/YFamily-adultraplus.sgmodule) |  |
-| [去开屏广告融合版ultra max](https://yfamilys.com/module/adultramax.sgmodule) | [YFamily-adultramax.sgmodule](../Module/AdBlock/YFamily-adultramax.sgmodule) |  |
+| [去广告轻量版](https://yfamilys.com/module/adlite.sgmodule) | [YFamily-adlite.sgmodule](../Module/AdBlock/YFamily-adlite.sgmodule) |  |
+| [去广告融合版](https://yfamilys.com/module/startingad.sgmodule) | [YFamily-startingad.sgmodule](../Module/AdBlock/YFamily-startingad.sgmodule) |  |
+| [去广告融合版ultra](https://yfamilys.com/module/adultra.sgmodule) | [YFamily-adultra.sgmodule](../Module/AdBlock/YFamily-adultra.sgmodule) |  |
+| [去广告融合版ultra+](https://yfamilys.com/module/adultraplus.sgmodule) | [YFamily-adultraplus.sgmodule](../Module/AdBlock/YFamily-adultraplus.sgmodule) |  |
+| [去广告融合版ultra max](https://yfamilys.com/module/adultramax.sgmodule) | [YFamily-adultramax.sgmodule](../Module/AdBlock/YFamily-adultramax.sgmodule) |  |
 | [accuweather解锁](https://yfamilys.com/module/accu.module) | [YFamily-accu.sgmodule](../Module/Enhancement/YFamily-accu.sgmodule) |  |
 | [AdBlock](https://yfamilys.com/module/AdBlock.module) | [YFamily-AdBlock.sgmodule](../Module/AdBlock/YFamily-AdBlock.sgmodule) |  |
 | [alarmy](https://yfamilys.com/module/alarmy.module) | [YFamily-alarmy.sgmodule](../Module/Enhancement/YFamily-alarmy.sgmodule) |  |

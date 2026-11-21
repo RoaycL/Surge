@@ -277,7 +277,7 @@
     },
     {
       "url": "https://yfamilys.com/module/adlite.sgmodule",
-      "title": "去开屏广告轻量版",
+      "title": "去广告轻量版",
       "group": "AdBlock",
       "source": "upstreams/yfamilys/sources/module-adlite.sgmodule",
       "sha256": "eb2e1051ee7267c7288bfcec8dbb75f201a03a4e768790d7b88e8bcb9188719c",
@@ -314,7 +314,7 @@
     },
     {
       "url": "https://yfamilys.com/module/startingad.sgmodule",
-      "title": "去开屏广告融合版",
+      "title": "去广告融合版",
       "group": "AdBlock",
       "source": "upstreams/yfamilys/sources/module-startingad.sgmodule",
       "sha256": "dc614756d8eb7e93cd8f6d937ae3d13316be546d4260ffe54a5f39560f30997e",
@@ -376,7 +376,7 @@
     },
     {
       "url": "https://yfamilys.com/module/adultra.sgmodule",
-      "title": "去开屏广告融合版ultra",
+      "title": "去广告融合版ultra",
       "group": "AdBlock",
       "source": "upstreams/yfamilys/sources/module-adultra.sgmodule",
       "sha256": "8d83efde66d7de88c54376774dd12481840cbe2e20039d62f4186fd4fa51f812",
@@ -438,10 +438,10 @@
     },
     {
       "url": "https://yfamilys.com/module/adultraplus.sgmodule",
-      "title": "去开屏广告融合版ultra+",
+      "title": "去广告融合版ultra+",
       "group": "AdBlock",
       "source": "upstreams/yfamilys/sources/module-adultraplus.sgmodule",
-      "sha256": "9ae8dd7b11b7e45ebfeb714d32d11fad282f4cf3257b20939bcfb728875daa34",
+      "sha256": "e90a06ba2bdb83c36f9ca3985b851b77647236fef71d2f9f1a5b95693bb5fb09",
       "module": "Module/AdBlock/YFamily-adultraplus.sgmodule",
       "notes": [],
       "dependencies": [
@@ -574,11 +574,11 @@
     },
     {
       "url": "https://yfamilys.com/module/adultramax.sgmodule",
-      "title": "去开屏广告融合版ultra max",
+      "title": "去广告融合版ultra max",
+      "group": "AdBlock",
       "source": "upstreams/yfamilys/sources/module-adultramax.sgmodule",
       "sha256": "ec67c2c6b5d46443913ecacee141929ffeebeb2696cf322a0f1eec31850b806d",
       "module": "Module/AdBlock/YFamily-adultramax.sgmodule",
-      "group": "AdBlock",
       "notes": [],
       "dependencies": [
         "https://raw.githubusercontent.com/Keywos/rule/main/script/wy/js/wyres.js",

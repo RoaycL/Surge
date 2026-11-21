@@ -2657,7 +2657,6 @@ DOMAIN,aaid.uyunad.com,REJECT
 DOMAIN,a.wkanx.com,REJECT
 DOMAIN,a-remad.qm989.com,REJECT
 DOMAIN,39d83s.com,REJECT
-IP-CIDR,118.89.204.198/32,REJECT,no-resolve
 [URL Rewrite]
 https://tg.feidee.com/vis-ad-engine-ws/api/show - reject
 https://tg.feidee.com/online_ad/api/search.do - reject
