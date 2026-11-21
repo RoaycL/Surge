@@ -1,6 +1,6 @@
 # yfamilys 模块目录
 
-来源：[Surge 页面](https://yfamilys.com/surge)。按 URL 去重，模块与面板共 421 个；不包含页面的两份完整配置。
+来源：[Surge 页面](https://yfamilys.com/surge)。按 URL 去重，模块与面板共 422 个；不包含页面的两份完整配置。
 
 模块保留原作者署名，添加来源标识和分类；外部脚本继续使用原链接。原文快照、SHA-256、脚本依赖及适配说明记录在 `upstreams/yfamilys/manifest.json`。
 
@@ -41,6 +41,7 @@
 | [去开屏广告融合版](https://yfamilys.com/module/startingad.sgmodule) | [YFamily-startingad.sgmodule](../Module/AdBlock/YFamily-startingad.sgmodule) |  |
 | [去开屏广告融合版ultra](https://yfamilys.com/module/adultra.sgmodule) | [YFamily-adultra.sgmodule](../Module/AdBlock/YFamily-adultra.sgmodule) |  |
 | [去开屏广告融合版ultra+](https://yfamilys.com/module/adultraplus.sgmodule) | [YFamily-adultraplus.sgmodule](../Module/AdBlock/YFamily-adultraplus.sgmodule) |  |
+| [去开屏广告融合版ultra max](https://yfamilys.com/module/adultramax.sgmodule) | [YFamily-adultramax.sgmodule](../Module/AdBlock/YFamily-adultramax.sgmodule) |  |
 | [accuweather解锁](https://yfamilys.com/module/accu.module) | [YFamily-accu.sgmodule](../Module/Enhancement/YFamily-accu.sgmodule) |  |
 | [AdBlock](https://yfamilys.com/module/AdBlock.module) | [YFamily-AdBlock.sgmodule](../Module/AdBlock/YFamily-AdBlock.sgmodule) |  |
 | [alarmy](https://yfamilys.com/module/alarmy.module) | [YFamily-alarmy.sgmodule](../Module/Enhancement/YFamily-alarmy.sgmodule) |  |

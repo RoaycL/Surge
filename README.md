@@ -445,7 +445,7 @@
 | [黄油相机（yfamilys）](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/Enhancement/YFamily-hyxj.sgmodule) | `YFamily-hyxj.sgmodule` | [导入](surge:///install-module?url=https%3A%2F%2Fraw.githubusercontent.com%2FRoaycL%2FSurge%2Fmain%2FModule%2FEnhancement%2FYFamily-hyxj.sgmodule) | yfamilys 原生模块；黄油相机解锁会员 |
 | [🍿️ DualSubs: ▶️ YouTube（yfamilys）](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/Enhancement/YFamily-ytbdualsub.sgmodule) | `YFamily-ytbdualsub.sgmodule` | [导入](surge:///install-module?url=https%3A%2F%2Fraw.githubusercontent.com%2FRoaycL%2FSurge%2Fmain%2FModule%2FEnhancement%2FYFamily-ytbdualsub.sgmodule) | yfamilys 原生模块；YouTube字幕增强及双语模块 |
 
-## 去广告（280）
+## 去广告（281）
 
 | 名称 | 文件 | 一键导入 | 备注 |
 | --- | --- | --- | --- |
@@ -457,6 +457,7 @@
 | [555电影去广告](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AdBlock/555DY_remove_ads.sgmodule) | `555DY_remove_ads.sgmodule` | [导入](surge:///install-module?url=https%3A%2F%2Fraw.githubusercontent.com%2FRoaycL%2FSurge%2Fmain%2FModule%2FAdBlock%2F555DY_remove_ads.sgmodule) | 移除开屏广告和各类横幅广告，支持iPadOS。 |
 | [5EPlay去广告](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AdBlock/5EPlay_remove_ads.sgmodule) | `5EPlay_remove_ads.sgmodule` | [导入](surge:///install-module?url=https%3A%2F%2Fraw.githubusercontent.com%2FRoaycL%2FSurge%2Fmain%2FModule%2FAdBlock%2F5EPlay_remove_ads.sgmodule) | 移除开屏广告、弹窗广告、活动角标、商城。 |
 | [APP启动页去广告lite（yfamilys）](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AdBlock/YFamily-adlite.sgmodule) | `YFamily-adlite.sgmodule` | [导入](surge:///install-module?url=https%3A%2F%2Fraw.githubusercontent.com%2FRoaycL%2FSurge%2Fmain%2FModule%2FAdBlock%2FYFamily-adlite.sgmodule) | yfamilys 原生模块；APP启动页去广告轻量版 |
+| [APP启动页去广告ultra max（yfamilys）](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AdBlock/YFamily-adultramax.sgmodule) | `YFamily-adultramax.sgmodule` | [导入](surge:///install-module?url=https%3A%2F%2Fraw.githubusercontent.com%2FRoaycL%2FSurge%2Fmain%2FModule%2FAdBlock%2FYFamily-adultramax.sgmodule) | yfamilys 原生模块；支持模块参数；APP启动页去广告融合ultra max |
 | [APP启动页去广告ultra+（yfamilys）](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AdBlock/YFamily-adultraplus.sgmodule) | `YFamily-adultraplus.sgmodule` | [导入](surge:///install-module?url=https%3A%2F%2Fraw.githubusercontent.com%2FRoaycL%2FSurge%2Fmain%2FModule%2FAdBlock%2FYFamily-adultraplus.sgmodule) | yfamilys 原生模块；APP启动页去广告融合ultra+ |
 | [APP启动页去广告ultra（yfamilys）](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AdBlock/YFamily-adultra.sgmodule) | `YFamily-adultra.sgmodule` | [导入](surge:///install-module?url=https%3A%2F%2Fraw.githubusercontent.com%2FRoaycL%2FSurge%2Fmain%2FModule%2FAdBlock%2FYFamily-adultra.sgmodule) | yfamilys 原生模块；APP启动页去广告融合ultra |
 | [APP启动页去广告（yfamilys）](https://raw.githubusercontent.com/RoaycL/Surge/main/Module/AdBlock/YFamily-startingad.sgmodule) | `YFamily-startingad.sgmodule` | [导入](surge:///install-module?url=https%3A%2F%2Fraw.githubusercontent.com%2FRoaycL%2FSurge%2Fmain%2FModule%2FAdBlock%2FYFamily-startingad.sgmodule) | yfamilys 原生模块；APP启动页去广告融合版 |

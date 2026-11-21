@@ -20,7 +20,6 @@ DOMAIN-SUFFIX,optimus-ads.amap.com,DIRECT
 DOMAIN,sdkapp.uve.weibo.com,DIRECT
 DOMAIN,adstrategy.biz.weibo.com,REJECT
 DOMAIN-SUFFIX,api.touch-moblie.com,REJECT
-DOMAIN-SUFFIX,iyes.youku.com,REJECT
 DOMAIN-SUFFIX,adlaunch.moji.com,REJECT
 DOMAIN-SUFFIX,ad.10010.com,REJECT
 [URL Rewrite]
