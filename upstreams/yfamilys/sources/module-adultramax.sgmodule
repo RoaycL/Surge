@@ -2654,7 +2654,6 @@ DOMAIN,aaid.uyunad.com,REJECT
 DOMAIN,a.wkanx.com,REJECT
 DOMAIN,a-remad.qm989.com,REJECT
 DOMAIN,39d83s.com,REJECT
-IP-CIDR,118.89.204.198/32,REJECT,no-resolve
 DOMAIN,ad.jia.360.cn,REJECT
 DOMAIN,ad.iot.360.cn,REJECT
 DOMAIN,adx.36kr.com,REJECT

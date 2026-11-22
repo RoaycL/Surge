@@ -317,7 +317,7 @@
       "title": "去广告融合版",
       "group": "AdBlock",
       "source": "upstreams/yfamilys/sources/module-startingad.sgmodule",
-      "sha256": "dc614756d8eb7e93cd8f6d937ae3d13316be546d4260ffe54a5f39560f30997e",
+      "sha256": "6026b63caf55e91d58663d299c1e385b80ee2e815435f68d60c84320f9c56aca",
       "module": "Module/AdBlock/YFamily-startingad.sgmodule",
       "notes": [],
       "dependencies": [
@@ -577,7 +577,7 @@
       "title": "去广告融合版ultra max",
       "group": "AdBlock",
       "source": "upstreams/yfamilys/sources/module-adultramax.sgmodule",
-      "sha256": "ec67c2c6b5d46443913ecacee141929ffeebeb2696cf322a0f1eec31850b806d",
+      "sha256": "d5db84e5fa0d8be8f5aa37d3f017ee47015353f978191d2ffef22addef163678",
       "module": "Module/AdBlock/YFamily-adultramax.sgmodule",
       "notes": [],
       "dependencies": [
